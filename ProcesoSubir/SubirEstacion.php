@@ -166,13 +166,13 @@ var ab = document.getElementById("excel").value.replace('C:\\fakepath\\','');
                         <div class="col-md-6 col-sm-6 col-xs-12 form-group">
                             <select class="form-control" name="estacion">
                               <?php
-                                          include_once '../ProcesoSubir/conexion.php';
-                                          $verEstacion= mysqli_query($mysqli,"SELECT idestacion, codiogestacion FROM estacionmet");
+                                          include_once './conexion.php';
+                                          $verEstacion= mysqli_query($mysqli,"SELECT id_estacion, codiogestacion FROM estacionmet");
                               ?>
                             <option>Codigo Estación</option>
                             <?php
                              while ($row = mysqli_fetch_array($verEstacion)) {
-                                         $idestacion=$row['idestacion'];
+                                         $idestacion=$row['id_estacion'];
                                            echo '<option value='."$row[0]".'>'.$row['1'].'</option>';
                                     }
                                     ?>
