@@ -153,7 +153,7 @@
 
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
 
-                        <input type="text" class="form-control has-feedback-left" id="codigo" autocomplete="off" pattern=".{4}" title="Solo números" placeholder="Codigo">
+                        
 
                         <input type="text" class="form-control has-feedback-left" id="dui" placeholder="Codigo" readonly="readonly">
 
@@ -163,7 +163,7 @@
                         <div class="col-md-6 col-sm-6 col-xs-12 form-group">
                           <select class="form-control">
                             <option>Departamento</option>
-                            <option>San Vicente</option>
+                            <option >San Vicente</option>
                             <option>Cabañas</option>
                             <option>Usulutan</option>
                             <option>La Union</option>
@@ -518,5 +518,13 @@
   
 });
       </script>
+      <script>
+//--codigo para generar el codigo del poso el que dijo la ing
+          //--sobre que si el poso esta ahuchapan y municipio san sebastian el codigo 
+          //--seria ap-sb-01
+          
+          
+
+</script>
   </body>
 </html>
