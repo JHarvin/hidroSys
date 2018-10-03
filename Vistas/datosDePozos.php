@@ -152,11 +152,11 @@
                     <form class="form-horizontal form-label-left input_mask">
 
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-<<<<<<< HEAD
+
                         <input type="text" class="form-control has-feedback-left" id="codigo" autocomplete="off" pattern=".{4}" title="Solo números" placeholder="Codigo">
-=======
+
                         <input type="text" class="form-control has-feedback-left" id="dui" placeholder="Codigo" readonly="readonly">
->>>>>>> ad1960181d8c343d50ee362303473656ae195791
+
                         <span class="fa fa-barcode form-control-feedback left" aria-hidden="true"></span>
                       </div>
                       
