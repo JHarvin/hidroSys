@@ -140,7 +140,7 @@
                     <form class="form-horizontal form-label-left input_mask">
 
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left" id="dui" placeholder="Codigo">
+                        <input type="text" class="form-control has-feedback-left" id="codigo" autocomplete="off" pattern=".{4}" title="Solo números" placeholder="Codigo">
                         <span class="fa fa-barcode form-control-feedback left" aria-hidden="true"></span>
                       </div>
                       
@@ -322,6 +322,15 @@
     <script src="../vendors/starrr/dist/starrr.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
+	<script src="../libreriasJS/jquery.mask.min.js"></script>
 	
+	<!--Configuaracion de las mascaras del formulario-->
+	<script>
+      $(document).ready(function(){
+  $('#codigo').mask('0000');
+  
+  
+});
+      </script>
   </body>
 </html>
