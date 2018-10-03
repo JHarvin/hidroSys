@@ -141,7 +141,9 @@ error_reporting(E_ALL & ~E_NOTICE);
                   </div>
                   <div class="x_content">
                     <br />
-                    <form class="form-horizontal form-label-left input_mask" >
+                    <form class="form-horizontal form-label-left input_mask" name="hidro" method="POST" enctype="multipart/form-data" >
+                    <input type="hidden" name="bandera" id="bandera">
+                    <input type="hidden" name="baccion" id="baccion">
 
                       <div class="col-md-6 col-sm-6 col-xs-6 form-group has-feedback">
                         <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Codigo">
@@ -189,6 +191,12 @@ error_reporting(E_ALL & ~E_NOTICE);
                           </select>
                         </div>
                        </div>
+                       <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Fotografía</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                          <input type="file" class="form-text" id="imagen" name="imagen" required accept="image/jpg,image/png,image/jpeg">
+                        </div>
+                      </div>
                       
                         <input type="hidden" class="form-control has-feedback-left" id="longitud" placeholder="Longitud">
                         <input type="hidden" class="form-control has-feedback-left" id="latitud" placeholder="Latitud">
