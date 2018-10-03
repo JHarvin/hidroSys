@@ -9,7 +9,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>Ingenieria</title>
-
+ 
         <!-- Bootstrap -->
         <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
         <!-- Font Awesome -->
@@ -280,6 +280,13 @@
                                                     $InTemp = $objPHPExcel->getActiveSheet()->getCell('U'.$i)->getCalculatedValue();
                                                     $InHum = $objPHPExcel->getActiveSheet()->getCell('V'.$i)->getCalculatedValue();
                                                     $InDew = $objPHPExcel->getActiveSheet()->getCell('W'.$i)->getCalculatedValue();
+                                                    $InHead = $objPHPExcel->getActiveSheet()->getCell('X'.$i)->getCalculatedValue();
+                                                    $InEmc = $objPHPExcel->getActiveSheet()->getCell('Y'.$i)->getCalculatedValue();
+                                                    $Density = $objPHPExcel->getActiveSheet()->getCell('Z'.$i)->getCalculatedValue();
+                                                    $Samp = $objPHPExcel->getActiveSheet()->getCell('AA'.$i)->getCalculatedValue();
+                                                    $Tx = $objPHPExcel->getActiveSheet()->getCell('AB'.$i)->getCalculatedValue();
+                                                    $Recet = $objPHPExcel->getActiveSheet()->getCell('AC'.$i)->getCalculatedValue();
+                                                    $Arc = $objPHPExcel->getActiveSheet()->getCell('AD'.$i)->getCalculatedValue();
                                                     
                                                     ?>
                                                     <tr>
@@ -295,8 +302,9 @@
                                                     </tr>
     <?php
     //inserta en el mismo for -->JcMoz
-    //$sql = "INSERT INTO lecturapozos (idpozo,date,time,ms,level,temperature) VALUE('$id','$nuevafecha','$horaImprimir','$ms','$nivel','$temperatura')";
-    //$result = $mysqli->query($sql);
+    $sql = "INSERT INTO lecturaestaciones (idestacion,date,time,tempout,hitemp,lowtemp,outhum,dewt,windspeed,winddir,windrun,hispeed,hidir,windchill,heatindex,thwindex,bar,rain,rainrate,heatd_d,coold_d,intemp,inhum,"
+            . "indew,inheat,inemc,inairdensity,windsamp,windtx,issrecept,arcint) VALUE('$id','$nuevafecha','$horaImprimir','$out','$temp','$lowTemp','$hum','$pt','$speed')";
+    $result = $mysqli->query($sql);
 }
 ?>
                                             </tbody>
