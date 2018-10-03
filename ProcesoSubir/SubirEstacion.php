@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	  
     <title>Ingenieria de Software</title>
-  
+
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -30,6 +30,19 @@
 
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
+<script type="text/javascript">
+
+    function verExcel() {
+//      document.getElementById("excel").files[1].name; 
+//      des2=document.getElementById('excel').value
+
+var ab = document.getElementById("excel").value.replace('C:\\fakepath\\','');
+   document.f1.inp.value = ab;
+        
+        //document.getElementById("inp").value = document.getElementById("excel").value;
+    }
+</script>
+
   </head>
 
   <body class="nav-md">
@@ -39,7 +52,7 @@
           <div class="left_col scroll-view">
              <!-- sidebar menu -->
              <?php 
-               include "menuPrincipal.php";
+               include "../Vistas/menuPrincipal.php";
             ?>
             <!-- /sidebar menu -->
 
@@ -79,7 +92,7 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="images/img.jpg" alt="">Abigal
+                    <img src="images/img.jpg" alt="">User
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -107,7 +120,7 @@
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Equipos.</h3>
+                <h3>Subir Lectura de Estación.</h3>
               </div>
 
               <div class="title_right">
@@ -127,63 +140,48 @@
               <div class="col-md-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Formulario de ingreso de datos.</h2>
+                    <h2>Formulario de importacion de datos.</h2>
                     <ul class="nav navbar-right panel_toolbox">                   
                     </ul>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
                     <br />
-                    <form class="form-horizontal form-label-left input_mask">
+                    <!--<form class="form-horizontal form-label-left input_mask">-->
+                    <form action="" id="f1" name="f1" method="post" class="form-register" >
+        <!--<input type="hidden" value="upload" id="upload" name="a" />-->
+        <input type="hidden" name="tirar" id="pase"/>
 
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Nombre">
-                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
-                      </div>
+                           <input type="file" class="form-control has-feedback-left" name="excel" id="excel" onChange="javascript:verExcel()" />
 
-                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Descripción">
-                         <span class="fa fa-edit form-control-feedback left" aria-hidden="true"></span>
+                        <span class="fa fa-barcode form-control-feedback left" aria-hidden="true"></span>
                       </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                            <input name="inp" id="inp" class="form-control has-feedback-left" placeholder="Archivo Seleccionado" autocomplete="off"> 
 
-                      <div class="form-group">
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <select class="form-control">
-                            <option>Tipo de Uso</option>
-                            <option>Pluviometro</option>
-                            <option>Agrometeorologico</option>
-                            <option>Estación Meteorologica</option>
-                            </select>
-                        </div>
-                      </div>
-
-                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Marca">
-                        <span class="fa fa-registered form-control-feedback left" aria-hidden="true"></span>
-                      </div>
-
-                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Numero de Serie">
-                        <span class="fa fa-list-ol form-control-feedback left" aria-hidden="true"></span>
-                      </div>
-
-                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Donadores">
-                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                        <span class="fa fa-barcode form-control-feedback left" aria-hidden="true"></span>
                       </div>
                       
-                      <div class="form-group">
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <select class="form-control">
-                            <option>Estado</option>
-                            <option>En uso</option>
-                            <option>En mal estado</option>
-                            <option>Extraviado</option>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                            <select class="form-control" name="pozo">
+                              <?php
+                                          include_once '../ProcesoSubir/conexion.php';
+                                          $verEstacion= mysqli_query($mysqli,"SELECT idestacion, codiogestacion FROM estacionmet");
+                              ?>
+                            <option>Codigo Estación</option>
+                            <?php
+                             while ($row = mysqli_fetch_array($verEstacion)) {
+                                         $idestacion=$row['idestacion'];
+                                           echo '<option value='."$row[0]".'>'.$row['1'].'</option>';
+                                    }
+                                    ?>
                             </select>
                         </div>
-                      </div>
+
+                      
+                      
                      
-                      
                       <div class="form-group">
                         <!--Este div es para que agarre la linea que separa los botones.-->
                       </div>
@@ -193,7 +191,7 @@
                       <div class="ln_solid"></div>
                       <div class="form-group">
                         <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                        <button type="submit" class="btn btn-success">Guardar</button>
+                        <button type="submit" class="btn btn-success">Procesar</button>
                           <button type="button" class="btn btn-warning">Cancelar</button>
 						   <!-- <button class="btn btn-primary" type="reset">Reset</button> -->
                          
@@ -204,8 +202,8 @@
                   </div>
                 </div>
               </div>      
-            </div>
-
+            </div><!--Fin del row del formulario-->
+           
           
 
         
@@ -215,8 +213,20 @@
 
         <!-- footer content -->
        <?php 
-       include "footer.php";
-       ?>
+       include "../Vistas/footer.php";
+       
+    //extract($_POST);
+
+    if (isset($_REQUEST['tirar'])) {
+        $archivo = $_REQUEST['inp'];
+        $id=$_REQUEST['pozo'];
+     ?>
+    <script type="text/javascript">
+location.href="LecturaEstacion.php?ir=<?php echo $archivo;?>&llego=<?php echo $id;?>";
+</script>
+<?php
+    }
+    ?>
         <!-- /footer content -->
       </div>
     </div>
@@ -259,3 +269,5 @@
 	
   </body>
 </html>
+
+
