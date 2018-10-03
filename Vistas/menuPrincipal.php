@@ -65,7 +65,16 @@
                     <li><a href="asignacionEquipos.php">Asignacion de Equipos</a></li>
                     </ul>
                   </li>
-              <li><a><i class="fa fa-user"></i>Usuarios<span class="fa fa-chevron-down"></span></a>
+                  <!--REPORTES-->
+                   <li><a><i class="fa fa-bar-chart-o"></i>Reportes<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        <li><a href="../Reportes/Vista_Visita.php">Nivel de pozos segun visitas</a></li>
+                        <li><a href="../Reportes/Vista_nivel_pozoSensor.php">Nivel de pozo promedio segun lecturas</a></li>
+                        <li><a href="../Reportes/Vista_rainRayte.php">Rain Rate promedio</a></li>
+                    </ul>
+                  </li>
+                  <!--REPORTES-->
+                  <li><a><i class="fa fa-user"></i>Usuarios<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="fixed_sidebar.html">Nuevo usuario</a></li>
                       <li><a href="fixed_sidebar.html">Lista de usuarios</a></li>

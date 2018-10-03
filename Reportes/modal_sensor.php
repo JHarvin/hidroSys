@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	  
-    <title>Ingenieria de Software</title>
+    <title>Sistema Hidrometeorologico</title>
 
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -30,19 +30,6 @@
 
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
-<script type="text/javascript">
-
-    function verExcel() {
-//      document.getElementById("excel").files[1].name; 
-//      des2=document.getElementById('excel').value
-
-var ab = document.getElementById("excel").value.replace('C:\\fakepath\\','');
-   document.f1.inp.value = ab;
-        
-        //document.getElementById("inp").value = document.getElementById("excel").value;
-    }
-</script>
-
   </head>
 
   <body class="nav-md">
@@ -53,6 +40,8 @@ var ab = document.getElementById("excel").value.replace('C:\\fakepath\\','');
              <!-- sidebar menu -->
              <?php 
                include "../Vistas/menuPrincipal.php";
+               $fe1=$_GET['fe1'];
+               $fe2=$_GET['fe2'];
             ?>
             <!-- /sidebar menu -->
 
@@ -92,7 +81,7 @@ var ab = document.getElementById("excel").value.replace('C:\\fakepath\\','');
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="images/img.jpg" alt="">User
+                    <img src="images/img.jpg" alt="">Kevin Montano
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -120,7 +109,7 @@ var ab = document.getElementById("excel").value.replace('C:\\fakepath\\','');
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Subir Lectura de Estación.</h3>
+                <h3>Reporte del Rain Rate Promedio</h3>
               </div>
 
               <div class="title_right">
@@ -137,50 +126,98 @@ var ab = document.getElementById("excel").value.replace('C:\\fakepath\\','');
             <div class="clearfix"></div>
             
             <div class="row">
-              <div class="col-md-12 col-xs-12">
+              <div class="col-md-6 col-xs-6">
                 <div class="x_panel">
+                      <!-- MODAL-->
+            <div class="modal fade" id="miModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+
+                            <h4>¿Que desas visualizar?</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel"></h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="input-group">
+                                 <div class="row mb-12" style="float: right;margin-right: 20px; margin-top: 15px;">
+                                    <button type="submit" class="btn btn-warning" name="modCancelar">Cancelar </button>
+
+                                </div>
+                                 <div class="row mb-12" style="float: right; margin-right: 10px; margin-top: 15px;">
+                                     <a href="../Reportes/Reporte_pozoLectura.php?fe1=<?php echo $fe1; ?>&fe2=<?php echo $fe2; ?>" class="btn">
+                                    <input type="submit" class="btn btn-info" value="Reporte" name="modGuardar">
+                                      </a>
+
+                                </div>
+                                 
+                                 <div class="row mb-12" style="float: right; margin-right: 10px; margin-top: 15px;">
+                                     <a href="../Reportes/grafica_NpozoLecura.php?fe1=<?php echo $fe1; ?>&fe2=<?php echo $fe2; ?>" class="btn">
+                                   <input type="submit" class="btn btn-success" value="Grafica" name="modGuardar">
+                                    </a>
+                                </div>
+
+                               
+                                </div>
+                            
+                                </div>   
+                                <!--ERROR COMUN Y LO DEJARE AQUI PARA QUE VEAS
+                                LA ETIQUETA </form> DETRO DE ELLA SIEMPRE TEIENE QUE ESTAR LOS BOTONES-->
+
+                                
+                           
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+            <!-- Fin Div de modal-->
+                   <form action="" id="f1" name="f1" method="post" class="form-register" >
+        <!--<input type="hidden" value="upload" id="upload" name="a" />-->
+        <input type="hidden" name="tirar" id="pase"/>
                   <div class="x_title">
-                    <h2>Formulario de importacion de datos.</h2>
+                    
                     <ul class="nav navbar-right panel_toolbox">                   
                     </ul>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
                     <br />
-                    <!--<form class="form-horizontal form-label-left input_mask">-->
-                    <form action="" id="f1" name="f1" method="post" class="form-register" >
-        <!--<input type="hidden" value="upload" id="upload" name="a" />-->
-        <input type="hidden" name="tirar" id="pase"/>
-
-                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                           <input type="file" class="form-control has-feedback-left" name="excel" id="excel" onChange="javascript:verExcel()" />
-
-                        <span class="fa fa-barcode form-control-feedback left" aria-hidden="true"></span>
+                    <div class="col-md-5 col-sm-5 col-xs-5 form-group has-feedback">
+                        <h4>Fecha de visualizacion</h4>
                       </div>
-                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                            <input name="inp" id="inp" class="form-control has-feedback-left" placeholder="Archivo Seleccionado" autocomplete="off"> 
-
-                        <span class="fa fa-barcode form-control-feedback left" aria-hidden="true"></span>
-                      </div>
+                       <div class="row">
+                           <div class="col-md-12">
+                      <div class="col-md-6"> 
+                          <div class="form-group">   
+                         <input type="text" name="fechas1" class="form-control has-feedback-left -calendar" id="inputSuccess2" placeholder="fecha inicio Ej:2014-04-01"
+                                    autocomplete="off">
+                              <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
+                              
                       
-                        <div class="col-md-6 col-sm-6 col-xs-12 form-group">
-                            <select class="form-control" name="estacion">
-                              <?php
-                                          include_once '../ProcesoSubir/conexion.php';
-                                          $verEstacion= mysqli_query($mysqli,"SELECT idestacion, codiogestacion FROM estacionmet");
-                              ?>
-                            <option>Codigo Estación</option>
-                            <?php
-                             while ($row = mysqli_fetch_array($verEstacion)) {
-                                         $idestacion=$row['idestacion'];
-                                           echo '<option value='."$row[0]".'>'.$row['1'].'</option>';
-                                    }
-                                    ?>
-                            </select>
+                      </div>
+                            </div>
                         </div>
-
+                           
+                       </div>
+                    <div class="row">
+                           <div class="col-md-12">
+                      <div class="col-md-6"> 
+                          <div class="form-group">   
+                         <input type="text" name="fechas2" class="form-control has-feedback-left -calendar" id="inputSuccess2" placeholder="fecha inicio Ej:2014-04-30"
+                                    autocomplete="off">
+                              <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
+                              
                       
-                      
+                      </div>
+                            </div>
+                        </div>
+                           
+                       </div>
+                      </div>
                      
                       <div class="form-group">
                         <!--Este div es para que agarre la linea que separa los botones.-->
@@ -191,7 +228,7 @@ var ab = document.getElementById("excel").value.replace('C:\\fakepath\\','');
                       <div class="ln_solid"></div>
                       <div class="form-group">
                         <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                        <button type="submit" class="btn btn-success">Procesar</button>
+                            <button type="submit" class="btn btn-success">Procesar</button>
                           <button type="button" class="btn btn-warning">Cancelar</button>
 						   <!-- <button class="btn btn-primary" type="reset">Reset</button> -->
                          
@@ -202,8 +239,8 @@ var ab = document.getElementById("excel").value.replace('C:\\fakepath\\','');
                   </div>
                 </div>
               </div>      
-            </div><!--Fin del row del formulario-->
-           
+            </div>
+
           
 
         
@@ -213,21 +250,8 @@ var ab = document.getElementById("excel").value.replace('C:\\fakepath\\','');
 
         <!-- footer content -->
        <?php 
-       include "../Vistas/footer.php";
-       
-    //extract($_POST);
-
-    if (isset($_REQUEST['tirar'])) {
-        $archivo = $_REQUEST['inp'];
-        $id=$_REQUEST['estacion'];
-     ?>
-    <script type="text/javascript">
-location.href="LecturaEstacion.php?ir=<?php echo $archivo;?>&llego=<?php echo $id;?>";
-</script>
-<?php
-    }
-    ?>
-        <!-- /footer content -->
+       include "../production/footer.php";
+  ?>      
       </div>
     </div>
 
@@ -269,5 +293,6 @@ location.href="LecturaEstacion.php?ir=<?php echo $archivo;?>&llego=<?php echo $i
 	
   </body>
 </html>
-
-
+<script type="text/javascript">
+    $('#miModal').modal('show');
+</script>
