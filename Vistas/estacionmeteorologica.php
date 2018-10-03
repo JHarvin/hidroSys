@@ -221,16 +221,76 @@ error_reporting(E_ALL & ~E_NOTICE);
 
                     <div class="clearfix"></div>
                   </div>
-                  <div class="x_content">
+                  <div style="height:210px;" class="x_content">
                     <br />
-                    <div class="embed-responsive embed-responsive-4by3">
-                              <iframe src="ej.php" class="embed-responsive-item" allowfullscreen></iframe>
-                            </div>
+                    <div  class="embed-responsive embed-responsive-4by3">
+                              <iframe style="height:210px;" src="ej.php" class="embed-responsive-item" allowfullscreen></iframe>
+                    </div>
                   </div>
                 </div>
               </div> 
 
+
+              
+
+
             </div>
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Lista <small>Estaciónes Meteorológicas.</small></h2>
+
+                    <div class="clearfix"></div>
+                  </div>
+                   <div class="x_content">
+                    <p class="text-muted font-13 m-b-30">
+                      
+                    </p>
+                    <table id="datatable" class="table table-striped table-bordered">
+                      <thead>
+                        <tr>
+                          <th>Codigo</th>
+                          <th>Departamento</th>
+                          <th>Ciudad</th>
+                          <th>Latitud</th>
+                          <th>Longitud</th>
+                          <th>Acciones</th>
+                        </tr>
+                      </thead>
+
+
+                      <tbody>
+                        
+                        <tr>
+                          <td>svsv1</td>
+                          <td>San Vicente</td>
+                          <td>San Vicente</td>
+                          <td>123441421</td>
+                          <td>-01233122</td>
+                          <td width=160>
+                            <button type="button" class="btn btn-success" data-toggle="modal" data-target=".detalle-modal-lg"><i class="fa fa-search"></i></button>
+                            <button type="button" class="btn btn-success"><i class="fa fa-pencil"></i></button>
+                            <button type="button" class="btn btn-info"><i class="fa fa-check"></i></button>
+                          </td>
+                          
+                        </tr>
+                        <tr>
+                          <td>svsc2</td>
+                          <td>San Vicente</td>
+                          <td>San Cayetano</td>
+                          <td>27342345</td>
+                          <td>-243434</td>
+                         <td width=160>
+                            <button type="button" class="btn btn-success" data-toggle="modal" data-target=".detalle-modal-lg"><i class="fa fa-search"></i></button>
+                            <button type="button" class="btn btn-success"><i class="fa fa-pencil"></i></button>
+                            <button type="button" class="btn btn-info"><i class="fa fa-check"></i></button>
+                         </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div> 
 
           
 
