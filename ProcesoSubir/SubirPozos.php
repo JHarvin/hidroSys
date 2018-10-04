@@ -52,7 +52,7 @@ var ab = document.getElementById("excel").value.replace('C:\\fakepath\\','');
           <div class="left_col scroll-view">
              <!-- sidebar menu -->
              <?php 
-               include "../production/menuPrincipal.php";
+               include "../Vistas/menuPrincipal.php";
             ?>
             <!-- /sidebar menu -->
 
@@ -167,7 +167,7 @@ var ab = document.getElementById("excel").value.replace('C:\\fakepath\\','');
                             <select class="form-control" name="pozo">
                               <?php
                                           include_once '../ProcesoSubir/conexion.php';
-                                          $verPozo= mysqli_query($mysqli,"SELECT idpozo, codigopozo FROM pozos");
+                                          $verPozo= mysqli_query($mysqli,"SELECT id_pozo, codigopozo FROM pozos");
                               ?>
                             <option>Codigo Pozo</option>
                             <?php
@@ -213,7 +213,7 @@ var ab = document.getElementById("excel").value.replace('C:\\fakepath\\','');
 
         <!-- footer content -->
        <?php 
-       include "../production/footer.php";
+       include "../Vistas/footer.php";
        
     //extract($_POST);
 

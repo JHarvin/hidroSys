@@ -43,7 +43,7 @@
 
             <!-- sidebar menu -->
            <?php
-           include_once '../production/menuPrincipal.php';
+           include_once '../Vistas/menuPrincipal.php';
            ?>
             <!-- /sidebar menu -->
 
@@ -273,7 +273,7 @@
                         </tr>
         <?php //inserta en el mismo for -->JcMoz
         
-		$sql = "INSERT INTO lecturapozos (idpozo,date,time,ms,level,temperature) VALUE('$id','$nuevafecha','$horaImprimir','$ms','$nivel','$temperatura')";
+		$sql = "INSERT INTO lecturapozos (id_pozo,date,time,ms,level,temperature) VALUE('$id','$nuevafecha','$horaImprimir','$ms','$nivel','$temperatura')";
 		$result = $mysqli->query($sql);
         }
         ?>
