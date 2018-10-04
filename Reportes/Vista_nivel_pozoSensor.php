@@ -1,8 +1,3 @@
-<?php
-//Codigo que muestra solo los errores exceptuando los notice.
-error_reporting(E_ALL & ~E_NOTICE);
-
-?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -12,7 +7,7 @@ error_reporting(E_ALL & ~E_NOTICE);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	  
-    <title>SICA | </title>
+    <title>Sistema Hidrometeorologico</title>
 
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -44,7 +39,7 @@ error_reporting(E_ALL & ~E_NOTICE);
           <div class="left_col scroll-view">
              <!-- sidebar menu -->
              <?php 
-               include "menuPrincipal.php";
+               include "../Vistas/menuPrincipal.php";
             ?>
             <!-- /sidebar menu -->
 
@@ -84,7 +79,7 @@ error_reporting(E_ALL & ~E_NOTICE);
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="images/img.jpg" alt="">Fernando Josue
+                    <img src="images/img.jpg" alt="">Kevin Montano
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -108,16 +103,15 @@ error_reporting(E_ALL & ~E_NOTICE);
         <!-- /top navigation -->
 
         <!-- page content -->
-        <div class="right_col" role="main" >
-        <!--style="background: url('../production/images/volcan.jpg') top left no-repeat;";-->
+        <div class="right_col" role="main">
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Estación Meteorológica</h3>
+                <h3>Reporte de nivel de pozo según lectura</h3>
               </div>
 
               <div class="title_right">
-                <div  class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
                   <!-- <div class="input-group">
                     <input type="text" class="form-control" placeholder="Search for...">
                     <span class="input-group-btn">
@@ -129,79 +123,51 @@ error_reporting(E_ALL & ~E_NOTICE);
             </div>
             <div class="clearfix"></div>
             
-        
             <div class="row">
               <div class="col-md-6 col-xs-6">
                 <div class="x_panel">
+                    <form action="" id="f1" name="f1" method="post" class="form-register" >
+        <!--<input type="hidden" value="upload" id="upload" name="a" />-->
+        <input type="hidden" name="tirar" id="pase"/>
                   <div class="x_title">
-                    <h2>Formulario de ingreso de datos</h2>
+                    
                     <ul class="nav navbar-right panel_toolbox">                   
                     </ul>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
                     <br />
-                    <form class="form-horizontal form-label-left input_mask" name="hidro" method="POST" enctype="multipart/form-data" >
-                    <input type="hidden" name="bandera" id="bandera">
-                    <input type="hidden" name="baccion" id="baccion">
-
-                      <div class="col-md-6 col-sm-6 col-xs-6 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Codigo">
-                        <span class="fa fa-barcode form-control-feedback left" aria-hidden="true"></span>
+                    <div class="col-md-5 col-sm-5 col-xs-5 form-group has-feedback">
+                        <h4>Fecha de visualizacion</h4>
                       </div>
-
-
+                       <div class="row">
+                           <div class="col-md-12">
+                      <div class="col-md-6"> 
+                          <div class="form-group">   
+                         <input type="text" name="fechas1" class="form-control has-feedback-left -calendar" id="inputSuccess2" placeholder="fecha inicio Ej:2014-04-01"
+                                    autocomplete="off">
+                              <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
+                              
                       
-                      <div class="form-group">
-                        <div class="col-md-6 col-sm-6 col-xs-6">
-                          <select class="form-control">
-                            <option>Departamento</option>
-                            <option>Cabañas</option>
-                            <option>Chalatenango</option>
-                            <option>Cuscatlán</option>
-                            <option>La Libertad</option>
-                            <option>La Paz</option>
-                            <option>San Salvador</option>
-                            <option>San Vicente</option>
-                            <option>Morazán</option>
-                            <option>San Miguel</option>
-                            <option>Usulután</option>
-                            <option>La Unión</option>
-                            <option>Ahuachapán</option>
-                            <option>Sonsonate</option>
-                            <option>Santa Ana</option>
-                          </select>
-                        </div>
                       </div>
-                      <div class="form-group">
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <select class="form-control">
-                            <option>Municipio</option>
-                            <option>San Cayetano.</option>
-                            <option>Iztepeque</option>
-                          </select>
+                            </div>
                         </div>
-                        <div class="form-group">
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <select class="form-control">
-                            <option>Responsable</option>
-                            <option>Investigador</option>
-                            <option>Docente</option>
-                            <option>Estudiante</option>
-                          </select>
-                        </div>
+                           
                        </div>
-                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Fotografía</label>
-                        <div class="col-md-9 col-sm-9 col-xs-12">
-                          <input type="file" class="form-text" id="imagen" name="imagen" required accept="image/jpg,image/png,image/jpeg">
-                        </div>
+                    <div class="row">
+                           <div class="col-md-12">
+                      <div class="col-md-6"> 
+                          <div class="form-group">   
+                         <input type="text" name="fechas2" class="form-control has-feedback-left -calendar" id="inputSuccess2" placeholder="fecha inicio Ej:2014-04-30"
+                                    autocomplete="off">
+                              <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
+                              
+                      
                       </div>
-                      
-                        <input type="hidden" class="form-control has-feedback-left" id="longitud" placeholder="Longitud">
-                        <input type="hidden" class="form-control has-feedback-left" id="latitud" placeholder="Latitud">
-                      
-
+                            </div>
+                        </div>
+                           
+                       </div>
                       </div>
                      
                       <div class="form-group">
@@ -213,7 +179,7 @@ error_reporting(E_ALL & ~E_NOTICE);
                       <div class="ln_solid"></div>
                       <div class="form-group">
                         <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                        <button type="submit" class="btn btn-success">Guardar</button>
+                            <button type="submit" class="btn btn-success">Procesar</button>
                           <button type="button" class="btn btn-warning">Cancelar</button>
 						   <!-- <button class="btn btn-primary" type="reset">Reset</button> -->
                          
@@ -223,85 +189,8 @@ error_reporting(E_ALL & ~E_NOTICE);
                     </form>
                   </div>
                 </div>
-              </div>  
-
-              <div class="col-md-6 col-sm-6 col-xs-6">
-                <div class="x_panel">
-                  <div class="x_title">
-                    <h2>MAPA <small>Estación Meteorológica.</small></h2>
-
-                    <div class="clearfix"></div>
-                  </div>
-                  <div style="height:210px;" class="x_content">
-                    <br />
-                    <div  class="embed-responsive embed-responsive-4by3">
-                              <iframe style="height:210px;" src="ej.php" class="embed-responsive-item" allowfullscreen></iframe>
-                    </div>
-                  </div>
-                </div>
-              </div> 
-
-
-              
-
-
+              </div>      
             </div>
-            <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="x_panel">
-                  <div class="x_title">
-                    <h2>Lista <small>Estaciónes Meteorológicas.</small></h2>
-
-                    <div class="clearfix"></div>
-                  </div>
-                   <div class="x_content">
-                    <p class="text-muted font-13 m-b-30">
-                      
-                    </p>
-                    <table id="datatable" class="table table-striped table-bordered">
-                      <thead>
-                        <tr>
-                          <th>Codigo</th>
-                          <th>Departamento</th>
-                          <th>Ciudad</th>
-                          <th>Ubicación</th>
-                         
-                          <th>Acciones</th>
-                        </tr>
-                      </thead>
-
-
-                      <tbody>
-                        
-                        <tr>
-                          <td>svsv1</td>
-                          <td>San Vicente</td>
-                          <td>San Vicente</td>
-                          <td>123441421</td>
-                          
-                          <td width=160>
-                            <button type="button" class="btn btn-success" data-toggle="modal" data-target=".detalle-modal-lg"><i class="fa fa-search"></i></button>
-                            <button type="button" class="btn btn-success"><i class="fa fa-pencil"></i></button>
-                            <button type="button" class="btn btn-info"><i class="fa fa-check"></i></button>
-                          </td>
-                          
-                        </tr>
-                        <tr>
-                          <td>svsc2</td>
-                          <td>San Vicente</td>
-                          <td>San Cayetano</td>
-                          
-                          <td>-243434</td>
-                         <td width=160>
-                            <button type="button" class="btn btn-success" data-toggle="modal" data-target=".detalle-modal-lg"><i class="fa fa-search"></i></button>
-                            <button type="button" class="btn btn-success"><i class="fa fa-pencil"></i></button>
-                            <button type="button" class="btn btn-info"><i class="fa fa-check"></i></button>
-                         </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div> 
 
           
 
@@ -312,9 +201,17 @@ error_reporting(E_ALL & ~E_NOTICE);
 
         <!-- footer content -->
        <?php 
-       include "footer.php";
-       ?>
-        <!-- /footer content -->
+       include "../Vistas/footer.php";
+        if (isset($_REQUEST['tirar'])) {
+        $fe1 = $_REQUEST['fechas1'];
+        $fe2 = $_REQUEST['fechas2'];
+     ?>
+    <script type="text/javascript">
+location.href="modal_sensor.php?fe1=<?php echo $fe1;?>&fe2=<?php echo $fe2;?>";
+</script>
+<?php
+    }
+  ?>      
       </div>
     </div>
 

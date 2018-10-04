@@ -1,3 +1,11 @@
+<?php
+$guardo  = $_REQUEST["guardo"];
+if($guardo==1){
+msg("Los datos fueron almacenados con exito");
+}else{
+msg("Los datos fueron almacenados con exito");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -8,7 +16,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	  
     <title>Ingenieria de Software</title>
-  
+
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -30,7 +38,19 @@
 
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
+    <script type="text/javascript"> 
+      function validar(){
+        alert("llega");
+          if( document.getElementById('nombre').value=="" ){
+            alert("Complete los campos");
+          }else{
+              document.turismo.submit();
+            }
+        }
+      </script>
   </head>
+  <!--Aqui va el javascript-->
+
 
   <body class="nav-md">
     <div class="container body">
@@ -134,21 +154,27 @@
                   </div>
                   <div class="x_content">
                     <br />
-                    <form class="form-horizontal form-label-left input_mask">
+                    <form name="form" method="post" action="../Controladores/guardarequipo.php">
 
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Nombre">
+                        <input type="text" class="form-control has-feedback-left" name="nombre" id="nombre" placeholder="Nombre">
                         <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                       </div>
-
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Descripción">
-                         <span class="fa fa-edit form-control-feedback left" aria-hidden="true"></span>
+                        <input type="text" class="form-control has-feedback-left" id="marca" nme="marca" placeholder="Marca">
+                        <span class="fa fa-registered form-control-feedback left" aria-hidden="true"></span>
                       </div>
-
+                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                        <input type="text" class="form-control has-feedback-left" name="numserie" id="numserie" placeholder="Numero de Serie">
+                        <span class="fa fa-list-ol form-control-feedback left" aria-hidden="true"></span>
+                      </div>
+                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                        <input type="text" class="form-control has-feedback-left" name="donadores" id="donadores" placeholder="Donadores">
+                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                      </div>
                       <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <select class="form-control">
+                          <select class="form-control" name="tipo">
                             <option>Tipo de Uso</option>
                             <option>Pluviometro</option>
                             <option>Agrometeorologico</option>
@@ -156,44 +182,42 @@
                             </select>
                         </div>
                       </div>
-
-                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Marca">
-                        <span class="fa fa-registered form-control-feedback left" aria-hidden="true"></span>
-                      </div>
-
-                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Numero de Serie">
-                        <span class="fa fa-list-ol form-control-feedback left" aria-hidden="true"></span>
-                      </div>
-
-                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Donadores">
-                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
-                      </div>
-                      
                       <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <select class="form-control">
+                          <select class="form-control" name="estado">
                             <option>Estado</option>
                             <option>En uso</option>
                             <option>En mal estado</option>
                             <option>Extraviado</option>
                             </select>
-                        </div>
+                        </div> 
                       </div>
-                     
+                      <br><br>
+                      <div class="form-group">
+                      <div "col-md-6 col-sm-6 col-xs-12">
+                      <textarea style="width: 1460px;margin-left:10px;margin-top:100px;" rows="3" size="100" value="" class="form-control" name="descripcion" placeholder="Descripcion" id="descripcion"></textarea>
+                      </div>
+                      </div>
+                   
                       
+                      <div class="form-group">
+                      
+                        <!--Este div es para que agarre la linea que separa los botones.-->
+                      </div>
+                       
                       <div class="form-group">
                         <!--Este div es para que agarre la linea que separa los botones.-->
                       </div>
                      
+                   
+                      <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback" style="padding-bottom:10px;">
                       
-                      
+                         
+                      </div>
                       <div class="ln_solid"></div>
-                      <div class="form-group">
+                      <div class="form-group" style="margin-top:50px;margin-left:300px">
                         <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                        <button type="submit" class="btn btn-success">Guardar</button>
+                        <button onclick="validar()" class="btn btn-success">Guardar</button>
                           <button type="button" class="btn btn-warning">Cancelar</button>
 						   <!-- <button class="btn btn-primary" type="reset">Reset</button> -->
                          
@@ -259,3 +283,19 @@
 	
   </body>
 </html>
+<?php
+ function msg($texto)
+ {
+     echo "<script type='text/javascript'>";
+     echo "alert('$texto');";
+     //echo "document.location.href='materias.php';";
+     echo "</script>";
+ }
+ function msgError($texto)
+{
+    echo "<script type='text/javascript'>";
+    echo "sweetConfirm('$texto');";
+    //echo "document.location.href='materias.php';";
+    echo "</script>";
+}
+ ?>
