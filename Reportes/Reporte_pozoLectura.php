@@ -14,8 +14,8 @@ class PDF extends FPDF {
     function Header() {
         
         $this->Ln(10);
-        $this->Image('../Imagenes/minerva.png', 150, 10, 30);
-        $this->Image('../Imagenes/solidar.png', 20, 15, 30);
+        $this->Image('../Imagenes/ceia.png', 150, 10, 30);
+        $this->Image('../Imagenes/minerva.png', 20, 15, 30);
         //$this->Image('images/ayuda.PNG', 0,0,600,600);
 
         $this->SetFont('Arial', 'B', 15);

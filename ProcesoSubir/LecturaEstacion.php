@@ -306,7 +306,7 @@
                                                     </tr>
     <?php
     //inserta en el mismo for -->JcMoz
-    $sql = "INSERT INTO lecturaestaciones (idestacion,date,time,tempout,hitemp,lowtemp,outhum,dewt,windspeed,winddir,windrun,hispeed,hidir,windchill,heatindex,thwindex,bar,rain,rainrate,heatd_d,coold_d,intemp,inhum,indew,inheat) VALUE('$id','$nuevafecha','$horaImprimir','$out','$temp','$lowTemp','$hum','$pt','$speed','$windDir','$windRun','$windSpeed','$dir','$chill','$heatIndex','$thwIndex','$bar','$rain','$rainRate','$heatdd','$cooldd','$InTemp','$InHum','$InDew','$InHead')";
+    $sql = "INSERT INTO lecturaestaciones (idestacion,date,time,tempout,hitemp,lowtemp,outhum,dewt,windspeed,winddir,windrun,hispeed,hidir,windchill,heatindex,thwindex,bar,rain,rainrate,heatd_d,coold_d,intemp,inhum,indew,inheat,inemc,inairdensity,windsamp,windtx,issrecept,arcint) VALUE('$id','$nuevafecha','$horaImprimir','$out','$temp','$lowTemp','$hum','$pt','$speed','$windDir','$windRun','$windSpeed','$dir','$chill','$heatIndex','$thwIndex','$bar','$rain','$rainRate','$heatdd','$cooldd','$InTemp','$InHum','$InDew','$InHead','$InEmc','$Density','$Samp','$Tx','$Recet','$Arc')";
     $result = $mysqli->query($sql);
 }
 ?>
