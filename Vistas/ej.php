@@ -27,6 +27,7 @@ if ($lon == "") {
         height: 100%;
         margin: 0;
         padding: 0;
+      
       }
       #map {
         width: 100%;
@@ -49,6 +50,10 @@ window.top.longitud.value=document.getElementById("coordsLo").value;
 
 
 </script>
+
+    
+    
+
 </head>
 
 <body>
@@ -56,9 +61,13 @@ window.top.longitud.value=document.getElementById("coordsLo").value;
 <body >
     <div id="map"></div>
 
+    
     <input type="text" id="coordsLa" />
     <input type="text" id="coordsLo" />
-    <input type="button" onClick="selecciona()" value="Obtener"/>
+    <input type="button"  onClick="selecciona()" value="Obtener"/>
+    
+    
+    
     <script>
 
 
@@ -130,5 +139,7 @@ function toggleBounce() {
 
     </script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDlijOXxiXq64CV0DrTwULTOmR-eogwVW8&callback=initMap"></script>
+
+   
   </body>
 </html>

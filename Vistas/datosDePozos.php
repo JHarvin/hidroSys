@@ -153,7 +153,7 @@
 
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
 
-                        <input type="text" class="form-control has-feedback-left" id="codigo" autocomplete="off" pattern=".{4}" title="Solo números" placeholder="Codigo">
+                        
 
                         <input type="text" class="form-control has-feedback-left" id="dui" placeholder="Codigo" readonly="readonly">
 
@@ -161,9 +161,9 @@
                       </div>
                       
                         <div class="col-md-6 col-sm-6 col-xs-12 form-group">
-                          <select class="form-control">
+                          <select id="departamento" name="departamento" class="form-control">
                             <option>Departamento</option>
-                            <option>San Vicente</option>
+                            <option >San Vicente</option>
                             <option>Cabañas</option>
                             <option>Usulutan</option>
                             <option>La Union</option>
@@ -172,7 +172,7 @@
                       
                       
                         <div class="col-md-6 col-sm-6 col-xs-12 form-group">
-                          <select class="form-control">
+                          <select id="municipio" name="municipio" class="form-control">
                             <option>Municipio</option>
                             <option>San Vicente</option>
                             <option>Tepetitan</option>
@@ -183,7 +183,7 @@
                       
                       
                         <div class="col-md-6 col-sm-6 col-xs-12 form-group">
-                          <select class="form-control">
+                          <select id="propietario" name="propietario" class="form-control">
                             <option>Propietario</option>
                             <option>Alfonso Hernandez</option>
                             <option>Jennifer Alfaro</option>
@@ -197,60 +197,62 @@
                       </div>
 
                       <div class="col-md-5 col-sm-5 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Latitud, g°" readonly="readonly">
+                        <input id="latitud" name="latitud" type="text" class="form-control has-feedback-left" placeholder="Latitud, g°" readonly="readonly">
                         <span class="fa fa-location-arrow form-control-feedback left" aria-hidden="true"></span>
+                        <span class=" form-control-feedback rigth" aria-hidden="true">Lat</span>
                       </div>
 
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Longitud, g°" readonly="readonly">
+                        <input id="longitud" name="longitud" type="text" class="form-control has-feedback-left" placeholder="Longitud, g°" readonly="readonly">
                         <span class="fa fa-location-arrow form-control-feedback left" aria-hidden="true"></span>
+                        <span class=" form-control-feedback rigth" aria-hidden="true">Long</span>
                       </div>
 
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Altura, msnm (metros sobre el nivel del mar)">
+                        <input id="altura" name="altura" type="text" class="form-control has-feedback-left" placeholder="Altura, msnm (metros sobre el nivel del mar)">
                         <span class="fa fa-arrow-up form-control-feedback left" aria-hidden="true"></span>
                       </div>
 
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Nivel del pozo, mtrs (metros)">
+                        <input id="nivel" name="nivel" type="text" class="form-control has-feedback-left" placeholder="Nivel del pozo, mtrs (metros)">
                         <span class="fa fa-list form-control-feedback left" aria-hidden="true"></span>
                       </div>
                       
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Profundidad, mts (metros)">
+                        <input id="profundidad" name="profundidad" type="text" class="form-control has-feedback-left" placeholder="Profundidad, mts (metros)">
                         <span class="fa fa-arrow-down form-control-feedback left" aria-hidden="true"></span>
                       </div>
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <input id="fecha" type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Fecha de creación" onfocus="(this.type='date')">
+                        <input id="fecha" name="fecha" id="fecha" type="text" class="form-control has-feedback-left" placeholder="Fecha de creación" onfocus="(this.type='date')">
                         <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
                         
                       </div>
-                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">        
-                          <textarea class="form-control" rows="3" placeholder="Geologia."></textarea>
-                      </div>
-                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">        
-                          <textarea class="form-control" rows="3" placeholder="Observación."></textarea>
-                      </div>
-                      
-                      
+                        
                         <div class="col-md-6 col-sm-6 col-xs-12 form-group">
-                          <select class="form-control">
-                            <option>Tipo de pozo</option>
-                            <option>Municipal</option>
-                            <option>Gubernamental (ANDA)</option>
-                            <option>Privado</option>
-                            <option>Comunitario</option>
+                          <select id="tipo" name="tipo" class="form-control">
+                            <option value="0">Tipo de pozo</option>
+                            <option value="municipal">Municipal</option>
+                            <option value="gubernamental">Gubernamental (ANDA)</option>
+                            <option value="privado">Privado</option>
+                            <option value="comunitario">Comunitario</option>
                           </select>
                         </div>
                       
-                        <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                        <div id="estado" name="estado" class="col-md-6 col-sm-6 col-xs-12 form-group">
                           <select class="form-control">
-                            <option>En uso</option>
-                            <option>Inactivo</option>
+                            <option value="activo">En uso</option>
+                            <option value="inactivo">Inactivo</option>
                             
                             
                           </select>
                         </div>
+
+                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">        
+                          <textarea id="geologia" name="geologia" class="form-control" style="max-height:150px; min-height:100px; resize: vertical;" placeholder="Geologia."></textarea>
+                      </div>
+                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">        
+                          <textarea id="observacion" name="observacion" class="form-control" style="max-height:150px; min-height:100px;resize: vertical;" placeholder="Observación."></textarea>
+                      </div>
                      
                       <div class="form-group">
                         <!--Este div es para que agarre la linea que separa los botones.-->
@@ -261,8 +263,8 @@
                       <div class="ln_solid"></div>
                       <div class="form-group">
                         <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                        <button type="submit" class="btn btn-success">Guardar</button>
-                        <button type="button" class="btn btn-warning">Cancelar</button>
+                        <button type="button" class="btn btn-success">Guardar</button>
+                        <button type="reset" class="btn btn-warning">Cancelar</button>
 						  
                          
                         </div>
@@ -296,10 +298,10 @@
                       <thead>
                         <tr>
                           <th>Codigo</th>
-                          <th>Departamento</th>
-                          <th>Ciudad</th>
-                          <th>Latitud</th>
-                          <th>Longitud</th>
+                          <th>Tipo de pozo</th>
+                          <th>Propietario</th>
+                          <th>Estado</th>
+                          <th>Ubicacion</th>
                           <th>Acciones</th>
                         </tr>
                       </thead>
@@ -309,27 +311,25 @@
                         
                         <tr>
                           <td>svsv1</td>
-                          <td>San Vicente</td>
-                          <td>San Vicente</td>
-                          <td>123441421</td>
-                          <td>-01233122</td>
+                          <td>Privado</td>
+                          <td>Gilberto Santa Rosa</td>
+                          <td bgcolor=#dff8e7>En uso</td>
+                          <td width=50><button type="button" class="btn btn-info" style="width:80px;"><i class="fa fa-map-marker fa-lg"></i></button></td>
                           <td width=160>
-                            <button type="button" class="btn btn-success" data-toggle="modal" data-target=".detalle-modal-lg"><i class="fa fa-search"></i></button>
-                            <button type="button" class="btn btn-success"><i class="fa fa-pencil"></i></button>
-                            <button type="button" class="btn btn-info"><i class="fa fa-check"></i></button>
+                            <button type="button" class="btn btn-success" data-toggle="modal" data-target=".detalle-modal-lg" style="width:70px;"><i class="fa fa-search"></i></button>
+                            <button type="button" class="btn btn-success" style="width:70px;"><i class="fa fa-pencil"></i></button>
                           </td>
                           
                         </tr>
                         <tr>
                           <td>svsc2</td>
-                          <td>San Vicente</td>
-                          <td>San Cayetano</td>
-                          <td>27342345</td>
-                          <td>-243434</td>
+                          <td>Comunitario</td>
+                          <td>Gilberto Santa Rosa</td>
+                          <td >Inactivo</td>
+                          <td width=50><button type="button" class="btn btn-info" style="width:80px;"><i class="fa fa-map-marker fa-lg"></i></button></td>
                          <td width=160>
-                            <button type="button" class="btn btn-success" data-toggle="modal" data-target=".detalle-modal-lg"><i class="fa fa-search"></i></button>
-                            <button type="button" class="btn btn-success"><i class="fa fa-pencil"></i></button>
-                            <button type="button" class="btn btn-info"><i class="fa fa-check"></i></button>
+                            <button type="button" class="btn btn-success" data-toggle="modal" data-target=".detalle-modal-lg" style="width:70px;"><i class="fa fa-search"></i></button>
+                            <button type="button" class="btn btn-success" style="width:70px;"><i class="fa fa-pencil"></i></button>
                          </td>
                         </tr>
                       </tbody>
@@ -402,7 +402,7 @@
               <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title"><strong>Detalle de pozo</strong></h5>
+                    <h5 class="modal-title"><strong><i class="fa fa-list-ul fa-2x"></i></strong></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
@@ -410,40 +410,60 @@
                 <div class="modal-body">
                   <div class="row">
                   <table class="table table-bordered">
+                    
                       <thead>
-                        <tr>
-                          <th>#</th>
-                          <th>First Name</th>
-                          <th>Last Name</th>
-                          <th>Username</th>
+                        <tr><th colspan=5 style="text-align:center;"> DETALLE DE POZO </th></tr>
+                        <tr bgcolor=#dff8e7>
+                          <th>Codigo</th>
+                          <th>Departamento</th>
+                          <th>Municipio</th>
+                          <th>Propietario</th>
+                          <th>Altura sobre el nivel del mar</th>
+                        
                         </tr>
                       </thead>
                       <tbody>
                         <tr>
-                          <th scope="row">1</th>
-                          <td>Mark</td>
-                          <td>Otto</td>
-                          <td>@mdo</td>
+                          <th>1</th>
+                          <td>San vicente</td>
+                          <td>San cayetano</td>
+                          <td>Gilberto Santa Rosa</td>
+                          <td>200 mtrs</td>
                         </tr>
-                        <tr>
-                          <th scope="row">2</th>
-                          <td>Jacob</td>
-                          <td>Thornton</td>
-                          <td>@fat</td>
+                      </tbody>
+                      <thead>
+                        <tr bgcolor=#dff8e7>
+                          <th>Nivel de pozo</th>
+                          <th>Profundidad</th>
+                          <th>Fecha de creacion</th>
+                          <th>Tipo de pozo</th>
+                          <th>Estado</th>
+                        
                         </tr>
+                      </thead>
+                      <tbody>
                         <tr>
-                          <th scope="row">3</th>
-                          <td>Larry</td>
-                          <td>the Bird</td>
-                          <td>@twitter</td>
+                          <th>5 mtrs</th>
+                          <td>35 mtrs</td>
+                          <td>03/04/1996</td>
+                          <td>Comunitario</td>
+                          <td>En uso</td>
                         </tr>
                       </tbody>
                     </table>
                   </div>
+                  <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">        
+                          <textarea id="geologia" name="geologia" class="form-control" style="max-height:150px; min-height:100px; resize: vertical;" placeholder="Geologia."></textarea>
+                      </div>
+                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">        
+                          <textarea id="observacion" name="observacion" class="form-control" style="max-height:150px; min-height:100px;resize: vertical;" placeholder="Observación."></textarea>
+                      </div>
+                  </div>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-primary">Save changes</button>
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  
+                  <button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
                 </div>
 
                 </div><!--Fin del content-->
@@ -488,9 +508,7 @@
     <script src="../vendors/starrr/dist/starrr.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
-<<<<<<< HEAD
-	<script src="../libreriasJS/jquery.mask.min.js"></script>
-=======
+	  <script src="../libreriasJS/jquery.mask.min.js"></script>
 
     <!-- Datatables -->
     <script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
@@ -508,7 +526,6 @@
     <script src="../vendors/jszip/dist/jszip.min.js"></script>
     <script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
     <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
->>>>>>> ad1960181d8c343d50ee362303473656ae195791
 	
 	<!--Configuaracion de las mascaras del formulario-->
 	<script>
@@ -518,5 +535,13 @@
   
 });
       </script>
+      <script>
+//--codigo para generar el codigo del poso el que dijo la ing
+          //--sobre que si el poso esta ahuchapan y municipio san sebastian el codigo 
+          //--seria ap-sb-01
+          
+          
+
+</script>
   </body>
 </html>
