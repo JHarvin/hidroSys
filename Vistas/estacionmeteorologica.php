@@ -141,12 +141,15 @@ error_reporting(E_ALL & ~E_NOTICE);
                   </div>
                   <div class="x_content">
                     <br />
-                    <form class="form-horizontal form-label-left input_mask" >
+                    <form class="form-horizontal form-label-left input_mask" name="hidro" method="POST" enctype="multipart/form-data" >
+                    <input type="hidden" name="bandera" id="bandera">
+                    <input type="hidden" name="baccion" id="baccion">
 
                       <div class="col-md-6 col-sm-6 col-xs-6 form-group has-feedback">
                         <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Codigo">
                         <span class="fa fa-barcode form-control-feedback left" aria-hidden="true"></span>
                       </div>
+
 
                       
                       <div class="form-group">
@@ -170,7 +173,6 @@ error_reporting(E_ALL & ~E_NOTICE);
                           </select>
                         </div>
                       </div>
-
                       <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <select class="form-control">
@@ -179,7 +181,6 @@ error_reporting(E_ALL & ~E_NOTICE);
                             <option>Iztepeque</option>
                           </select>
                         </div>
-
                         <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <select class="form-control">
@@ -189,8 +190,18 @@ error_reporting(E_ALL & ~E_NOTICE);
                             <option>Estudiante</option>
                           </select>
                         </div>
- 
+                       </div>
+                       <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Fotografía</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                          <input type="file" class="form-text" id="imagen" name="imagen" required accept="image/jpg,image/png,image/jpeg">
+                        </div>
                       </div>
+                      
+                        <input type="hidden" class="form-control has-feedback-left" id="longitud" placeholder="Longitud">
+                        <input type="hidden" class="form-control has-feedback-left" id="latitud" placeholder="Latitud">
+                      
+
                       </div>
                      
                       <div class="form-group">
@@ -252,8 +263,8 @@ error_reporting(E_ALL & ~E_NOTICE);
                           <th>Codigo</th>
                           <th>Departamento</th>
                           <th>Ciudad</th>
-                          <th>Latitud</th>
-                          <th>Longitud</th>
+                          <th>Ubicación</th>
+                         
                           <th>Acciones</th>
                         </tr>
                       </thead>
@@ -266,7 +277,7 @@ error_reporting(E_ALL & ~E_NOTICE);
                           <td>San Vicente</td>
                           <td>San Vicente</td>
                           <td>123441421</td>
-                          <td>-01233122</td>
+                          
                           <td width=160>
                             <button type="button" class="btn btn-success" data-toggle="modal" data-target=".detalle-modal-lg"><i class="fa fa-search"></i></button>
                             <button type="button" class="btn btn-success"><i class="fa fa-pencil"></i></button>
@@ -278,7 +289,7 @@ error_reporting(E_ALL & ~E_NOTICE);
                           <td>svsc2</td>
                           <td>San Vicente</td>
                           <td>San Cayetano</td>
-                          <td>27342345</td>
+                          
                           <td>-243434</td>
                          <td width=160>
                             <button type="button" class="btn btn-success" data-toggle="modal" data-target=".detalle-modal-lg"><i class="fa fa-search"></i></button>

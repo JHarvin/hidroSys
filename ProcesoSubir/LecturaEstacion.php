@@ -268,6 +268,9 @@
                                                     $hum = $objPHPExcel->getActiveSheet()->getCell('F' . $i)->getCalculatedValue();
                                                     $pt = $objPHPExcel->getActiveSheet()->getCell('G' . $i)->getCalculatedValue();
                                                     $speed = $objPHPExcel->getActiveSheet()->getCell('H' . $i)->getCalculatedValue();
+                                                    $windDir = $objPHPExcel->getActiveSheet()->getCell('I' . $i)->getCalculatedValue();
+                                                    $windRun = $objPHPExcel->getActiveSheet()->getCell('J' . $i)->getCalculatedValue();
+                                                    $windSpeed = $objPHPExcel->getActiveSheet()->getCell('K' . $i)->getCalculatedValue();
                                                     $dir = $objPHPExcel->getActiveSheet()->getCell('L' . $i)->getCalculatedValue();
                                                     $chill = $objPHPExcel->getActiveSheet()->getCell('M' . $i)->getCalculatedValue();
                                                     $heatIndex = $objPHPExcel->getActiveSheet()->getCell('N' . $i)->getCalculatedValue();
@@ -298,12 +301,12 @@
                                                         <td><?php echo $hum; ?></td>
                                                         <td><?php echo $pt; ?></td>
                                                         <td><?php echo $speed; ?></td>
+                                                        
 
                                                     </tr>
     <?php
     //inserta en el mismo for -->JcMoz
-    $sql = "INSERT INTO lecturaestaciones (idestacion,date,time,tempout,hitemp,lowtemp,outhum,dewt,windspeed,winddir,windrun,hispeed,hidir,windchill,heatindex,thwindex,bar,rain,rainrate,heatd_d,coold_d,intemp,inhum,"
-            . "indew,inheat,inemc,inairdensity,windsamp,windtx,issrecept,arcint) VALUE('$id','$nuevafecha','$horaImprimir','$out','$temp','$lowTemp','$hum','$pt','$speed')";
+    $sql = "INSERT INTO lecturaestaciones (idestacion,date,time,tempout,hitemp,lowtemp,outhum,dewt,windspeed,winddir,windrun,hispeed,hidir,windchill,heatindex,thwindex,bar,rain,rainrate,heatd_d,coold_d,intemp,inhum,indew,inheat) VALUE('$id','$nuevafecha','$horaImprimir','$out','$temp','$lowTemp','$hum','$pt','$speed','$windDir','$windRun','$windSpeed','$dir','$chill','$heatIndex','$thwIndex','$bar','$rain','$rainRate','$heatdd','$cooldd','$InTemp','$InHum','$InDew','$InHead')";
     $result = $mysqli->query($sql);
 }
 ?>
