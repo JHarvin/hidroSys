@@ -74,22 +74,23 @@ $pdf->AddPage();
 ////Para los grado
      
         $pdf->SetFont('Arial', 'B', 12);
+        
   $pozo = mysqli_query($mysqli, "SELECT
 p.codigopozo,
 h.fechavisita,
 h.level,
-m.municipio
+m.nombre
 FROM
 hojavisitaspozos h
-INNER JOIN pozos p ON h.idpozo = p.idpozo
-INNER JOIN municipios m ON p.idmunicipio= m.idmunicipio
+INNER JOIN pozos p ON h.id_pozo = p.id_pozo
+INNER JOIN municipios m ON p.id_municipio= m.idmunicipio
 WHERE
-h.idpozo ='$po'
+h.id_pozo ='$po'
 ORDER BY
 h.fechavisita ASC");
    while ($row1 = mysqli_fetch_array($pozo)) {
     $esta=$row1['codigopozo'];
-    $muni=$row1['municipio'];
+    $muni=$row1['nombre'];
 }
 $pdf->SetFont('Arial', 'B', 12);
 $pdf->Cell(60, 10, 'Municipio: ' .$muni, 0, 0, 'C');
@@ -109,17 +110,17 @@ $pozo1 = mysqli_query($mysqli, "SELECT
 p.codigopozo,
 h.fechavisita,
 h.level,
-m.municipio
+m.nombre
 FROM
 hojavisitaspozos h
-INNER JOIN pozos p ON h.idpozo = p.idpozo
-INNER JOIN municipios m ON p.idmunicipio= m.idmunicipio
+INNER JOIN pozos p ON h.id_pozo = p.id_pozo
+INNER JOIN municipios m ON p.id_municipio= m.idmunicipio
 WHERE
-h.idpozo ='$po'
+h.id_pozo ='$po'
 ORDER BY
 h.fechavisita ASC");
 while ($row = $pozo1->fetch_assoc()) {
-    $pdf->Cell(60, 6,$row['fechavisita'], 1, 0, 'C'); 
+    $pdf->Cell(60, 6,$row['fechavisita'],1 , 0, 'C'); 
     $pdf->Cell(70, 6,$row['level'], 1, 1, 'C');
     ;
 }

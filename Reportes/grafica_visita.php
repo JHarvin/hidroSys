@@ -20,10 +20,10 @@
 h.level
 FROM
 hojavisitaspozos h
-INNER JOIN pozos p ON h.idpozo = p.idpozo
-INNER JOIN municipios m ON p.idmunicipio= m.idmunicipio
+INNER JOIN pozos p ON h.id_pozo = p.id_pozo
+INNER JOIN municipios m ON p.id_municipio= m.idmunicipio
 WHERE
-h.idpozo ='$po'
+h.id_pozo ='$po'
 ORDER BY
 h.fechavisita ASC");
 //                        while ($pozito= mysqli_fetch_array($extrar)){
@@ -31,34 +31,32 @@ h.fechavisita ASC");
 //                            $m=$pozito['municipio'];
 //                        }
                         
-                         $fechas= mysqli_query($mysqli,""
-                                 . "SELECT
+                         $fechas= mysqli_query($mysqli,"SELECT
 h.fechavisita
 
 FROM
 hojavisitaspozos h
-INNER JOIN pozos p ON h.idpozo = p.idpozo
-INNER JOIN municipios m ON p.idmunicipio= m.idmunicipio
+INNER JOIN pozos p ON h.id_pozo = p.id_pozo
+INNER JOIN municipios m ON p.id_municipio= m.idmunicipio
 WHERE
-h.idpozo = 4
+h.id_pozo ='$po'
 ORDER BY
-h.fechavisita ASC
-");
+h.fechavisita ASC");
 //para sacar unos datos para la grafica pareciera que es lo mismo pero no JcMoz
                          $datos= mysqli_query($mysqli,"SELECT
 p.codigopozo,
-m.municipio
+m.nombre
 FROM
 hojavisitaspozos h
-INNER JOIN pozos p ON h.idpozo = p.idpozo
-INNER JOIN municipios m ON p.idmunicipio= m.idmunicipio
+INNER JOIN pozos p ON h.id_pozo = p.id_pozo
+INNER JOIN municipios m ON p.id_municipio= m.idmunicipio
 WHERE
-h.idpozo ='$po'
+h.id_pozo ='$po'
 ORDER BY
 h.fechavisita ASC");
                         while ($pozito= mysqli_fetch_array($datos)){
                             $p=$pozito['codigopozo'];
-                            $m=$pozito['municipio'];
+                            $m=$pozito['nombre'];
                         }
                       
 			

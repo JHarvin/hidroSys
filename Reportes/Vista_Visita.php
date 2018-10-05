@@ -146,7 +146,7 @@
                             <select class="form-control" name="pozo">
                               <?php
                                           include_once '../ProcesoSubir/conexion.php';
-                                          $verPozo= mysqli_query($mysqli,"SELECT idpozo, codigopozo FROM pozos");
+                                          $verPozo= mysqli_query($mysqli,"SELECT id_pozo, codigopozo FROM pozos");
                               ?>
                             <option>Codigo Pozo</option>
                             <?php
