@@ -75,27 +75,47 @@ $pdf->AddPage();
 ////Para los grado
      
         $pdf->SetFont('Arial', 'B', 12);
-  $pozo = mysqli_query($mysqli, "SELECT
+        $validacion= mysqli_query($mysqli,"SELECT
 p.codigopozo,
 l.date,
-m.municipio,
+m.nombre,
 Avg(l.level) AS promlevel
 FROM
 pozos p
-INNER JOIN lecturapozos l ON l.idpozo = p.idpozo
-INNER JOIN municipios m ON p.idmunicipio = m.idmunicipio
+INNER JOIN lecturapozos l ON l.id_pozo = p.id_pozo
+INNER JOIN municipios m ON p.id_municipio = m.idmunicipio
 WHERE
 l.date>='$fe1' AND
 l.date<='$fe2'
 GROUP BY
 p.codigopozo,
 l.date,
-m.municipio
+m.nombre
+ORDER BY
+l.date ASC");
+       if(mysqli_num_rows($validacion)>0){ 
+        
+  $pozo = mysqli_query($mysqli, "SELECT
+p.codigopozo,
+l.date,
+m.nombre,
+Avg(l.level) AS promlevel
+FROM
+pozos p
+INNER JOIN lecturapozos l ON l.id_pozo = p.id_pozo
+INNER JOIN municipios m ON p.id_municipio = m.idmunicipio
+WHERE
+l.date>='$fe1' AND
+l.date<='$fe2'
+GROUP BY
+p.codigopozo,
+l.date,
+m.nombre
 ORDER BY
 l.date ASC");
    while ($row1 = mysqli_fetch_array($pozo)) {
     $esta=$row1['codigopozo'];
-    $muni=$row1['municipio'];
+    $muni=$row1['nombre'];
 }
 $pdf->SetFont('Arial', 'B', 12);
 $pdf->Cell(60, 10, 'Municipio: ' .$muni, 0, 0, 'C');
@@ -114,19 +134,19 @@ $pdf->SetFont('Arial', '', 10);
 $pozo1 = mysqli_query($mysqli, "SELECT
 p.codigopozo,
 l.date,
-m.municipio,
+m.nombre,
 Avg(l.level) AS promlevel
 FROM
 pozos p
-INNER JOIN lecturapozos l ON l.idpozo = p.idpozo
-INNER JOIN municipios m ON p.idmunicipio = m.idmunicipio
+INNER JOIN lecturapozos l ON l.id_pozo = p.id_pozo
+INNER JOIN municipios m ON p.id_municipio = m.idmunicipio
 WHERE
 l.date>='$fe1' AND
 l.date<='$fe2'
 GROUP BY
 p.codigopozo,
 l.date,
-m.municipio
+m.nombre
 ORDER BY
 l.date ASC");
 while ($row = $pozo1->fetch_assoc()) {
@@ -134,7 +154,10 @@ while ($row = $pozo1->fetch_assoc()) {
     $pdf->Cell(70, 6,$row['promlevel'], 1, 1, 'C');
     ;
 }
-
+       } else {
+           $pdf->Ln(30);
+       $pdf->Cell(150, 6,'No hay datos almacenados', 0, 0, 'C');    
+}
 $pdf->Output();
 ?>
 

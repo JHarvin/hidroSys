@@ -142,8 +142,9 @@
                         <div class="modal-body">
                             <div class="input-group">
                                  <div class="row mb-12" style="float: right;margin-right: 20px; margin-top: 15px;">
-                                    <button type="submit" class="btn btn-warning" name="modCancelar">Cancelar </button>
-
+                                     <a href="../Reportes/Vista_rainRayte.php" class="btn">
+                                     <button type="submit" class="btn btn-warning" name="modCancelar">Cancelar </button>
+                                   </a>
                                 </div>
                                  <div class="row mb-12" style="float: right; margin-right: 10px; margin-top: 15px;">
                                      <a href="../Reportes/Reporte_rain.php?fe=<?php echo $fe; ?>" class="btn">

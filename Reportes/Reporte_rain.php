@@ -111,12 +111,24 @@ $pdf->AddPage();
 ////Para los grado
      
         $pdf->SetFont('Arial', 'B', 12);
+        //vamos a validar 
+        $vali = mysqli_query($mysqli, "SELECT
+e.codiogestacion,
+l.date,
+avg(l.rainrate) as promrainrate
+FROM estacionmet e
+INNER JOIN lecturaestaciones l ON l.idestacion = e.id_estacion
+where EXTRACT(MONTH FROM l.date)='$mes1'  AND EXTRACT(YEAR FROM l.date)='$a'
+GROUP BY e.codiogestacion, l.date
+ORDER BY l.date");
+        if(mysqli_num_rows($vali)>0){
+        
   $estacion = mysqli_query($mysqli, "SELECT
 e.codiogestacion,
 l.date,
 avg(l.rainrate) as promrainrate
 FROM estacionmet e
-INNER JOIN lecturaestaciones l ON l.idestacion = e.idestacion
+INNER JOIN lecturaestaciones l ON l.idestacion = e.id_estacion
 where EXTRACT(MONTH FROM l.date)='$mes1'  AND EXTRACT(YEAR FROM l.date)='$a'
 GROUP BY e.codiogestacion, l.date
 ORDER BY l.date");
@@ -141,7 +153,7 @@ e.codiogestacion,
 l.date,
 avg(l.rainrate) as promrainrate
 FROM estacionmet e
-INNER JOIN lecturaestaciones l ON l.idestacion = e.idestacion
+INNER JOIN lecturaestaciones l ON l.idestacion = e.id_estacion
 where EXTRACT(MONTH FROM l.date)='$mes1'  AND EXTRACT(YEAR FROM l.date)='$a'
 GROUP BY e.codiogestacion, l.date
 ORDER BY l.date");
@@ -150,7 +162,10 @@ while ($row = $estacion1->fetch_assoc()) {
     $pdf->Cell(70, 6,$row['promrainrate'], 1, 1, 'C');
     ;
 }
-
+        }else{
+             $pdf->Ln(30);
+       $pdf->Cell(150, 6,'No hay datos almacenados', 0, 0, 'C'); 
+        }
 $pdf->Output();
 include '../Reportes/grafica_rainRate.php';
 ?>

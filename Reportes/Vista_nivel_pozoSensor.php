@@ -145,7 +145,7 @@
                       <div class="col-md-6"> 
                           <div class="form-group">   
                          <input type="text" name="fechas1" class="form-control has-feedback-left -calendar" id="inputSuccess2" placeholder="fecha inicio Ej:2014-04-01"
-                                    autocomplete="off">
+                                autocomplete="off" required="">
                               <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
                               
                       
@@ -159,7 +159,7 @@
                       <div class="col-md-6"> 
                           <div class="form-group">   
                          <input type="text" name="fechas2" class="form-control has-feedback-left -calendar" id="inputSuccess2" placeholder="fecha inicio Ej:2014-04-30"
-                                    autocomplete="off">
+                                autocomplete="off" required="">
                               <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
                               
                       

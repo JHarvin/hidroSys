@@ -148,7 +148,7 @@
                           
                          <div class="col-md-7 col-sm-7 col-xs-12 form-group has-feedback">
                              <input type="text" name="fechas" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Ej:04-2017"
-                                    autocomplete="off">
+                                    autocomplete="off" required="">
                         <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
                       </div>
                       </div>

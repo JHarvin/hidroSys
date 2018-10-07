@@ -14,6 +14,20 @@
 		<?php 
                 include_once '../ProcesoSubir/conexion.php';
                 $po=$_GET['po'];
+                
+                //vamos a validar
+                 $validar= mysqli_query($mysqli,"SELECT
+p.codigopozo,
+m.nombre
+FROM
+hojavisitaspozos h
+INNER JOIN pozos p ON h.id_pozo = p.id_pozo
+INNER JOIN municipios m ON p.id_municipio= m.idmunicipio
+WHERE
+h.id_pozo ='$po'
+ORDER BY
+h.fechavisita ASC");
+                    if(mysqli_num_rows($validar)){ 
                
 			$extrar= mysqli_query($mysqli,"SELECT
 
@@ -115,10 +129,11 @@ h.fechavisita ASC");
 			});
 				
 		</script>
-
+                    <?php } else{?>
 	</head>
 	<body>
-		
+		<center><div class="center">NO HAY DATOS ALMACENADOS</div></center>
+                <?php }?>
 		<div id="container" style="width: 100%; height: 500px; margin: 0 auto"></div>
                 <br><br>
                 <center><a href="../Reportes/Vista_Visita.php">

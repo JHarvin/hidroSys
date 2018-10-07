@@ -74,7 +74,21 @@ $pdf->AddPage();
 ////Para los grado
      
         $pdf->SetFont('Arial', 'B', 12);
+         $validar = mysqli_query($mysqli, "SELECT
+p.codigopozo,
+h.fechavisita,
+h.level,
+m.nombre
+FROM
+hojavisitaspozos h
+INNER JOIN pozos p ON h.id_pozo = p.id_pozo
+INNER JOIN municipios m ON p.id_municipio= m.idmunicipio
+WHERE
+h.id_pozo ='$po'
+ORDER BY
+h.fechavisita ASC");
         
+       if(mysqli_num_rows($validar)>0){ 
   $pozo = mysqli_query($mysqli, "SELECT
 p.codigopozo,
 h.fechavisita,
@@ -124,7 +138,11 @@ while ($row = $pozo1->fetch_assoc()) {
     $pdf->Cell(70, 6,$row['level'], 1, 1, 'C');
     ;
 }
-
+       }else{
+            $pdf->Ln(30);
+       $pdf->Cell(150, 6,'No hay datos almacenados', 0, 0, 'C'); 
+       }
+       
 $pdf->Output();
 ?>
 

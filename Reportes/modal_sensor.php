@@ -143,8 +143,9 @@
                         <div class="modal-body">
                             <div class="input-group">
                                  <div class="row mb-12" style="float: right;margin-right: 20px; margin-top: 15px;">
+                                     <a href="../Reportes/Vista_nivel_pozoSensor.php" class="btn">
                                     <button type="submit" class="btn btn-warning" name="modCancelar">Cancelar </button>
-
+                                    </a>
                                 </div>
                                  <div class="row mb-12" style="float: right; margin-right: 10px; margin-top: 15px;">
                                      <a href="../Reportes/Reporte_pozoLectura.php?fe1=<?php echo $fe1; ?>&fe2=<?php echo $fe2; ?>" class="btn">
@@ -194,7 +195,7 @@
                       <div class="col-md-6"> 
                           <div class="form-group">   
                          <input type="text" name="fechas1" class="form-control has-feedback-left -calendar" id="inputSuccess2" placeholder="fecha inicio Ej:2014-04-01"
-                                    autocomplete="off">
+                                autocomplete="off" required="">
                               <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
                               
                       
@@ -208,7 +209,7 @@
                       <div class="col-md-6"> 
                           <div class="form-group">   
                          <input type="text" name="fechas2" class="form-control has-feedback-left -calendar" id="inputSuccess2" placeholder="fecha inicio Ej:2014-04-30"
-                                    autocomplete="off">
+                                autocomplete="off" required="">
                               <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
                               
                       

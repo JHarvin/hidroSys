@@ -3,32 +3,52 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<title>Sistema Hidrometeorologico</title>
-		
+		  <link href="../ProcesoSubir/estilo.css" rel="stylesheet" type="text/css">
 		
                 <script type="text/javascript" src="../Highcharts-4.1.5/js/jquery-1.7.1.min.js"></script>
 		<script type="text/javascript" src="../Highcharts-4.1.5/js/highcharts.js"></script>
 		<script type="text/javascript" src="../Highcharts-4.1.5/js/exporting.js"></script>
                 <script type="text/javascript" src="../Highcharts-4.1.5/js/themes/grid.js"></script>
+              
 
 
 		<?php 
                 include_once '../ProcesoSubir/conexion.php';
                 $fe1=$_GET['fe1'];
                 $fe2=$_GET['fe2'];
-               
-			$extrar= mysqli_query($mysqli,"SELECT
-Avg(l.level) AS promlevel
+                
+                //vamos a validar para que no de errores si no hay datos en la base
+                $vali= mysqli_query($mysqli,"SELECT
+p.codigopozo,
+m.nombre
 FROM
 pozos p
-INNER JOIN lecturapozos l ON l.idpozo = p.idpozo
-INNER JOIN municipios m ON p.idmunicipio = m.idmunicipio
+INNER JOIN lecturapozos l ON l.id_pozo = p.id_pozo
+INNER JOIN municipios m ON p.id_municipio = m.idmunicipio
 WHERE
 l.date>='$fe1' AND
 l.date<='$fe2'
 GROUP BY
 p.codigopozo,
 l.date,
-m.municipio
+m.nombre
+ORDER BY
+l.date ASC");
+                if(mysqli_num_rows($vali)>0){
+               
+			$extrar= mysqli_query($mysqli,"SELECT
+Avg(l.level) AS promlevel
+FROM
+pozos p
+INNER JOIN lecturapozos l ON l.id_pozo = p.id_pozo
+INNER JOIN municipios m ON p.id_municipio = m.idmunicipio
+WHERE
+l.date>='$fe1' AND
+l.date<='$fe2'
+GROUP BY
+p.codigopozo,
+l.date,
+m.nombre
 ORDER BY
 l.date ASC");
 //                        while ($pozito= mysqli_fetch_array($extrar)){
@@ -37,41 +57,40 @@ l.date ASC");
 //                        }
                         
                          $fechas= mysqli_query($mysqli,"SELECT
-
 l.date
 FROM
 pozos p
-INNER JOIN lecturapozos l ON l.idpozo = p.idpozo
-INNER JOIN municipios m ON p.idmunicipio = m.idmunicipio
+INNER JOIN lecturapozos l ON l.id_pozo = p.id_pozo
+INNER JOIN municipios m ON p.id_municipio = m.idmunicipio
 WHERE
 l.date>='$fe1' AND
 l.date<='$fe2'
 GROUP BY
 p.codigopozo,
 l.date,
-m.municipio
+m.nombre
 ORDER BY
 l.date ASC");
 //para sacar unos datos para la grafica pareciera que es lo mismo pero no JcMoz
                          $datos= mysqli_query($mysqli,"SELECT
 p.codigopozo,
-m.municipio
+m.nombre
 FROM
 pozos p
-INNER JOIN lecturapozos l ON l.idpozo = p.idpozo
-INNER JOIN municipios m ON p.idmunicipio = m.idmunicipio
+INNER JOIN lecturapozos l ON l.id_pozo = p.id_pozo
+INNER JOIN municipios m ON p.id_municipio = m.idmunicipio
 WHERE
 l.date>='$fe1' AND
 l.date<='$fe2'
 GROUP BY
 p.codigopozo,
 l.date,
-m.municipio
+m.nombre
 ORDER BY
 l.date ASC");
                         while ($pozito= mysqli_fetch_array($datos)){
                             $p=$pozito['codigopozo'];
-                            $m=$pozito['municipio'];
+                            $m=$pozito['nombre'];
                         }
                       
 			
@@ -100,7 +119,7 @@ l.date ASC");
 					},
 					yAxis: {
 						title: {
-							text: 'Nivel del pozo (mm)'
+							text: 'Nivel del pozo (m)'
 						}
 					},
 					tooltip: {
@@ -122,7 +141,7 @@ l.date ASC");
 					series:[{
                                                 name: 'Nivel',
                                                 data:[<?php while ($row= mysqli_fetch_array($extrar)){?>
-                                                <?php echo floor($row['promlevel']);?>,<?php } ?>]
+                                                <?php echo round($row['promlevel'],1);?>,<?php } ?>]
                                             }]
 				});
 				
@@ -130,10 +149,15 @@ l.date ASC");
 			});
 				
 		</script>
-
+<?php
+                }else{
+?>
+        
 	</head>
 	<body>
-		
+            
+        <center><div class="center">NO HAY DATOS ALMACENADOS</div></center>
+                <?php }?>
 		<div id="container" style="width: 100%; height: 500px; margin: 0 auto"></div>
                 <br><br>
                 <center><a href="../Reportes/Vista_nivel_pozoSensor.php">

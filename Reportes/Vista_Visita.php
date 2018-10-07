@@ -143,7 +143,7 @@
                         <h4>Seleccione el Pozo</h4>
                       </div>
                          <div class="col-md-6 col-sm-6 col-xs-12 form-group">
-                            <select class="form-control" name="pozo">
+                             <select class="form-control" name="pozo">
                               <?php
                                           include_once '../ProcesoSubir/conexion.php';
                                           $verPozo= mysqli_query($mysqli,"SELECT id_pozo, codigopozo FROM pozos");
@@ -151,7 +151,7 @@
                             <option>Codigo Pozo</option>
                             <?php
                              while ($row = mysqli_fetch_array($verPozo)) {
-                                         $idpozo=$row['idpozo'];
+                                         $idpozo=$row['id_pozo'];
                                            echo '<option value='."$row[0]".'>'.$row['1'].'</option>';
                                     }
                                     ?>

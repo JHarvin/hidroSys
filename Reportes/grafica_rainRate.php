@@ -17,21 +17,35 @@
                 $x=explode("-",$fecha);
                     $mes1=$x[0];
                      $a=$x[1];
+                     
+                     //validar**********
+                     $validar= mysqli_query($mysqli,"SELECT
+e.codiogestacion,
+l.date,
+avg(l.rainrate) as promrainrate
+FROM estacionmet e
+INNER JOIN lecturaestaciones l ON l.idestacion = e.id_estacion
+where EXTRACT(MONTH FROM l.date)='$mes1'  AND EXTRACT(YEAR FROM l.date)='$a'
+GROUP BY e.codiogestacion, l.date
+ORDER BY l.date");
+                     if(mysqli_num_rows($validar)){
+                     
+                     
 			$extrar= mysqli_query($mysqli,"SELECT
 e.codiogestacion,
 l.date,
 avg(l.rainrate) as promrainrate
 FROM estacionmet e
-INNER JOIN lecturaestaciones l ON l.idestacion = e.idestacion
+INNER JOIN lecturaestaciones l ON l.idestacion = e.id_estacion
 where EXTRACT(MONTH FROM l.date)='$mes1'  AND EXTRACT(YEAR FROM l.date)='$a'
 GROUP BY e.codiogestacion, l.date
 ORDER BY l.date");
                         
                          $fechas= mysqli_query($mysqli,"SELECT
-l.date
 
+l.date
 FROM estacionmet e
-INNER JOIN lecturaestaciones l ON l.idestacion = e.idestacion
+INNER JOIN lecturaestaciones l ON l.idestacion = e.id_estacion
 where EXTRACT(MONTH FROM l.date)='$mes1'  AND EXTRACT(YEAR FROM l.date)='$a'
 GROUP BY e.codiogestacion, l.date
 ORDER BY l.date");
@@ -92,10 +106,11 @@ ORDER BY l.date");
 			});
 				
 		</script>
-
+                     <?php } else{ ?>
 	</head>
 	<body>
-		
+		<center><div class="center">NO HAY DATOS ALMACENADOS</div></center>
+                <?php }?>
 		<div id="container" style="width: 100%; height: 500px; margin: 0 auto"></div>
                 <br><br>
                 <center><a href="../Reportes/Vista_rainRayte.php">

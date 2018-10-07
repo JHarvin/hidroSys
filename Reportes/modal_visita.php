@@ -142,8 +142,9 @@
                         <div class="modal-body">
                             <div class="input-group">
                                  <div class="row mb-12" style="float: right;margin-right: 20px; margin-top: 15px;">
-                                    <button type="submit" class="btn btn-warning" name="modCancelar">Cancelar </button>
-
+                                     <a href="../Reportes/Vista_Visita.php" class="btn">
+                                     <button type="submit" class="btn btn-warning" name="modCancelar">Cancelar </button>
+                                    </a>
                                 </div>
                                  <div class="row mb-12" style="float: right; margin-right: 10px; margin-top: 15px;">
                                      <a href="../Reportes/Reporte_visitas.php?po=<?php echo $po; ?>" class="btn">
@@ -194,7 +195,7 @@
                             <select class="form-control" name="pozo">
                               <?php
                                           include_once '../ProcesoSubir/conexion.php';
-                                          $verPozo= mysqli_query($mysqli,"SELECT idpozo, codigopozo FROM pozos");
+                                          $verPozo= mysqli_query($mysqli,"SELECT id_pozo, codigopozo FROM pozos");
                               ?>
                             <option>Codigo Pozo</option>
                             <?php
