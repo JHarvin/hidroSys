@@ -1,16 +1,15 @@
 <?php
 include "../ProcesoSubir/conexion.php";
-$nombre = $_POST['nombre'];
-$marca = $_POST['marca'];
-$numserie = $_POST['numserie'];
-$donadores = $_POST['donadores'];
-$tipo = $_POST['tipo'];
-$estado = $_POST['estado'];
+$nom = $_POST['nombre'];
 $descrip = $_POST['descripcion'];
-$id = $_POST['id'];
+$tipo = $_POST['tipo'];
+$marc = $_POST['marc'];
+$numserie = $_POST['numserie'];
+$donadores = $_POST['Donantes'];
+$estado = $_POST['estado'];
 $mensaje = "";
 
-        $consulta  = "INSERT INTO equipos VALUES('null','" . $nombre . "','" .$descrip. "','" .$tipo. "','" .$marca. "','" .$numserie. "','" .$donadores. "','" .$estado. "')";
+        $consulta  = "INSERT INTO equipos(nombre,descripcion,tipouso,marca,numeroserie,donadopor,estado) VALUES('$nom','$descrip','$tipo','$marc','$numserie','$donadores','$estado')";
         $resultado = $conexion->query($consulta);
           if ($resultado) {
               $mensaje="Se agregaron los datos correctamente";

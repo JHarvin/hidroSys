@@ -127,7 +127,7 @@ msg("Los datos fueron almacenados con exito");
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Equipos.</h3>
+                <h3>Equipos</h3>
               </div>
 
               <div class="title_right">
@@ -147,7 +147,7 @@ msg("Los datos fueron almacenados con exito");
               <div class="col-md-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Formulario de ingreso de datos.</h2>
+                    <h2>Formulario de ingreso de datos</h2>
                     <ul class="nav navbar-right panel_toolbox">                   
                     </ul>
                     <div class="clearfix"></div>
@@ -157,45 +157,53 @@ msg("Los datos fueron almacenados con exito");
                     <form name="form" method="post" action="../Controladores/guardarequipo.php">
 
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                        <label>Nombre del equipo<small class="text-muted"></small></label>
                         <input type="text" class="form-control has-feedback-left" name="nombre" id="nombre" placeholder="Nombre">
                         <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                       </div>
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left" id="marca" nme="marca" placeholder="Marca">
+                        <label>Marca<small class="text-muted"></small></label>
+                        <input type="text" class="form-control has-feedback-left" id="marc" nme="marc" placeholder="Marca">
                         <span class="fa fa-registered form-control-feedback left" aria-hidden="true"></span>
                       </div>
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left" name="numserie" id="numserie" placeholder="Numero de Serie">
+                        <label>Número de serie<small class="text-muted"></small></label>
+                        <input type="text" class="form-control has-feedback-left" name="numserie" id="numserie" placeholder="Número de Serie">
                         <span class="fa fa-list-ol form-control-feedback left" aria-hidden="true"></span>
                       </div>
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left" name="donadores" id="donadores" placeholder="Donadores">
+                        <label>Donantes<small class="text-muted"></small></label>
+                        <input type="text" class="form-control has-feedback-left" name="Donantes" id="donadores" placeholder="Donadores">
                         <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                       </div>
                       <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12">
+                          <label>Tipo de uso<small class="text-muted"></small></label>
                           <select class="form-control" name="tipo">
-                            <option>Tipo de Uso</option>
+                            <option>Seleccione</option>
                             <option>Pluviometro</option>
                             <option>Agrometeorologico</option>
                             <option>Estación Meteorologica</option>
+                            <option>Otros</option>
                             </select>
                         </div>
                       </div>
                       <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12">
+                          <label>Estado del equipo<small class="text-muted"></small></label>
                           <select class="form-control" name="estado">
-                            <option>Estado</option>
+                            <option>Seleccione</option>
                             <option>En uso</option>
                             <option>En mal estado</option>
                             <option>Extraviado</option>
                             </select>
                         </div> 
                       </div>
-                      <br><br>
+                   
                       <div class="form-group">
-                      <div "col-md-6 col-sm-6 col-xs-12">
-                      <textarea style="width: 1460px;margin-left:10px;margin-top:100px;" rows="3" size="100" value="" class="form-control" name="descripcion" placeholder="Descripcion" id="descripcion"></textarea>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                      <label>Descripción<small class="text-muted"></small></label>
+                      <textarea style="width: 1065px;" rows="3" size="100" value="" class="form-control" name="descripcion" placeholder="Descripción" id="descripcion"></textarea>
                       </div>
                       </div>
                    
@@ -217,7 +225,7 @@ msg("Los datos fueron almacenados con exito");
                       <div class="ln_solid"></div>
                       <div class="form-group" style="margin-top:50px;margin-left:300px">
                         <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                        <button onclick="validar()" class="btn btn-success">Guardar</button>
+                        <button type="submit" onclick="validar()" class="btn btn-success">Guardar</button>
                           <button type="button" class="btn btn-warning">Cancelar</button>
 						   <!-- <button class="btn btn-primary" type="reset">Reset</button> -->
                          
@@ -230,7 +238,39 @@ msg("Los datos fueron almacenados con exito");
               </div>      
             </div>
 
-          
+           <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Lista de equipos</h2>
+
+                    <div class="clearfix"></div>
+                  </div>
+                   <div class="x_content">
+                    <p class="text-muted font-13 m-b-30">
+                      
+                    </p>
+                    <table id="datatable" class="table table-striped table-bordered">
+                      <thead>
+                        <tr>
+                          <th>Nombre</th>
+                          <th>Descripción</th>
+                          <th>Tipo de uso</th>
+                          <th>Marca</th>
+                          <th>Número de serie</th>
+                          <th>Donador</th>
+                          <th>Estado</th>
+                        </tr>
+                      </thead>
+
+
+                      <tbody>
+                        
+                      
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div> 
 
         
           </div>
