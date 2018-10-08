@@ -2,8 +2,6 @@
 $guardo  = $_REQUEST["guardo"];
 if($guardo==1){
 msg("Los datos fueron almacenados con exito");
-}else{
-msg("Los datos fueron almacenados con exito");
 }
 ?>
 <!DOCTYPE html>
@@ -163,8 +161,8 @@ msg("Los datos fueron almacenados con exito");
                       </div>
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                         <label>Marca<small class="text-muted"></small></label>
-                        <input type="text" class="form-control has-feedback-left" id="marc" nme="marc" placeholder="Marca">
-                        <span class="fa fa-registered form-control-feedback left" aria-hidden="true"></span>
+                        <input type="text" class="form-control has-feedback-left" name="mark" id="mark" placeholder="Marca">
+                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                       </div>
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                         <label>Número de serie<small class="text-muted"></small></label>
@@ -238,18 +236,14 @@ msg("Los datos fueron almacenados con exito");
               </div>      
             </div>
 
-           <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="x_panel">
-                  <div class="x_title">
-                    <h2>Lista de equipos</h2>
-
-                    <div class="clearfix"></div>
-                  </div>
-                   <div class="x_content">
-                    <p class="text-muted font-13 m-b-30">
-                      
-                    </p>
-                    <table id="datatable" class="table table-striped table-bordered">
+           
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                  <div class="col-md-12">
+                  <div class="panel">
+                  <div class="panel-heading"><h3>Lista de Equipos</h3></div>
+                    <div class="panel-body">
+                      <div class="responsive-table">
+                      <table id="datatables-example" class="table table-striped table-bordered" width="100%" cellspacing="0">
                       <thead>
                         <tr>
                           <th>Nombre</th>
@@ -261,16 +255,16 @@ msg("Los datos fueron almacenados con exito");
                           <th>Estado</th>
                         </tr>
                       </thead>
-
-
                       <tbody>
                         
-                      
-                      </tbody>
-                    </table>
+                        <?php include('../Controladores/tablaEquipos.php') ?>
+                        </tbody>
+                        </table>
+                      </div>
                   </div>
                 </div>
-              </div> 
+              </div>
+              </div>
 
         
           </div>

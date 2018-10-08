@@ -1,21 +1,22 @@
 <?php
-include "../ProcesoSubir/conexion.php";
-$nom = $_POST['nombre'];
-$descrip = $_POST['descripcion'];
-$tipo = $_POST['tipo'];
-$marc = $_POST['marc'];
+include "../ProcesoSubir/conexioneq.php";
+$nombre   = $_POST['nombre'];
+$descrip   = $_POST['descripcion'];
+$tipo   = $_POST['tipo'];
+$marca  = $_POST['mark'];
 $numserie = $_POST['numserie'];
 $donadores = $_POST['Donantes'];
 $estado = $_POST['estado'];
 $mensaje = "";
+echo $marca;
 
-        $consulta  = "INSERT INTO equipos(nombre,descripcion,tipouso,marca,numeroserie,donadopor,estado) VALUES('$nom','$descrip','$tipo','$marc','$numserie','$donadores','$estado')";
+        $consulta  = "INSERT INTO equipos VALUES('null','" . $nombre . "','" .$descrip. "','" .$tipo. "','" .$marca. "','".$numserie."','".$donadores."','".$estado."')";
         $resultado = $conexion->query($consulta);
           if ($resultado) {
               $mensaje="Se agregaron los datos correctamente";
+              header('Location: ../Vistas/equipos.php?guardo=1');
           } else {
               $mensaje="Error al insertar los datos";
-          }  
-include "../Vistas/equipos.php";
+          }
 
 ?>
