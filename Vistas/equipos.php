@@ -36,6 +36,13 @@ msg("Los datos fueron almacenados con exito");
 
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
+    <!-- Datatables -->
+    <link href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="../vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
+    <link href="../vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+    <link href="../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
+    <link href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+  
     <script type="text/javascript"> 
       function validar(){
         alert("llega");
@@ -238,15 +245,24 @@ msg("Los datos fueron almacenados con exito");
 
            
               <div class="col-md-12 col-sm-12 col-xs-12">
-                  <div class="col-md-12">
-                  <div class="panel">
-                  <div class="panel-heading"><h3>Lista de Equipos</h3></div>
-                    <div class="panel-body">
-                      <div class="responsive-table">
-                      <table id="datatables-example" class="table table-striped table-bordered" width="100%" cellspacing="0">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Lista de Equipos</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                    <p class="text-muted font-13 m-b-30">
+                      
+                    </p>
+                    <table id="datatable" class="table table-striped table-bordered">
                       <thead>
                         <tr>
-                          <th>Nombre</th>
+                        <th>Nombre</th>
                           <th>Descripción</th>
                           <th>Tipo de uso</th>
                           <th>Marca</th>
@@ -256,14 +272,11 @@ msg("Los datos fueron almacenados con exito");
                         </tr>
                       </thead>
                       <tbody>
-                        
-                        <?php include('../Controladores/tablaEquipos.php') ?>
-                        </tbody>
-                        </table>
-                      </div>
+                      <?php include('../Controladores/tablaEquipos.php') ?>
+                      </tbody>
+                    </table>
                   </div>
                 </div>
-              </div>
               </div>
 
         
@@ -314,6 +327,22 @@ msg("Los datos fueron almacenados con exito");
     <script src="../vendors/starrr/dist/starrr.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
+    <!-- Datatables -->
+    <script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="../vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="../vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+    <script src="../vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+    <script src="../vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+    <script src="../vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+    <script src="../vendors/jszip/dist/jszip.min.js"></script>
+    <script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
+    <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
 	
   </body>
 </html>
