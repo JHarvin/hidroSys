@@ -129,15 +129,12 @@
               <div class="col-md-6 col-xs-6">
                 <div class="x_panel">
                       <!-- MODAL-->
-            <div class="modal fade" id="miModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1" id="miModal" role="dialog">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
 
-                            <h4>¿Que desas visualizar?</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+                            <h4>¿Que deseas visualizar?</h4>
                             <h4 class="modal-title" id="myModalLabel"></h4>
                         </div>
                         <div class="modal-body">

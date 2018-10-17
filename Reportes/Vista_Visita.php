@@ -148,7 +148,7 @@
                                           include_once '../ProcesoSubir/conexion.php';
                                           $verPozo= mysqli_query($mysqli,"SELECT id_pozo, codigopozo FROM pozos");
                               ?>
-                            <option>Codigo Pozo</option>
+                                 <option disabled="">Codigo Pozo</option>
                             <?php
                              while ($row = mysqli_fetch_array($verPozo)) {
                                          $idpozo=$row['id_pozo'];
