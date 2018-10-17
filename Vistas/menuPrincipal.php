@@ -39,7 +39,7 @@
                     <ul class="nav child_menu">
                       <li><a href="datosDePozos.php">Datos de pozos</a></li>
                       <li><a href="propietariospozos.php">Propietarios Pozos</a></li>
-                      <li><a href="visitantespozos.php">Visitantes Pozos</a></li>
+                      <li><a href="../visitantesPozoz/visitantespozos.php">Visitantes Pozos</a></li>
                       <li><a href="../ProcesoSubir/SubirPozos.php">Lectura de Pozos</a></li>
                       <li><a href="visitapozos.php">Visita Pozos</a></li>
                       
@@ -71,6 +71,8 @@
                         <li><a href="../Reportes/Vista_Visita.php">Nivel de pozos segun visitas</a></li>
                         <li><a href="../Reportes/Vista_nivel_pozoSensor.php">Nivel de pozo promedio segun lecturas</a></li>
                         <li><a href="../Reportes/Vista_rainRayte.php">Rain Rate promedio</a></li>
+                        <li><a href="../Reportes/vista_GD.php">Reporte teto</a></li>
+                        <li><a href="../Reportes/vista_GD1.php">Reporte teto 1</a></li>
                     </ul>
                   </li>
                   <!--REPORTES-->

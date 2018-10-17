@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	  
-    <title>SICA | </title>
+    <title>Sistema Hidrometeorologico</title>
 
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -39,7 +39,8 @@
           <div class="left_col scroll-view">
              <!-- sidebar menu -->
              <?php 
-               include "menuPrincipal.php";
+               include "../Vistas/menuPrincipal.php";
+               $po=$_GET['po'];
             ?>
             <!-- /sidebar menu -->
 
@@ -79,7 +80,7 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="images/img.jpg" alt="">Fernando Josue
+                    <img src="images/img.jpg" alt="">Kevin Montano
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -107,7 +108,7 @@
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Visitantes pozos.</h3>
+                <h3>Reporte del Rain Rate Promedio</h3>
               </div>
 
               <div class="title_right">
@@ -126,8 +127,58 @@
             <div class="row">
               <div class="col-md-6 col-xs-6">
                 <div class="x_panel">
+                      <!-- MODAL-->
+            <div class="modal fade" id="miModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+
+                            <h4>¿Que desas visualizar?</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel"></h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="input-group">
+                                 <div class="row mb-12" style="float: right;margin-right: 20px; margin-top: 15px;">
+                                    <button type="submit" class="btn btn-warning" name="modCancelar">Cancelar </button>
+
+                                </div>
+                                 <div class="row mb-12" style="float: right; margin-right: 10px; margin-top: 15px;">
+                                     <a href="../Reportes/reporte_GD.php".php?po=<?php echo $po; ?>" class="btn">
+                                    <input type="submit" class="btn btn-info" value="Reporte" name="modGuardar">
+                                      </a>
+
+                                </div>
+                                 
+                                 <div class="row mb-12" style="float: right; margin-right: 10px; margin-top: 15px;">
+                                     <a href="../Reportes/grafica_visita.php?po=<?php echo $po; ?>" class="btn">
+                                   <input type="submit" class="btn btn-success" value="Grafica" name="modGuardar">
+                                    </a>
+                                </div>
+
+                               
+                                </div>
+                            
+                                </div>   
+                                <!--ERROR COMUN Y LO DEJARE AQUI PARA QUE VEAS
+                                LA ETIQUETA </form> DETRO DE ELLA SIEMPRE TEIENE QUE ESTAR LOS BOTONES-->
+
+                                
+                           
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+            <!-- Fin Div de modal-->
+                 <form action="" id="f1" name="f1" method="post" class="form-register" >
+        <!--<input type="hidden" value="upload" id="upload" name="a" />-->
+        <input type="hidden" name="tirar" id="pase"/>
                   <div class="x_title">
-                    <h2>Formulario de ingreso.</h2>
+                    
                     <ul class="nav navbar-right panel_toolbox">                   
                     </ul>
                     <div class="clearfix"></div>
@@ -136,28 +187,23 @@
                     <br />
                     <form class="form-horizontal form-label-left input_mask">
 
-                      <div class="col-md-6 col-sm-6 col-xs-6 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="DUI">
-                        <span class="fa fa-barcode form-control-feedback left" aria-hidden="true"></span>
+                      <div class="col-md-5 col-sm-5 col-xs-5 form-group has-feedback">
+                        <h4>Estado del Pozo</h4>
                       </div>
-                      <div class="col-md-6 col-sm-6 col-xs-6 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Nombre">
-                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
-                      </div>
-                      <div class="col-md-6 col-sm-6 col-xs-6 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Celular">
-                        <span class="fa fa-phone form-control-feedback left" aria-hidden="true"></span>
-                      </div>
-
-
-                      <div class="form-group">
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <select class="form-control">
-                            <option>Tipo</option>
-                            <option>Estudiante.</option>
-                            <option>Docente</option>
-                            <option>Investigador</option>
-                          </select>
+                         <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                            <select class="form-control" name="pozo">
+                              <?php
+                                          include_once '../ProcesoSubir/conexion.php';
+                                          $verPozo= mysqli_query($mysqli,"SELECT id_pozo, estado FROM pozos");
+                              ?>
+                            <option>Seleccionar</option>
+                            <?php
+                             while ($row = mysqli_fetch_array($verPozo)) {
+                                         $idpozo=$row['id_pozo'];
+                                           echo '<option value='."$row[0]".'>'.$row['1'].'</option>';
+                                    }
+                                    ?>
+                            </select>
                         </div>
                       </div>
                      
@@ -170,7 +216,7 @@
                       <div class="ln_solid"></div>
                       <div class="form-group">
                         <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                        <button type="submit" class="btn btn-success">Guardar</button>
+                            <button type="submit" class="btn btn-success">Procesar</button>
                           <button type="button" class="btn btn-warning">Cancelar</button>
 						   <!-- <button class="btn btn-primary" type="reset">Reset</button> -->
                          
@@ -192,9 +238,8 @@
 
         <!-- footer content -->
        <?php 
-       include "footer.php";
-       ?>
-        <!-- /footer content -->
+       include "../Vistas/footer.php";
+  ?>      
       </div>
     </div>
 
@@ -236,3 +281,6 @@
 	
   </body>
 </html>
+<script type="text/javascript">
+    $('#miModal').modal('show');
+</script>
