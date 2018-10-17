@@ -28,6 +28,11 @@
     <!-- bootstrap-daterangepicker -->
     <link href="../../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
 
+    <!-- PNotify -->
+    <link href="../../vendors/pnotify/dist/pnotify.css" rel="stylesheet">
+    <link href="../../vendors/pnotify/dist/pnotify.buttons.css" rel="stylesheet">
+    <link href="../../vendors/pnotify/dist/pnotify.nonblock.css" rel="stylesheet">
+
     <!-- Datatables -->
     <link href="../../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
     <link href="../../vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
@@ -175,6 +180,7 @@
                      
                     <button type="button" id="btnregistro" name="btnregistro" class="btn btn-primary"><i class="fa fa-plus"></i> Agregar Responsable</button>
                     <br /> <br /> 
+                    
                     <form class="form-horizontal form-label-left">
 
                    
@@ -184,33 +190,34 @@
                       <thead>
                         <tr>
                           <th>No.</th>
-                          <th>Nombres</th>
+                          <th>Intituci&oacute;n</th>
+                          <th>Responsable</th>
                           <th>Direcci&oacute;n</th>
                           <th>Acciones</th>
                         </tr>
                       </thead>
                       <tbody>
                       <?php
-                      require '../../ProcesoSubir/conexioneq.php';
-                      $result = $conexion->query("SELECT * FROM respestaciones");
-                      $contador=1;
-                      if ($result) {
-                        while ($fila = $result->fetch_object()) {
-                         
-                          echo "<tr>";
-                          echo "<td>" .$contador. "</td>";
-                          echo "<td>" . $fila->nombre . "</td>";
-                          echo "<td>" . $fila->direccion . " </td>";
-                          echo "<td> <a class='btn btn-success openBtn' type='button' onclick='ver(".$fila->idresponsable.")'><i class='fa fa-eye'></i></a>
-                                     <a class='btn btn-info' onclick='modify(".$fila->idresponsable.")' ><i class='fa fa-edit'></i></a>
-                                     <a class='btn btn-danger' onclick='confirmar(".$fila->idresponsable.")' ><i class='fa fa-long-arrow-down'></i></a>
-                                      </td>";
-                          echo "</tr>";
-                          $contador++;
+                            require '../../ProcesoSubir/conexioneq.php';
+                            $result = $conexion->query("SELECT * FROM respestaciones");
+                            $contador=1;
+                            if ($result) {
+                                while ($fila = $result->fetch_object()) {
+                                                
+                                    echo "<tr>";
+                                    echo "<td>" .$contador. "</td>";
+                                    echo "<td>" . $fila->institucion . "</td>";
+                                    echo "<td>" . $fila->responsable . "</td>";
+                                    echo "<td>" . $fila->direccion . " </td>";
+                                    echo "<td> <a class='btn btn-success openBtn' type='button' onclick='ver(".$fila->idresponsable.")'><i class='fa fa-eye'></i></a>
+                                                <a class='btn btn-info' onclick='modify(".$fila->idresponsable.")' ><i class='fa fa-edit'></i></a>
+                                            </td>";
+                                    echo "</tr>";
+                                    $contador++;
 
-                        }
-                       }
-                      ?>
+                                }
+                            }
+                        ?>
                         
                       </tbody>
                     </table>
@@ -235,45 +242,46 @@
 
                         <div class="modal-body1">
                         <br/>
+                        
                         <!--inicia el div para capturar la imagen -->
                         <div class="form-group " align="center" >
                           <label for="control-label" for="foto">Foto</label>
                           <div name="preview" id="preview" class="thumbnail">
                             <a href="#" id="file-select" class="btn btn-success"><span class="fa fa-camera">&nbsp;&nbsp;&nbsp;</span>Elegir archivo</a>
-                            <img src="../images/user9.jpg"/>
+                            <img id="imagen" name="imagen" src="../images/img2.png"/>
                           </div>
 
                             <div id="file-submit" >
-                              <input id="file" name="file" type="file" accept="image/*" required/>
+                              <input id="file" name="file" type="file" accept="image/*"/>
                               <span class="help-block" id="error"></span>
                             </div> 
                           </div><br><br>
                         <!--finaliza el div para capturar la imagen -->
                         
                         <div class="form-group">
-                          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nombre">Nombre: <span class="required" style="color: #CD5C5C;"> *</span>
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="institucion">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Instituci&oacute;n: <span class="required" style="color: #CD5C5C;"> *</span>
                           </label>
-                          <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input type="text" id="nombre" name="nombre" placeholder="Digite Nombre Completo" class="form-control col-md-7 col-xs-12" tabindex="1">
+                          <div class="col-md-8 col-sm-8 col-xs-12">
+                            <input type="text" id="institucion" name="institucion" placeholder="Digite Nombre Instituci&oacute;n (Alcad&iacute;a, Unidad, Otro)" class="form-control col-md-7 col-xs-12" tabindex="1">
                             <br>
                             <span class="help-block" id="error"></span>
                           </div>
                         </div><br><br><br>
 
                         <div class="form-group">
-                          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="dui">DUI: <span class="required" style="color: #CD5C5C;"> *</span>
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="responsable">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Responsable: <span class="required" style="color: #CD5C5C;"> *</span>
                           </label>
-                          <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input type="text" id="dui" name="dui" placeholder="Digite DUI" class="form-control col-md-7 col-xs-12" tabindex="2">
+                          <div class="col-md-8 col-sm-8 col-xs-12">
+                            <input type="text" id="responsable" name="responsable" placeholder="Digite Nombre Completo del Responsable" class="form-control col-md-7 col-xs-12" tabindex="2">
                             <br>
                             <span class="help-block" id="error"></span>
                           </div>
                         </div><br><br><br>
 
                         <div class="form-group">
-                          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="direccion">Direcci&oacute;n: <span class="required" style="color: #CD5C5C;"> *</span>
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="direccion">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Direcci&oacute;n: <span class="required" style="color: #CD5C5C;"> *</span>
                           </label>
-                          <div class="col-md-9 col-sm-9 col-xs-12">
+                          <div class="col-md-8 col-sm-8 col-xs-12">
                             <input type="text" id="direccion" name="direccion" placeholder="Digite Direcci&oacute;n" class="form-control col-md-7 col-xs-12" tabindex="3">
                             <br>
                             <span class="help-block" id="error"></span>
@@ -281,19 +289,19 @@
                         </div><br><br><br>
 
                         <div class="form-group">
-                          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="telefono1">Tel&eacute;fono 1: 
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="telefono1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tel&eacute;fono 1: 
                           </label>
-                          <div class="col-md-9 col-sm-9 col-xs-12">
+                          <div class="col-md-3 col-sm-3 col-xs-12">
                             <input type="text" id="telefono1" name="telefono1" placeholder="Digite N&uacute;mero de Tel&eacute;fono" class="form-control col-md-7 col-xs-12" tabindex="4">
                             <br>
                             <span class="help-block" id="error"></span>
                           </div>
-                        </div><br><br><br>
+                        </div>
 
                         <div class="form-group">
                           <label class="control-label col-md-3 col-sm-3 col-xs-12" for="telefono2">Tel&eacute;fono 2: 
                           </label>
-                          <div class="col-md-9 col-sm-9 col-xs-12">
+                          <div class="col-md-3 col-sm-3 col-xs-12">
                             <input type="text" id="telefono2" name="telefono2" placeholder="Digite N&uacute;mero de Tel&eacute;fono" class="form-control col-md-7 col-xs-12" tabindex="5">
                             <br>
                             <span class="help-block" id="error"></span>
@@ -305,7 +313,8 @@
                         </div>
                         <div class="modal-footer">
                           <p align="left" style="color:RGB(205, 92, 92);">( * ) Campos Obligatorios.</p>
-                          <button class="btn btn-primary" type="button"  id="modalguardar" name="modalguardar"><i class="fa fa-save">  Guardar</i></button>
+                          <button class="btn btn-round btn-primary" type="button"  id="modalguardar" name="modalguardar"><i class="fa fa-save">  Guardar</i></button>
+                          <button type="button" class="btn btn-round btn-default" data-dismiss="modal"><i class="fa fa-ban">  Cancelar</i></button>
                         </div>
 
                        
@@ -363,6 +372,10 @@
     <script src="../../vendors/starrr/dist/starrr.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="../../build/js/custom.min.js"></script>
+    <!-- PNotify -->
+    <script src="../../vendors/pnotify/dist/pnotify.js"></script>
+    <script src="../../vendors/pnotify/dist/pnotify.buttons.js"></script>
+    <script src="../../vendors/pnotify/dist/pnotify.nonblock.js"></script>
     <!-- Datatables -->
     <script src="../../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="../../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
@@ -383,7 +396,7 @@
     <!-- validator -->
     <script src="../../vendors/validar/jquery.validate.js"></script>
   
-    <script src="../../Vistas/RepresentanteEstaciones/validarResponsable.js"></script>
+     <script src="../../Vistas/ResponsablesEstaciones/validarResponsable.js"></script> 
 	
   </body>
 </html>

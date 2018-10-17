@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    $('#preview').hover(
+      $('#preview').hover(
         function() {
             $(this).find('a').fadeIn();
         }, function() {
@@ -70,17 +70,17 @@ $(document).ready(function(){
         },
       rules: {
 
-        nombre: {
-          letrasOespacio: true,
+        institucion: {
+          alfanumOespacio: true,
           required: true,
           minlength: 7,
           maxlength: 50
         },
-        dui: {
-          numero: true,
+        responsable: {
+          letrasOespacio: true,
           required: true,
-          minlength: 10,
-          maxlength: 10
+          minlength: 7,
+          maxlength: 50
         },
 
        telefono1: {
@@ -99,7 +99,7 @@ $(document).ready(function(){
 
 
         direccion: {
-          letrasOespacio: true,
+          alfanumOespacio: true,
           required: true,
           minlength: 10,
           maxlength: 80
@@ -108,20 +108,15 @@ $(document).ready(function(){
       },
 
       messages: {
-        
-      
-        nombre: {
-          required: "Por favor, ingrese nombres.",
-          maxlength: "Debe ingresar m&aacute;ximo 50 carácteres.",
+        institucion: {
+          required: "Por favor, ingrese instituci&oacute;n.",
+          maxlength: "Debe ingresar m&aacute;ximo 80 carácteres.",
           minlength: "Debe ingresar m&iacute;nimo 7 carácteres."
         },
-
-       
-
-        dui: {
-          required: "Por favor, ingrese DUI.",
-          maxlength: "Debe ingresar m&aacute;ximo 10 dígitos.",
-          minlength: "Debe ingresar m&iacute;nimo 10 dígitos."
+        responsable: {
+          required: "Por favor, ingrese responsable.",
+          maxlength: "Debe ingresar m&aacute;ximo 80 carácteres.",
+          minlength: "Debe ingresar m&iacute;nimo 7 carácteres."
         },
 
         telefono1: {
@@ -135,8 +130,6 @@ $(document).ready(function(){
           maxlength: "Debe ingresar m&aacute;ximo 9 dígitos.",
           minlength: "Debe ingresar m&iacute;nimo 9 dígitos."
         },
-
-        
         direccion: {
           required: "Por favor, ingrese dirección.",
           maxlength: "Debe ingresar m&aacute;ximo 80 carácteres.",
@@ -146,38 +139,9 @@ $(document).ready(function(){
       }
     });
 
-
-  $('#facultad').on('change', function(){
-    var id = $('#facultad').val()
-    $.ajax({
-      type: 'POST',
-      url: '../../../produccion/Administracion/Estudiante/comboCarrera.php',
-      data: {'id': id}
-    })
-    .done(function(listas_rep){
-      $('#carrera').html(listas_rep)
-    })
-    .fail(function(){
-      alert('Hubo un errror al cargar las Carreras')
-    })
-  })
-
-
+   
 });
 
-  $("#carrera").keypress(function(e) {
-       if(e.which == 13) {
-          $('#btnguardar').click();
-       }
-    });
-
-  $("#btnguardar").click(function(){
-    if($("#formestudiante").valid()){
-     document.getElementById('bandera').value="add";
-      $("#formestudiante").submit();
-    }
-    
-  });
 
   $("#btnregistro").click(function(){
     $('#registro').modal({show:true});
@@ -186,65 +150,68 @@ $(document).ready(function(){
 
 
   $("#modalguardar").click(function(){
-    if($("#fromregistro").valid()){
-
-        swal({
-            title: "Advertencia",
-            text: "¿Desea Dar Baja a Este Registro?",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Si",
-            cancelButtonText: "No",
-            closeOnConfirm: false,
-            closeOnCancel: false },
-            
-            function(isConfirm){
-            if (isConfirm) {
-                //Si
-                var observacion = $('#observacion').val();
-                var bandera = "darbaja";
-                var baccion = $('#baccion').val();
+    if($("#fromregistro").valid()){ 
+        
+                var foto = $('#file').val();
+                var institucion = $('#institucion').val(); 
+                var responsable = $('#responsable').val();
+                var direccion = $('#direccion').val();
+                var telefono1 = $('#telefono1').val();
+                var telefono2 = $('#telefono2').val();
+                var bandera = "guardar";
+               
                 
                 $.ajax({
                   type: 'POST',
-                  url: '../../../build/config/sql/estudiante/crud_estudiante.php',
-                  data: {'observacion': observacion, 'bandera' : bandera, 'baccion' : baccion}
+                  url: '../../Controladores/crudresponsablesestaciones.php',
+                  data: {'institucion': institucion, 
+                         'responsable': responsable,
+                         'direccion': direccion,
+                         'telefono1': telefono1,
+                         'telefono2': telefono2,
+                         'foto': foto,
+                         'bandera' : bandera}
                 })
                 .done(function(listas_rep){
+                 // alert(listas_rep);
                     if(listas_rep === "Exito"){
-                        $("#observacion").val("");
-                        $('#darBaja').modal('hide'); 
-                        swal({ 
-                          title:'Éxito',
+                        $("#institucion").val("");
+                        $("#responsable").val("");
+                        $("#direccion").val("");
+                        $("#telefono1").val("");
+                        $("#telefono2").val("");
+                        $("#file").val("");
+                        $('#preview img').attr('src', '../images/img2.png');
+                        $('#registro').modal('hide'); 
+                        new PNotify({
+                          title: 'Éxito',
                           text: 'Datos Almacenados',
-                          type: 'success'
-                        },
-                         function(){
-                            //event to perform on click of ok button of sweetalert
-                            location.href='../../../produccion/Administracion/Estudiante/listar_Estudiante.php';
-                        })
-    
+                          type: 'success',
+                          styling: 'bootstrap3'
+                        });
+                        
+  
                     }
                     if(listas_rep === "Error"){
-                      $("#observacion").val("");
-                      $('#darBaja').modal('hide'); 
-                      swal("Advertencia", "Sin Conexión Dase Datos", "warning")
+                      $("#institucion").val("");
+                      $("#responsable").val("");
+                      $("#direccion").val("");
+                      $("#telefono1").val("");
+                      $("#telefono2").val("");
+                      $("#file").val("");
+                      $('#preview img').attr('src', '../images/img2.png');
+                      $('#registro').modal('hide'); 
+                      new PNotify({
+                        title: 'Advertencia',
+                        text: 'Sin Conexión Dase Datos',
+                        type: 'warning',
+                        styling: 'bootstrap3'
+                    });
                     }                
                     })
                     .fail(function(){
                       alert('Hubo un errror al cargar la Pagina')
                     })
-            } else {
-                 //No
-                $("#observacion").val("");
-                $('#darBaja').modal('hide'); 
-               
-            swal("Éxito",
-            "Actualización Cancelada",
-            "success");
-            }
-            });
-      
-    }
+                  }
+    
 });
