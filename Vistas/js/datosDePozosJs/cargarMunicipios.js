@@ -12,8 +12,13 @@ $(document).ready(function(){
                 url: '../Controladores/datosDePozos/extraerMunicipios.php',
                 data:{depto:depto},
                 success:function(data){
-                    alert(""+data);
-                    
+                    if(data!= 0){
+                        $("#municipio").html(data);
+                        alert(data);
+                    }
+                    else{
+                        $("#municipio").html("<option value=''>No hay municipios para el departamento</option>");
+                    }
                     
                 },
                 error:function(data){
