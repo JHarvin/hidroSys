@@ -28,6 +28,13 @@
     <!-- bootstrap-daterangepicker -->
     <link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
 
+    <!-- Datatables -->
+    <link href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="../vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
+    <link href="../vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+    <link href="../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
+    <link href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
   </head>
@@ -125,56 +132,61 @@
             
             <div class="row">
               <div class="col-md-12 col-xs-12">
+              
                 <div class="x_panel">
-                  <div class="x_title">
-                    <h2>Formulario de ingreso de datos</h2>
-                    <ul class="nav navbar-right panel_toolbox">                   
-                    </ul>
+                  
+                    
+                   
+                    
+                    <div class="x_title">
+                    <h2>Lista de Responsables</h2>
+                   
+                    
                     <div class="clearfix"></div>
+                    
                   </div>
-                  <div class="x_content">
-                    <br />
-                    <form class="form-horizontal form-label-left input_mask">
 
-                      <div class="col-md-6 col-sm-6 col-xs-6 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left" id="dui" placeholder="DUI">
-                        <span class="fa fa-barcode form-control-feedback left" aria-hidden="true"></span>
-                      </div>
-                      <div class="col-md-6 col-sm-6 col-xs-6 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Teléfono">
-                        <span class="fa fa-phone form-control-feedback left" aria-hidden="true"></span>
-                      </div>
-                      <div class="col-md-6 col-sm-6 col-xs-6 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Nombre del Responsable">
-                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
-                      </div>
-                      <div class="col-md-6 col-sm-6 col-xs-6 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Dirección">
-                        <span class="fa fa-map form-control-feedback left" aria-hidden="true"></span>
-                      </div>
-                      <div class="input-group " style="padding-bottom:25px;">
-     </i><span class="label label-default" style="width: 100px; font-size: 15px;margin-right:20px;margin-left:20px">Tipo</span>
-     <label class="radio-inline" style="width: 100px; font-size: 15px"><input type="radio" name="optradio">Comunidad</label>
-     <label class="radio-inline" style="width: 100px; font-size: 15px"><input type="radio" name="optradio">Institución</label>
-     <label class="radio-inline" style="width: 100px; font-size: 15px"><input type="radio" name="optradio">Estación</label>
-     </div>
-     
-                      <div class="form-group">
-                        <!--Este div es para que agarre la linea que separa los botones.-->
-                      </div>
+
+                    <div class="x_content">
                      
-                      
-                      
-                      <div class="ln_solid"></div>
-                      <div class="form-group">
-                        <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                        <button type="submit" class="btn btn-success">Guardar</button>
-                          <button type="button" class="btn btn-warning">Cancelar</button>
-						   <!-- <button class="btn btn-primary" type="reset">Reset</button> -->
-                         
-                        </div>
-                      </div>
+                    <button type="button" class="btn btn-primary">Agregar Responsable</button>
+                    <br /> <br /> 
+                    <form class="form-horizontal form-label-left">
 
+                    <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                      <thead>
+                        <tr>
+                          <th>No.</th>
+                          <th>Nombres</th>
+                          <th>Direcci&oacute;n</th>
+                          <th>Acciones</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      <?php
+                      require '../ProcesoSubir/conexioneq.php';
+                      $result = $conexion->query("SELECT * FROM respestaciones");
+                      $contador=1;
+                      if ($result) {
+                        while ($fila = $result->fetch_object()) {
+                         
+                          echo "<tr>";
+                          echo "<td>" .$contador. "</td>";
+                          echo "<td>" . $fila->nombre . "</td>";
+                          echo "<td>" . $fila->direccion . " </td>";
+                          echo "<td> <a class='btn btn-success openBtn' type='button' onclick='ver(".$fila->idresponsable.")'><i class='fa fa-eye'></i></a>
+                                     <a class='btn btn-info' onclick='modify(".$fila->idresponsable.")' ><i class='fa fa-edit'></i></a>
+                                     <a class='btn btn-danger' onclick='confirmar(".$fila->idresponsable.")' ><i class='fa fa-long-arrow-down'></i></a>
+                                      </td>";
+                          echo "</tr>";
+                          $contador++;
+
+                        }
+                       }
+                      ?>
+                        
+                      </tbody>
+                    </table>
                     </form>
                   </div>
                 </div>
@@ -231,6 +243,24 @@
     <script src="../vendors/starrr/dist/starrr.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
-	
+    <!-- Datatables -->
+    <script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="../vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="../vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+    <script src="../vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+    <script src="../vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+    <script src="../vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+    <script src="../vendors/jszip/dist/jszip.min.js"></script>
+    <script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
+    <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
+  
+
+    <script src="../"></script>
   </body>
 </html>
