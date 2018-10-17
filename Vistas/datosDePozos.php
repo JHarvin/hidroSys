@@ -1,3 +1,9 @@
+<?php
+header("Content-Type: text/html;charset=utf-8");
+include "../conexion/conexion.php";
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -159,25 +165,26 @@
 
                         <span class="fa fa-barcode form-control-feedback left" aria-hidden="true"></span>
                       </div>
+
                       
                         <div class="col-md-6 col-sm-6 col-xs-12 form-group">
                           <select id="departamento" name="departamento" class="form-control">
-                            <option>Departamento</option>
-                            <option >San Vicente</option>
-                            <option>Cabañas</option>
-                            <option>Usulutan</option>
-                            <option>La Union</option>
+                            <option value="" disabled selected hidden>Seleccione un departamento</option>
+                              <?php 
+                                $result = $conexion->query("SELECT * FROM departamentos");
+                                while($fila=$result->fetch_object()){
+
+                                  echo "<option value=".$fila->iddepto.">".$fila->nombredepto."</option>";
+                                }
+                              ?>
                             </select>
                         </div>
                       
                       
                         <div class="col-md-6 col-sm-6 col-xs-12 form-group">
                           <select id="municipio" name="municipio" class="form-control">
-                            <option>Municipio</option>
-                            <option>San Vicente</option>
-                            <option>Tepetitan</option>
-                            <option>San Cayetano Istepeque</option>
-                            <option>Verapaz</option>
+                            <option value="" disbled selected hidden>Seleccione un municipio</option>
+                            
                             </select>
                         </div>
                       
@@ -526,6 +533,12 @@
     <script src="../vendors/jszip/dist/jszip.min.js"></script>
     <script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
     <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
+
+    <!--Escripts de pre procesamiento-->
+
+    <script src="js/datosDePozosJs/cargarMunicipios.js"></script>
+    
+    <!--Escripts de pre procesamiento-->
 	
 	<!--Configuaracion de las mascaras del formulario-->
 	<script>
