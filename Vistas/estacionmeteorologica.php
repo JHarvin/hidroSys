@@ -389,7 +389,7 @@ $lista1    = $_REQUEST["lista1"];
 $lista2    = $_REQUEST["lista2"];
 $responsable = $_REQUEST["responsable"];
 
-$imagenProducto = $_REQUEST["imagen"];
+$imagenEstacion = $_REQUEST["imagen"];
 
 if ($bandera == "add") {
     $permitidos = array("image/jpg", "image/jpeg", "image/png");
@@ -406,7 +406,7 @@ if ($bandera == "add") {
         //escapar los caracteres
         $data      = mysqli_real_escape_string($conexion, $data);
         
-        $consulta  = "INSERT INTO productos VALUES('null','" . $codigoProducto . "','" . $nombreProducto . "',' 0 ',' 0 ','" . $data . "','" . $tipo . "','" . $categoria  . "',' 0
+        $consulta  = "INSERT INTO estacionmet VALUES('null','" . $codigo . "','" . $lista1 . "','" . $lista2 . "',' 0 ',' 0 ','" . $data . "','" . $tipo . "','" . $categoria  . "',' 0
         ','" . $stockMin . "','" . $proveedor . "','" . $margen . "','" . $descripcion . "','0')";
         msg($consulta);
         $resultado = $conexion->query($consulta);
