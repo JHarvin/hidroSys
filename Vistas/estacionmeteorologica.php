@@ -164,7 +164,7 @@ error_reporting(E_ALL & ~E_NOTICE);
               <div class="col-md-6 col-xs-6">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Formulario de ingreso de datos</h2>
+                    <h2>Ingreso de datos</h2>
                     <ul class="nav navbar-right panel_toolbox">                   
                     </ul>
                     <div class="clearfix"></div>
@@ -298,10 +298,10 @@ error_reporting(E_ALL & ~E_NOTICE);
                       <tbody>
                         
                         <tr>
-                          <td>svsv1</td>
+                          <td>SASV001</td>
                           <td>San Vicente</td>
                           <td>San Vicente</td>
-                          <td>123441421</td>
+                          <td>Mauricio</td>
                           
                           <td width=160>
                             <button type="button" class="btn btn-success" data-toggle="modal" data-target=".detalle-modal-lg"><i class="fa fa-search"></i></button>
