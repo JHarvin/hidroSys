@@ -208,7 +208,7 @@ error_reporting(E_ALL & ~E_NOTICE);
                         </div>
                         <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <select class="form-control">
+                          <select class="form-control" id="responsable" name="responsable">
                             <option>Responsable</option>
                             <option>Investigador</option>
                             <option>Docente</option>
@@ -223,8 +223,8 @@ error_reporting(E_ALL & ~E_NOTICE);
                         </div>
                       </div>
                       
-                        <input type="hidden" class="form-control has-feedback-left" id="longitud" placeholder="Longitud">
-                        <input type="hidden" class="form-control has-feedback-left" id="latitud" placeholder="Latitud">
+                        <input type="hidden" class="form-control has-feedback-left" id="longitud" name="longitud" placeholder="Longitud">
+                        <input type="hidden" class="form-control has-feedback-left" id="latitud" name="latitud" placeholder="Latitud">
                       
 
                       </div>
@@ -384,17 +384,13 @@ error_reporting(E_ALL & ~E_NOTICE);
 <?php
 include "../config/conexion.php";
 $bandera          = $_REQUEST["bandera"];
-$nombreProducto    = $_REQUEST["nombreProducto"];
-$codigoProducto  = $_REQUEST["codigoProducto"];
-$descripcion  = $_REQUEST["descripcion"];
-$stockMin = $_REQUEST["stockMin"];
-$margen = $_REQUEST["margen"];
-$proveedor = $_REQUEST["proveedor"];
-$categoria = $_REQUEST["categoria"];
+$codigo    = $_REQUEST["codigo"];
+$lista1    = $_REQUEST["lista1"];
+$lista2    = $_REQUEST["lista2"];
+$responsable = $_REQUEST["responsable"];
+
 $imagenProducto = $_REQUEST["imagen"];
-$precioProducto=0;
-$cantidadProducto=0;
-$disponibilidad=0;
+
 if ($bandera == "add") {
     $permitidos = array("image/jpg", "image/jpeg", "image/png");
     $limite_kb  = 16384; //tamanio maximo que permitira subir, es el limite de medium blow(16mb)

@@ -182,7 +182,7 @@ msg("Los datos fueron almacenados con exito");
                         <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                       </div>
                       <div class="form-group">
-                        <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="col-md-4 col-sm-4 col-xs-12">
                           <label>Tipo de uso<small class="text-muted"></small></label>
                           <select class="form-control" name="tipo">
                             <option>Seleccione</option>
@@ -194,7 +194,7 @@ msg("Los datos fueron almacenados con exito");
                         </div>
                       </div>
                       <div class="form-group">
-                        <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="col-md-4 col-sm-4 col-xs-12">
                           <label>Estado del equipo<small class="text-muted"></small></label>
                           <select class="form-control" name="estado">
                             <option>Seleccione</option>
@@ -202,6 +202,13 @@ msg("Los datos fueron almacenados con exito");
                             <option>En mal estado</option>
                             <option>Extraviado</option>
                             </select>
+                        </div> 
+                      </div>
+
+                      <div class="form-group">
+                        <div class="col-md-4 col-sm-4 col-xs-12">
+                          <label>Imagen<small class="text-muted"></small></label>
+                            <input name="imagen" type="file" onChange="ver(form.file.value)" required accept="image/jpg,image/png,image/jpeg"> 
                         </div> 
                       </div>
                    
@@ -269,6 +276,7 @@ msg("Los datos fueron almacenados con exito");
                           <th>Número de serie</th>
                           <th>Donador</th>
                           <th>Estado</th>
+                          <th>Acciones</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -291,6 +299,150 @@ msg("Los datos fueron almacenados con exito");
         <!-- /footer content -->
       </div>
     </div>
+     <!--Detalle modal-->
+     <div class="modal fade detalle-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><strong><i class="fa fa-list-ul fa-2x"></i></strong></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                  <table class="table table-bordered">
+                    
+                      <thead>
+                        <tr><th colspan=5 style="text-align:center;"> DETALLE DE EQUIPO </th></tr>
+                    </table>
+
+                  
+                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                        <label>Nombre del Equipo<small class="text-muted"></small></label>
+                        <input type="text" class="form-control has-feedback-left" name="Donantes" id="donadores" placeholder="Donadores">
+                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                        <label>Marca<small class="text-muted"></small></label>
+                        <input type="text" class="form-control has-feedback-left" name="Donantes" id="donadores" placeholder="Donadores">
+                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                        <label>Numero de Serie<small class="text-muted"></small></label>
+                        <input type="text" class="form-control has-feedback-left" name="Donantes" id="donadores" placeholder="Donadores">
+                        <span class="fa fa-list-ol form-control-feedback left" aria-hidden="true"></span>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                        <label>Docentes<small class="text-muted"></small></label>
+                        <input type="text" class="form-control has-feedback-left" name="Donantes" id="donadores" placeholder="Donadores">
+                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                        <label>Tipo de Uso<small class="text-muted"></small></label>
+                        <input type="text" class="form-control has-feedback-left" name="Donantes" id="donadores" placeholder="Donadores">
+                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                        <label>Estado del Equipo<small class="text-muted"></small></label>
+                        <input type="text" class="form-control has-feedback-left" name="Donantes" id="donadores" placeholder="Donadores">
+                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                        </div>
+                        <div class="form-group">
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                      <label>Descripción<small class="text-muted"></small></label>
+                      <textarea style="width: 850px;" rows="3" size="100" value="" class="form-control" name="descripcion" placeholder="Descripción" id="descripcion"></textarea>
+                      </div>
+                      </div>
+                  </div>
+               
+                    
+                
+                  
+                  
+                </div>
+                <div class="modal-footer">
+                  
+                  <button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
+                </div>
+
+                </div><!--Fin del content-->
+              </div>
+         </div>  
+      
+      <!--Detalle modal-->
+      <!--Modificacion modal-->
+     <div class="modal fade modifi-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><strong><i class="fa fa-list-ul fa-2x"></i></strong></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                  <table class="table table-bordered">
+                    
+                      <thead>
+                        <tr><th colspan=5 style="text-align:center;">MODIFICAR EQUIPO </th></tr>
+                    </table>
+
+                  
+                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                        <label>Nombre del Equipo<small class="text-muted"></small></label>
+                        <input type="text" class="form-control has-feedback-left" name="Donantes" id="donadores" placeholder="Donadores">
+                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                        <label>Marca<small class="text-muted"></small></label>
+                        <input type="text" class="form-control has-feedback-left" name="Donantes" id="donadores" placeholder="Donadores">
+                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                        <label>Numero de Serie<small class="text-muted"></small></label>
+                        <input type="text" class="form-control has-feedback-left" name="Donantes" id="donadores" placeholder="Donadores">
+                        <span class="fa fa-list-ol form-control-feedback left" aria-hidden="true"></span>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                        <label>Docentes<small class="text-muted"></small></label>
+                        <input type="text" class="form-control has-feedback-left" name="Donantes" id="donadores" placeholder="Donadores">
+                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                        <label>Tipo de Uso<small class="text-muted"></small></label>
+                        <input type="text" class="form-control has-feedback-left" name="Donantes" id="donadores" placeholder="Donadores">
+                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                        <label>Estado del Equipo<small class="text-muted"></small></label>
+                        <input type="text" class="form-control has-feedback-left" name="Donantes" id="donadores" placeholder="Donadores">
+                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                        </div>
+                        <div class="form-group">
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                      <label>Descripción<small class="text-muted"></small></label>
+                      <textarea style="width: 850px;" rows="3" size="100" value="" class="form-control" name="descripcion" placeholder="Descripción" id="descripcion"></textarea>
+                      </div>
+                      </div>
+                  </div>
+               
+                    
+                
+                  
+                  
+                </div>
+                <div class="modal-footer">
+                  
+                  <button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
+                </div>
+
+                </div><!--Fin del content-->
+              </div>
+         </div>  
+      
+      <!--Modificacion modal-->
 
     <!-- jQuery -->
     <script src="../vendors/jquery/dist/jquery.min.js"></script>

@@ -11,6 +11,11 @@ if ($result) {
         echo "<td>" . $fila->numeroserie. "</td>";
         echo "<td>" . $fila->donadopor . "</td>";
         echo "<td>" . $fila->estado . "</td>";
+        echo "<td width=160>
+                            <button type='button' class='btn btn-success' data-toggle='modal' data-target='.detalle-modal-lg' style='width:45px;'><i class='fa fa-eye'></i></button>
+                            <button type='button' class='btn btn-success' data-toggle='modal' data-target='.modifi-modal-lg' style='width:45px;'><i class='fa fa-pencil'></i></button>
+                            <button type='button' class='btn btn-danger' style='width:45px;'><i class='fa fa-down'></i></button>
+        </td>";
      /*   if ($fila->eestado==1) {
             echo "<td>Activo</td>";
              //echo "<td><img src='imagenes.php?id=" . $fila->idempleados . "&tipo=empleado' width=100 height=180></td>";
