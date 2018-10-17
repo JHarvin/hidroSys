@@ -182,7 +182,7 @@ msg("Los datos fueron almacenados con exito");
                         <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                       </div>
                       <div class="form-group">
-                        <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="col-md-4 col-sm-4 col-xs-12">
                           <label>Tipo de uso<small class="text-muted"></small></label>
                           <select class="form-control" name="tipo">
                             <option>Seleccione</option>
@@ -194,7 +194,7 @@ msg("Los datos fueron almacenados con exito");
                         </div>
                       </div>
                       <div class="form-group">
-                        <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="col-md-4 col-sm-4 col-xs-12">
                           <label>Estado del equipo<small class="text-muted"></small></label>
                           <select class="form-control" name="estado">
                             <option>Seleccione</option>
@@ -202,6 +202,13 @@ msg("Los datos fueron almacenados con exito");
                             <option>En mal estado</option>
                             <option>Extraviado</option>
                             </select>
+                        </div> 
+                      </div>
+
+                      <div class="form-group">
+                        <div class="col-md-4 col-sm-4 col-xs-12">
+                          <label>Imagen<small class="text-muted"></small></label>
+                            <input name="imagen" type="file" onChange="ver(form.file.value)" required accept="image/jpg,image/png,image/jpeg"> 
                         </div> 
                       </div>
                    
