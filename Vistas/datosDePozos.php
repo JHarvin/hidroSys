@@ -549,11 +549,10 @@ include "../conexion/conexion.php";
 });
       </script>
       <script>
-//--codigo para generar el codigo del poso el que dijo la ing
-          //--sobre que si el poso esta ahuchapan y municipio san sebastian el codigo 
-          //--seria ap-sb-01
-          
-          
+//-Para validar campos
+           $('#altura').mask('000.000.000.000.000,00', {reverse: true});
+           $('#nivel').mask('000.000.000.000.000,00', {reverse: true});
+           $('#profundidad').mask('000.000.000.000.000,00', {reverse: true});
 
 </script>
   </body>
