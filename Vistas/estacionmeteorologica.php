@@ -6,6 +6,36 @@ error_reporting(E_ALL & ~E_NOTICE);
 <!DOCTYPE html>
 <html lang="en">
   <head>
+  <script type="text/javascript">
+    $(document).ready(function () {
+      recargarLista();
+
+      $('#lista1').change(function(){
+        recargarLista();
+      });
+      
+    })
+  </script>
+  <script type="text/javascript">
+  function prueba(){
+    $.ajax(
+      {
+        type:"POST",
+        url:"departamentosMunicipios.php",
+        data:"departamento="+$('#lista1').val(),
+        success:function(r){
+          $('#lista').html(r);
+        }
+      });
+  }
+  function prueba2(){
+    alert("E ntra aqui");
+  }
+  </script>
+  <script>
+
+  </script>
+
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- Meta, title, CSS, favicons, etc. -->
     <meta charset="utf-8">
@@ -37,7 +67,7 @@ error_reporting(E_ALL & ~E_NOTICE);
     <link href="../build/css/custom.min.css" rel="stylesheet">
   </head>
 
-  <body class="nav-md">
+  <body class="nav-md" onload="prueba()">
     <div class="container body">
       <div class="main_container">
         <div class="col-md-3 left_col">
@@ -134,7 +164,7 @@ error_reporting(E_ALL & ~E_NOTICE);
               <div class="col-md-6 col-xs-6">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Formulario de ingreso de datos</h2>
+                    <h2>Ingreso de datos</h2>
                     <ul class="nav navbar-right panel_toolbox">                   
                     </ul>
                     <div class="clearfix"></div>
@@ -146,44 +176,39 @@ error_reporting(E_ALL & ~E_NOTICE);
                     <input type="hidden" name="baccion" id="baccion">
 
                       <div class="col-md-6 col-sm-6 col-xs-6 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Codigo">
+                        <input type="text" class="form-control has-feedback-left" id="codigo" name="codigo" placeholder="Codigo">
                         <span class="fa fa-barcode form-control-feedback left" aria-hidden="true"></span>
                       </div>
-
-
-                      
+                   
                       <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-6">
-                          <select class="form-control">
+                          <select class="form-control" id="lista1" name='lista1' onchange="prueba()">
                             <option>Departamento</option>
-                            <option>Cabañas</option>
-                            <option>Chalatenango</option>
-                            <option>Cuscatlán</option>
-                            <option>La Libertad</option>
-                            <option>La Paz</option>
-                            <option>San Salvador</option>
-                            <option>San Vicente</option>
-                            <option>Morazán</option>
-                            <option>San Miguel</option>
-                            <option>Usulután</option>
-                            <option>La Unión</option>
-                            <option>Ahuachapán</option>
-                            <option>Sonsonate</option>
-                            <option>Santa Ana</option>
+                            <?php 
+                            include "../ProcesoSubir/conexioneq.php";
+                             $consulta  = "select * from departamentos";
+                             $resultado = $conexion->query($consulta);
+                             if ($resultado) {
+                               while($fila= $resultado->fetch_object()){
+                                echo "<option value='".$fila->iddepto."'>".$fila->nombredepto."</option>";
+                               }
+                                 
+                             } else {
+                                echo "<option value=''>Error conectando la BD</option>";
+                             }
+                            
+                            ?>
+                            
                           </select>
                         </div>
                       </div>
                       <div class="form-group">
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <select class="form-control">
-                            <option>Municipio</option>
-                            <option>San Cayetano.</option>
-                            <option>Iztepeque</option>
-                          </select>
+                        <div class="col-md-6 col-sm-6 col-xs-12" id="lista" name='lista'>
+                          
                         </div>
                         <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <select class="form-control">
+                          <select class="form-control" id="institucion" name="institucion">
                             <option>Responsable</option>
                             <option>Investigador</option>
                             <option>Docente</option>
@@ -198,8 +223,8 @@ error_reporting(E_ALL & ~E_NOTICE);
                         </div>
                       </div>
                       
-                        <input type="hidden" class="form-control has-feedback-left" id="longitud" placeholder="Longitud">
-                        <input type="hidden" class="form-control has-feedback-left" id="latitud" placeholder="Latitud">
+                        <input type="hidden" class="form-control has-feedback-left" id="longitud" name="longitud" placeholder="Longitud">
+                        <input type="hidden" class="form-control has-feedback-left" id="latitud" name="latitud" placeholder="Latitud">
                       
 
                       </div>
@@ -273,10 +298,10 @@ error_reporting(E_ALL & ~E_NOTICE);
                       <tbody>
                         
                         <tr>
-                          <td>svsv1</td>
+                          <td>SASV001</td>
                           <td>San Vicente</td>
                           <td>San Vicente</td>
-                          <td>123441421</td>
+                          <td>Mauricio</td>
                           
                           <td width=160>
                             <button type="button" class="btn btn-success" data-toggle="modal" data-target=".detalle-modal-lg"><i class="fa fa-search"></i></button>
@@ -356,3 +381,46 @@ error_reporting(E_ALL & ~E_NOTICE);
 	
   </body>
 </html>
+<?php
+include "../config/conexion.php";
+$bandera          = $_REQUEST["bandera"];
+$codigo    = $_REQUEST["codigo"];
+$lista1    = $_REQUEST["lista1"];
+$lista2    = $_REQUEST["lista2"];
+$institucion = $_REQUEST["institucion"];
+$imagenEstacion = $_REQUEST["imagen"];
+
+if ($bandera == "add") {
+    $permitidos = array("image/jpg", "image/jpeg", "image/png");
+    $limite_kb  = 16384; //tamanio maximo que permitira subir, es el limite de medium blow(16mb)
+    if (in_array($_FILES['imagen']['type'], $permitidos) && $_FILES['imagen']['size'] <= $limite_kb * 1024) {
+        //Este es el archivo temporaral.
+        $imagen_temporal = $_FILES['imagen']['tmp_name'];
+        //este es el tipo de archivo
+        $tipo = $_FILES['imagen']['type'];
+        //leer el archivo temporarl en binario
+        $fp   = fopen($imagen_temporal, 'r+b');
+        $data = fread($fp, filesize($imagen_temporal));
+        fclose($fp);
+        //escapar los caracteres
+        $data      = mysqli_real_escape_string($conexion, $data);
+        
+        $consulta  = "INSERT INTO estacionmet VALUES('null','" . $codigo . "','" . $lista1 . "','" . $lista2 . "',' 0 ',' 0 ','" . $data . "','" . $tipo . "','" . $categoria  . "',' 0
+        ','" . $stockMin . "','" . $proveedor . "','" . $margen . "','" . $descripcion . "','0')";
+        msg($consulta);
+        $resultado = $conexion->query($consulta);
+        if ($resultado) {
+            msg("Exito");
+        } else {
+            msg(mysqli_error($conexion));
+        }
+    }
+
+}
+function msg($texto)
+{
+    echo "<script type='text/javascript'>";
+    echo "alert('$texto');";
+    echo "</script>";
+}
+?>
