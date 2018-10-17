@@ -208,7 +208,7 @@ error_reporting(E_ALL & ~E_NOTICE);
                         </div>
                         <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <select class="form-control" id="responsable" name="responsable">
+                          <select class="form-control" id="institucion" name="institucion">
                             <option>Responsable</option>
                             <option>Investigador</option>
                             <option>Docente</option>
@@ -387,8 +387,7 @@ $bandera          = $_REQUEST["bandera"];
 $codigo    = $_REQUEST["codigo"];
 $lista1    = $_REQUEST["lista1"];
 $lista2    = $_REQUEST["lista2"];
-$responsable = $_REQUEST["responsable"];
-
+$institucion = $_REQUEST["institucion"];
 $imagenEstacion = $_REQUEST["imagen"];
 
 if ($bandera == "add") {
