@@ -4,7 +4,7 @@ $departamento   = $_POST['departamento'];
 $sql="SELECT * FROM municipios where iddepto=".$departamento;
 
 $cadena='<select class="form-control" id="lista2" name="lista2">';
-$cadena=$cadena.'"<option value''>Municipios</option>"';
+$cadena=$cadena.'"<option value="">Municipios</option>"';
 $resultado = $conexion->query($sql);
                              if ($resultado) {
                                while($fila= $resultado->fetch_object()){
