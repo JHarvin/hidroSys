@@ -78,8 +78,8 @@
                   <!--REPORTES-->
                   <li><a><i class="fa fa-user"></i>Usuarios<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="fixed_sidebar.html">Nuevo usuario</a></li>
-                      <li><a href="fixed_sidebar.html">Lista de usuarios</a></li>
+                      <li><a href="usuarios.php">Nuevo usuario</a></li>
+                      
                       
                     </ul>
                   </li>
