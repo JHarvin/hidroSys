@@ -191,7 +191,8 @@
                       </div>
 
                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <input type="password" class="form-control has-feedback-left" id="contrasena" name="contrasena" placeholder="Contraseña" autocomplete="off">
+                        <input type="password" pattern=".{4,}" class="form-control has-feedback-left" 
+                        id="contrasena" name="contrasena" placeholder="Contraseña" autocomplete="off">
                         <span class="fa fa-at form-control-feedback left" aria-hidden="true" autocomplete="off"></span>
                       </div>
          
@@ -231,15 +232,15 @@
                       <thead>
                         <tr>
                           <th>Nombre</th>
-                          <th>Direccion</th>
-                          <th>Telefono</th>
+                          <th>Dirección</th>
+                          <th>Teléfono</th>
                           <th>Genero</th>
-                          <th>Correo</th>
+                          <th>E-mail</th>
                           <th>Contraseña</th>
-                          <th>Nombre Usuario</th>
+                          <th>Nombre de Usuario</th>
                           <th>Tipo</th>
                           <th>Editar</th>
-                          <th>Eliminar</th>
+                          <th>Inabilitar</th>
                         </tr>
                       </thead>
                             <!-- extraccion de datos de la base  -->
@@ -257,7 +258,7 @@
                     $correo=$fila['email'];
                     $contra=$fila['contrasena'];
                     $nombreusu=$fila['nombre_de_usuario'];
-                    $nombreusu=$fila['tipo'];
+                    $tipo=$fila['tipo'];
                     $id=$fila['idusuario'];
                 ?>
 
@@ -298,7 +299,9 @@
                                          
                                          <div class="col-md-6">
                                         
-                                        <a href="#" data-href="matar.php?id_visitante=<?php echo $row['id_visitante']; ?>" data-toggle="modal" data-target="#confirm-delete" type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button></a>
+                                        <a href="#" data-href="matar.php?id_visitante=<?php echo $row['id_visitante']; ?>"
+                                         data-toggle="modal" data-target="#confirm-delete"
+                                          type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button></a>
                                       
                                 
                                     </div>

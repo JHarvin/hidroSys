@@ -7,7 +7,8 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3 class="modal-title" id="myModalLabel"><font font font font font font color="black">Editar Registro</font></h3> 
+                    <h3 class="modal-title" id="myModalLabel"><font font font font font font color="black">Editar Registro de 
+                    Usuario</font></h3> 
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
 
@@ -15,9 +16,9 @@
                     <br>
 
                     <div class="form-group">
-                      <div class="col-md-15 col-sm-14 col-xs-15">
+                      <div class="col-md-20 col-sm-14 col-xs-19">
                          <div class="row">
-              <div class="col-md-20 col-xs-20">
+              <div class="col-md-25 col-xs-25">
                 <div class="x_panel">
                   <div class="x_title">
                     <h2>Formulario Modificar</h2>
@@ -56,7 +57,10 @@
                             <option>Femenino</option>
                             <option>Masculino</option>
                             </select>
-                        </div> </div>
+                        </div> 
+                        </div>
+
+
 
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                         <input type="text" class="form-control has-feedback-left" id="correo" name="correo" 
@@ -64,13 +68,18 @@
                         <span class="fa fa-at form-control-feedback left" aria-hidden="true"></span>
                       </div>
 
-                       <div class="col-md-6 col-sm-6 col-xs-12">
+                      
+    <div class="form-group">
+                        <div class="col-md-6 col-sm-6 col-xs-12">
                           <select class="form-control" id="tipo" name="tipo">
                             <option>Seleccione tipo de usuario</option>
                             <option>Administrador</option>
                             <option>Estudiante</option>
                             </select>
                         </div>
+                        </div>
+
+                       
 
                         <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                         <input type="text" class="form-control has-feedback-left" id="usuario" 
@@ -78,11 +87,14 @@
                         <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                       </div>
                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <input type="password" class="form-control has-feedback-left" id="contrasena" name="contrasena" placeholder="Contraseña">
+                        <input type="password" class="form-control has-feedback-left" id="contrasena" 
+                        name="contrasena" placeholder="Contraseña" value="<?php echo $contrasena;?>" autocomplete="off">
                         <span class="fa fa-at form-control-feedback left" aria-hidden="true"></span>
                       </div>
                      
             </div>
+
+
                      
                       <div class="form-group">
                         <!--Este div es para que agarre la linea que separa los botones.-->
@@ -118,10 +130,13 @@ if (!empty($_REQUEST['nombre'])) {
     $corre = $_REQUEST['correo'];
     $usua = $_REQUEST['usuario'];
     $contra = $_REQUEST['contrasena'];
+    $tipo = $_REQUEST['tipo'];
 
     $idActualizacion = $_REQUEST['idDeActualizacion'];
 
-    mysqli_query($mysqli, "UPDATE usuarios SET nombre_real='$nom',direccion='$direc',telefono='$telef',genero='$gen',correo='$corre',usuario='$usua',contrasena='$contra' WHERE idusuario ='$idActualizacion'");
+    mysqli_query($mysqli, "UPDATE usuarios SET nombre_real='$nom',
+      direccion='$direc',telefono='$telef',genero='$gen',correo='$corre',usuario='$usua',contrasena='$contra'
+       WHERE idusuario ='$idActualizacion'");
 
   
     } catch (Exception $ex) {
