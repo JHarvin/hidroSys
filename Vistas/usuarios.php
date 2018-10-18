@@ -166,8 +166,13 @@
 
 
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left" id="correo" name="correo" placeholder="E-mail" autocomplete="off">
-                        <span class="fa fa-at form-control-feedback left" aria-hidden="true"></span>
+                        <input type="text" class="form-control has-feedback-left" id="correo" name="correo" 
+                        placeholder="E-mail" onkeyup="validarEmail(this)" autocomplete="off">
+                        <a id='resultado'></a>
+                        <span  class="fa fa-at form-control-feedback left" aria-hidden="true" >
+                         
+                        </span>
+
                       </div>
 
                       <div class="form-group">
@@ -181,13 +186,13 @@
 
                         <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                         <input type="text" class="form-control has-feedback-left" 
-                        id="usuario" name="usuario" placeholder="Nombre de Usuario" autocomplete="off" maxlength="10">
-                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                        id="usuario" name="usuario" placeholder="Nombre de Usuario" autocomplete="off" maxlength="15">
+                        <span class="fa fa-user form-control-feedback left" aria-hidden="true" autocomplete="off"></span>
                       </div>
 
                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                         <input type="password" class="form-control has-feedback-left" id="contrasena" name="contrasena" placeholder="Contraseña" autocomplete="off">
-                        <span class="fa fa-at form-control-feedback left" aria-hidden="true"></span>
+                        <span class="fa fa-at form-control-feedback left" aria-hidden="true" autocomplete="off"></span>
                       </div>
          
                       <div class="form-group">
@@ -425,17 +430,17 @@ function Editar(nombre_real,direccion,telefono,genero,email,contrasena,nombre_de
 </script>
 
  <script >
-function ValidateEmail(email) { 
-var mailformat = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-if(correo.value.match(mailformat)){ 
-alert("Gracias, Direccion de Email valida"); 
-document.form1.correo.focus();
-return true; 
-} else { 
-alert("You have entered an invalid email address!"); 
-document.form1.correo.focus(); 
-return false; 
- } 
+function validarEmail(correo){
+
+  var texto = document.getElementById(correo.id).value;
+  var regex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
+  
+  if (!regex.test(texto)) {
+      document.getElementById("resultado").innerHTML = "Correo invalido";
+  } else {
+    document.getElementById("resultado").innerHTML = "";
+  }
+
 }
 </script>
 
