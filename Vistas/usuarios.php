@@ -171,7 +171,7 @@ require '../ProcesoSubir/conexion.php';
                         <div class="col-md-6 col-sm-6 col-xs-12">
                        
                           <select class="form-control" id="genero" name="genero">
-                             <option>Seleccione género</option>
+                             <option>Seleccione genero</option>
                             <option>Femenino</option>
                             <option>Masculino</option>
                             </select>
@@ -328,17 +328,17 @@ $resultado = $mysqli->query($sql);
                                   </td>
                                   <td>
                                       
-                                      <div class="row">
+                                     <div class="row">
                                         
                                          
                                          <div class="col-md-6">
-                                        
-                                        <a href="#" data-href="matar.php?id_visitante=<?php echo $row['id_visitante']; ?>"
-                                         data-toggle="modal" data-target="#confirm-delete"
-                                          type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button></a>
-                                      
+                                        <form action="usuariosBaja.php" method="post" class="form-register" > 
+                                        <button  type="submit" class="btn btn-danger" name="btnbaja" id="btnbaja" value="<?php echo $fila['idusuario']?>"><i class="fa fa-arrow-down"></i></button>
+                                      </form>
                                 
                                     </div>
+                                          
+                                      </div>
                                           
                                       </div>
                                   </td>     
@@ -424,17 +424,23 @@ $resultado = $mysqli->query($sql);
 </html>
 
 
+
+
+
+
+
+
 <?php
 require '../ProcesoSubir/conexion.php';
 
 //inserta usuario
-
+//$est=1;
 if (!empty($_POST['nombre']) && !empty($_POST['direccion']) && !empty($_POST['telefono']) && !empty($_POST['genero']) 
   && !empty($_POST['correo']) && !empty($_POST['usuario']) && !empty($_POST['contrasena'] && !empty($_POST['tipo'])))  {
 
-$insertar="INSERT INTO usuarios (nombre_de_usuario,nombre_real,direccion, telefono,genero,email,contrasena,tipo)
+$insertar="INSERT INTO usuarios (nombre_de_usuario,nombre_real,direccion, telefono,genero,email,contrasena,tipo,estado)
  VALUES ('$_POST[usuario]','$_POST[nombre]','$_POST[direccion]','$_POST[telefono]','$_POST[genero]',
-  '$_POST[correo]','$_POST[contrasena]','$_POST[tipo]')";
+  '$_POST[correo]','$_POST[contrasena]','$_POST[tipo]', '$_POST[estado]')";
 $ejecutar=mysqli_query($mysqli,$insertar);
 ?>
 <script type="text/javascript">
@@ -447,6 +453,7 @@ $ejecutar=mysqli_query($mysqli,$insertar);
 ?>
 
 <?php
+
             include_once'usuariosModi.php'
             ?>
 
@@ -536,9 +543,19 @@ function validarEmail(correo){
 </script>
 
 <script src="../jquery.mask.min.js"></script>
-
-<script type="text/javascript">
-    $('.mask-dui').mask('00000000-0');
-    $('.mask-celular').mask('0000-0000');
-
-</script>
+ <!-- Essential javascripts for application to work-->
+    <script src="../js/jquery-3.2.1.min.js"></script>
+  
+    <script src="../js/main.js"></script>
+    <script src="../js/jquery.maskedinput.min.js"></script>
+  <script type="text/javascript">
+      
+ jQuery(function($){
+            // Definimos las mascaras para cada input
+            
+            $("#telefono").mask("9999-9999");
+            
+        });
+          
+        
+    </script>

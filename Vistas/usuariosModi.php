@@ -1,19 +1,5 @@
 <form name="form1" method="post" action="">
- <?php//este es para los q son texfil
-                          include "../ProcesoSubir/conexion.php";
-      $query = mysqli_query ($mysqli,"SELECT u.idusuario,u.nombre_real, u.direccion, u.telefono, u.email, u.nombre_de_usuario, u.contrasena FROM usuarios u INNER JOIN propietariospozos pp on u.idusuario=pp.idusuario WHERE pp.idusuario<>'$id'AND pp.idusuario='$nomU'");
 
-                while ($fila=mysqli_fetch_array($query)) {
-                    
-                    $nomb=$fila['nombre_real'];
-                    $direc=$fila['direccion'];
-                    $tele=$fila['telefono'];
-                    $corr=$fila['email'];
-                    $nomU=$fila['nombre_de_usuario'];
-                    $pass=$fila['contrasena'];
-                  }
-                  
-                ?>
     <input type="hidden" name="idDeActualizacion" id="idDeActualizacion" value="00000">
 
     <div class="modal fade" id="actualizar" tabindex="-1" role="dialog" 
@@ -47,7 +33,7 @@
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                       <label>Nombre</label>
                       <input type="text" class="form-control has-feedback-left" 
-                      id="nombre" name="nombre" placeholder="Nombre" onkeypress="return soloLetras(event)" 
+                      id="nombrereal" name="nombrereal" placeholder="Nombre" onkeypress="return soloLetras(event)" 
                        onpaste="return false" value="<?php echo $nombrereal; ?> "autocomplete="off">
                         <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                       </div>
@@ -85,7 +71,7 @@
 
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                       <label>E-mail</label>
-                        <input type="text" class="form-control has-feedback-left" id="correo" name="correo" 
+                        <input type="text" class="form-control has-feedback-left" id="corre" name="correo" 
                         placeholder="E-mail" value="<?php echo $correo;?>" autocomplete="off">
                         <span class="fa fa-at form-control-feedback left" aria-hidden="true"></span>
                       </div>
@@ -106,14 +92,15 @@
 
                         <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                         <label>Nombre de usuario</label>
-                        <input type="text" class="form-control has-feedback-left" id="usuario" 
-                        name="usuario" placeholder="Nombre de Usuario" value="<?php echo $nombreusu;?>" autocomplete="off">
+                        <input type="text" class="form-control has-feedback-left" id="nombredeusu" 
+                        name="nombreusu" placeholder="Nombre de Usuario" value="<?php echo $nombreusu;?>" 
+                        autocomplete="off">
                         <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                       </div>
                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                        <label>Contraseña</label>
-                        <input type="password" class="form-control has-feedback-left" id="contrasena" 
-                        name="contrasena" placeholder="Contraseña" value="<?php echo $contrasena;?>" autocomplete="off">
+                        <input type="password" class="form-control has-feedback-left" id="contra" 
+                        name="contra" placeholder="Contraseña" value="<?php echo $contra;?>" autocomplete="off">
                         <span class="fa fa-at form-control-feedback left" aria-hidden="true"></span>
                       </div>
                      
@@ -146,22 +133,23 @@
 
 <?php 
 
-if (!empty($_REQUEST['nombre'])) {
+if (!empty($_REQUEST['nombre_de_usuario'])) {
     try {        
-    $nom =  $_REQUEST['nombre'];
-    $direc =  $_REQUEST['direccion'];
-    $telef = $_REQUEST['telefono'];
-    $gen = $_REQUEST['genero'];
-    $corre = $_REQUEST['correo'];
-    $usua = $_REQUEST['usuario'];
+    $nombreusu =  $_REQUEST['nombre_de_usuario'];
+    $nombrereal =  $_REQUEST['nombre_real'];
+    $direccion = $_REQUEST['direccion'];
+    $telefono = $_REQUEST['telefono'];
+    $correo = $_REQUEST['email'];
     $contra = $_REQUEST['contrasena'];
     $tipo = $_REQUEST['tipo'];
+  
 
     $idActualizacion = $_REQUEST['idDeActualizacion'];
 
-    mysqli_query($mysqli, "UPDATE usuarios SET nombre_real='$nom',
-      direccion='$direc',telefono='$telef',genero='$gen',correo='$corre',usuario='$usua',contrasena='$contra'
-       WHERE idusuario ='$idActualizacion'");
+    mysqli_query($mysqli, "UPDATE usuarios SET nombre_de_usuario='$nombre_de_usuario',
+      nombre_real='$nombre_real',direccion='$direccion',telefono='$telefono',genero='$genero',
+      email='$email',contrasena='$contrasena',tipo='$tipo',estado='$estado'
+       WHERE idusuario ='$id'");
 
   
     } catch (Exception $ex) {
@@ -209,8 +197,11 @@ if (!empty($_REQUEST['nombre'])) {
 
 <script src="../jquery.mask.min.js"></script>
 
-<script type="text/javascript">
-    $('.mask-dui').mask('00000000-0');
-    $('.mask-celular').mask('0000-0000');
+<
 
+<script type="text/javascript">>
+$(document).ready(function($){
+    $("#telefono").mask("9999-9999"); 
+ 
+});
 </script>

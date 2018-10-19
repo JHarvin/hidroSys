@@ -160,11 +160,9 @@ $resultado = $mysqli->query($sql);
               <div class="col-md-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Datos</h2>
-<br>
-<br>
+                  <br>
   <div class="col-md-2 " style="  margin-left: -10px; margin-top:-15px;">
-  <label for="condi">Estado :</label>
+  <label for="condi">Ir a estado de:</label>
  <select class="form-control" data-live-search="true" id="condi" name="condi" onchange="sele()">
 <option></option> 
 <option value="1" >Activo</option>
@@ -182,14 +180,15 @@ $resultado = $mysqli->query($sql);
                       <thead>
                         <tr>
                           <th>Nombre</th>
-                          <th>Direccion</th>
-                          <th>Telefono</th>
+                          <th>Dirección</th>
+                          <th>Teléfono</th>
                           <th>Genero</th>
-                          <th>Correo</th>
+                          <th>E-mail</th>
                           <th>Contraseña</th>
-                          <th>Nombre Usuario</th>
+                          <th>Nombre de Usuario</th>
+                          <th>Tipo</th>
                           <th>Editar</th>
-                          <th>Inactivar</th>
+                          <th>Activar</th>
                         </tr>
                       </thead>
                             <!-- extraccion de datos de la base  -->
@@ -222,7 +221,14 @@ $resultado = $mysqli->query($sql);
                          <td><!--boton de modificar-->
                                   <div class="row">
                                     <div class="col-md-6">
-                                        <a href="#" data-toggle="modal" data-target="#actualizar" onclick="Editar('<?php echo $nombrereal; ?>','<?php echo $direccion; ?>','<?php echo $tel;?>','<?php echo $genero;?>','<?php echo $correo;?>','<?php echo $contra;?>','<?php echo $nombreusu;?>','<?php echo $id;?>')" ><button type="button" class="btn btn-success"><i class="fa fa-pencil"></i></button></a>
+                                        <a href="#" data-toggle="modal"
+                                         data-target="#actualizar" 
+                                         onclick="Editar('<?php echo $nombrereal; ?>',
+                                         '<?php echo $direccion; ?>','<?php echo $tel;?>',
+                                         '<?php echo $genero;?>','<?php echo $correo;?>','<?php echo $contra;?>',
+                                         '<?php echo $nombreusu;?>','<?php echo $id;?>')" >
+                                         <button type="button" class="btn btn-success"><i class="fa fa-pencil"></i>
+                                         </button></a>
                                 
                                     </div>
 
@@ -237,7 +243,7 @@ $resultado = $mysqli->query($sql);
                                          <div class="col-md-6">
                                         
                                        <form action="usuarios.php" method="post" class="form-register" > 
-                                        <button  type="submit" class="btn btn-danger" name="btnalta" id="btnalta" value="<?php echo $fila['idusuario']?>"><i class="fa fa-trash"></i></button>
+                                        <button  type="submit" class="btn btn-danger" name="btnalta" id="btnalta" value="<?php echo $fila['idusuario']?>"><i class="fa fa-arrow-up" ></i></button>
                                       </form>
                                       
                                 
