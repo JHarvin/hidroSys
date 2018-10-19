@@ -2,6 +2,7 @@
 
 require '../ProcesoSubir/conexion.php';
  $fecha=$_GET['fe'];
+ $ESTa=$_GET['E'];
   $x=explode("-",$fecha);
   $mes1=$x[0];
    $a=$x[1];
@@ -118,7 +119,7 @@ l.date,
 avg(l.rainrate) as promrainrate
 FROM estacionmet e
 INNER JOIN lecturaestaciones l ON l.idestacion = e.id_estacion
-where EXTRACT(MONTH FROM l.date)='$mes1'  AND EXTRACT(YEAR FROM l.date)='$a'
+where EXTRACT(MONTH FROM l.date)='$mes1'  AND EXTRACT(YEAR FROM l.date)='$a' AND e.id_estacion='$ESTa'
 GROUP BY e.codiogestacion, l.date
 ORDER BY l.date");
         if(mysqli_num_rows($vali)>0){
@@ -129,7 +130,7 @@ l.date,
 avg(l.rainrate) as promrainrate
 FROM estacionmet e
 INNER JOIN lecturaestaciones l ON l.idestacion = e.id_estacion
-where EXTRACT(MONTH FROM l.date)='$mes1'  AND EXTRACT(YEAR FROM l.date)='$a'
+where EXTRACT(MONTH FROM l.date)='$mes1'  AND EXTRACT(YEAR FROM l.date)='$a' AND e.id_estacion='$ESTa'
 GROUP BY e.codiogestacion, l.date
 ORDER BY l.date");
    while ($row1 = mysqli_fetch_array($estacion)) {
@@ -154,7 +155,7 @@ l.date,
 avg(l.rainrate) as promrainrate
 FROM estacionmet e
 INNER JOIN lecturaestaciones l ON l.idestacion = e.id_estacion
-where EXTRACT(MONTH FROM l.date)='$mes1'  AND EXTRACT(YEAR FROM l.date)='$a'
+where EXTRACT(MONTH FROM l.date)='$mes1'  AND EXTRACT(YEAR FROM l.date)='$a' AND e.id_estacion='$ESTa'
 GROUP BY e.codiogestacion, l.date
 ORDER BY l.date");
 while ($row = $estacion1->fetch_assoc()) {
@@ -167,6 +168,5 @@ while ($row = $estacion1->fetch_assoc()) {
        $pdf->Cell(150, 6,'No hay datos almacenados', 0, 0, 'C'); 
         }
 $pdf->Output();
-include '../Reportes/grafica_rainRate.php';
 ?>
 

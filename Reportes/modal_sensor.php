@@ -42,6 +42,7 @@
                include "../Vistas/menuPrincipal.php";
                $fe1=$_GET['fe1'];
                $fe2=$_GET['fe2'];
+               $pozo=$_GET['p'];
             ?>
             <!-- /sidebar menu -->
 
@@ -145,14 +146,14 @@
                                     </a>
                                 </div>
                                  <div class="row mb-12" style="float: right; margin-right: 10px; margin-top: 15px;">
-                                     <a href="../Reportes/Reporte_pozoLectura.php?fe1=<?php echo $fe1; ?>&fe2=<?php echo $fe2; ?>" class="btn">
+                                     <a href="../Reportes/Reporte_pozoLectura.php?fe1=<?php echo $fe1; ?>&fe2=<?php echo $fe2; ?>&p=<?php echo $pozo; ?>" class="btn">
                                     <input type="submit" class="btn btn-info" value="Reporte" name="modGuardar">
                                       </a>
 
                                 </div>
                                  
                                  <div class="row mb-12" style="float: right; margin-right: 10px; margin-top: 15px;">
-                                     <a href="../Reportes/grafica_NpozoLecura.php?fe1=<?php echo $fe1; ?>&fe2=<?php echo $fe2; ?>" class="btn">
+                                     <a href="../Reportes/grafica_NpozoLecura.php?fe1=<?php echo $fe1; ?>&fe2=<?php echo $fe2; ?>&p=<?php echo $pozo; ?>" class="btn">
                                    <input type="submit" class="btn btn-success" value="Grafica" name="modGuardar">
                                     </a>
                                 </div>

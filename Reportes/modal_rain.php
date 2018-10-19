@@ -41,6 +41,7 @@
              <?php 
                include "../Vistas/menuPrincipal.php";
                $fe=$_GET['fe'];
+               $Esta=$_GET['E'];
             ?>
             <!-- /sidebar menu -->
 
@@ -145,14 +146,14 @@
                                    </a>
                                 </div>
                                  <div class="row mb-12" style="float: right; margin-right: 10px; margin-top: 15px;">
-                                     <a href="../Reportes/Reporte_rain.php?fe=<?php echo $fe; ?>" class="btn">
+                                     <a href="../Reportes/Reporte_rain.php?fe=<?php echo $fe; ?>&E=<?php echo $Esta; ?>" class="btn">
                                     <input type="submit" class="btn btn-info" value="Reporte" name="modGuardar">
                                       </a>
 
                                 </div>
                                  
                                  <div class="row mb-12" style="float: right; margin-right: 10px; margin-top: 15px;">
-                                     <a href="../Reportes/grafica_rainRate.php?fe=<?php echo $fe; ?>" class="btn">
+                                     <a href="../Reportes/grafica_rainRate.php?fe=<?php echo $fe; ?>&E=<?php echo $Esta; ?>" class="btn">
                                    <input type="submit" class="btn btn-success" value="Grafica" name="modGuardar">
                                     </a>
                                 </div>
