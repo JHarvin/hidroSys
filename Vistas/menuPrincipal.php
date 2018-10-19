@@ -79,7 +79,7 @@
                              <!--CONSULTAS-->
                   <li><a><i class="fa fa-mobile"></i>Consultas<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                    <li><a href="listapozo.php">Listado de datos Pozos</a></li>
+                        <li><a href="listapozo.php">Listado de datos Pozos</a></li>
                     <li><a href="medidas_basicas.php"> Listado de datos de Pozo por Medidas Basicas</a></li>
                     <li><a href="segun_geo.php">Listado de Pozos segun Geologia</a></li>
                     <li><a href="visitas_estaciones.php">Listado de visitas a las Estaciones</a></li>
