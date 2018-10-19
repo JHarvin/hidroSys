@@ -2,9 +2,22 @@
 //Codigo que muestra solo los errores exceptuando los notice.
 error_reporting(E_ALL & ~E_NOTICE);
 
+ include "../ProcesoSubir/conexioneq.php";
+ $conexion->set_charset("utf8");
+ //Query para generar codigo.
+ 
+                  $resultc = $conexion->query("select id_estacion as id from estacionmet");
+                      if ($resultc) {
+
+                        while ($filac = $resultc->fetch_object()) {
+                          $temp=$filac->id;
+                         
+                           }
+                      }   
+                      $codigo=sprintf("%03s",$temp+1);    
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
   <script type="text/javascript">
     $(document).ready(function () {
@@ -12,11 +25,32 @@ error_reporting(E_ALL & ~E_NOTICE);
 
       $('#lista1').change(function(){
         recargarLista();
+        
       });
       
     })
   </script>
+  <!-- Quitar antes de subir ya que es codigo para el live reload -->
+
+
   <script type="text/javascript">
+  function ponerAbreviatura(){
+    var iddepto=document.getElementById("lista1").value;
+    var idmunicipio=document.getElementById("lista2").value;
+    alert(iddepto);
+    alert(idmunicipio);
+    if(iddepto!=0 && idmunicipio!=0){
+      $.ajax({
+        type: "POST",
+        dataType: 'html',
+        url: "abreviaturas.php",
+        data: "departamento="+iddepto,
+        success: function(resp){
+           alert(resp);
+        }
+    });
+    }
+  }
   function prueba(){
     $.ajax(
       {
@@ -25,11 +59,17 @@ error_reporting(E_ALL & ~E_NOTICE);
         data:"departamento="+$('#lista1').val(),
         success:function(r){
           $('#lista').html(r);
+          ponerAbreviatura();
         }
       });
   }
+  function verificar(){
+
+  }
   function prueba2(){
-    alert("E ntra aqui");
+   
+    alert(document.getElementById("latitud").value);
+    alert(document.getElementById("longitud").value);
   }
   </script>
   <script>
@@ -42,7 +82,7 @@ error_reporting(E_ALL & ~E_NOTICE);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	  
-    <title>SICA | </title>
+    <title>SICA |</title>
 
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -176,14 +216,14 @@ error_reporting(E_ALL & ~E_NOTICE);
                     <input type="hidden" name="baccion" id="baccion">
 
                       <div class="col-md-6 col-sm-6 col-xs-6 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left" id="codigo" name="codigo" placeholder="Codigo">
+                        <input type="text" class="form-control has-feedback-left" id="codigo" name="codigo" placeholder="Codigo" value="<?php echo $codigo;?>" readonly>
                         <span class="fa fa-barcode form-control-feedback left" aria-hidden="true"></span>
                       </div>
                    
                       <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-6">
                           <select class="form-control" id="lista1" name='lista1' onchange="prueba()">
-                            <option>Departamento</option>
+                            <option value="0">Departamento</option>
                             <?php 
                             include "../ProcesoSubir/conexioneq.php";
                              $consulta  = "select * from departamentos";
@@ -209,15 +249,25 @@ error_reporting(E_ALL & ~E_NOTICE);
                         <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <select class="form-control" id="institucion" name="institucion">
-                            <option>Responsable</option>
-                            <option>Investigador</option>
-                            <option>Docente</option>
-                            <option>Estudiante</option>
+                            <option value="">Institucion</option>
+                            <?php 
+                            include "../ProcesoSubir/conexioneq.php";
+                             $consulta  = "select * from respestaciones";
+                             $resultado = $conexion->query($consulta);
+                             if ($resultado) {
+                               while($fila= $resultado->fetch_object()){
+                                echo "<option value='".$fila->idresponsable."'>".$fila->institucion."</option>";
+                               }
+                                 
+                             } else {
+                                echo "<option value=''>Error conectando la BD</option>";
+                             }
+                            ?>
                           </select>
                         </div>
                        </div>
                        <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Fotografía</label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Fotografía(PNG,JPEG,JPG)</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
                           <input type="file" class="form-text" id="imagen" name="imagen" required accept="image/jpg,image/png,image/jpeg">
                         </div>
@@ -225,7 +275,7 @@ error_reporting(E_ALL & ~E_NOTICE);
                       
                         <input type="hidden" class="form-control has-feedback-left" id="longitud" name="longitud" placeholder="Longitud">
                         <input type="hidden" class="form-control has-feedback-left" id="latitud" name="latitud" placeholder="Latitud">
-                      
+                      <input type="hidden" class="form-control has-feedback-left" id="correlativo" name="correlativo" placeholder="correlativo" value="<?php echo $codigo;?>">
 
                       </div>
                      
@@ -238,7 +288,7 @@ error_reporting(E_ALL & ~E_NOTICE);
                       <div class="ln_solid"></div>
                       <div class="form-group">
                         <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                        <button type="submit" class="btn btn-success">Guardar</button>
+                        <button type="button" class="btn btn-success" onclick="verificar()">Guardar</button>
                           <button type="button" class="btn btn-warning">Cancelar</button>
 						   <!-- <button class="btn btn-primary" type="reset">Reset</button> -->
                          
@@ -382,7 +432,7 @@ error_reporting(E_ALL & ~E_NOTICE);
   </body>
 </html>
 <?php
-include "../config/conexion.php";
+ include "../ProcesoSubir/conexioneq.php";
 $bandera          = $_REQUEST["bandera"];
 $codigo    = $_REQUEST["codigo"];
 $lista1    = $_REQUEST["lista1"];

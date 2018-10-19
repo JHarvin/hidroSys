@@ -3,8 +3,8 @@ include "../ProcesoSubir/conexioneq.php";
 $departamento   = $_POST['departamento'];
 $sql="SELECT * FROM municipios where iddepto=".$departamento;
 
-$cadena='<select class="form-control" id="lista2" name="lista2">';
-$cadena=$cadena.'"<option value="">Municipios</option>"';
+$cadena='<select class="form-control" id="lista2" name="lista2"  onchange="ponerAbreviatura()">';
+$cadena=$cadena.'"<option value="0">Municipios</option>"';
 $resultado = $conexion->query($sql);
                              if ($resultado) {
                                while($fila= $resultado->fetch_object()){
