@@ -170,24 +170,37 @@ if ($result) {
 
 
                       <div class="form-group">
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <select class=" form-control STipo" id="tipo" name="tipo" onchange="actualiza('cambioTipo');">
+                            <option value="Visitante" selected="selected">Tipo Visitante</option>
+                            <option value='Investigador'>Investigador</option>
+                            <option value='Docente'>Docente</option>
+                            <option value='Estudiante'>Estudiante</option>
+                            <option value='Otros'>Otros</option>
+                          </select>
+                      </div>
                       <div class="col-md-6 col-sm-6 col-xs-12">
                           <select class=" form-control SVisitante" id="visitante" name="visitante"  *>
-                            <option value="Visitante" selected="selected">Visitante</option>
-                            <?php
-                              include "../../ProcesoSubir/conexion.php";
+                            <option value="Visitante" >Visitante</option>
+                            <!--<?php
+                            /*  include "../../ProcesoSubir/conexion.php";
                               $result  = $mysqli->query("select * from visitantes ");
 
                               if ($result) {
                                   while ($fila = $result->fetch_object()) {
                                       echo "<option value='$fila->id_visitante'>$fila->nombre</option>";
                                   }
-                              }
-                            ?>
+                              }*/
+                            ?>-->
 
 
                           </select>
                       </div>
 
+                        
+                      </div>
+
+                      <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <select  id="estacion" name="estacion" class="form-control SEstacion">
                             <option value="Estaciones" selected="selected">Estaciones</option>
@@ -205,9 +218,6 @@ if ($result) {
 
                           </select>
                         </div>
-                      </div>
-
-                      <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12 form-group ">
                           <input type="input"  class="col-md-6 col-sm-6 col-xs-12 form-control has-feedback-left" id="fecha" name="fecha"  value="<?php ini_set('date.timezone',  'America/El_Salvador'); echo date('d/m/Y');  ?>" disabled >
                           <span class="fa fa-barcode form-control-feedback left" aria-hidden="true"></span>
@@ -342,7 +352,7 @@ if ($result) {
               <br><br><br><br><br><br>
               <br><br><br><br><br><br>
               <br><br><br><br><br><br>
-              <br><br><br>
+              <br><br><br><br>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-round btn-secondary" data-dismiss="modal">Cerrar</button>
                 </div>
@@ -427,6 +437,7 @@ if ($result) {
           $(function () {
               $('.SVisitante').select2();
               $('.SEstacion').select2();
+              $('.STipo').select2();
           });
       </script>
   </body>

@@ -1,5 +1,3 @@
-
-
     <div class="col-md-3 col-sm-9 col-xs-12">
     <div class="x_panel">
         <h4>Estación</h4>

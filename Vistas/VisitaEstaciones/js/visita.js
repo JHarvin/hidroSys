@@ -24,8 +24,6 @@ function cancelar(){
         allowClear: true
     });
     $("#estacion").val("Estaciones").trigger('change');
-             
-    
 
     });
 
@@ -100,7 +98,7 @@ function cancelar(){
         success: function(respuesta) {
           if(respuesta==1){
             alertify.set('notifier','position','top-right');
-            alertify.success('Los datos han sido insertados correctamente!'); 
+            alertify.success('Datos Insertados!'); 
             $('#imprimir').load("recargaTbl.php");
             $("#visitante").select2({
                 placeholder: "Visitante",
@@ -140,3 +138,23 @@ function cancelar(){
             xmlhttp.open("post", "cargaModalDetalleVisita.php?idd=" + opcion , true);
             xmlhttp.send();
         }
+
+    function actualiza(opcion) {
+    var cambio = document.getElementById('tipo').value;
+    if (window.XMLHttpRequest) {
+        xmlhttp = new XMLHttpRequest();
+    }
+    else {
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.onreadystatechange = function () {
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            if (opcion === 'cambioTipo') {
+                document.getElementById("visitante").innerHTML = xmlhttp.responseText;
+                document.getElementById("visitante").value = "";
+            }
+        }
+    }
+    xmlhttp.open("post", "tipoVisit.php?opcion=" + opcion + "&cambio=" + cambio, true);
+    xmlhttp.send();
+}
