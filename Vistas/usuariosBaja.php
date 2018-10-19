@@ -1,7 +1,6 @@
 <?php 
 require '../ProcesoSubir/conexion.php';
  ?>
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -35,6 +34,7 @@ require '../ProcesoSubir/conexion.php';
 
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
+
 <script type="text/javascript">
   function sele(){
   var cond= $("#condi").val();
@@ -121,7 +121,7 @@ require '../ProcesoSubir/conexion.php';
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Nuevo Usuario</h3>
+                <h3>Usuarios dados de baja</h3>
               </div>
 
               <div class="title_right">
@@ -139,124 +139,40 @@ require '../ProcesoSubir/conexion.php';
             
             <div class="row">
               <div class="col-md-12 col-xs-12">
-                <div class="x_panel">
-                  <div class="x_title">
-                    <h2>Formulario de ingreso de datos</h2>
-                    <ul class="nav navbar-right panel_toolbox">                   
-                    </ul>
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">
-                    <br />
-                    <form class="form-horizontal form-label-left input_mask" name="form1" method="post" action="usuarios.php">
+             <div class="form-group">
 
-                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left" id="nombre" 
-                        name="nombre" placeholder="Nombre" autocomplete="off" 
-                        onkeypress="return soloLetras(event)" maxlength="50">
-                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
-                      </div>
-                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left" id="direccion" name="direccion" 
-                        placeholder="Dirección" autocomplete="off" maxlength="100">
-                        <span class="fa fa-map form-control-feedback left" aria-hidden="true"></span>
-                      </div>
+<?php 
 
-                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left mask-celular" id="telefono" name="telefono" 
-                        placeholder="Teléfono" autocomplete="off">
-                        <span class="fa fa-phone form-control-feedback left" aria-hidden="true"></span>
-                      </div>
-                 <div class="form-group">
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                       
-                          <select class="form-control" id="genero" name="genero">
-                             <option>Seleccione género</option>
-                            <option>Femenino</option>
-                            <option>Masculino</option>
-                            </select>
-                        </div> 
-                </div>
-
-
-                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left" id="correo" name="correo" 
-                        placeholder="E-mail" onkeyup="validarEmail(this)" autocomplete="off">
-                        <a id='resultado'></a>
-                        <span  class="fa fa-at form-control-feedback left" aria-hidden="true" >
-                         
-                        </span>
-
-                      </div>
-
-                      <div class="form-group">
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <select class="form-control" id="tipo" name="tipo">
-                            <option>Seleccione tipo de usuario</option>
-                            <option>Administrador</option>
-                            <option>Estudiante</option>
-                            </select>
-                        </div> </div>
-
-                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left" 
-                        id="usuario" name="usuario" placeholder="Nombre de Usuario" autocomplete="off" maxlength="15">
-                        <span class="fa fa-user form-control-feedback left" aria-hidden="true" autocomplete="off"></span>
-                      </div>
-
-                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <input type="password" pattern=".{4,}" class="form-control has-feedback-left" 
-                        id="contrasena" name="contrasena" placeholder="Contraseña" autocomplete="off">
-                        <span class="fa fa-at form-control-feedback left" aria-hidden="true" autocomplete="off"></span>
-                      </div>
-         
-                      <div class="form-group">
-                        <!--Este div es para que agarre la linea que separa los botones.-->
-                      </div>
-                     
-                      <div class="ln_solid"></div>
-                      <div class="form-group">
-                        <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                        <button type="submit" class="btn btn-success">Guardar</button>
-                          <button type="button" class="btn btn-warning">Cancelar</button>
-						   <!-- <button class="btn btn-primary" type="reset">Reset</button> -->
-                         
-                        </div>
-                      </div>
-
-                    </form>
-                  </div>
-                </div>
+if (!empty($_POST['btnbaja']))  {
+//Inactiva el activo 
+$est=0;
+$var =$_POST['btnbaja'];
+$sql = " UPDATE usuarios set estado='$est' WHERE idusuario='$var'";
+$resultado = $mysqli->query($sql); 
+}
+?>
               </div>      
             </div><!--Fin del row del formulario-->
 
           </div>
-    <?php 
-
-if (!empty($_POST['btnalta']))  {
-//Inactiva el activo 
-$est=1;
-$var =$_POST['btnalta'];
-$sql = " UPDATE usuarios set estado='$est' WHERE idusuario='$var'";
-$resultado = $mysqli->query($sql); 
-}
-?> 
+    
      <div class="row">
               <div class="col-md-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Datos de usuario</h2>
-                    <br>
-                    <br>
-  <div class="col-md-2 "  style="  margin-left: -10px; margin-top:-15px;">
+                    <h2>Datos</h2>
+<br>
+<br>
+  <div class="col-md-2 " style="  margin-left: -10px; margin-top:-15px;">
   <label for="condi">Estado :</label>
  <select class="form-control" data-live-search="true" id="condi" name="condi" onchange="sele()">
 <option></option> 
-<option value="1" disabled="true">Activo</option>
+<option value="1" >Activo</option>
  
-<option value="0" >Inactivo </option>
+<option value="0" disabled="true">Inactivo </option>
 </select>
 </div>
+
                     <ul class="nav navbar-right panel_toolbox">                   
                     </ul>
                     <div class="clearfix"></div>
@@ -266,15 +182,14 @@ $resultado = $mysqli->query($sql);
                       <thead>
                         <tr>
                           <th>Nombre</th>
-                          <th>Dirección</th>
-                          <th>Teléfono</th>
+                          <th>Direccion</th>
+                          <th>Telefono</th>
                           <th>Genero</th>
-                          <th>E-mail</th>
+                          <th>Correo</th>
                           <th>Contraseña</th>
-                          <th>Nombre de Usuario</th>
-                          <th>Tipo</th>
+                          <th>Nombre Usuario</th>
                           <th>Editar</th>
-                          <th>Inabilitar</th>
+                          <th>Inactivar</th>
                         </tr>
                       </thead>
                             <!-- extraccion de datos de la base  -->
@@ -282,7 +197,7 @@ $resultado = $mysqli->query($sql);
 
                           <?php
                           include "../ProcesoSubir/conexion.php";
-              $query = mysqli_query ($mysqli,"SELECT * FROM usuarios");
+              $query = mysqli_query ($mysqli,"SELECT * FROM usuarios where estado=0");
 
                 while ($fila=mysqli_fetch_array($query)) {
                     $nombrereal =$fila['nombre_real'];
@@ -292,7 +207,6 @@ $resultado = $mysqli->query($sql);
                     $correo=$fila['email'];
                     $contra=$fila['contrasena'];
                     $nombreusu=$fila['nombre_de_usuario'];
-                    $tipo=$fila['tipo'];
                     $id=$fila['idusuario'];
                 ?>
 
@@ -304,22 +218,11 @@ $resultado = $mysqli->query($sql);
                           <td><?php  echo $fila['email']; ?></td>
                           <td><?php  echo $fila['contrasena']; ?></td>
                           <td><?php  echo $fila['nombre_de_usuario']; ?></td>
-                          <td><?php  echo $fila['tipo']; ?></td>
                         
                          <td><!--boton de modificar-->
                                   <div class="row">
                                     <div class="col-md-6">
-                                        <a href="" data-toggle="modal" data-target="#actualizar" 
-                                        onclick="Editar('<?php echo $nombrereal; ?>',
-                                        '<?php echo $direccion; ?>',
-                                        '<?php echo $tel;?>',
-                                        '<?php echo $genero;?>',
-                                        '<?php echo $correo;?>',
-                                        '<?php echo $contra;?>',
-                                        '<?php echo $nombreusu;?>',
-                                        '<?php echo $tipo;?>',
-                                        '<?php echo $id;?>')" >
-                                        <button type="button" class="btn btn-success"><i class="fa fa-pencil"></i></button></a>
+                                        <a href="#" data-toggle="modal" data-target="#actualizar" onclick="Editar('<?php echo $nombrereal; ?>','<?php echo $direccion; ?>','<?php echo $tel;?>','<?php echo $genero;?>','<?php echo $correo;?>','<?php echo $contra;?>','<?php echo $nombreusu;?>','<?php echo $id;?>')" ><button type="button" class="btn btn-success"><i class="fa fa-pencil"></i></button></a>
                                 
                                     </div>
 
@@ -333,9 +236,9 @@ $resultado = $mysqli->query($sql);
                                          
                                          <div class="col-md-6">
                                         
-                                        <a href="#" data-href="matar.php?id_visitante=<?php echo $row['id_visitante']; ?>"
-                                         data-toggle="modal" data-target="#confirm-delete"
-                                          type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button></a>
+                                       <form action="usuarios.php" method="post" class="form-register" > 
+                                        <button  type="submit" class="btn btn-danger" name="btnalta" id="btnalta" value="<?php echo $fila['idusuario']?>"><i class="fa fa-trash"></i></button>
+                                      </form>
                                       
                                 
                                     </div>
@@ -355,6 +258,7 @@ $resultado = $mysqli->query($sql);
                       </div>
 
                     </form>
+
                   </div>
                 </div>
         <!-- /page content -->
@@ -419,126 +323,10 @@ $resultado = $mysqli->query($sql);
     <script src="../vendors/jszip/dist/jszip.min.js"></script>
     <script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
     <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
-	
+	   <script src="../jquery.mask.min.js"></script>
   </body>
 </html>
 
 
-<?php
-require '../ProcesoSubir/conexion.php';
-
-//inserta usuario
-
-if (!empty($_POST['nombre']) && !empty($_POST['direccion']) && !empty($_POST['telefono']) && !empty($_POST['genero']) 
-  && !empty($_POST['correo']) && !empty($_POST['usuario']) && !empty($_POST['contrasena'] && !empty($_POST['tipo'])))  {
-
-$insertar="INSERT INTO usuarios (nombre_de_usuario,nombre_real,direccion, telefono,genero,email,contrasena,tipo)
- VALUES ('$_POST[usuario]','$_POST[nombre]','$_POST[direccion]','$_POST[telefono]','$_POST[genero]',
-  '$_POST[correo]','$_POST[contrasena]','$_POST[tipo]')";
-$ejecutar=mysqli_query($mysqli,$insertar);
-?>
-<script type="text/javascript">
-  location.href="usuarios.php";
-</script>
-<?php
 
 
-}
-?>
-
-<?php
-            include_once'usuariosModi.php'
-            ?>
-
-<script>
-function Editar(nombre_real,direccion,telefono,genero,email,contrasena,nombre_de_usuario,tipo,id){
-    $("#nombre").val(nombre_real);
-    $("#direccion").val(fechavisita);
-    $("#telefono").val(telefono);
-    $("#genero").val(genero);
-    $("#email").val(email);
-    $("#contrasena").val(contrasena);
-    $("#usuario").val(nombre_de_usuario);
-    $("#tipo").val(tipo);
-    $("#idDeActualizacion").val(id);
-    
-
-}
-</script>
-
- <script >
-function validarEmail(correo){
-
-  var texto = document.getElementById(correo.id).value;
-  var regex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
-  
-  if (!regex.test(texto)) {
-      document.getElementById("resultado").innerHTML = "Correo invalido";
-  } else {
-    document.getElementById("resultado").innerHTML = "";
-  }
-
-}
-</script>
-
-   </script>
-   <script src="email-validation.js">
-   </script>
-
- <script src="../js/jquery.maskedinput.min.js"></script>
- <script src="../js/jquery-3.2.1.min.js"></script>
- <script type="text/javascript">
-      
- jQuery(function($){
-            // Definimos las mascaras para cada input
-            
-            $("#telefono").mask("9999-9999");
-            
-        });
-          
-        
-    </script>
-<script>
-    function soloNumero(e) {
-        key = e.keyCode || e.which;
-        teclado = String.fromCharCode(key);
-        numerito = "0123456789";
-        especiales = "8-37-38-46";
-        teclado_especial = false;
-        for (var i in especiales) {
-            if (key == especiales[i]) {
-                teclado_especial = true;
-            }
-        }
-        if (numerito.indexOf(teclado) == -1 && !teclado_especial) {
-            return false;
-        }
-    }
-
-
-    function soloLetras(e) {
-        key = e.keyCode || e.which;
-        teclado = String.fromCharCode(key).toLowerCase();
-        letras = " Ã¡Ã©Ã­Ã³ÃºabcdefghijklmnÃ±opqrstuvwxyz";
-        especiales = "8-37-38-46-164";
-        teclado_especial = false;
-        for (var i in especiales) {
-            if (key == especiales[i]) {
-                teclado_especial = true;
-                break;
-            }
-        }
-        if (letras.indexOf(teclado) == -1 && !teclado_especial) {
-            return false;
-        }
-    }
-
-</script>
-
-<script src="../jquery.mask.min.js"></script>
-
-<script type="text/javascript">
-    $('.mask-dui').mask('00000000-0');
-    $('.mask-celular').mask('0000-0000');
-
-</script>

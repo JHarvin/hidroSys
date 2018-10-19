@@ -1,5 +1,19 @@
 <form name="form1" method="post" action="">
+ <?php//este es para los q son texfil
+                          include "../ProcesoSubir/conexion.php";
+      $query = mysqli_query ($mysqli,"SELECT u.idusuario,u.nombre_real, u.direccion, u.telefono, u.email, u.nombre_de_usuario, u.contrasena FROM usuarios u INNER JOIN propietariospozos pp on u.idusuario=pp.idusuario WHERE pp.idusuario<>'$id'AND pp.idusuario='$nomU'");
 
+                while ($fila=mysqli_fetch_array($query)) {
+                    
+                    $nomb=$fila['nombre_real'];
+                    $direc=$fila['direccion'];
+                    $tele=$fila['telefono'];
+                    $corr=$fila['email'];
+                    $nomU=$fila['nombre_de_usuario'];
+                    $pass=$fila['contrasena'];
+                  }
+                  
+                ?>
     <input type="hidden" name="idDeActualizacion" id="idDeActualizacion" value="00000">
 
     <div class="modal fade" id="actualizar" tabindex="-1" role="dialog" 
@@ -31,6 +45,7 @@
                     <form class="form-horizontal form-label-left input_mask" method="post" action="usuarios.php">
 
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                      <label>Nombre</label>
                       <input type="text" class="form-control has-feedback-left" 
                       id="nombre" name="nombre" placeholder="Nombre" onkeypress="return soloLetras(event)" 
                        onpaste="return false" value="<?php echo $nombrereal; ?> "autocomplete="off">
@@ -38,6 +53,7 @@
                       </div>
 
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                      <label>Dirección</label>
                         <input type="text" class="form-control has-feedback-left" id="direccion"
                          name="direccion" placeholder="Dirección" value="<?php echo $direccion; ?>"
                          autocomplete="off">
@@ -45,31 +61,38 @@
                       </div>
 
                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                           <label>Teléfono</label>
                         <input type="text" class="form-control has-feedback-left" id="telefono" name="telefono" 
                         placeholder="Teléfono" value="<?php echo $tel;?>" autocomplete="off">
                         <span class="fa fa-phone form-control-feedback left" aria-hidden="true"></span>
                       </div>
 
-                      <div class="form-group">
-                        <div class="col-md-6 col-sm-6 col-xs-12">
+
+<div>         <label>Genero</label>
+                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                        
                           <select class="form-control" id="genero" name="genero">
-                            <option>Genero</option>
-                            <option>Femenino</option>
-                            <option>Masculino</option>
+                            <?php
+                                      while ($row = mysqli_fetch_array($verUsuario)) {
+                                         $id_visitant=$row['idusuario'];
+                                           echo '<option value='."$row[0]".'>'.$row['1'].'</option>';
+                                    }
+                            ?>
+                           
                             </select>
-                        </div> 
-                        </div>
-
-
+                     </div></div>
+           
 
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                      <label>E-mail</label>
                         <input type="text" class="form-control has-feedback-left" id="correo" name="correo" 
                         placeholder="E-mail" value="<?php echo $correo;?>" autocomplete="off">
                         <span class="fa fa-at form-control-feedback left" aria-hidden="true"></span>
                       </div>
 
-                      
-    <div class="form-group">
+      <label>Tipo de usuario</label>                
+    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+    
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <select class="form-control" id="tipo" name="tipo">
                             <option>Seleccione tipo de usuario</option>
@@ -82,11 +105,13 @@
                        
 
                         <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                        <label>Nombre de usuario</label>
                         <input type="text" class="form-control has-feedback-left" id="usuario" 
                         name="usuario" placeholder="Nombre de Usuario" value="<?php echo $nombreusu;?>" autocomplete="off">
                         <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                       </div>
                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                       <label>Contraseña</label>
                         <input type="password" class="form-control has-feedback-left" id="contrasena" 
                         name="contrasena" placeholder="Contraseña" value="<?php echo $contrasena;?>" autocomplete="off">
                         <span class="fa fa-at form-control-feedback left" aria-hidden="true"></span>
