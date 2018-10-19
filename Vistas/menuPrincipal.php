@@ -48,7 +48,7 @@
                   </li>
                   <li><a><i class="fa fa-users"></i> Instituciones/Comunidades <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                    <li><a href="responsablesestaciones.php">Responsables</a></li>
+                    <li><a href="ResponsablesEstaciones/responsablesestaciones.php">Responsables</a></li>
                     <li><a href="comunidades.php">Instituciones y Comunidades</a></li>
                     
                     
