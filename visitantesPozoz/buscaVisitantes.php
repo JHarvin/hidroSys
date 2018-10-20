@@ -6,6 +6,9 @@ include_once './editarVisitante.php';
 
 ?>
 
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,7 +47,67 @@ include_once './editarVisitante.php';
     <link href="../vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
     <link href="../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
     <link href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
-
+<link rel="stylesheet" href="../libreriasJS/alertifyjs/css/alertify.rtl.min.css">
+  
+<script>
+    public function inhabilitarController($id){
+         
+        $respuesta=pame($id,"visitantes");
+        
+        if($respuesta=="success"){
+            return "success";
+            
+        }else { return "error";}
+        
+    }
+   
+    public function habilitarController($id){
+         $respuesta=pame($id,"visitantes");
+        
+        if($respuesta=="success"){
+            return "success";
+            
+        }else { return "error";}
+    }
+    
+     #para inhabilitar
+    public function inhabilitarModel($id,$tabla){
+        $stado=0;
+         $stmt =Conexion::conectar()->prepare("UPDATE $tabla SET status=:estado WHERE dui= :dui");
+        
+        $stmt->bindParam(":estado",$stado,PDO::PARAM_INT); 
+        $stmt->bindParam(":dui",$id,PDO::PARAM_INT);
+        
+        
+        
+        if($stmt->execute()){
+            return "success";
+            
+        }else{
+            return "error";
+        }
+        $stmt->close();
+    }
+    
+    #Para habilitar
+        public function habilitarModel($id,$tabla){
+        $stado=1;
+         $stmt =Conexion::conectar()->prepare("UPDATE $tabla SET status=:estado WHERE dui= :dui");
+        
+        $stmt->bindParam(":estado",$stado,PDO::PARAM_INT); 
+        $stmt->bindParam(":dui",$id,PDO::PARAM_INT);
+        
+        
+        
+        if($stmt->execute()){
+            return "success";
+            
+        }else{
+            return "error";
+        }
+        $stmt->close();
+    }
+</script>
 </head>
 <body>
 <div class="row">
@@ -75,8 +138,10 @@ include_once './editarVisitante.php';
                             <th width="150"><font font color="black">Genero</font></th>
                             <th width="100"><font font font color="black">Tipo</font></th>
                             <th width="100"><font font font color="black">Celular</font></th>
+                            <th width="10"><font font font font font color="black">Estado</font></th>
                             <th width="10"><font font font font color="black">Editar</font></th>
-                            <th width="10"><font font font font font color="black">Eliminar</font></th>
+                            <th width="10"><font font font font font color="black">Inactivar</font></th>
+                            <th width="10"><font font font font font color="black">activar</font></th>
                         </tr>
                     </thead>
 
@@ -89,16 +154,28 @@ include_once './editarVisitante.php';
                             $generoVisita=$row['genero'];
                             $tipoVisita=$row['tipo'];
                             $celularVisita=$row['celular'];
+                            $status=$row['status'];
+                            
                             $pas=$row['id_visitante'];
-                           
+                           if($status==0){
+                               $estadom="Desabilitado";
+                           }else{
+                               $estadom="Habilitado";
+                           }
                             ?>
                             <tr>
+                               
                                 <td><?php echo $row['id_visitante']; ?></td>
                                 <td><?php echo $row['dui']; ?></td>
                                 <td><?php echo $row['nombre']; ?></td>
                                 <td><?php echo $row['genero']; ?></td>
                                 <td><?php echo $row['tipo']; ?></td>
                                 <td><?php echo $row['celular']; ?></td>
+                                <td><?php echo $estadom; ?></td>
+                                
+                                 
+                                  
+                                </td>
                                 <td><!--boton de modificar-->
                                   <div class="row">
                                     <div class="col-md-6">
@@ -116,11 +193,17 @@ include_once './editarVisitante.php';
                                          
                                          <div class="col-md-6">
                                         
-                                        <a href="#" data-href="matar.php?id_visitante=<?php echo $row['id_visitante']; ?>" data-toggle="modal" data-target="#confirm-delete" type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button></a>
-                                      
-                                
+                                        <a href="#"  class="btn btn-danger" data-toggle="modal" data-target="#confirm-delete" ><i class="fa fa-arrow-circle-down"></i></a>
+                                        
+                                       </td>
+                                       <td>
                                     </div>
-                                          
+                                           
+                                      </div>
+                                      <div class="row">
+                                          <div class="col-md-6">
+                                              <a href="#" data-href="matar.php?id_visitante=<?php echo $row['id_visitante']; ?>" data-toggle="modal" data-target="#confirm-delet" type="button" class="btn btn-danger"><i class="fa fa-arrow-circle-up"></i></button></a>
+                                          </div>  
                                       </div>
                                   </td>
                
@@ -140,30 +223,54 @@ include_once './editarVisitante.php';
 
 
  
- <!-- MODAL PARA MATAR A UN VISITANTE -->
-  <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+ <!-- MODAL PARA inahabilitar A UN VISITANTE -->
+  <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h3 class="modal-title" id="myModalLabel"><font font font font color="black">Eliminar Registro</font></h3> 
+                    <h3 class="modal-title" id="myModalLabel"><font font font font color="black">Inactivar Visitante</font></h3> 
                 </div>
 
                 <div class="panel-body">
 
-                    ¿Seguro que desea eliminar este elemento?
+                    ¿Seguro que desea Inactivar al visitante?
                                        
 
                 </div>
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Cancelar</button>
-                    <a class="btn btn-danger btn-ok" >Eliminar</a>
+                    <a class="btn btn-danger btn-ok" >Inactivar</a>
                 </div> 
             </div>
         </div> 
-    </div>          
+    </div>   
+ 
+ <!-- MODAL PARA Habilitar A UN VISITANTE -->
+<div class="modal fade" id="confirm-delet" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal1" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title" id="myModalLabel1"><font font font font color="black">Inactivar Visitante</font></h3> 
+                </div>
 
+                <div class="panel-body">
+
+                    ¿Seguro que desea Habilitar al visitante?
+                                       
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Cancelar</button>
+                    <a class="btn btn-danger btn-ok" >Habilitar</a>
+                </div> 
+            </div>
+        </div> 
+    </div>
+ 
 
 <script>
     $('#confirm-delete').on('show.bs.modal', function(e){
@@ -171,7 +278,30 @@ include_once './editarVisitante.php';
         $('.debug-url').html('Eliminar URL: <strong>' + $(this).find('.btn-ok').attr('href') + '</strong>');
     })
 </script>
+ <script>
+    //accion para inhabilitar usuario
+        $(document).ready(function(){
+            
+            $("#btnInhabilitar").click(function(){
+                
 
+                var idEliminar=$("#ide").val();
+
+               // var usuario=$("#usuario").val();
+              //  var nusuario=$("#nusuario").val();
+                var idEliminar=$("#ide").val();
+                
+             
+
+                var idEliminar=$("#ide").val();
+
+            inhabilitar(idEliminar);
+                
+            });
+            
+        });
+        
+    </script>
 
 
 
@@ -212,8 +342,8 @@ include_once './editarVisitante.php';
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
 
-  <script src="../libreriasJS/jquery.mask.min.js"></script>
-
+    <script src="../libreriasJS/jquery_form/jquery.mask.min.js"></script>
+  <script src="../libreriasJS/alertifyjs/css/alertify.min.js"></script>
 
     <!-- Datatables -->
     <script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>

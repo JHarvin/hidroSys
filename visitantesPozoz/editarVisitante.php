@@ -35,6 +35,9 @@
     }
 
 </script>
+   <link rel="stylesheet" href="../libreriasJS/alertifyjs/alertify.min.css">
+   <script src="../libreriasJS/alertifyjs/alertify.css"></script>
+   <script src="../libreriasJS/alertifyjs/alertify.min.js"></script>
 <form name="form1" method="post" action="">
 
     <input type="hidden" name="idDeActualizacion" id="idDeActualizacion" value="00000">
@@ -122,7 +125,15 @@ if (!empty($_REQUEST['duisito'])) {
     $idActualizacion = $_REQUEST['idDeActualizacion'];
 
     mysqli_query($conexion, "UPDATE visitantes SET dui='$duVi',nombre='$nomVi',genero='$genVi',tipo='$tipVi',celular='$celVi' WHERE id_visitante ='$idActualizacion'");
+ echo' 
+             
+            <script type="text/javascript">
+              
 
+          alertify.success("Datos Actualizados   ✔");
+    alertify.set("notifier","position", "top");
+            </script>
+            ';
   
     } catch (Exception $ex) {
         

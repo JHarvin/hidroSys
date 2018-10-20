@@ -1,7 +1,11 @@
 <?php
 
 require '../ProcesoSubir/conexion.php';
-
+ $po=$_GET['po'];
+// $fecha=$_GET['f'];
+//   $x=explode("-",$fecha);
+//  $mes1=$x[0];
+//   $a=$x[1];
  
 
 
@@ -30,14 +34,14 @@ class PDF extends FPDF {
         $this->SetTextColor(0);
         $this->SetDrawColor(231, 169, 249);
         $this->SetLineWidth(1.5);
-         $this->Cell(104,6, 'Informe de nivel de pozo', 0, 0, 'C');
+         $this->Cell(104,6, 'Informe de observaciones y ', 0, 0, 'C');
          $this->Ln(10);
          $this->SetFont('Arial', 'B', 15);
         $this->Cell(40, 6, '', 0, 0, 'C');
         $this->SetTextColor(0);
         $this->SetDrawColor(231, 169, 249);
         $this->SetLineWidth(1.5);
-         $this->Cell(104,6, 'Segun visitas efectuadas', 0, 0, 'C');
+         $this->Cell(104,6, 'estados de los pozos', 0, 0, 'C');
       
         $this->SetDrawColor(0, 80, 180);
         $this->SetFillColor(230, 230, 0);
@@ -85,25 +89,29 @@ p.observacion,
 p.estado
 FROM
 pozos p
-INNER JOIN municipios m ON p.id_pozo = m.idmunicipio
+INNER JOIN municipios m ON m.idmunicipio = $po
 ORDER BY
-m.idmunicipio ASC
-");
+m.idmunicipio ASC");
    while ($row1 = mysqli_fetch_array($pozo)) {
-    $esta=$row1['date'];
-    $muni=$row1['promtemp'];
+    $esta=$row1['nombre'];
 }
 $pdf->SetFont('Arial', 'B', 12);
-$pdf->Cell(60, 10, 'Municipio: ' .$muni, 0, 0, 'C');
-$pdf->Cell(70, 10, 'Pozo: ' .$esta, 0, 0, 'C');
 
-$pdf->Ln(10);
+$pdf->Cell(70, 10, 'Municipio: ' .$esta, 0, 0, 'C');
+
+$pdf->Ln(7);
 $pdf->SetFillColor(116,177,189);
 $pdf->SetFont('Arial', 'B', 12);
 
-$pdf->Cell(60, 6, 'Fecha', 1, 0, 'C', 1);
+$pdf->Cell(20, 4, 'Municipio',                 1, 0, 'C', 1);
+$pdf->Cell(20, 4, 'Pozo '                    , 1, 0, 'C', 1);
+$pdf->Cell(20, 4, 'Tipo de pozo',              1, 0, 'C', 1);
+$pdf->Cell(20,4 , 'Fecha de creacion de pozo ', 1, 0, 'C', 1);
+$pdf->Cell(20, 4, 'Geologia',                   1, 0, 'C', 1);
+$pdf->Cell(20, 4, 'Observacion ',               1, 0, 'C', 1);
+$pdf->Cell(20, 4, 'Estado',                     1, 1, 'C', 1);
 
-$pdf->Cell(70, 6, 'Nivel', 1, 1, 'C', 1);
+
 
 $pdf->SetFont('Arial', '', 10);
 
@@ -117,17 +125,22 @@ p.observacion,
 p.estado
 FROM
 pozos p
-INNER JOIN municipios m ON p.id_pozo = m.idmunicipio
+INNER JOIN municipios m ON m.idmunicipio = $po
 ORDER BY
-m.idmunicipio ASC
-");
+m.idmunicipio ASC");
 
 
 
 
 while ($row = $pozo1->fetch_assoc()) {
-    $pdf->Cell(60, 6,$row['date'],1 , 0, 'C'); 
-    $pdf->Cell(70, 6,$row['promtemp'], 1, 1, 'C');
+    $pdf->Cell(20, 6,$row['nombre'],     0, 0, 'C'); 
+    $pdf->Cell(20, 6,$row['codigopozo'], 0, 0, 'C');
+    $pdf->Cell(20, 6,$row['tipo'],       0 , 0, 'C'); 
+    $pdf->Cell(20, 6,$row['fechacreacion'], 0, 0, 'C');
+    $pdf->Cell(20, 6,$row['geologia'],0, 0, 'C'); 
+    $pdf->Cell(20, 6,$row['observacion'], 0, 0, 'C');
+    $pdf->Cell(20, 6,$row['estado'],0, 1, 'C'); 
+    
     ;
 }
 

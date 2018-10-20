@@ -4,19 +4,17 @@
 
   
    <!-- ALERTIFY PLUGINS -->
-  <link rel="stylesheet" href="../JS/alertify/themes/alertify.core.css" id="toggleCSS"/>
+  
 
-  <link rel="stylesheet" href="../JS/alertify/themes/alertify.default.css" />
-  <link rel="stylesheet" href="../JS/alertify/themes/alertify.default.css" />
-  <link rel="stylesheet" href="../JS/alertify/lib/alertify.min.js" />
-  <link rel="stylesheet" href="../JS/alertify/lib/alertify.js" />
-  <link rel="stylesheet" href="../JS/alertify/src/alertify.js" />
-
+ 
+   <link rel="stylesheet" href="../libreriasJS/alertifyjs/alertify.min.css">
+   <script src="../libreriasJS/alertifyjs/alertify.css"></script>
+   <script src="../libreriasJS/alertifyjs/alertify.min.js"></script>
   <!-- incluimos el jQUERY --> 
    <script src="../JS/jquery.min.js"></script> 
    <!-- incluimos el jQUERY --> 
-   <script src="../JS/alertify/src/alertify.js"></script> 
-   <script src="../JS/alertify/lib/alertify.js"></script> 
+   
+  
   </head>
   <script>
     function soloNumero(e) {
@@ -226,7 +224,7 @@
                     
 
                     </form>
-                       <a href="#" id="order">Button Order</a>
+                       
                     </div>
 
   <?php
@@ -238,11 +236,37 @@
         $Genero = $_POST["genero"];
         $Tipo = $_POST["tipo"];
         $Celular = $_POST["celular"];
+        $status=1;
 
-         mysqli_query($conexion, "INSERT INTO visitantes(dui, nombre, genero, tipo, celular) VALUES ('$Dui', '$Nombre', '$Genero', '$Tipo', '$Celular')");
+         mysqli_query($conexion, "INSERT INTO visitantes(dui, nombre, genero, tipo, celular,status) VALUES ('$Dui', '$Nombre', '$Genero', '$Tipo', '$Celular', '$status')");
+         echo' 
+             
+            <script type="text/javascript">
+              
 
+          alertify.success("Registro Guardado    ✔");
+    alertify.set("notifier","position", "top");
+            </script>
+            ';
         } catch (Exception $e) {
-           echo '<script>swal("No se puedo realizar el registro", "Favor revisar los datos e intentar nuevamente", "error");</script>';
+            
+         
+               echo' 
+             
+            <script type="text/javascript">
+             alertify.set("notifier","position", "top-right");
+
+          alertify.error("Algo salio mal :(");
+
+       alertify.error("EL USUARIO O CORREO YA HAN SIDO REGISTRADOS PRUEBA OTRA ");
+
+
+
+        
+            </script>
+            ';  
+                
+            
         }
       }     
     

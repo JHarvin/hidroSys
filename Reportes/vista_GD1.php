@@ -141,22 +141,35 @@
                     <form class="form-horizontal form-label-left input_mask">
 
                       <div class="col-md-5 col-sm-5 col-xs-5 form-group has-feedback">
-                        <h4>Estado del Pozo</h4>
+                        <h4>Nombre del Pozo</h4>
                       </div>
                          <div class="col-md-6 col-sm-6 col-xs-12 form-group">
                             <select class="form-control" name="pozo">
                               <?php
                                           include_once '../ProcesoSubir/conexion.php';
-                                          $verPozo= mysqli_query($mysqli,"SELECT id_pozo, estado FROM pozos");
+                                          $verPozo= mysqli_query($mysqli,"SELECT idmunicipio,nombre FROM municipios");
                               ?>
                             <option>Seleccionar</option>
                             <?php
                              while ($row = mysqli_fetch_array($verPozo)) {
-                                         $idpozo=$row['id_pozo'];
-                                           echo '<option value='."$row[0]".'>'.$row['1'].'</option>';
+                                         
+                                           echo '<option value='.$row['0'].'>'.$row['1'].'</option>';
                                     }
                                     ?>
                             </select>
+                    
+                    
+                     
+                     
+                             
+                          
+                     
+                      
+                     
+                             
+                         
+                     
+                      
                         </div>
                       </div>
                      
@@ -194,6 +207,7 @@
        include "../Vistas/footer.php";
         if (isset($_REQUEST['tirar'])) {
         $po = $_REQUEST['pozo'];
+        
      ?>
     <script type="text/javascript">
 location.href="modal_GD1.php?po=<?php echo $po;?>";
