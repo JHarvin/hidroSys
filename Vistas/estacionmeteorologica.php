@@ -66,8 +66,20 @@ error_reporting(E_ALL & ~E_NOTICE);
       });
   }
   function verificar(){
+          if(document.getElementById('codigo').value=="" ||
+            document.getElementById('lista1').value=="0"  ||
+            document.getElementById('lista2').value=="0"  ||
+            document.getElementById('institucion').value=="" ||
+            document.getElementById('latitud').value=="" ||
+            document.getElementById('longitud').value==""){
+            alert("Complete los campos");
+          }else{
+            document.getElementById('bandera').value="add";
+            alert("no van vacios.");
+           document.hidro.submit();
+          }
 
-  }
+        }
   function prueba2(){
    
     alert(document.getElementById("latitud").value);
@@ -441,8 +453,11 @@ $lista1    = $_REQUEST["lista1"];
 $lista2    = $_REQUEST["lista2"];
 $institucion = $_REQUEST["institucion"];
 $imagenEstacion = $_REQUEST["imagen"];
+$latitud = $_REQUEST["latitud"];
+$longitud = $_REQUEST["longitud"];
 
 if ($bandera == "add") {
+  msg("entra a guardar");
     $permitidos = array("image/jpg", "image/jpeg", "image/png");
     $limite_kb  = 16384; //tamanio maximo que permitira subir, es el limite de medium blow(16mb)
     if (in_array($_FILES['imagen']['type'], $permitidos) && $_FILES['imagen']['size'] <= $limite_kb * 1024) {
@@ -457,14 +472,13 @@ if ($bandera == "add") {
         //escapar los caracteres
         $data      = mysqli_real_escape_string($conexion, $data);
         
-        $consulta  = "INSERT INTO estacionmet VALUES('null','" . $codigo . "','" . $lista1 . "','" . $lista2 . "',' 0 ',' 0 ','" . $data . "','" . $tipo . "','" . $categoria  . "',' 0
-        ','" . $stockMin . "','" . $proveedor . "','" . $margen . "','" . $descripcion . "','0')";
+        $consulta  = "INSERT INTO estacionmet VALUES('null','" . $codigo . "','" . $lista1. "','" . $lista2. "','1','" . $data . "','" . $tipo . "','" . $latitud  . "','".$longitud."','".$institucion."')";
         msg($consulta);
         $resultado = $conexion->query($consulta);
         if ($resultado) {
             msg("Exito");
         } else {
-            msg(mysqli_error($conexion));
+           echo mysqli_error($conexion);
         }
     }
 
