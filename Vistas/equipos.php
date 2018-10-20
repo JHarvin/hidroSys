@@ -300,7 +300,9 @@ msg("Los datos fueron almacenados con exito");
       </div>
     </div>
      <!--Detalle modal-->
+
      <div class="modal fade detalle-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+      
               <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                 <div class="modal-header">
@@ -311,49 +313,72 @@ msg("Los datos fueron almacenados con exito");
                 </div>
                 <div class="modal-body">
                   <div class="row">
+
                   <table class="table table-bordered">
                     
                       <thead>
                         <tr><th colspan=5 style="text-align:center;"> DETALLE DE EQUIPO </th></tr>
                     </table>
-
+                    
+                    <?php
+                                    include_once '../conexion/conexion.php';
+                                    $sacar = mysqli_query($conexion, "SELECT*FROM equipos ");
+                                    while ($fila = mysqli_fetch_array($sacar)) {
+                                        $modificar = $fila['idequipo'];
+                                        $nom = $fila['nombre'];
+                                        $mar = $fila['marca'];
+                                        $nums = $fila['numeroserie'];
+                                        $don = $fila['donadopor'];
+                                        $tipou = $fila['tipouso'];
+                                        $este = $fila['estado'];
+                                        $desc = $fila['descripcion'];
+                                        }
+                                    ?>
                   
                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                      <!--Consulta donde extraigo los campos de -->
                         <label>Nombre del Equipo<small class="text-muted"></small></label>
-                        <input type="text" class="form-control has-feedback-left" name="Donantes" id="donadores" placeholder="Donadores">
+                        <input type="text" class="form-control has-feedback-left" value="<?php echo $nom; ?>" name="Donantes" id="donadores" >
                         <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                         </div>
+
                         <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                         <label>Marca<small class="text-muted"></small></label>
-                        <input type="text" class="form-control has-feedback-left" name="Donantes" id="donadores" placeholder="Donadores">
+                        <input type="text" class="form-control has-feedback-left" value="<?php echo $mar; ?>" name="Donantes" id="donadores" >
                         <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                         </div>
+
                         <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                         <label>Numero de Serie<small class="text-muted"></small></label>
                         <input type="text" class="form-control has-feedback-left" name="Donantes" id="donadores" placeholder="Donadores">
                         <span class="fa fa-list-ol form-control-feedback left" aria-hidden="true"></span>
                         </div>
+
                         <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <label>Docentes<small class="text-muted"></small></label>
+                        <label>Donador<small class="text-muted"></small></label>
                         <input type="text" class="form-control has-feedback-left" name="Donantes" id="donadores" placeholder="Donadores">
                         <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                         </div>
+
                         <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                         <label>Tipo de Uso<small class="text-muted"></small></label>
                         <input type="text" class="form-control has-feedback-left" name="Donantes" id="donadores" placeholder="Donadores">
                         <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                         </div>
+
                         <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                         <label>Estado del Equipo<small class="text-muted"></small></label>
                         <input type="text" class="form-control has-feedback-left" name="Donantes" id="donadores" placeholder="Donadores">
                         <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                         </div>
+
                         <div class="form-group">
                       <div class="col-md-6 col-sm-6 col-xs-12">
                       <label>Descripción<small class="text-muted"></small></label>
-                      <textarea style="width: 850px;" rows="3" size="100" value="" class="form-control" name="descripcion" placeholder="Descripción" id="descripcion"></textarea>
+                      <textarea style="width: 425px;" rows="3" size="100" value="" class="form-control" name="descripcion" placeholder="Descripción" id="descripcion"></textarea>
                       </div>
                       </div>
+
                   </div>
                
                     
@@ -367,6 +392,8 @@ msg("Los datos fueron almacenados con exito");
                 </div>
 
                 </div><!--Fin del content-->
+                
+               
               </div>
          </div>  
       
