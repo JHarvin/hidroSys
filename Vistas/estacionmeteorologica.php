@@ -23,6 +23,7 @@ error_reporting(E_ALL & ~E_NOTICE);
     $(document).ready(function () {
       recargarLista();
 
+
       $('#lista1').change(function(){
         recargarLista();
         
@@ -37,16 +38,17 @@ error_reporting(E_ALL & ~E_NOTICE);
   function ponerAbreviatura(){
     var iddepto=document.getElementById("lista1").value;
     var idmunicipio=document.getElementById("lista2").value;
-    alert(iddepto);
-    alert(idmunicipio);
+    // alert(iddepto);
+    // alert(idmunicipio);
     if(iddepto!=0 && idmunicipio!=0){
       $.ajax({
         type: "POST",
         dataType: 'html',
         url: "abreviaturas.php",
-        data: "departamento="+iddepto,
+        data: "departamento="+iddepto+"&municipio="+idmunicipio,
         success: function(resp){
-           alert(resp);
+           //alert(resp);
+           document.getElementById("codigo").value=resp+document.getElementById("correlativo").value;
         }
     });
     }
