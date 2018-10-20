@@ -8,7 +8,6 @@ include_once './editarVisitante.php';
 
 
 
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -49,65 +48,6 @@ include_once './editarVisitante.php';
     <link href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="../libreriasJS/alertifyjs/css/alertify.rtl.min.css">
   
-<script>
-    public function inhabilitarController($id){
-         
-        $respuesta=pame($id,"visitantes");
-        
-        if($respuesta=="success"){
-            return "success";
-            
-        }else { return "error";}
-        
-    }
-   
-    public function habilitarController($id){
-         $respuesta=pame($id,"visitantes");
-        
-        if($respuesta=="success"){
-            return "success";
-            
-        }else { return "error";}
-    }
-    
-     #para inhabilitar
-    public function inhabilitarModel($id,$tabla){
-        $stado=0;
-         $stmt =Conexion::conectar()->prepare("UPDATE $tabla SET status=:estado WHERE dui= :dui");
-        
-        $stmt->bindParam(":estado",$stado,PDO::PARAM_INT); 
-        $stmt->bindParam(":dui",$id,PDO::PARAM_INT);
-        
-        
-        
-        if($stmt->execute()){
-            return "success";
-            
-        }else{
-            return "error";
-        }
-        $stmt->close();
-    }
-    
-    #Para habilitar
-        public function habilitarModel($id,$tabla){
-        $stado=1;
-         $stmt =Conexion::conectar()->prepare("UPDATE $tabla SET status=:estado WHERE dui= :dui");
-        
-        $stmt->bindParam(":estado",$stado,PDO::PARAM_INT); 
-        $stmt->bindParam(":dui",$id,PDO::PARAM_INT);
-        
-        
-        
-        if($stmt->execute()){
-            return "success";
-            
-        }else{
-            return "error";
-        }
-        $stmt->close();
-    }
-</script>
 </head>
 <body>
 <div class="row">
@@ -132,16 +72,15 @@ include_once './editarVisitante.php';
                     <thead>
                         <tr>
                             
-                            <th width="75"><font color="black">Nº</font></th>
-                            <th width="150"><font color="black">Dui</font></th>
+                            
+                           
                             <th width="500"><font color="black">Nombre</font></th>
+                             <th width="150"><font color="black">Dui</font></th>
                             <th width="150"><font font color="black">Genero</font></th>
                             <th width="100"><font font font color="black">Tipo</font></th>
                             <th width="100"><font font font color="black">Celular</font></th>
-                            <th width="10"><font font font font font color="black">Estado</font></th>
-                            <th width="10"><font font font font color="black">Editar</font></th>
-                            <th width="10"><font font font font font color="black">Inactivar</font></th>
-                            <th width="10"><font font font font font color="black">activar</font></th>
+                            <th width="10"><font font font font font color="black">Accion</font></th>
+                            
                         </tr>
                     </thead>
 
@@ -149,29 +88,27 @@ include_once './editarVisitante.php';
                         <?php
                         $pame = mysqli_query($conexion, "SELECT * FROM visitantes");
                         while ($row = mysqli_fetch_array($pame)) {
-                            $duiVisita =$row['dui'];
+                            
                             $NombreVisita = $row['nombre'];
+                            $duiVisita =$row['dui'];
                             $generoVisita=$row['genero'];
                             $tipoVisita=$row['tipo'];
                             $celularVisita=$row['celular'];
-                            $status=$row['status'];
+                            
                             
                             $pas=$row['id_visitante'];
-                           if($status==0){
-                               $estadom="Desabilitado";
-                           }else{
-                               $estadom="Habilitado";
-                           }
+                           
                             ?>
                             <tr>
                                
-                                <td><?php echo $row['id_visitante']; ?></td>
-                                <td><?php echo $row['dui']; ?></td>
+                                
+                              
                                 <td><?php echo $row['nombre']; ?></td>
+                                  <td><?php echo $row['dui']; ?></td>
                                 <td><?php echo $row['genero']; ?></td>
                                 <td><?php echo $row['tipo']; ?></td>
                                 <td><?php echo $row['celular']; ?></td>
-                                <td><?php echo $estadom; ?></td>
+                                
                                 
                                  
                                   
@@ -186,26 +123,8 @@ include_once './editarVisitante.php';
                                     
                                   </div>
                                   </td>
-                                  <td>
-                                      
-                                      <div class="row">
-                                        
-                                         
-                                         <div class="col-md-6">
-                                        
-                                        <a href="#"  class="btn btn-danger" data-toggle="modal" data-target="#confirm-delete" ><i class="fa fa-arrow-circle-down"></i></a>
-                                        
-                                       </td>
-                                       <td>
-                                    </div>
-                                           
-                                      </div>
-                                      <div class="row">
-                                          <div class="col-md-6">
-                                              <a href="#" data-href="matar.php?id_visitante=<?php echo $row['id_visitante']; ?>" data-toggle="modal" data-target="#confirm-delet" type="button" class="btn btn-danger"><i class="fa fa-arrow-circle-up"></i></button></a>
-                                          </div>  
-                                      </div>
-                                  </td>
+                                  
+                                    
                
                                
                                

@@ -236,9 +236,9 @@
         $Genero = $_POST["genero"];
         $Tipo = $_POST["tipo"];
         $Celular = $_POST["celular"];
-        $status=1;
+        
 
-         mysqli_query($conexion, "INSERT INTO visitantes(dui, nombre, genero, tipo, celular,status) VALUES ('$Dui', '$Nombre', '$Genero', '$Tipo', '$Celular', '$status')");
+         mysqli_query($conexion, "INSERT INTO visitantes(dui, nombre, genero, tipo, celular) VALUES ('$Dui', '$Nombre', '$Genero', '$Tipo', '$Celular')");
          echo' 
              
             <script type="text/javascript">
