@@ -319,10 +319,11 @@ msg("Los datos fueron almacenados con exito");
                       <thead>
                         <tr><th colspan=5 style="text-align:center;"> DETALLE DE EQUIPO </th></tr>
                     </table>
-                    
+                    <!--Consulta donde extraigo los campos de la tabla-->
                     <?php
+
                                     include_once '../conexion/conexion.php';
-                                    $sacar = mysqli_query($conexion, "SELECT*FROM equipos ");
+                                    $sacar = mysqli_query($conexion, "SELECT*FROM equipos");
                                     while ($fila = mysqli_fetch_array($sacar)) {
                                         $modificar = $fila['idequipo'];
                                         $nom = $fila['nombre'];
@@ -336,9 +337,12 @@ msg("Los datos fueron almacenados con exito");
                                     ?>
                   
                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                      <!--Consulta donde extraigo los campos de -->
+                      
                         <label>Nombre del Equipo<small class="text-muted"></small></label>
-                        <input type="text" class="form-control has-feedback-left" value="<?php echo $nom; ?>" name="Donantes" id="donadores" >
+                        
+                        <!--Uso una variable de tipo hidden para probar -->
+                        <input type="hidden" class="form-control has-feedback-left" id="idequipo" name="idequipo" value="<?php echo $nom; ?>">
+
                         <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                         </div>
 
@@ -391,6 +395,7 @@ msg("Los datos fueron almacenados con exito");
                   <button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
                 </div>
 
+                
                 </div><!--Fin del content-->
                 
                
