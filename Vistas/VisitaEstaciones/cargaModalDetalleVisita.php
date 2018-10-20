@@ -2,9 +2,20 @@
     <div class="x_panel">
         <h4>Estación</h4>
         <div class="ln_solid"></div>
-        <center>
+        <?php
+            include '../../ProcesoSubir/conexion.php';
+            $cambio=$_REQUEST["idd"];
+            $result=$mysqli->query("SELECT hs.idhojavisitaestaciones, est.foto from hojavisitasestaciones hs inner join estacionmet est on hs.id_estacion = est.id_estacion where hs.idhojavisitaestaciones= $cambio");
+            
+            while($fila = $result->fetch_object()){
+            ?>
+                <img width="245" height="140" src="data:image/jpg;base64,<?php echo base64_encode($fila->foto); ?>"/> 
+            <?php
+            }
+        ?>
+       <!-- <center>
             <img  width="245" height="140" src="../../Vistas/images/volcan.jpg" alt="Los Angeles">
-        </center>
+        </center>-->
         <br>
     </div>
     </div>

@@ -12,9 +12,22 @@
         
         while($fila = $result->fetch_object()){
         ?>
-        <option selected="" value="<?php echo $fila->id_visitante;?>"><?php echo $fila->nombre?></option>
-        <?php
+            <option selected="" value="<?php echo $fila->id_visitante;?>"><?php echo $fila->nombre?></option>
+            <?php
+        }
     }
-    
-}
+    if($opcion==="cambioFoto"){
+        ?>
+        <?php
+        if($cambio === "Estaciones"){echo '<img  width="685" height="290" src="../../Vistas/images/volcan.jpg" alt="Los Angeles">';
+    }else{       
+        $result  = $mysqli->query("SELECT * from estacionmet est where est.id_estacion = '".$cambio."'  ");
+        while($fila = $result->fetch_object()){
+        ?>
+            <img width="685" height="290" src="data:image/jpg;base64,<?php echo base64_encode($fila->foto); ?>"/>
+            
+        <?php
+        }
+    }
+    }
 ?>
