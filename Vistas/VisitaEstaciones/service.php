@@ -7,21 +7,21 @@
   $fecha        = date("Y/m/d");
   $observacion  = $_REQUEST["observacion"];
 
-  require_once "../../ProcesoSubir/conexion.php";
+  require_once "../../ProcesoSubir/conexioneq.php";
     
-       $mysqli->autocommit(FALSE);
-       mysqli_query($mysqli, "BEGIN WORK");
+       $conexion->autocommit(FALSE);
+       mysqli_query($conexion, "BEGIN WORK");
         $consulta = "INSERT INTO hojavisitasestaciones (idhojavisitaestaciones, fechavisita, observacion, id_estacion, id_visitante) VALUES (null,'" . $fecha  . "','" . $observacion . "','" .$estacion  . "','" .  $visitante . "')";  
 
-        $resultado = $mysqli->query($consulta);
+        $resultado = $conexion->query($consulta);
 
         if ($resultado) {
-          mysqli_commit($mysqli);
+          mysqli_commit($conexion);
           
           echo 1;
            
         } else {
-            mysqli_rollback($mysqli);
+            mysqli_rollback($conexion);
             
            echo 2;
            

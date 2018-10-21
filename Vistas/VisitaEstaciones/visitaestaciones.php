@@ -2,14 +2,14 @@
 
 
 $ide = isset($_REQUEST['ide']);
-include ("../../ProcesoSubir/conexion.php");
+include ("../../ProcesoSubir/conexioneq.php");
 $ridhoja      = "";
 $rfecha       = "";
 $robservacion = "";
 $ridestacion  = "";
 $ridvistante  = "";
 
-$result = $mysqli->query("SELECT * from hojavisitasestaciones where idhojavisitaestaciones='$ide'");
+$result = $conexion->query("SELECT * from hojavisitasestaciones where idhojavisitaestaciones='$ide'");
 if ($result) {
     while ($fila = $result->fetch_object()) {
         $ridhoja      = $fila->idhojavisitaestaciones;
@@ -205,8 +205,8 @@ if ($result) {
                           <select  id="estacion" name="estacion" class="form-control SEstacion" onchange="actualiza('cambioFoto');">
                             <option value="Estaciones" selected="selected">Estaciones</option>
                             <?php
-                              include "../../ProcesoSubir/conexion.php";
-                              $result  = $mysqli->query("select * from estacionmet ");
+                              include "../../ProcesoSubir/conexioneq.php";
+                              $result  = $conexion->query("select * from estacionmet est where est.activa = 1 ");
 
                               if ($result) {
                                   while ($fila = $result->fetch_object()) {
@@ -293,9 +293,9 @@ if ($result) {
 
                           <tbody >
                             <?php
-                                 include("../../ProcesoSubir/conexion.php");
+                                 include("../../ProcesoSubir/conexioneq.php");
 
-                                $result=$mysqli->query("SELECT hs.idhojavisitaestaciones, hs.fechavisita, hs.observacion, est.codiogestacion, vis.nombre from hojavisitasestaciones hs
+                                $result=$conexion->query("SELECT hs.idhojavisitaestaciones, hs.fechavisita, hs.observacion, est.codiogestacion, vis.nombre from hojavisitasestaciones hs
                                     inner join estacionmet est on hs.id_estacion = est.id_estacion
                                     inner join visitantes vis on hs.id_visitante = vis.id_visitante order by idhojavisitaestaciones");
 

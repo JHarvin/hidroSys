@@ -1,5 +1,5 @@
 <?php
-    include "../../ProcesoSubir/conexion.php";
+    include "../../ProcesoSubir/conexioneq.php";
 
     $opcion=$_REQUEST["opcion"];
     $cambio=$_REQUEST["cambio"];
@@ -8,7 +8,7 @@
         ?>
         <option value="Visitante">Visitante</option>
         <?php       
-        $result=$mysqli->query("SELECT vis.id_visitante, vis.nombre, vis.tipo from visitantes vis where vis.tipo = '".$cambio."' ");
+        $result=$conexion->query("SELECT vis.id_visitante, vis.nombre, vis.tipo from visitantes vis where vis.tipo = '".$cambio."' ");
         
         while($fila = $result->fetch_object()){
         ?>
@@ -21,7 +21,7 @@
         <?php
         if($cambio === "Estaciones"){echo '<img  width="685" height="290" src="../../Vistas/images/volcan.jpg" alt="Los Angeles">';
     }else{       
-        $result  = $mysqli->query("SELECT * from estacionmet est where est.id_estacion = '".$cambio."'  ");
+        $result  = $conexion->query("SELECT * from estacionmet est where est.id_estacion = '".$cambio."'  ");
         while($fila = $result->fetch_object()){
         ?>
             <img width="685" height="290" src="data:image/jpg;base64,<?php echo base64_encode($fila->foto); ?>"/>

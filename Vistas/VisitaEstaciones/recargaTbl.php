@@ -16,9 +16,9 @@ if($cambio=="tabla"){
 
                           <tbody >
                             <?php
-                                 include("../../ProcesoSubir/conexion.php");
+                                 include("../../ProcesoSubir/conexioneq.php");
 
-                                $result=$mysqli->query("SELECT hs.idhojavisitaestaciones, hs.fechavisita, hs.observacion, est.codiogestacion, vis.nombre from hojavisitasestaciones hs
+                                $result=$conexion->query("SELECT hs.idhojavisitaestaciones, hs.fechavisita, hs.observacion, est.codiogestacion, vis.nombre from hojavisitasestaciones hs
                                     inner join estacionmet est on hs.id_estacion = est.id_estacion
                                     inner join visitantes vis on hs.id_visitante = vis.id_visitante order by idhojavisitaestaciones");
 
