@@ -30,7 +30,7 @@
                   </li>
                   <li><a><i class="fa fa-edit"></i>Estacion Meteorologica<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="../Vistas/estacionmeteorologica.php">Estacion Meteorologica</a></li>
+                        <li><a href="estacionmeteorologica.php">Estacion Meteorologica</a></li>
                       <li><a href="../ProcesoSubir/SubirEstacion.php">Lectura Estación Meteorológica</a></li>
                       <li><a href="visitaestaciones.php">Visita Estaciones</a></li>
                       </ul>

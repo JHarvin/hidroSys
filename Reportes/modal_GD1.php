@@ -146,7 +146,7 @@
 
                                 </div>
                                  <div class="row mb-12" style="float: right; margin-right: 10px; margin-top: 15px;">
-                                     <a href="../Reportes/reporte_GD.php".php?po=<?php echo $po; ?>" class="btn">
+                                     <a href="../Reportes/reporte_GD1.php?po=<?php echo $po; ?>" class="btn">
                                     <input type="submit" class="btn btn-info" value="Reporte" name="modGuardar">
                                       </a>
 
@@ -194,7 +194,7 @@
                             <select class="form-control" name="pozo">
                               <?php
                                           include_once '../ProcesoSubir/conexion.php';
-                                          $verPozo= mysqli_query($mysqli,"SELECT id_pozo, estado FROM pozos");
+                                          $verPozo= mysqli_query($mysqli,"SELECT id_pozo, nombre FROM pozos");
                               ?>
                             <option>Seleccionar</option>
                             <?php
