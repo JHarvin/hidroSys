@@ -14,8 +14,9 @@ error_reporting(E_ALL & ~E_NOTICE);
                          
                            }
                       }   
-                      $codigo=sprintf("%03s",$temp+1);    
+                      $codigo=sprintf("%02s",$temp+1);    
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
   <head>
@@ -336,61 +337,133 @@ error_reporting(E_ALL & ~E_NOTICE);
 
             </div>
             <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="x_panel">
+               <div class="x_panel">
                   <div class="x_title">
-                    <h2>Lista <small>Estaciónes Meteorológicas.</small></h2>
-
-                    <div class="clearfix"></div>
-                  </div>
-                   <div class="x_content">
-                    <p class="text-muted font-13 m-b-30">
+                    <h2>Registros Generales de Visitantes de Pozos</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       
-                    </p>
-                    <table id="datatable" class="table table-striped table-bordered">
-                      <thead>
+                       <div class="clearfix"></div>
+                       </li>
+           
+             </ul>
+             <div class="clearfix"></div>
+              </div>
+
+      <div class="x_content">
+        <p class="text-muted font-13 m-b-30"></p>
+         <table id="datatable" class="table table-striped table-bordered">
+
+                    <thead>
                         <tr>
-                          <th>Codigo</th>
-                          <th>Departamento</th>
-                          <th>Ciudad</th>
-                          <th>Ubicación</th>
-                         
-                          <th>Acciones</th>
+                            
+                            <th width="75"><font color="black">Nº</font></th>
+                            <th width="150"><font color="black">Dui</font></th>
+                            <th width="500"><font color="black">Nombre</font></th>
+                            <th width="150"><font font color="black">Genero</font></th>
+                            <th width="100"><font font font color="black">Tipo</font></th>
+                            <th width="100"><font font font color="black">Celular</font></th>
+                            <th width="10"><font font font font color="black">Editar</font></th>
+                            <th width="10"><font font font font font color="black">Eliminar</font></th>
                         </tr>
-                      </thead>
+                    </thead>
+
+                    <tbody>
+                        <?php
+                        $pame = mysqli_query($conexion, "SELECT * FROM visitantes");
+                        while ($row = mysqli_fetch_array($pame)) {
+                            $duiVisita =$row['dui'];
+                            $NombreVisita = $row['nombre'];
+                            $generoVisita=$row['genero'];
+                            $tipoVisita=$row['tipo'];
+                            $celularVisita=$row['celular'];
+                            $pas=$row['id_visitante'];
+                           
+                            ?>
+                            <tr>
+                                <td><?php echo $row['id_visitante']; ?></td>
+                                <td><?php echo $row['dui']; ?></td>
+                                <td><?php echo $row['nombre']; ?></td>
+                                <td><?php echo $row['genero']; ?></td>
+                                <td><?php echo $row['tipo']; ?></td>
+                                <td><?php echo $row['celular']; ?></td>
+                                <td><!--boton de modificar-->
+                                  <div class="row">
+                                    <div class="col-md-6">
+                                        <a href="#" data-toggle="modal" data-target="#actualizarVisitante" onclick="Editar_visita('<?php echo $duiVisita; ?>','<?php echo $NombreVisita; ?>','<?php echo $generoVisita;?>','<?php echo $tipoVisita;?>','<?php echo $celularVisita;?>','<?php echo $pas;?>')" ><button type="button" class="btn btn-success"><i class="fa fa-pencil"></i></button></a>
+                                
+                                    </div>
+
+                                    
+                                  </div>
+                                  </td>
+                                  <td>
+                                      
+                                      <div class="row">
+                                        
+                                         
+                                         <div class="col-md-6">
+                                        
+                                        <a href="#" data-href="matar.php?id_visitante=<?php echo $row['id_visitante']; ?>" data-toggle="modal" data-target="#confirm-delete" type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button></a>
+                                      
+                                
+                                    </div>
+                                          
+                                      </div>
+                                  </td>
+               
+                               
+                               
+                            </tr>
+
+                        <?php } ?>
+                    </tbody>
+                </table>
+
+      </div>
+      </div> 
+      </div> 
+</div><!-- Fin de ROW -->
 
 
-                      <tbody>
-                        
-                        <tr>
-                          <td>SASV001</td>
-                          <td>San Vicente</td>
-                          <td>San Vicente</td>
-                          <td>Mauricio</td>
-                          
-                          <td width=160>
-                            <button type="button" class="btn btn-success" data-toggle="modal" data-target=".detalle-modal-lg"><i class="fa fa-search"></i></button>
-                            <button type="button" class="btn btn-success"><i class="fa fa-pencil"></i></button>
-                            <button type="button" class="btn btn-info"><i class="fa fa-check"></i></button>
-                          </td>
-                          
-                        </tr>
-                        <tr>
-                          <td>svsc2</td>
-                          <td>San Vicente</td>
-                          <td>San Cayetano</td>
-                          
-                          <td>-243434</td>
-                         <td width=160>
-                            <button type="button" class="btn btn-success" data-toggle="modal" data-target=".detalle-modal-lg"><i class="fa fa-search"></i></button>
-                            <button type="button" class="btn btn-success"><i class="fa fa-pencil"></i></button>
-                            <button type="button" class="btn btn-info"><i class="fa fa-check"></i></button>
-                         </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
+
+ 
+ <!-- MODAL PARA MATAR A UN VISITANTE -->
+  <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title" id="myModalLabel"><font font font font color="black">Eliminar Registro</font></h3> 
                 </div>
-              </div> 
+
+                <div class="panel-body">
+
+                    ¿Seguro que desea eliminar este elemento?
+                                       
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Cancelar</button>
+                    <a class="btn btn-danger btn-ok" >Eliminar</a>
+                </div> 
+            </div>
+        </div> 
+    </div>          
+
+<?php
+include_once 'editarEstacion.php';
+
+?>
+<script>
+    $('#confirm-delete').on('show.bs.modal', function(e){
+        $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+        $('.debug-url').html('Eliminar URL: <strong>' + $(this).find('.btn-ok').attr('href') + '</strong>');
+    })
+</script>
+
+            </div> 
 
           
 
