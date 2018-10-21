@@ -131,7 +131,7 @@ return false;
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="images/img.jpg" alt="">Jessica
+                    <img src="images/img.jpg" alt="">Erick Ticas
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -159,7 +159,7 @@ return false;
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Instituciones y Comunidades.</h3>
+                <h3>Instituciones y Comunidades</h3>
               </div>
 
               <div class="title_right">
@@ -179,7 +179,7 @@ return false;
               <div class="col-md-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Formulario de ingreso de datos.</h2>
+                    <h2>Ingreso de datos</h2>
                     <ul class="nav navbar-right panel_toolbox">                   
                     </ul>
                     <div class="clearfix"></div>
@@ -250,7 +250,7 @@ return false;
                       <div class="form-group">
                         <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
                         <button type="submit" class="btn btn-success" >Guardar</button>
-                          <button type="button" class="btn btn-warning">Cancelar</button>
+                          <button type="reset" class="btn btn-warning">Cancelar</button>
 						   <!-- <button class="btn btn-primary" type="reset">Reset</button> -->
                          
                         </div>
@@ -268,6 +268,42 @@ return false;
           </div>
         </div>
         <!-- /page content -->
+          
+                     
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Lista de Instituciones y Comunidades</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                    <p class="text-muted font-13 m-b-30">
+                      
+                    </p>
+                    <table id="datatable" class="table table-striped table-bordered">
+                      <thead>
+                        <tr>
+                        <th>Nombre</th> 
+                          <th>Tipo</th>
+                          <th>Departamento</th>
+                          <th>Municipio</th>
+                          <th>Observador</th>
+                          
+                        </tr>
+                      </thead>
+                      <tbody>
+                      <?php include('../Controladores/tablaComunidades.php') ?>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+          
 
         <!-- footer content -->
        <?php 
@@ -276,6 +312,160 @@ return false;
         <!-- /footer content -->
       </div>
     </div>
+    
+         <!--Detalle modal-->
+
+     <div class="modal fade detalle-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+      
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><strong><i class="fa fa-list-ul fa-2x"></i></strong></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+
+                  <table class="table table-bordered">
+                    
+                      <thead>
+                        <tr><th colspan=5 style="text-align:center;"> DETALLE DE INSTITUCIONES Y COMUNIDADES </th></tr>
+                    </table>
+                    <!--Consulta donde extraigo los campos de la tabla-->
+                    <?php
+
+                                    include_once '../conexion/conexion.php';
+                                    $sacar = mysqli_query($conexion, "SELECT*FROM comunidades");
+                                    while ($fila = mysqli_fetch_array($sacar)) {
+                                        $modificar = $fila['idcomunidad'];
+                                        $nom = $fila['nombre'];
+                                        $mar = $fila['tipo'];
+                                        $nums = $fila['iddepartamento'];
+                                        $don = $fila['idmunicipio'];
+                                        $tipou = $fila['idobservador'];
+                                        
+                                        }
+                                    ?>
+                  
+                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                      
+                        <label>Nombre de la Institucion o Comunidad<small class="text-muted"></small></label>
+                        
+                        <!--Uso una variable de tipo hidden para probar -->
+                        <input type="hidden" class="form-control has-feedback-left" id="idcomunidad" name="idcomunidad" value="<?php echo $nom; ?>">
+
+                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                        </div>
+
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                        <label>Tipo<small class="text-muted"></small></label>
+                        <input type="text" class="form-control has-feedback-left" value="<?php echo $mar; ?>" name="Donantes" id="donadores" >
+                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                        </div>
+
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                        <label>Departamento<small class="text-muted"></small></label>
+                        <input type="text" class="form-control has-feedback-left" name="Donantes" id="donadores" placeholder="Donadores">
+                        <span class="fa fa-list-ol form-control-feedback left" aria-hidden="true"></span>
+                        </div>
+
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                        <label>Municipio<small class="text-muted"></small></label>
+                        <input type="text" class="form-control has-feedback-left" name="Donantes" id="donadores" placeholder="Donadores">
+                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                        </div>
+
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                        <label>Observador<small class="text-muted"></small></label>
+                        <input type="text" class="form-control has-feedback-left" name="Donantes" id="donadores" placeholder="Donadores">
+                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                        </div>
+
+                        
+
+                  </div>
+               
+                    
+                
+                  
+                  
+                </div>
+                <div class="modal-footer">
+                  
+                  <button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
+                </div>
+
+                
+                </div><!--Fin del content-->
+                
+               
+              </div>
+         </div> 
+         
+               <!--Modificacion modal-->
+     <div class="modal fade modifi-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><strong><i class="fa fa-list-ul fa-2x"></i></strong></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                  <table class="table table-bordered">
+                    
+                      <thead>
+                        <tr><th colspan=5 style="text-align:center;">MODIFICAR INTITUCIONES Y COMUNIDADES </th></tr>
+                    </table>
+
+                  
+                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                        <label>Nombre de Institucion o Counidad<small class="text-muted"></small></label>
+                        <input type="text" class="form-control has-feedback-left" name="Donantes" id="donadores" placeholder="Donadores">
+                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                        <label>Tipo<small class="text-muted"></small></label>
+                        <input type="text" class="form-control has-feedback-left" name="Donantes" id="donadores" placeholder="Donadores">
+                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                        <label>Departamento<small class="text-muted"></small></label>
+                        <input type="text" class="form-control has-feedback-left" name="Donantes" id="donadores" placeholder="Donadores">
+                        <span class="fa fa-list-ol form-control-feedback left" aria-hidden="true"></span>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                        <label>Municipio<small class="text-muted"></small></label>
+                        <input type="text" class="form-control has-feedback-left" name="Donantes" id="donadores" placeholder="Donadores">
+                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                        <label>Oservador<small class="text-muted"></small></label>
+                        <input type="text" class="form-control has-feedback-left" name="Donantes" id="donadores" placeholder="Donadores">
+                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                        </div>
+                       
+                  </div>
+               
+                    
+                
+                  
+                  
+                </div>
+                <div class="modal-footer">
+                  
+                  <button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
+                </div>
+
+                </div><!--Fin del content-->
+              </div>
+         </div>  
+      
+      <!--Modificacion modal-->
 
     <!-- jQuery -->
     <script src="../vendors/jquery/dist/jquery.min.js"></script>
