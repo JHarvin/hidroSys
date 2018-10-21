@@ -8,7 +8,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Ingenieria</title>
+        <title>Sistema Hidrometeorologico</title>
  
         <!-- Bootstrap -->
         <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -77,86 +77,13 @@
                             <ul class="nav navbar-nav navbar-right">
                                 <li class="">
                                     <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                        <img src="images/img.jpg" alt="">John Doe
+                                        <img src="images/img.jpg" alt="">Abigail
                                         <span class=" fa fa-angle-down"></span>
                                     </a>
-                                    <ul class="dropdown-menu dropdown-usermenu pull-right">
-                                        <li><a href="javascript:;"> Profile</a></li>
-                                        <li>
-                                            <a href="javascript:;">
-                                                <span class="badge bg-red pull-right">50%</span>
-                                                <span>Settings</span>
-                                            </a>
-                                        </li>
-                                        <li><a href="javascript:;">Help</a></li>
-                                        <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
-                                    </ul>
+                                    
                                 </li>
 
-                                <li role="presentation" class="dropdown">
-                                    <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
-                                        <i class="fa fa-envelope-o"></i>
-                                        <span class="badge bg-green">6</span>
-                                    </a>
-                                    <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
-                                        <li>
-                                            <a>
-                                                <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                                                <span>
-                                                    <span>John Smith</span>
-                                                    <span class="time">3 mins ago</span>
-                                                </span>
-                                                <span class="message">
-                                                    Film festivals used to be do-or-die moments for movie makers. They were where...
-                                                </span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a>
-                                                <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                                                <span>
-                                                    <span>John Smith</span>
-                                                    <span class="time">3 mins ago</span>
-                                                </span>
-                                                <span class="message">
-                                                    Film festivals used to be do-or-die moments for movie makers. They were where...
-                                                </span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a>
-                                                <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                                                <span>
-                                                    <span>John Smith</span>
-                                                    <span class="time">3 mins ago</span>
-                                                </span>
-                                                <span class="message">
-                                                    Film festivals used to be do-or-die moments for movie makers. They were where...
-                                                </span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a>
-                                                <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                                                <span>
-                                                    <span>John Smith</span>
-                                                    <span class="time">3 mins ago</span>
-                                                </span>
-                                                <span class="message">
-                                                    Film festivals used to be do-or-die moments for movie makers. They were where...
-                                                </span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <div class="text-center">
-                                                <a>
-                                                    <strong>See All Alerts</strong>
-                                                    <i class="fa fa-angle-right"></i>
-                                                </a>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </li>
+                                
                             </ul>
                         </nav>
                     </div>
@@ -168,7 +95,7 @@
                     <div class="">
                         <div class="page-title">
                             <div class="title_left">
-                                <h3>Lecturas Estación<small> Pozo</small></h3>
+                                <h3>Lecturas Estación<small></small></h3>
                             </div>
 
                             <div class="title_right">
@@ -186,17 +113,8 @@
                                         <ul class="nav navbar-right panel_toolbox">
                                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                             </li>
-                                            <li class="dropdown">
-                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                                                <ul class="dropdown-menu" role="menu">
-                                                    <li><a href="#">Settings 1</a>
-                                                    </li>
-                                                    <li><a href="#">Settings 2</a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li><a class="close-link"><i class="fa fa-close"></i></a>
-                                            </li>
+                                            
+                                            
                                         </ul>
                                         <div class="clearfix"></div>
                                     </div>
@@ -312,7 +230,16 @@
 ?>
                                             </tbody>
                                         </table>
+                                        <div class="input-group">
+                                            <div class="row mb-12" style="float: right;margin-right: 20px; margin-top: 15px;">
 
+                                                <a href="../ProcesoSubir/SubirEstacion.php" class="btn">
+                                                    <input type="submit" class="btn btn-success" value="Regresar" name="modGuardar">
+                                                </a>
+                                            </div>
+                                            <br>
+
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -321,7 +248,35 @@
                     </div>
                 </div>
                 <!-- /page content -->
+<!-- MODAL-->
+            <div class="modal fade" id="miModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
 
+                            <h4>¡Datos cargados con exito!</h4>
+                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                           
+                            <h4 class="modal-title" id="myModalLabel"></h4>
+                        </div>
+                        <div class="modal-body">
+                            
+                             <h4>¡Presione "x" para visualizarlos!</h4>
+                             <div class="row mb-12"  style="text-align:center">
+
+                                 <img src="../Imagenes/subir.jpg" width="200" height="200" style="text-align:center">
+                                    
+                                </div>
+                             
+
+
+                    </div>
+                </div>
+            </div>
+            </div>
+            <!-- Fin Div de modal-->
                 <!-- footer content -->
 <?php
 include "../Vistas/footer.php";
@@ -359,6 +314,8 @@ include "../Vistas/footer.php";
 
         <!-- Custom Theme Scripts -->
         <script src="../build/js/custom.min.js"></script>
-
+<script type="text/javascript">
+    $('#miModal').modal('show');
+</script>
     </body>
 </html>

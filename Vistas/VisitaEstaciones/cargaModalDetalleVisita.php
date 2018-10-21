@@ -1,12 +1,21 @@
-
-
     <div class="col-md-3 col-sm-9 col-xs-12">
     <div class="x_panel">
         <h4>Estación</h4>
         <div class="ln_solid"></div>
-        <center>
+        <?php
+            include '../../ProcesoSubir/conexioneq.php';
+            $cambio=$_REQUEST["idd"];
+            $result=$conexion->query("SELECT hs.idhojavisitaestaciones, est.foto from hojavisitasestaciones hs inner join estacionmet est on hs.id_estacion = est.id_estacion where hs.idhojavisitaestaciones= $cambio");
+            
+            while($fila = $result->fetch_object()){
+            ?>
+                <img width="245" height="140" src="data:image/jpg;base64,<?php echo base64_encode($fila->foto); ?>"/> 
+            <?php
+            }
+        ?>
+       <!-- <center>
             <img  width="245" height="140" src="../../Vistas/images/volcan.jpg" alt="Los Angeles">
-        </center>
+        </center>-->
         <br>
     </div>
     </div>
@@ -14,10 +23,10 @@
         <div class="x_panel">
             <div class="x_content">
                 <?php
-                    include '../../ProcesoSubir/conexion.php';
+                    include '../../ProcesoSubir/conexioneq.php';
                     $cambio=$_REQUEST["idd"];
                         
-                    $result=$mysqli->query("SELECT hs.idhojavisitaestaciones, hs.fechavisita, hs.observacion, est.codiogestacion, vis.nombre from hojavisitasestaciones hs
+                    $result=$conexion->query("SELECT hs.idhojavisitaestaciones, hs.fechavisita, hs.observacion, est.codiogestacion, vis.nombre from hojavisitasestaciones hs
                                     inner join estacionmet est on hs.id_estacion = est.id_estacion
                                     inner join visitantes vis on hs.id_visitante = vis.id_visitante where hs.idhojavisitaestaciones= $cambio");
                     while($fila = $result->fetch_object()){

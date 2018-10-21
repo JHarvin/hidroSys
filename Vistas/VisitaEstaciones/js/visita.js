@@ -2,6 +2,7 @@ function cancelar(){
     var observacion = $("#observacion").val();
     var visitante = $("#visitante").val();
     var estacion = $("#estacion").val();
+    var tipo = $("#tipo").val();
     alertify.defaults.theme.ok = "btn btn-primary";
     alertify.defaults.theme.cancel = "btn btn-danger";
     
@@ -12,21 +13,26 @@ function cancelar(){
     confirmar.set({transition:'zoom'});    
                
     confirmar.set('onok', function(){ 
-    alertify.success('Has confirmado');
-    $("#observacion").val(""); 
-    $("#visitante").select2({
-        placeholder: "Visitante",
-        allowClear: true
-    });
-    $("#visitante").val("Visitante").trigger('change');
-    $("#estacion").select2({
-        placeholder: "Estaciones",
-        allowClear: true
-    });
-    $("#estacion").val("Estaciones").trigger('change');
-             
-    
+        alertify.success('Has confirmado');
 
+        $("#observacion").val(""); 
+        $("#visitante").select2({
+            placeholder: "Visitante",
+            allowClear: true
+        });
+        $("#visitante").val("Visitante").trigger('change');
+
+        $("#estacion").select2({
+            placeholder: "Estaciones",
+            allowClear: true
+        });
+        $("#estacion").val("Estaciones").trigger('change');
+
+        $("#tipo").select2({
+            placeholder: "Tipo Visitante",
+            allowClear: true
+        });
+        $("#tipo").val("Tipo Visitante").trigger('change');
     });
 
     alertify.set('notifier','position','top-right');         
@@ -38,12 +44,13 @@ function cancelar(){
     function enviarDatos(e) {
       var observacion = $("#observacion").val();
       var visitante = $("#visitante").val();
-      var fecha = $("#fecha").val();
       var estacion = $("#estacion").val();
+      var tipo = $("#tipo").val();
 
       
 
-      if(visitante=="Visitante" && estacion =="Estaciones" && observacion ==""){
+      if(visitante=="Visitante" && estacion =="Estaciones" && observacion =="" && tipo =="Tipo Visitante"){
+        alertify.error('Debe Seleccionar un Tipo de Visitante');
         alertify.error('Debe Seleccionar un Visitante');
         alertify.error('Debe Seleccionar una Estación');
         alertify.error('Debe Introducir una Observación');
@@ -51,7 +58,28 @@ function cancelar(){
         alertify.set({transition: 'zoom'});
               
         return false;
-      } else if(visitante =="Visitante"  && estacion =="Estaciones" ){
+      } else if(visitante =="Visitante"  && tipo =="Tipo Visitante" ){
+        //alertify.error('Debe Seleccionar una Visitante');
+        alertify.error('Debe Seleccionar un Tipo de Visitante');
+        alertify.set('notifier','position','top-right');
+        alertify.set({transition: 'zoom'});
+              
+        return false;
+      }else if(observacion == ""  && tipo =="Tipo Visitante" ){
+        alertify.error('Debe Introducir una Observacion');
+        alertify.error('Debe Seleccionar un Tipo de Visitante');
+        alertify.set('notifier','position','top-right');
+        alertify.set({transition: 'zoom'});
+              
+        return false;
+      }else if( estacion =="Estaciones"  && tipo =="Tipo Visitante" && visitante=="Visitante" ){
+        alertify.error('Debe Seleccionar una Estación');
+        alertify.error('Debe Seleccionar un Tipo de Visitante');
+        alertify.set('notifier','position','top-right');
+        alertify.set({transition: 'zoom'});
+              
+        return false;
+      }else if(visitante =="Visitante"  && estacion =="Estaciones" ){
         alertify.error('Debe Seleccionar una Visitante');
         alertify.error('Debe Seleccionar una Estación');
         alertify.set('notifier','position','top-right');
@@ -87,7 +115,7 @@ function cancelar(){
         alertify.error('Debe Introducir una Observación');
         $("#observacion").focus();
         return false;
-      }
+      } 
 
 
       
@@ -99,22 +127,34 @@ function cancelar(){
         data: obtener,
         success: function(respuesta) {
           if(respuesta==1){
+            
             alertify.set('notifier','position','top-right');
-            alertify.success('Los datos han sido insertados correctamente!'); 
-            $('#imprimir').load("recargaTbl.php");
+            alertify.success('Datos Insertados!'); 
+            recargarTabla('tabla');   
+            
+            $("#tipo").select2({
+                placeholder: "Tipo Visitante",
+                allowClear: true
+            });
+            $("#tipo").val("Tipo Visitante").trigger('change');
+
             $("#visitante").select2({
                 placeholder: "Visitante",
                 allowClear: true
             });
+
             $("#visitante").val("Visitante").trigger('change');
+
             $("#estacion").select2({
                 placeholder: "Estaciones",
                 allowClear: true
             });
+
             $("#estacion").val("Estaciones").trigger('change');
            
             $("#observacion").val(""); 
-
+            
+            
           }else{
             alertify.error('Datos no insertados!'); 
           }
@@ -123,6 +163,8 @@ function cancelar(){
       return false; 
 
     } 
+
+   
 
     function verMas(str, opcion) {
             if (window.XMLHttpRequest) {
@@ -140,3 +182,50 @@ function cancelar(){
             xmlhttp.open("post", "cargaModalDetalleVisita.php?idd=" + opcion , true);
             xmlhttp.send();
         }
+
+    function actualiza(opcion) {
+        var cambio = document.getElementById('tipo').value;
+        var cambioF = document.getElementById('estacion').value
+        if (window.XMLHttpRequest) {
+            xmlhttp = new XMLHttpRequest();
+        }
+        else {
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function () {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                if (opcion === 'cambioTipo') {
+                    document.getElementById("visitante").innerHTML = xmlhttp.responseText;
+                    document.getElementById("visitante").value = "";
+                }else if (opcion === 'cambioFoto') {
+                    document.getElementById("imagen").innerHTML = xmlhttp.responseText;
+                    document.getElementById("imagen").value = "";
+                }
+            }
+        }
+        //xmlhttp.open("post", "tipoVisit.php?opcion=" + opcion + "&cambio=" + cambio, true);
+        if (opcion === "cambioTipo") xmlhttp.open("post", "tipoVisit.php?opcion=" + opcion + "&cambio=" + cambio, true);
+        else if(opcion === "cambioFoto") xmlhttp.open("post", "tipoVisit.php?opcion=" + opcion + "&cambio=" + cambioF, true);
+        xmlhttp.send();
+    }
+
+
+    function recargarTabla(opcion){
+        if (window.XMLHttpRequest) {
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+            xmlhttp.onreadystatechange = function() {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    if(opcion ==='tabla'){
+                        document.getElementById("tbl").innerHTML = xmlhttp.responseText;
+                        $('.imprimir').DataTable();
+                    }
+                }
+            }   
+        xmlhttp.open("post", "recargaTbl.php?actualiza=tabla", true);
+        xmlhttp.send();
+    }
+
+   

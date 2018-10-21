@@ -3,6 +3,7 @@
 require '../ProcesoSubir/conexion.php';
  $fe1=$_GET['fe1'];
  $fe2=$_GET['fe2'];
+ $pos=$_GET['p'];
  
 
 
@@ -86,7 +87,7 @@ INNER JOIN lecturapozos l ON l.id_pozo = p.id_pozo
 INNER JOIN municipios m ON p.id_municipio = m.idmunicipio
 WHERE
 l.date>='$fe1' AND
-l.date<='$fe2'
+l.date<='$fe2' AND p.id_pozo='$pos'
 GROUP BY
 p.codigopozo,
 l.date,
@@ -106,7 +107,7 @@ INNER JOIN lecturapozos l ON l.id_pozo = p.id_pozo
 INNER JOIN municipios m ON p.id_municipio = m.idmunicipio
 WHERE
 l.date>='$fe1' AND
-l.date<='$fe2'
+l.date<='$fe2' AND p.id_pozo='$pos'
 GROUP BY
 p.codigopozo,
 l.date,
@@ -142,7 +143,7 @@ INNER JOIN lecturapozos l ON l.id_pozo = p.id_pozo
 INNER JOIN municipios m ON p.id_municipio = m.idmunicipio
 WHERE
 l.date>='$fe1' AND
-l.date<='$fe2'
+l.date<='$fe2' AND p.id_pozo='$pos'
 GROUP BY
 p.codigopozo,
 l.date,

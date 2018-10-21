@@ -79,20 +79,10 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="images/img.jpg" alt="">Kevin Montano
+                    <img src="images/img.jpg" alt="">JcMoz
                     <span class=" fa fa-angle-down"></span>
                   </a>
-                  <ul class="dropdown-menu dropdown-usermenu pull-right">
-                    <li><a href="javascript:;"> Profile</a></li>
-                    <li>
-                      <a href="javascript:;">
-                        <span class="badge bg-red pull-right">50%</span>
-                        <span>Settings</span>
-                      </a>
-                    </li>
-                    <li><a href="javascript:;">Help</a></li>
-                    <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
-                  </ul>
+                  
                 </li>
 
                
@@ -139,20 +129,40 @@
                     <br />
                     <form class="form-horizontal form-label-left input_mask">
 
-                      <div class="col-md-5 col-sm-5 col-xs-5 form-group has-feedback">
-                        <h4>Fecha de visualizacion</h4>
-                      </div>
+                      
                        
                       
                       <div class="form-group">
-                          
+                          <h4>Fecha de visualizacion</h4>
                          <div class="col-md-7 col-sm-7 col-xs-12 form-group has-feedback">
                              <input type="text" name="fechas" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Ej:04-2017"
                                     autocomplete="off" required="">
                         <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
+                      
+                         </div>
+                           <div class="form-group">
+                           
+                          
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                           <h4>Estacion</h4> <select class="form-control" name="estacion">
+                              <?php
+                                          include_once '../ProcesoSubir/conexion.php';
+                                          $verEstacion= mysqli_query($mysqli,"SELECT id_estacion, codiogestacion FROM estacionmet");
+                              ?>
+                            <option>Codigo Estación</option>
+                            <?php
+                             while ($row = mysqli_fetch_array($verEstacion)) {
+                                         $idestacion=$row['id_estacion'];
+                                           echo '<option value='."$row[0]".'>'.$row['1'].'</option>';
+                                    }
+                                    ?>
+                            </select>
+                        </div>
+                         </div>
                       </div>
-                      </div>
-                       
+                        
+                        
+                        
                       </div>
                      
                       <div class="form-group">
@@ -189,9 +199,10 @@
        include "../Vistas/footer.php";
         if (isset($_REQUEST['tirar'])) {
         $fe = $_REQUEST['fechas'];
+        $esta = $_REQUEST['estacion'];
      ?>
     <script type="text/javascript">
-location.href="modal_rain.php?fe=<?php echo $fe;?>";
+location.href="modal_rain.php?fe=<?php echo $fe;?>&E=<?php echo $esta;?>";
 </script>
 <?php
     }

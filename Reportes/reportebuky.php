@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -7,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	  
-    <title>SICA | </title>
+    <title>Sistema Hidrometeorologico</title>
 
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -39,7 +40,7 @@
           <div class="left_col scroll-view">
              <!-- sidebar menu -->
              <?php 
-               include "menuPrincipal.php";
+               include "../Vistas/menuPrincipal.php";
             ?>
             <!-- /sidebar menu -->
 
@@ -79,7 +80,7 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="images/img.jpg" alt="">Fernando Josue
+                    <img src="images/img.jpg" alt="">Kevin Montano
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -107,7 +108,7 @@
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Visitantes pozos.</h3>
+                <h3>Reporte de nivel de pozos segun visitas efectuadas.</h3>
               </div>
 
               <div class="title_right">
@@ -126,8 +127,11 @@
             <div class="row">
               <div class="col-md-6 col-xs-6">
                 <div class="x_panel">
+                    <form action="" id="f1" name="f1" method="post" class="form-register" >
+        <!--<input type="hidden" value="upload" id="upload" name="a" />-->
+        <input type="hidden" name="tirar" id="pase"/>
                   <div class="x_title">
-                    <h2>Formulario de ingreso.</h2>
+                    
                     <ul class="nav navbar-right panel_toolbox">                   
                     </ul>
                     <div class="clearfix"></div>
@@ -136,28 +140,40 @@
                     <br />
                     <form class="form-horizontal form-label-left input_mask">
 
-                      <div class="col-md-6 col-sm-6 col-xs-6 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="DUI">
-                        <span class="fa fa-barcode form-control-feedback left" aria-hidden="true"></span>
+                      <div class="col-md-5 col-sm-5 col-xs-5 form-group has-feedback">
+                        <h4>Nombre del Pozo</h4>
                       </div>
-                      <div class="col-md-6 col-sm-6 col-xs-6 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Nombre">
-                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                         <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                            <select class="form-control" name="pozo">
+                              <?php
+                                          include_once '../ProcesoSubir/conexion.php';
+                                          $verPozo= mysqli_query($mysqli,"SELECT id_pozo,codigopozo FROM pozos");
+                              ?>
+                            <option>Seleccionar</option>
+                            <?php
+                             while ($row = mysqli_fetch_array($verPozo)) {
+                                         
+                                           echo '<option value='.$row['0'].'>'.$row['1'].'</option>';
+                                    }
+                                    ?>
+                            </select>
+                    
+                        <h4>Fecha de visualizacion</h4>
+                     
+                       <div class="row">
+                           <div class="col-md-12">
+                      <div class="col-md-12"> 
+                          <div class="form-group">   
+                         <input type="text" name="fechas1" class="form-control has-feedback-left -calendar" id="inputSuccess2" placeholder="fecha inicio Ej:2014-04-01"
+                                autocomplete="off" required="">
+                              <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
+                              
+                      
                       </div>
-                      <div class="col-md-6 col-sm-6 col-xs-6 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Celular">
-                        <span class="fa fa-phone form-control-feedback left" aria-hidden="true"></span>
-                      </div>
-
-
-                      <div class="form-group">
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <select class="form-control">
-                            <option>Tipo</option>
-                            <option>Estudiante.</option>
-                            <option>Docente</option>
-                            <option>Investigador</option>
-                          </select>
+                            </div>
+                        </div>
+                           
+                       </div>
                         </div>
                       </div>
                      
@@ -170,7 +186,7 @@
                       <div class="ln_solid"></div>
                       <div class="form-group">
                         <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                        <button type="submit" class="btn btn-success">Guardar</button>
+                            <button type="submit" class="btn btn-success">Procesar</button>
                           <button type="button" class="btn btn-warning">Cancelar</button>
 						   <!-- <button class="btn btn-primary" type="reset">Reset</button> -->
                          
@@ -192,9 +208,17 @@
 
         <!-- footer content -->
        <?php 
-       include "footer.php";
-       ?>
-        <!-- /footer content -->
+       include "../Vistas/footer.php";
+        if (isset($_REQUEST['tirar'])) {
+        $po = $_REQUEST['pozo'];
+        $f = $_REQUEST['fechas1'];
+     ?>
+    <script type="text/javascript">
+location.href="modal_GD.php?po=<?php echo $po;?>&f=<?php echo $f;?>";
+</script>
+<?php
+    }
+  ?>      
       </div>
     </div>
 
@@ -236,3 +260,5 @@
 	
   </body>
 </html>
+
+
