@@ -1,3 +1,4 @@
+<?php include"comunidadConexion.php"; ?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -30,6 +31,57 @@
 
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
+  
+  <script type="text/javascript" >
+
+ function validar(){
+    var nombre,departamento,municipio,observador,tcomunidad,tinstitucion;
+    nombre = document.getElementById("nombre").value;
+    departamento =document.getElementById("departamento").value;
+    municipio = document.getElementById("municipio").value;
+    observador = document.getElementById("observador").value;
+    
+
+ if(nombre =='' || municipio =='' || observador =='' || departamento == '' || (!document.getElementById('tcomunidad').checked && !document.getElementById('tinstitucion').checked) ){
+alert("por favor llenar todos los campos");
+return false;
+ }
+  }  	
+
+    function buscarM(str){
+  //alert(str);
+
+  if (str==""){document.getElementById("buscarMunicipio").innerHTML="";return;}
+      if (window.XMLHttpRequest){ // code for IE7+, Firefox, Chrome, Opera, Safari
+        xmlhttp=new XMLHttpRequest();}
+      else  {// code for IE6, IE5
+        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange=function(){if (xmlhttp.readyState==4 && xmlhttp.status==200){document.getElementById("buscarMunicipio").innerHTML=xmlhttp.responseText;}}
+
+      xmlhttp.open("GET","comunidades1.php?opcion=buscarMunicipio&criterio="+str,true);
+      xmlhttp.send();
+  
+   }
+
+   function buscarO(str){
+  //alert(str);
+
+  if (str==""){document.getElementById("buscarResponsable").innerHTML="";return;}
+      if (window.XMLHttpRequest){ // code for IE7+, Firefox, Chrome, Opera, Safari
+        xmlhttp=new XMLHttpRequest();}
+      else  {// code for IE6, IE5
+        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange=function(){if (xmlhttp.readyState==4 && xmlhttp.status==200){document.getElementById("buscarResponsable").innerHTML=xmlhttp.responseText;}}
+
+      xmlhttp.open("GET","comunidades1.php?opcion=buscarResponsable&criterio="+str,true);
+      xmlhttp.send();
+  
+   }
+
+  </script>
+
   </head>
 
   <body class="nav-md">
@@ -79,7 +131,7 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="images/img.jpg" alt="">Erick Ticas
+                    <img src="images/img.jpg" alt="">Jessica
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -107,7 +159,7 @@
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Instituciones y Comunidades</h3>
+                <h3>Instituciones y Comunidades.</h3>
               </div>
 
               <div class="title_right">
@@ -127,53 +179,61 @@
               <div class="col-md-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Ingreso de datos</h2>
+                    <h2>Formulario de ingreso de datos.</h2>
                     <ul class="nav navbar-right panel_toolbox">                   
                     </ul>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
                     <br />
-                    <form class="form-horizontal form-label-left input_mask">
+
+                  <form class="form-horizontal form-label-left input_mask" action="gcomunidad.php" method="post" onsubmit="return validar()">
 
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Nombre de la  institución o comunidad.">
+                        <input type="text" class="form-control has-feedback-left"  id="nombre" name="nombre" placeholder="Nombre de la  institución o comunidad.">
                         <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                       </div>
-                      <div class="form-group">
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <select class="form-control">
-                            <option>Responsable de la institución o comunidad</option>
-                            <option>Alfredo Muñoz</option>
-                            <option>Juan Perez</option>
-                            </select>
-                        </div>
-                       </div>
-                       <div class="col-md-6 col-sm-6 col-xs-12">
-                          <select class="form-control">
-                            <option>Departamento</option>
-                            <option>San Vicente</option>
-                            <option>San Salvador</option>
-                            <option>Chalatenango</option>
-                            <option>La Paz</option>
-                            </select>
-                        </div>
                         
                         <div class="form-group">
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <select class="form-control">
-                            <option>Municipio</option>
-                            <option>Comunidad</option>
-                            <option>Institución</option>
+
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                          <select class="form-control" id="departamento" name="departamento" onchange="buscarM(this.value)">
+                            <option value="0">Departamento</option>
+                            <?php
+          $query = $mysqli -> query ("SELECT * FROM departamentos");
+          while ($valores = mysqli_fetch_array($query)) {
+          echo "<option value=".$valores['iddepto'].">".$valores['nombredepto']."</option>";}
+                      ?>
                             </select>
                         </div>
+                    </div>
+
+						 <div class="col-md-6 col-sm-6 col-xs-12" id="buscarMunicipio">
+                          <select class="form-control" id="municipio" name="municipio" onchange="buscarO(this.value)">
+                            <option value="0">Municipio</option>
+                            </select>
+                        </div>
+                      
+                              <div class="form-group">
+
+                        <div class="col-md-6 col-sm-6 col-xs-12" id="buscarResponsable">
+                          <select class="form-control" id="observador" name="observador">
+                            <option value="0">Responsable de la institución o comunidad</option>
+                            </select>
+                        </div>
+                    
+                        
+                
+
+                       
+
                         <br>
                         <br>
                         <br>
-                        <div class="input-group " style="padding-bottom:25px;">
+                        <div class="input-group " style="padding-bottom:25px;" >
      </i><span class="label label-default" style="width: 100px; font-size: 15px;margin-right:20px;margin-left:20px">Tipo</span>
-     <label class="radio-inline" style="width: 100px; font-size: 15px"><input type="radio" name="optradio">Comunidad</label>
-     <label class="radio-inline" style="width: 100px; font-size: 15px"><input type="radio" name="optradio">Institución</label>
+     <label class="radio-inline" style="width: 100px; font-size: 15px"><input type="radio" name="optradio" id="tcomunidad" value="Comunidad" >Comunidad</label>
+     <label class="radio-inline" style="width: 100px; font-size: 15px"><input type="radio" name="optradio" id="tinstitucion" value="Institucion">Institución</label>
      </div>
      
                         
@@ -189,7 +249,7 @@
                       <div class="ln_solid"></div>
                       <div class="form-group">
                         <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                        <button type="submit" class="btn btn-success">Guardar</button>
+                        <button type="submit" class="btn btn-success" >Guardar</button>
                           <button type="button" class="btn btn-warning">Cancelar</button>
 						   <!-- <button class="btn btn-primary" type="reset">Reset</button> -->
                          
