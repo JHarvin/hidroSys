@@ -133,8 +133,16 @@
                                 
                                 
                             </div>
+                            <br>
                             <div class="row">
-                            
+                                <div class="col-md-12">
+                                 <div class="embed-responsive" style="height:210px;">
+                                    <iframe style="height:210px;" src="ej.php" class="embed-responsive-item" allowfullscreen></iframe>
+                                 </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                            <p>Seleccione una nueva ubicacion </p>
                             </div>
 
                         </div>
