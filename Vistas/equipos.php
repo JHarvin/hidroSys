@@ -52,8 +52,17 @@ msg("Los datos fueron almacenados con exito");
               document.turismo.submit();
             }
         }
-        function editar(nom){
-          alert("entro");
+        function editar(nom,marca,num,don,tip,des,estado)
+        {
+          $("#nombr").val(nom);
+          $("#mar").val(marca);
+          $("#nume").val(num);
+         $("#dona").val(don);
+          $("#tipo").val(tip);
+          $("#descri").val(des);
+          $("#est").val(estado);
+          
+        $("#DetalleModal").modal();
         }
       </script>
   </head>
@@ -304,7 +313,7 @@ msg("Los datos fueron almacenados con exito");
     </div>
      <!--Detalle modal-->
 
-     <div class="modal fade detalle-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+     <div class="modal fade detalle-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="DetalleModal">
       
               <div class="modal-dialog modal-lg">
                 <div class="modal-content">
@@ -315,77 +324,51 @@ msg("Los datos fueron almacenados con exito");
                     </button>
                 </div>
                 <div class="modal-body">
-                  <div class="row">
-
+                <div class="row">
                   <table class="table table-bordered">
+                  
                     
                       <thead>
-                        <tr><th colspan=5 style="text-align:center;"> DETALLE DE EQUIPO </th></tr>
+                        <tr><th colspan=5 style="text-align:center;">Detalle Equipo </th></tr>
                     </table>
-                    <!--Consulta donde extraigo los campos de la tabla-->
-                    <?php
-
-                                    include_once '../conexion/conexion.php';
-                                    $sacar = mysqli_query($conexion, "SELECT*FROM equipos");
-                                    while ($fila = mysqli_fetch_array($sacar)) {
-                                        $modificar = $fila['idequipo'];
-                                        $nom = $fila['nombre'];
-                                        $mar = $fila['marca'];
-                                        $nums = $fila['numeroserie'];
-                                        $don = $fila['donadopor'];
-                                        $tipou = $fila['tipouso'];
-                                        $este = $fila['estado'];
-                                        $desc = $fila['descripcion'];
-                                        }
-                                    ?>
-                  
+                    <input type="hidden" id="id" name="id" value="">
+                   
                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                      
                         <label>Nombre del Equipo<small class="text-muted"></small></label>
-                        
-                        <!--Uso una variable de tipo hidden para probar -->
-                        <input type="hidden" class="form-control has-feedback-left" id="idequipo" name="idequipo" value="<?php echo $nom; ?>">
-
+                        <input type="text" class="form-control has-feedback-left" name="nombr" id="nombr" disabled>
                         <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                         </div>
-
                         <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                         <label>Marca<small class="text-muted"></small></label>
-                        <input type="text" class="form-control has-feedback-left" value="<?php echo $mar; ?>" name="Donantes" id="donadores" >
+                        <input type="text" class="form-control has-feedback-left" name="mar" id="mar" disabled>
                         <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                         </div>
-
                         <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                         <label>Numero de Serie<small class="text-muted"></small></label>
-                        <input type="text" class="form-control has-feedback-left" name="Donantes" id="donadores" placeholder="Donadores">
+                        <input type="text" class="form-control has-feedback-left" name="nume" id="nume" disabled>
                         <span class="fa fa-list-ol form-control-feedback left" aria-hidden="true"></span>
                         </div>
-
                         <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <label>Donador<small class="text-muted"></small></label>
-                        <input type="text" class="form-control has-feedback-left" name="Donantes" id="donadores" placeholder="Donadores">
+                        <label>Donante<small class="text-muted"></small></label>
+                        <input type="text" class="form-control has-feedback-left" name="dona" id="dona" disabled>
                         <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                         </div>
-
                         <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                         <label>Tipo de Uso<small class="text-muted"></small></label>
-                        <input type="text" class="form-control has-feedback-left" name="Donantes" id="donadores" placeholder="Donadores">
+                        <input type="text" class="form-control has-feedback-left" name="tipo" id="tipo" disabled>
                         <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                         </div>
-
                         <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                         <label>Estado del Equipo<small class="text-muted"></small></label>
-                        <input type="text" class="form-control has-feedback-left" name="Donantes" id="donadores" placeholder="Donadores">
+                        <input type="text" class="form-control has-feedback-left" name="est" id="est" disabled>
                         <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                         </div>
-
                         <div class="form-group">
                       <div class="col-md-6 col-sm-6 col-xs-12">
                       <label>Descripción<small class="text-muted"></small></label>
-                      <textarea style="width: 425px;" rows="3" size="100" value="" class="form-control" name="descripcion" placeholder="Descripción" id="descripcion"></textarea>
+                      <textarea style="width: 850px;" rows="3" size="100" value="" class="form-control" name="descri" id="descri" disabled></textarea>
                       </div>
                       </div>
-
                   </div>
                
                     
