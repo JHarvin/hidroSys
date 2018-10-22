@@ -339,7 +339,7 @@ error_reporting(E_ALL & ~E_NOTICE);
             <div class="col-md-12 col-sm-12 col-xs-12">
                <div class="x_panel">
                   <div class="x_title">
-                    <h2>Registros Generales de Visitantes de Pozos</h2>
+                    <h2>Registros generales de estaciones meteorologicas.</h2>
                     <ul class="nav navbar-right panel_toolbox">
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       
@@ -357,37 +357,52 @@ error_reporting(E_ALL & ~E_NOTICE);
                     <thead>
                         <tr>
                             
-                            <th width="75"><font color="black">Nº</font></th>
-                            <th width="150"><font color="black">Dui</font></th>
-                            <th width="500"><font color="black">Nombre</font></th>
-                            <th width="150"><font font color="black">Genero</font></th>
-                            <th width="100"><font font font color="black">Tipo</font></th>
-                            <th width="100"><font font font color="black">Celular</font></th>
-                            <th width="10"><font font font font color="black">Editar</font></th>
+                            <th width="75"><font color="black">Codigo</font></th>
+                            <th width="150"><font color="black">Departamento</font></th>
+                            <th width="150"><font color="black">Municipio</font></th>
+                            <th width="500"><font color="black">Responsable</font></th>
+                            <th width="150"><font font color="black">Ubicacion</font></th>
+                            <th width="150"><font font color="black">Ver</font></th>
+                            <th width="100"><font font font color="black">Editar</font></th>
+                            
                             <th width="10"><font font font font font color="black">Eliminar</font></th>
                         </tr>
                     </thead>
 
                     <tbody>
                         <?php
-                        $pame = mysqli_query($conexion, "SELECT * FROM visitantes");
-                        while ($row = mysqli_fetch_array($pame)) {
-                            $duiVisita =$row['dui'];
-                            $NombreVisita = $row['nombre'];
-                            $generoVisita=$row['genero'];
-                            $tipoVisita=$row['tipo'];
-                            $celularVisita=$row['celular'];
-                            $pas=$row['id_visitante'];
+                         $consulta  = "select * from estacionmet";
+                             $resultado = $conexion->query($consulta);
+                             
+                            while($fila= $resultado->fetch_object()){
+                            $idm =$fila->id_estacion;
+                            $codigom = $fila->codiogestacion;
+                            $activam=$fila->activa;
+                            $latitudm=$fila->latitud;
+                            $longitudm=$fila->longitud;
+                            $departamentom=$fila->iddepartamento;
+                            $municipiom=$fila->idmunicipio;
+                            $responsablem=$fila->idresponsable;
                            
                             ?>
                             <tr>
-                                <td><?php echo $row['id_visitante']; ?></td>
-                                <td><?php echo $row['dui']; ?></td>
-                                <td><?php echo $row['nombre']; ?></td>
-                                <td><?php echo $row['genero']; ?></td>
-                                <td><?php echo $row['tipo']; ?></td>
-                                <td><?php echo $row['celular']; ?></td>
-                                <td><!--boton de modificar-->
+                                <td><?php echo $codigom; ?></td>
+                                <td><?php echo $departamentom; ?></td>
+                                <td><?php echo $municipiom; ?></td>
+                                <td><?php echo $responsablem; ?></td>
+                                <td ><center><button type="button" class="btn btn-success"><i class="fa fa-map"></i></button></center><?php echo $row['genero']; ?></td>
+                                
+                                <td><!--boton de ver-->
+                                  <div class="row">
+                                    <div class="col-md-6">
+                                        <center><a href="#" data-toggle="modal" data-target="#actualizarVisitante" onclick="Editar_visita('<?php echo $duiVisita; ?>','<?php echo $NombreVisita; ?>','<?php echo $generoVisita;?>','<?php echo $tipoVisita;?>','<?php echo $celularVisita;?>','<?php echo $pas;?>')" ><button type="button" class="btn btn-success"><i class="fa fa-eye"></i></button></a></center>
+                                
+                                    </div>
+
+                                    
+                                  </div>
+                                  </td>
+                                    <td><!--boton de modificar-->
                                   <div class="row">
                                     <div class="col-md-6">
                                         <a href="#" data-toggle="modal" data-target="#actualizarVisitante" onclick="Editar_visita('<?php echo $duiVisita; ?>','<?php echo $NombreVisita; ?>','<?php echo $generoVisita;?>','<?php echo $tipoVisita;?>','<?php echo $celularVisita;?>','<?php echo $pas;?>')" ><button type="button" class="btn btn-success"><i class="fa fa-pencil"></i></button></a>

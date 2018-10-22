@@ -222,3 +222,16 @@ function cambio(opcion) {
     xmlhttp.open("post", "ajaxPropietario.php?opcion=" + opcion+"&actualiza=tabla", true);
     xmlhttp.send();
 }
+
+function mostrarFormulario(opcion){
+    if(opcion==="persona"){
+        $("#divInstitucion").hide();
+        $("#datosPersona").show();
+        $("#divBotones").show();
+    }
+    if(opcion==="insti"){
+        $("#divInstitucion").show();
+        $("#datosPersona").show();
+        $("#divBotones").show();
+    }
+}

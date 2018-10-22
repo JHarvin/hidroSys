@@ -52,6 +52,9 @@ msg("Los datos fueron almacenados con exito");
               document.turismo.submit();
             }
         }
+        function editar(nom){
+          alert("entro");
+        }
       </script>
   </head>
   <!--Aqui va el javascript-->
