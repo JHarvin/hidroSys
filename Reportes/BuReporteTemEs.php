@@ -2,10 +2,12 @@
 
 require '../conexion/conexion.php';
  $po=$_GET['po'];
+ $estacion=$_GET['estacion'];
  $fecha=$_GET['f'];
-   $x=explode("-",$fecha);
+ $x=explode("-",$fecha);
   $mes1=$x[0];
    $a=$x[1];
+   
  
 
 
@@ -79,7 +81,7 @@ $pdf->AddPage();
      
 $pdf->SetFont('Arial', 'B', 12);
         
-$tempe= mysqli_query($conexion, "SELECT
+$validar= mysqli_query($conexion, "SELECT
 l.date, 
 e.id_estacion,
 e.codiogestacion,
@@ -87,11 +89,14 @@ avg(l.tempout) as promtempout
 FROM
 estacionmet e
 INNER JOIN lecturaestaciones l ON l.idestacion = e.id_estacion
-where EXTRACT(MONTH FROM l.date)='$mes1' and EXTRACT(YEAR FROM l.date)='$a'
+where EXTRACT(MONTH FROM l.date)='08' and EXTRACT(YEAR FROM l.date)='2017'
 GROUP BY e.codiogestacion, l.date
 ORDER BY l.date");
 
-while ($row1 = mysqli_fetch_array($tempe)) {
+
+
+if(mysqli_num_rows($validar)>0){ 
+while ($row1 = mysqli_fetch_array($validar)) {
     $esta=$row1['codiogestacion'];
 }
 
@@ -110,11 +115,12 @@ $pdf->SetFont('Arial', '', 10);
 $fech = mysqli_query($conexion, "SELECT
 l.date, 
 e.id_estacion,
+e.codiogestacion,
 avg(l.tempout) as promtempout
 FROM
 estacionmet e
 INNER JOIN lecturaestaciones l ON l.idestacion = e.id_estacion
-where EXTRACT(MONTH FROM l.date)='$mes1' and EXTRACT(YEAR FROM l.date)='$a'
+where EXTRACT(MONTH FROM l.date)='08' and EXTRACT(YEAR FROM l.date)='2017'
 GROUP BY e.codiogestacion, l.date
 ORDER BY l.date");
 
@@ -125,7 +131,10 @@ while ($row = $fech->fetch_assoc()) {
     $pdf->Cell(60, 6,$row['date'],1 , 0, 'C'); 
     $pdf->Cell(70, 6,$row['promtempout'], 1, 1, 'C');
     ;
-}
+} } else{
+            $pdf->Ln(30);
+       $pdf->Cell(150, 6,'No hay datos almacenados', 0, 0, 'C'); 
+       }
 
 $pdf->Output();
 ?>

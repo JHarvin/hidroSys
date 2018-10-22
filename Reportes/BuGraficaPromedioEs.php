@@ -5,15 +5,37 @@
 		<title>Sistema Hidrometeorologico</title>
 		
 		
-                <script type="text/javascript" src="../Highcharts-4.1.5/js/jquery-1.7.1.min.js"></script>
-		        <script type="text/javascript" src="../Highcharts-4.1.5/js/highcharts.js"></script>
-		        <script type="text/javascript" src="../Highcharts-4.1.5/js/exporting.js"></script>
-                <script type="text/javascript" src="../Highcharts-4.1.5/js/themes/grid.js"></script>
+                 <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+    <!-- bootstrap-wysiwyg -->
+    <link href="../vendors/google-code-prettify/bin/prettify.min.css" rel="stylesheet">
+    <!-- Select2 -->
+    <link href="../vendors/select2/dist/css/select2.min.css" rel="stylesheet">
+    <!-- Switchery -->
+    <link href="../vendors/switchery/dist/switchery.min.css" rel="stylesheet">
+    <!-- starrr -->
+    <link href="../vendors/starrr/dist/starrr.css" rel="stylesheet">
+    <!-- bootstrap-daterangepicker -->
+    <link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
 
+    <!-- Custom Theme Style -->
+    <link href="../build/css/custom.min.css" rel="stylesheet">
+		
+		
+                <script type="text/javascript" src="../Highcharts-4.1.5/js/jquery-1.7.1.min.js"></script>
+		<script type="text/javascript" src="../Highcharts-4.1.5/js/highcharts.js"></script>
+		<script type="text/javascript" src="../Highcharts-4.1.5/js/exporting.js"></script>
+                <script type="text/javascript" src="../Highcharts-4.1.5/js/themes/grid.js"></script>
 
 		<?php 
                 include_once '../conexion/conexion.php';
                 $po=$_GET['po'];
+                $estacion=$_GET['estacion'];
                 $fecha=$_GET['f'];
                 $x=explode("-",$fecha);
                     $mes1=$x[0];
@@ -114,13 +136,93 @@ ORDER BY l.date");
                      <?php } else{ ?>
 	</head>
 	<body>
-		<center><div class="center">NO HAY DATOS ALMACENADOS</div></center>
-                <?php }?>
-		<div id="container" style="width: 100%; height: 500px; margin: 0 auto"></div>
+		    <div class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1" id="MiModal" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+
+                            <h4>¡No hay datos almacenados!</h4>
+                            
+                            <h4 class="modal-title" id="myModal"></h4>
+                        </div>
+                        <div class="modal-body">
+                                <div class="center-margin">
+                                    <div class="row mb-12"  style="text-align:center">
+
+                                        <img src="../Imagenes/datos.jpg" width="200" height="200" style="text-align:center">
+                                    
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                 <div class="row mb-12" style="float: right;margin-right: 20px; margin-top: 15px;">
+                                   
+                                    <a href="../Reportes/BuVistaPromedio.php" class="btn">
+                                    <input type="submit" class="btn btn-warning" value="Cancelar" name="modGuardar">
+                                      </a>
+                                </div>
+                                <br>
+                               
+                                </div>
+                            
+                                </div>   
+                                <!--ERROR COMUN Y LO DEJARE AQUI PARA QUE VEAS
+                                LA ETIQUETA </form> DETRO DE ELLA SIEMPRE TEIENE QUE ESTAR LOS BOTONES-->
+
+                                
+                           
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+            <!-- Fin Div de modal-->
+	
+		 <!-- jQuery -->
+    <script src="../vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- FastClick -->
+    <script src="../vendors/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="../vendors/nprogress/nprogress.js"></script>
+    <!-- bootstrap-progressbar -->
+    <script src="../vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+    <!-- iCheck -->
+    <script src="../vendors/iCheck/icheck.min.js"></script>
+    <!-- bootstrap-daterangepicker -->
+    <script src="../vendors/moment/min/moment.min.js"></script>
+    <script src="../vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <!-- bootstrap-wysiwyg -->
+    <script src="../vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js"></script>
+    <script src="../vendors/jquery.hotkeys/jquery.hotkeys.js"></script>
+    <script src="../vendors/google-code-prettify/src/prettify.js"></script>
+    <!-- jQuery Tags Input -->
+    <script src="../vendors/jquery.tagsinput/src/jquery.tagsinput.js"></script>
+    <!-- Switchery -->
+    <script src="../vendors/switchery/dist/switchery.min.js"></script>
+    <!-- Select2 -->
+    <script src="../vendors/select2/dist/js/select2.full.min.js"></script>
+    <!-- Parsley -->
+    <script src="../vendors/parsleyjs/dist/parsley.min.js"></script>
+    <!-- Autosize -->
+    <script src="../vendors/autosize/dist/autosize.min.js"></script>
+    <!-- jQuery autocomplete -->
+    <script src="../vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script>
+    <!-- starrr -->
+    <script src="../vendors/starrr/dist/starrr.js"></script>
+    <!-- Custom Theme Scripts -->
+    <script src="../build/js/custom.min.js"></script>
+     <script type="text/javascript">
+    $('#MiModal').modal('show');
+</script>
+     <?php }?>
+    <div id="container" style="width: 100%; height: 500px; margin: 0 auto"></div>
                 <br><br>
                 <center><a href="../Reportes/BuVistaPromedio.php">
                          <button type="submit" class="btn btn-success">Regresar</button>
                     </a></center>
+	</body>
 
 		
 	</body>

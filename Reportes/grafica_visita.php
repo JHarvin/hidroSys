@@ -37,7 +37,7 @@
                 $po=$_GET['po'];
                 
                 //vamos a validar
-                 $validar= mysqli_query($mysqli,"SELECT
+$validar= mysqli_query($mysqli,"SELECT
 p.codigopozo,
 m.nombre
 FROM
@@ -48,9 +48,10 @@ WHERE
 h.id_pozo ='$po'
 ORDER BY
 h.fechavisita ASC");
-                    if(mysqli_num_rows($validar)){ 
+
+if(mysqli_num_rows($validar)){ 
                
-			$extrar= mysqli_query($mysqli,"SELECT
+$extrar= mysqli_query($mysqli,"SELECT
 
 h.level
 FROM

@@ -152,7 +152,22 @@
                   </div>
                   <div class="x_content">
                     <br />
-                    <form class="form-horizontal form-label-left input_mask">
+          <form class="form-horizontal form-label-left input_mask">
+                             <h4>Seleccione estacion</h4>
+                          <select class="form-control" name="estacion">
+                              <?php
+                                          include_once '../ProcesoSubir/conexion.php';
+                                          $verPozo= mysqli_query($mysqli,"SELECT id_estacion,codiogestacion FROM estacionmet");
+                              ?>
+                            <option>Seleccionar</option>
+                            <?php
+                             while ($row = mysqli_fetch_array($verPozo)) {
+                                         
+                                           echo '<option value='.$row['0'].'>'.$row['1'].'</option>';
+                                    }
+                                    ?>
+                            </select>
+                    
 
                         <h4>Fecha de visualizacion</h4>
                      
@@ -160,7 +175,7 @@
                            <div class="col-md-12">
                       <div class="col-md-12"> 
                           <div class="form-group">   
-                           <input type="text" name="fechas1" class="form-control has-feedback-left -calendar" id="inputSuccess2" placeholder="Ej: 04-2017"
+                           <input type="text" name="fechas1" class="form-control mask-promedio has-feedback-left -calendar" id="inputSuccess2" placeholder="Ej: 04-2017" maxlength="7" minlength="7" 
                                 autocomplete="off" required="">
                               <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
                               
@@ -207,10 +222,11 @@
        
         if (isset($_REQUEST['tirar'])) {
         $po = $_REQUEST['pozo'];
+        $estacion = $_REQUEST['estacion'];
         $f = $_REQUEST['fechas1'];
      ?>
     <script type="text/javascript">
-location.href="BuModalPromedioEs.php?po=<?php echo $po;?>&f=<?php echo $f;?>";
+location.href="BuModalPromedioEs.php? po=<?php echo $po;?> &f=<?php echo $f;?> &estacion=<?php echo $estacion;?>";
 </script>
 <?php
     }
@@ -256,5 +272,14 @@ location.href="BuModalPromedioEs.php?po=<?php echo $po;?>&f=<?php echo $f;?>";
 	
   </body>
 </html>
+
+<script src="../LibreriasJS/jquery.mask.min.js"></script>
+
+<script type="text/javascript">
+    $('.mask-promedio').mask('00-0000');
+    
+</script>
+
+
 
 

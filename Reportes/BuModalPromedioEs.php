@@ -42,6 +42,7 @@
                include "../Vistas/menuPrincipal.php";
                $po=$_GET['po'];
                 $f=$_GET['f'];
+                $estacion =$_GET['estacion'];
             ?>
             <!-- /sidebar menu -->
 
@@ -149,14 +150,14 @@
                                       </a>
                                 </div>
                                  <div class="row mb-12" style="float: right; margin-right: 10px; margin-top: 15px;">
-                                     <a href="../Reportes/BuReporteTemEs.php?po=<?php echo $po;?>&f=<?php echo $f;?>" class="btn">
+                                     <a href="../Reportes/BuReporteTemEs.php?po=<?php echo $po;?>&f=<?php echo $f;?> &estacion=<?php echo $estacion;?>" class="btn">
                                     <input type="submit" class="btn btn-info" value="Reporte" name="modGuardar">
                                       </a>
 
                                 </div>
                                  
                                  <div class="row mb-12" style="float: right; margin-right: 10px; margin-top: 15px;">
-                                     <a href="../Reportes/BuGraficaPromedioEs.php?po=<?php echo $po;?>&f=<?php echo $f;?>" class="btn">
+                                     <a href="../Reportes/BuGraficaPromedioEs.php?po=<?php echo $po;?>&f=<?php echo $f;?> &estacion=<?php echo $estacion;?>" class="btn">
                                    <input type="submit" class="btn btn-success" value="Grafica" name="modGuardar">
                                     </a>
                                 </div>
