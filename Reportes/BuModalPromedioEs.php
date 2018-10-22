@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -41,6 +40,8 @@
              <!-- sidebar menu -->
              <?php 
                include "../Vistas/menuPrincipal.php";
+               $po=$_GET['po'];
+                $f=$_GET['f'];
             ?>
             <!-- /sidebar menu -->
 
@@ -108,7 +109,7 @@
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Reporte de nivel de pozos segun visitas efectuadas.</h3>
+                <h3>Reporte del Rain Rate Promedio</h3>
               </div>
 
               <div class="title_right">
@@ -127,7 +128,56 @@
             <div class="row">
               <div class="col-md-6 col-xs-6">
                 <div class="x_panel">
-                    <form action="" id="f1" name="f1" method="post" class="form-register" >
+                      <!-- MODAL-->
+            <div class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1" id="MiModal" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      
+                        <div class="modal-header">
+
+
+                            <h4>¿Que desas visualizar?</h4>
+                            
+                            <h4 class="modal-title" id="myModalLabel"></h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="input-group">
+                                 <div class="row mb-12" style="float: right;margin-right: 20px; margin-top: 15px;">
+                                   
+                                    <a href="../Reportes/BuVistaPromedio.php" class="btn">
+                                    <input type="submit" class="btn btn-warning" value="Cancelar" name="modGuardar">
+                                      </a>
+                                </div>
+                                 <div class="row mb-12" style="float: right; margin-right: 10px; margin-top: 15px;">
+                                     <a href="../Reportes/BuReporteTemEs.php?po=<?php echo $po;?>&f=<?php echo $f;?>" class="btn">
+                                    <input type="submit" class="btn btn-info" value="Reporte" name="modGuardar">
+                                      </a>
+
+                                </div>
+                                 
+                                 <div class="row mb-12" style="float: right; margin-right: 10px; margin-top: 15px;">
+                                     <a href="../Reportes/BuGraficaPromedioEs.php?po=<?php echo $po;?>&f=<?php echo $f;?>" class="btn">
+                                   <input type="submit" class="btn btn-success" value="Grafica" name="modGuardar">
+                                    </a>
+                                </div>
+
+                               
+                                </div>
+                            
+                                </div>   
+                                <!--ERROR COMUN Y LO DEJARE AQUI PARA QUE VEAS
+                                LA ETIQUETA </form> DETRO DE ELLA SIEMPRE TEIENE QUE ESTAR LOS BOTONES-->
+
+                                
+                           
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+            <!-- Fin Div de modal-->
+                 <form action="" id="f1" name="f1" method="post" class="form-register" >
         <!--<input type="hidden" value="upload" id="upload" name="a" />-->
         <input type="hidden" name="tirar" id="pase"/>
                   <div class="x_title">
@@ -141,39 +191,22 @@
                     <form class="form-horizontal form-label-left input_mask">
 
                       <div class="col-md-5 col-sm-5 col-xs-5 form-group has-feedback">
-                        <h4>Nombre del Pozo</h4>
+                        <h4>Estado del Pozo</h4>
                       </div>
                          <div class="col-md-6 col-sm-6 col-xs-12 form-group">
                             <select class="form-control" name="pozo">
                               <?php
                                           include_once '../ProcesoSubir/conexion.php';
-                                          $verPozo= mysqli_query($mysqli,"SELECT id_pozo,codigopozo FROM pozos");
+                                          $verPozo= mysqli_query($mysqli,"SELECT id_pozo, estado FROM pozos");
                               ?>
                             <option>Seleccionar</option>
                             <?php
                              while ($row = mysqli_fetch_array($verPozo)) {
-                                         
-                                           echo '<option value='.$row['0'].'>'.$row['1'].'</option>';
+                                         $idpozo=$row['id_pozo'];
+                                           echo '<option value='."$row[0]".'>'.$row['1'].'</option>';
                                     }
                                     ?>
                             </select>
-                    
-                        <h4>Fecha de visualizacion</h4>
-                     
-                       <div class="row">
-                           <div class="col-md-12">
-                      <div class="col-md-12"> 
-                          <div class="form-group">   
-                         <input type="text" name="fechas1" class="form-control has-feedback-left -calendar" id="inputSuccess2" placeholder="fecha inicio Ej:2014-04-01"
-                                autocomplete="off" required="">
-                              <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
-                              
-                      
-                      </div>
-                            </div>
-                        </div>
-                           
-                       </div>
                         </div>
                       </div>
                      
@@ -209,15 +242,6 @@
         <!-- footer content -->
        <?php 
        include "../Vistas/footer.php";
-        if (isset($_REQUEST['tirar'])) {
-        $po = $_REQUEST['pozo'];
-        $f = $_REQUEST['fechas1'];
-     ?>
-    <script type="text/javascript">
-location.href="modal_GD.php?po=<?php echo $po;?>&f=<?php echo $f;?>";
-</script>
-<?php
-    }
   ?>      
       </div>
     </div>
@@ -260,5 +284,6 @@ location.href="modal_GD.php?po=<?php echo $po;?>&f=<?php echo $f;?>";
 	
   </body>
 </html>
-
-
+<script type="text/javascript">
+    $('#MiModal').modal('show');
+</script>

@@ -108,7 +108,7 @@
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Reporte de nivel de pozos segun visitas efectuadas.</h3>
+                <h3>RReporte de nivel de pozos segun visitas efectuadas.</h3>
               </div>
 
               <div class="title_right">
