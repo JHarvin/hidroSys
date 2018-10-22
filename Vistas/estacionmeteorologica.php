@@ -20,6 +20,8 @@ error_reporting(E_ALL & ~E_NOTICE);
 <!DOCTYPE html>
 <html lang="es">
   <head>
+   
+ 
   <script type="text/javascript">
     $(document).ready(function () {
       recargarLista();
@@ -36,6 +38,26 @@ error_reporting(E_ALL & ~E_NOTICE);
 
 
   <script type="text/javascript">
+  
+  function verImagen(id){
+   
+    $.ajax(
+      {
+        type:"POST",
+        url:"imagenRecuperada.php",
+        data:"id="+id,
+        success:function(r){
+          $('#imagenRecuperada').html(r);
+         // ponerAbreviatura();
+        }
+      });
+  }
+
+   function llamarPaginaMapa(lat,lon)
+        {
+          var url="/supermarket/pages/verMapa.php?lat="+lat+"&lon="+lon;
+          window.open(url,"Nuevo","alwaysRaised=no");
+        }
   function ponerAbreviatura(){
     var iddepto=document.getElementById("lista1").value;
     var idmunicipio=document.getElementById("lista2").value;
@@ -66,6 +88,7 @@ error_reporting(E_ALL & ~E_NOTICE);
         }
       });
   }
+  
   function verificar(){
           if(document.getElementById('codigo').value=="" ||
             document.getElementById('lista1').value=="0"  ||
@@ -73,7 +96,8 @@ error_reporting(E_ALL & ~E_NOTICE);
             document.getElementById('institucion').value=="" ||
             document.getElementById('latitud').value=="" ||
             document.getElementById('longitud').value==""){
-            alert("Complete los campos");
+            alertify.success("Error:Porfavor complete todos los campos.");
+            alertify.set("notifier","position", "top");
           }else{
             document.getElementById('bandera').value="add";
             alert("no van vacios.");
@@ -90,7 +114,8 @@ error_reporting(E_ALL & ~E_NOTICE);
   <script>
 
   </script>
-
+      <link rel="stylesheet" href="../libreriasJS/alertifyjs/alertify.min.css">
+   
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- Meta, title, CSS, favicons, etc. -->
     <meta charset="utf-8">
@@ -390,12 +415,12 @@ error_reporting(E_ALL & ~E_NOTICE);
                                 <td><?php echo $departamentom; ?></td>
                                 <td><?php echo $municipiom; ?></td>
                                 <td><?php echo $responsablem; ?></td>
-                                <td ><center><button type="button" class="btn btn-success"><i class="fa fa-map"></i></button></center><?php echo $row['genero']; ?></td>
+                                <td ><center><button type='button' class='btn btn-success' onclick='llamarPaginaMapa(<?php echo $latitudm ?>,<?php echo $longitudm ?>)'><i class="fa fa-map"></i></button></center><?php echo $row['genero']; ?></td>
                                 
                                 <td><!--boton de ver-->
                                   <div class="row">
                                     <div class="col-md-6">
-                                        <center><a href="#" data-toggle="modal" data-target="#actualizarVisitante" onclick="Editar_visita('<?php echo $duiVisita; ?>','<?php echo $NombreVisita; ?>','<?php echo $generoVisita;?>','<?php echo $tipoVisita;?>','<?php echo $celularVisita;?>','<?php echo $pas;?>')" ><button type="button" class="btn btn-success"><i class="fa fa-eye"></i></button></a></center>
+                                        <center><a href="#" data-toggle="modal" data-target="#confirm-imagen" onclick="verImagen('<?php echo $idm; ?>')" ><button type="button" class="btn btn-success"><i class="fa fa-eye"></i></button></a></center>
                                 
                                     </div>
 
@@ -466,7 +491,29 @@ error_reporting(E_ALL & ~E_NOTICE);
             </div>
         </div> 
     </div>          
+     <!-- MODAL PARA VER FOTO ESTACION -->
+  <div class="modal fade" id="confirm-imagen" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title" id="myModalLabel"><font font font font color="black">Fotografia de la estacion.</font></h3> 
+                </div>
 
+                <div class="panel-body" name="imagenRecuperada" id="imagenRecuperada">
+                          
+                    
+                                       
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-warning pull-right" data-dismiss="modal">Cerrar</button>
+                    
+                </div> 
+            </div>
+        </div> 
+    </div> 
 <?php
 include_once 'editarEstacion.php';
 
@@ -495,6 +542,8 @@ include_once 'editarEstacion.php';
       </div>
     </div>
 
+  <script src="../libreriasJS/alertifyjs/alertify.css"></script>
+   <script src="../libreriasJS/alertifyjs/alertify.min.js"></script>
     <!-- jQuery -->
     <script src="../vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
@@ -574,7 +623,8 @@ if ($bandera == "add") {
 function msg($texto)
 {
     echo "<script type='text/javascript'>";
-    echo "alert('$texto');";
+    echo' alertify.success("Registro Guardado    ✔");
+    alertify.set("notifier","position", "top");';
     echo "</script>";
 }
 ?>
