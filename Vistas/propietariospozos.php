@@ -13,6 +13,7 @@ if(isset($_REQUEST["id"])){
                 $telefono=$fila->telfijo;
                 $genero=$fila->genero;
                 $correo=$fila->correo;
+                $institucion=$fila->institucion;
             }
         }
 }else{
@@ -24,6 +25,7 @@ if(isset($_REQUEST["id"])){
     $telefono=null;
     $genero=0;
     $correo=null;
+    $institucion=null;
 }
 ?>
 <!DOCTYPE html>
@@ -130,7 +132,7 @@ if(isset($_REQUEST["id"])){
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Propietarios de pozos.</h3>
+                <h3>Propietarios de pozos</h3>
               </div>
               <div class="title_right">
                 <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
@@ -144,30 +146,45 @@ if(isset($_REQUEST["id"])){
               </div>
             </div>
             <div class="clearfix"></div>            
-            <div class="row">
+          <div class="row">
               <div class="col-md-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Formulario de ingreso de datos.</h2>
+                    <h2>Formulario de ingreso de datos</h2>
                     <ul class="nav navbar-right panel_toolbox">                   
+                    </ul>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
                     </ul>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                    <br />
+  
                     <form class="form-horizontal" id="formPropietario" name="formPropietario" method="post">
                     <input type="hidden" name="bandera" id="bandera"/>
                     <div id="cambiaso"><input type="hidden" id="baccionVer" value="1" /></div>
                     <div class="row">
-                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                    <?php  if(!isset($_REQUEST["id"])){ ?>
+                    <div class="col-sm-12 text-center" style="padding-bottom: 10px;">
+                        <button type="button" class="btn btn-info" id="btnGuardar" onclick="mostrarFormulario('persona');"><i class="fa fa-male">  Persona</i></button>
+                        <button type="button" class="btn btn-info" id="btnGuardar" onclick="mostrarFormulario('insti');"><i class="fa fa-institution">  Institución</i></button>
+                    </div> 
+                    <?php }?>
+                    <?php  if(!isset($_REQUEST["id"])){ ?>          
+                     <div id="datosPersona" hidden>
+                    <?php }else{?>
+                    <div id="datosPersona">
+                    <?php }?>
+                         <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                        <?php
                           if(isset($_REQUEST["id"])){
                               ?>
-                            <input type="text" class="form-control has-feedback-left" id="dui" name="dui" placeholder="Dui" onblur="verificarCodigo('dui');" data-inputmask="'mask': '99999999-9'" value="<?php echo $dui; ?>" disabled>
+                            <input type="text" class="form-control has-feedback-left" id="dui" name="dui" placeholder="DUI" onblur="verificarCodigo('dui');" data-inputmask="'mask': '99999999-9'" value="<?php echo $dui; ?>" disabled>
                             <?php
                           }else{
                               ?>
-                             <input type="text" class="form-control has-feedback-left" id="dui" name="dui" placeholder="Dui" onblur="return verificar('dui');" data-inputmask="'mask': '99999999-9'" value="<?php echo $dui; ?>">
+                             <input type="text" class="form-control has-feedback-left" id="dui" name="dui" placeholder="DUI" onblur="return verificar('dui');" data-inputmask="'mask': '99999999-9'" value="<?php echo $dui; ?>">
                              <?php
                           }
                               ?>
@@ -175,7 +192,7 @@ if(isset($_REQUEST["id"])){
                         <span class="fa fa-barcode form-control-feedback left" aria-hidden="true" ></span>
                       </div>
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left" id="correo" name="correo" placeholder="Correo electronico." value="<?php echo $correo; ?>" onblur="return verificar('correo');">
+                        <input type="text" class="form-control has-feedback-left" id="correo" name="correo" placeholder="Correo electrónico." value="<?php echo $correo; ?>" onblur="return verificar('correo');">
                         <span class="fa fa-at form-control-feedback left" aria-hidden="true"></span>
                       </div>
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
@@ -189,7 +206,7 @@ if(isset($_REQUEST["id"])){
                       </div>
                      
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left" id="telefono" name="telefono" placeholder="Telefono" onblur="return verificar('telefono');" data-inputmask="'mask': '2999-9999'" value="<?php echo $telefono; ?>">
+                        <input type="text" class="form-control has-feedback-left" id="telefono" name="telefono" placeholder="Teléfono" onblur="return verificar('telefono');" data-inputmask="'mask': '2999-9999'" value="<?php echo $telefono; ?>">
                         <span class="fa fa-phone form-control-feedback left" aria-hidden="true"></span>
                       </div>
                       
@@ -198,12 +215,12 @@ if(isset($_REQUEST["id"])){
                         <span class="fa fa-phone form-control-feedback left" aria-hidden="true"></span>
                       </div>
                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left" id="direccion" name="direccion" placeholder="Direccion" value="<?php echo $direccion; ?>">
+                        <input type="text" class="form-control has-feedback-left" id="direccion" name="direccion" placeholder="Dirección" value="<?php echo $direccion; ?>">
                         <span class="fa fa-map form-control-feedback left" aria-hidden="true"></span>
                       </div>
                       <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <select class="form-control SSexo" id="sexo" name="sexo">
+                          <select class="form-control SSexo" id="sexo" name="sexo" style="width: 100%">
                            <?php if($genero===0){
                             ?>
                                 <option value="0" selected >Genero</option>
@@ -226,13 +243,31 @@ if(isset($_REQUEST["id"])){
                               ?>
                           </select>
                         </div>
-                      </div>                     
+                      </div>  
+                     </div>
+                     
+                     <?php  if($institucion==="" || $institucion===null){ ?>
+                        <div id="divInstitucion" hidden>
+                        <?php }else{?>
+                           <div id="divInstitucion">
+                                <?php }?>
+                     
+                         <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                        <input type="text" class="form-control has-feedback-left" id="institucion" name="institucion" placeholder="Institución que representa" value="<?php echo $institucion ?>">
+                        <span class="fa fa-institution form-control-feedback left" aria-hidden="true"></span>
+                      </div>  
+                     </div>
+                                       
                       <div class="form-group">
                         <!--Este div es para que agarre la linea que separa los botones.-->
                       </div>            
                       <div class="ln_solid"></div>
-                      <div class="form-group text-center" id="divBotones">
-                       
+                      <?php  if(!isset($_REQUEST["id"])){ ?>
+                        <div class="form-group text-center" id="divBotones" hidden>
+                        <?php }else{?>
+                            <div class="form-group text-center" id="divBotones">
+                                <?php }?>
+
                        <?php
                         if(!isset($iddatos)){
                                 ?>
@@ -249,11 +284,28 @@ if(isset($_REQUEST["id"])){
                       </div>
                     </form>              
                 </div>
-                 <div class="col-md-12 col-sm-12 col-xs-12">
+                </div>      
+            </div> 
+          </div>
+          <div class="row">
+                <div class="col-md-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                   <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                    </ul>
+                    <h2>Datos</h2>
+                    <ul class="nav navbar-right panel_toolbox">                   
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                       <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="x_panel">
                     <div class="x_title">
                           <div class="col-sm-9">
-                              <h3>Datos</h3>
+                              
                           </div>
                            <div class="col-sm-3" id="divInactivos">
                                <button type="button" class="btn btn-dark" id="btnCancelar" onclick="cambio('0');"><i class="fa fa-info-circle"></i>   Propietarios Inactivos</button>
@@ -268,7 +320,8 @@ if(isset($_REQUEST["id"])){
                     <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap tablita" cellspacing="0" width="100%">
                         <thead>
                           <tr>
-                          <th>Dui</th>
+                          <th>Tipo</th>
+                          <th>DUI</th>
                           <th>Nombre</th>
                           <th>Celular</th>
                           <th>Direccion</th>
@@ -278,10 +331,15 @@ if(isset($_REQUEST["id"])){
                         <tbody>
                       <?php
                     include "../Config/conexion.php";
-                    $result = $conexion->query("select * from propietariospozos where activo='1'");
+                    $result = $conexion->query("select * from propietariospozos where activo='1' order by nombre");
                     if ($result) {
                         while ($fila = $result->fetch_object()) {
                             echo "<tr>";
+                            $insti=$fila->institucion;
+                            if($insti===null || $insti===""){
+                                echo "<td>Persona</td>";
+                            }else
+                                echo '<td>Institución</td>';
                             ?>
                             <td><?php echo $fila->dui ?></td>
                             <td><?php echo $fila->nombre.' '.$fila->apellido?></td>
@@ -301,9 +359,12 @@ if(isset($_REQUEST["id"])){
                     </table>  
                     </div>
                     </div>
-                    </div>
+                    </div>        
+                </div>
+                 
               </div>      
             </div> 
+          
           </div>
         </div>
         <!-- /page content -->
@@ -418,9 +479,10 @@ if(isset($_REQUEST["id"])){
     $genero=$_REQUEST["sexo"];
     $correo=$_REQUEST["correo"];
     $dui=$_REQUEST["dui"];
+    $institucion=$_REQUEST['institucion'];
 
 if ($bandera == "guardar") {
-    $consulta  = "INSERT INTO propietariospozos VALUES('".$dui."','".$nombre."','".$apellido."','".$direccion."','".$celular."','".$telefono."','".$genero."','1','null','2','".$correo."')";
+    $consulta  = "INSERT INTO propietariospozos VALUES('".$dui."','".$nombre."','".$apellido."','".$direccion."','".$celular."','".$telefono."','".$genero."','1','null','2','".$correo."','".$institucion."')";
     $resultado = $conexion->query($consulta);
     if ($resultado) {
        mensaje("exito","guardar");
@@ -429,7 +491,7 @@ if ($bandera == "guardar") {
     }
 }
 if($bandera==="modificar"){
-     $consulta  = "UPDATE propietariospozos set apellido='".$apellido."',  nombre='" . $nombre."',telfijo='" . $telefono . "',direccion='" . $direccion . "', telcelular='".$celular."', correo='".$correo."', genero='".$genero."' where id_propietario='".$iddatos."'";
+     $consulta  = "UPDATE propietariospozos set apellido='".$apellido."',  nombre='" . $nombre."',telfijo='" . $telefono . "',direccion='" . $direccion . "', telcelular='".$celular."', correo='".$correo."', genero='".$genero."', institucion='".$institucion."' where id_propietario='".$iddatos."'";
      $resultado = $conexion->query($consulta);
     if ($resultado) {
         mensaje("exito","modificar");
