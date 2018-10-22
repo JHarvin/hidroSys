@@ -21,7 +21,7 @@ if ($opcion =="buscarMunicipio") {
                           <select class="form-control" id="municipio" name="municipio" onchange="buscarO(this.value)">
                             <option value="0">Municipio</option>
                              <?php  while ($valores = mysqli_fetch_array($result)) {
-          echo "<option value=".$valores['idmunicipio'].">".$valores['nombre']."</option>";}
+          echo "<option value=".$valores['idmunicipio'].">".$valores['nombremunicipio']."</option>";}
                       ?>
                             </select>
                         </div>
@@ -59,7 +59,7 @@ if ($opcion =="buscarResponsable") {
                           <select class="form-control" id="observador" name="observador">
                             <option value="0">Responsable de la institución o comunidad</option>
                              <?php  while ($valores = mysqli_fetch_array($result)) {
-          echo "<option value=".$valores['id_observador'].">".$valores['nombre']."</option>";}
+          echo "<option value=".$valores['id_observador'].">".$valores['nombreobservador']."</option>";}
                       ?>
                             </select>
                         </div>

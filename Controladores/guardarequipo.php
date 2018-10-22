@@ -9,7 +9,6 @@ $donadores = $_POST['Donantes'];
 $estado = $_POST['estado'];
 $imagen = $_POST['imagen'];
 $mensaje = "";
-echo $marca;
 
         $consulta  = "INSERT INTO equipos VALUES('null','" . $nombre . "','" .$descrip. "','" .$tipo. "','" .$marca. "','".$numserie."','".$donadores."','".$estado."','".$imagen."')";
         $resultado = $conexion->query($consulta);

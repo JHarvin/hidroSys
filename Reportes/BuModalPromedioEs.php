@@ -42,6 +42,7 @@
                include "../Vistas/menuPrincipal.php";
                $po=$_GET['po'];
                 $f=$_GET['f'];
+                $estacion =$_GET['estacion'];
             ?>
             <!-- /sidebar menu -->
 
@@ -132,7 +133,9 @@
             <div class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1" id="MiModal" role="dialog">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
+                      
                         <div class="modal-header">
+
 
                             <h4>¿Que desas visualizar?</h4>
                             
@@ -142,19 +145,19 @@
                             <div class="input-group">
                                  <div class="row mb-12" style="float: right;margin-right: 20px; margin-top: 15px;">
                                    
-                                    <a href="../Reportes/vista_GD.php" class="btn">
+                                    <a href="../Reportes/BuVistaPromedio.php" class="btn">
                                     <input type="submit" class="btn btn-warning" value="Cancelar" name="modGuardar">
                                       </a>
                                 </div>
                                  <div class="row mb-12" style="float: right; margin-right: 10px; margin-top: 15px;">
-                                     <a href="../Reportes/reporte_GD.php?po=<?php echo $po;?>&f=<?php echo $f;?>" class="btn">
+                                     <a href="../Reportes/BuReporteTemEs.php?po=<?php echo $po;?>&f=<?php echo $f;?> &estacion=<?php echo $estacion;?>" class="btn">
                                     <input type="submit" class="btn btn-info" value="Reporte" name="modGuardar">
                                       </a>
 
                                 </div>
                                  
                                  <div class="row mb-12" style="float: right; margin-right: 10px; margin-top: 15px;">
-                                     <a href="../Reportes/graficateto1.php?po=<?php echo $po;?>&f=<?php echo $f;?>" class="btn">
+                                     <a href="../Reportes/BuGraficaPromedioEs.php?po=<?php echo $po;?>&f=<?php echo $f;?> &estacion=<?php echo $estacion;?>" class="btn">
                                    <input type="submit" class="btn btn-success" value="Grafica" name="modGuardar">
                                     </a>
                                 </div>

@@ -3,8 +3,9 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<title>Sistema Hidrometeorologico</title>
-                <!-- Bootstrap -->
-    <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+		
+		
+                 <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <!-- NProgress -->
@@ -31,69 +32,50 @@
 		<script type="text/javascript" src="../Highcharts-4.1.5/js/exporting.js"></script>
                 <script type="text/javascript" src="../Highcharts-4.1.5/js/themes/grid.js"></script>
 
- 
 		<?php 
-                include_once '../ProcesoSubir/conexion.php';
+                include_once '../conexion/conexion.php';
                 $po=$_GET['po'];
-                
-                //vamos a validar
-$validar= mysqli_query($mysqli,"SELECT
-p.codigopozo,
-m.nombre
+                $estacion=$_GET['estacion'];
+                $fecha=$_GET['f'];
+                $x=explode("-",$fecha);
+                    $mes1=$x[0];
+                     $a=$x[1];
+                     
+                     //validar**********
+$validar= mysqli_query($conexion,"SELECT
+l.date, 
+avg(l.tempout) as promtempout
 FROM
-hojavisitaspozos h
-INNER JOIN pozos p ON h.id_pozo = p.id_pozo
-INNER JOIN municipios m ON p.id_municipio= m.idmunicipio
-WHERE
-h.id_pozo ='$po'
-ORDER BY
-h.fechavisita ASC");
+estacionmet e
+INNER JOIN lecturaestaciones l ON l.idestacion = e.id_estacion
+where EXTRACT(MONTH FROM l.date)='$mes1' and EXTRACT(YEAR FROM l.date)='$a'
+GROUP BY e.codiogestacion, l.date
+ORDER BY l.date");
 
-if(mysqli_num_rows($validar)){ 
-               
-$extrar= mysqli_query($mysqli,"SELECT
-
-h.level
+if(mysqli_num_rows($validar)){
+                     
+                     
+$temperatura= mysqli_query($conexion,"SELECT
+l.date, 
+avg(l.tempout) as promtempout
 FROM
-hojavisitaspozos h
-INNER JOIN pozos p ON h.id_pozo = p.id_pozo
-INNER JOIN municipios m ON p.id_municipio= m.idmunicipio
-WHERE
-h.id_pozo ='$po'
-ORDER BY
-h.fechavisita ASC");
-//                        while ($pozito= mysqli_fetch_array($extrar)){
-//                            $p=$pozito['codigopozo'];
-//                            $m=$pozito['municipio'];
-//                        }
+estacionmet e
+INNER JOIN lecturaestaciones l ON l.idestacion = e.id_estacion
+where EXTRACT(MONTH FROM l.date)='$mes1' and EXTRACT(YEAR FROM l.date)='$a'
+GROUP BY e.codiogestacion, l.date
+ORDER BY l.date");
+
+
                         
-                         $fechas= mysqli_query($mysqli,"SELECT
-h.fechavisita
-
+$fechas= mysqli_query($conexion,"SELECT
+l.date, 
+avg(l.tempout) as promtempout
 FROM
-hojavisitaspozos h
-INNER JOIN pozos p ON h.id_pozo = p.id_pozo
-INNER JOIN municipios m ON p.id_municipio= m.idmunicipio
-WHERE
-h.id_pozo ='$po'
-ORDER BY
-h.fechavisita ASC");
-//para sacar unos datos para la grafica pareciera que es lo mismo pero no JcMoz
-                         $datos= mysqli_query($mysqli,"SELECT
-p.codigopozo,
-m.nombre
-FROM
-hojavisitaspozos h
-INNER JOIN pozos p ON h.id_pozo = p.id_pozo
-INNER JOIN municipios m ON p.id_municipio= m.idmunicipio
-WHERE
-h.id_pozo ='$po'
-ORDER BY
-h.fechavisita ASC");
-                        while ($pozito= mysqli_fetch_array($datos)){
-                            $p=$pozito['codigopozo'];
-                            $m=$pozito['nombre'];
-                        }
+estacionmet e
+INNER JOIN lecturaestaciones l ON l.idestacion = e.id_estacion
+where EXTRACT(MONTH FROM l.date)='$mes1' and EXTRACT(YEAR FROM l.date)='$a'
+GROUP BY e.codiogestacion, l.date
+ORDER BY l.date");
                       
 			
 		?>
@@ -112,16 +94,16 @@ h.fechavisita ASC");
 						text: 'Sistema Hidrometeorologico'
 					},
 					subtitle: {
-						text: 'Nivel de pozo <?php echo $p;?> Municipio: <?php echo $m;?>'
+						text: 'Temperatura promedio correspondiente a la fecha:  <?php echo $fecha;?>'
 					},
 					xAxis: {
 						// Le pasamos los datos que irán en el eje de las 'X' en JSON
 						categories: [<?php while ($rows= mysqli_fetch_array($fechas)){?>
-                                                '<?php echo $rows['fechavisita'];?>',<?php } ?>]
+                                                '<?php echo $rows['date'];?>',<?php } ?>]
 					},
 					yAxis: {
 						title: {
-							text: 'Nivel del pozo ( m )'
+							text: 'Temperatura promedio'
 						}
 					},
 					tooltip: {
@@ -141,9 +123,9 @@ h.fechavisita ASC");
 					},
 					// Le pasamos los datos en JSON
 					series:[{
-                                                name: 'Nivel',
-                                                data:[<?php while ($row= mysqli_fetch_array($extrar)){?>
-                                                <?php echo $row['level'];?>,<?php } ?>]
+                                                name: 'Promedio',
+                                                data:[<?php while ($row= mysqli_fetch_array($temperatura)){?>
+                                                <?php echo $row['promtempout'];?>,<?php } ?>]
                                             }]
 				});
 				
@@ -151,20 +133,17 @@ h.fechavisita ASC");
 			});
 				
 		</script>
-                    <?php } else{?>
+                     <?php } else{ ?>
 	</head>
 	<body>
-            
-               
-                                      <!-- MODAL-->
-            <div class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1" id="MiModal" role="dialog">
+		    <div class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1" id="MiModal" role="dialog">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
 
                             <h4>¡No hay datos almacenados!</h4>
                             
-                            <h4 class="modal-title" id="myModalLabel"></h4>
+                            <h4 class="modal-title" id="myModal"></h4>
                         </div>
                         <div class="modal-body">
                                 <div class="center-margin">
@@ -177,7 +156,7 @@ h.fechavisita ASC");
                             <div class="input-group">
                                  <div class="row mb-12" style="float: right;margin-right: 20px; margin-top: 15px;">
                                    
-                                    <a href="../Reportes/Vista_Visita.php" class="btn">
+                                    <a href="../Reportes/BuVistaPromedio.php" class="btn">
                                     <input type="submit" class="btn btn-warning" value="Cancelar" name="modGuardar">
                                       </a>
                                 </div>
@@ -198,8 +177,7 @@ h.fechavisita ASC");
                 </div>
             </div>
             <!-- Fin Div de modal-->
-		
-
+	
 		 <!-- jQuery -->
     <script src="../vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
@@ -241,8 +219,11 @@ h.fechavisita ASC");
      <?php }?>
     <div id="container" style="width: 100%; height: 500px; margin: 0 auto"></div>
                 <br><br>
-                <center><a href="../Reportes/Vista_Visita.php">
+                <center><a href="../Reportes/BuVistaPromedio.php">
                          <button type="submit" class="btn btn-success">Regresar</button>
                     </a></center>
+	</body>
+
+		
 	</body>
 </html>

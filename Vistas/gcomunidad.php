@@ -10,11 +10,16 @@ $optradio = $_REQUEST['optradio'];
 $insertar ="INSERT INTO comunidades(nombre, tipo, iddepartamento, idmunicipio, idobservador) VALUES ('$nombre', '$optradio', '$departamento', '$municipio', '$observador' )";
 
 $resultado = mysqli_query($mysqli, $insertar);
-
+    
 if(!$resultado){
-echo 'erro al ingresar datos';
+    
+echo '<script>
+  alertify.error("Error en el servidor");
+  </script>';
 }else{
-  echo "datos ingresados correctamente";
+  echo '<script>
+  alertify.success("Datos almacenados exitosamente");
+  </script>';
 }
 
 mysqli_close($mysqli);

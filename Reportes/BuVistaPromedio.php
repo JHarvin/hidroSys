@@ -106,9 +106,16 @@
         <!-- page content -->
         <div class="right_col" role="main">
           <div class="">
+
             <div class="page-title">
-              <div class="title_left">
-                <h3>Reporte de nivel de pozos segun visitas efectuadas.</h3>
+              <div class="title_center">
+
+                <!-- ME LO CENTRA -->
+                <div  class="col-md-3 col-xs-3">
+                
+              </div>
+
+                <h3>Informe de temperatura promedio de estaciones</h3>
               </div>
 
               <div class="title_right">
@@ -125,11 +132,18 @@
             <div class="clearfix"></div>
             
             <div class="row">
+
+              <!-- ME LO CENTRA -->
+              <div  class="col-md-3 col-xs-3">
+                
+              </div>
               <div class="col-md-6 col-xs-6">
                 <div class="x_panel">
-                    <form action="" id="f1" name="f1" method="post" class="form-register" >
+
+                  <!--INICIA FORMULARIO-->
+                <form action="" id="f1" name="f1" method="post" class="form-register" >
         <!--<input type="hidden" value="upload" id="upload" name="a" />-->
-        <input type="hidden" name="tirar" id="pase"/>
+                   <input type="hidden" name="tirar" id="pase"/>
                   <div class="x_title">
                     
                     <ul class="nav navbar-right panel_toolbox">                   
@@ -138,16 +152,12 @@
                   </div>
                   <div class="x_content">
                     <br />
-                    <form class="form-horizontal form-label-left input_mask">
-
-                      <div class="col-md-5 col-sm-5 col-xs-5 form-group has-feedback">
-                        <h4>Nombre del Pozo</h4>
-                      </div>
-                         <div class="col-md-6 col-sm-6 col-xs-12 form-group">
-                            <select class="form-control" name="pozo">
+          <form class="form-horizontal form-label-left input_mask">
+                             <h4>Seleccione estacion</h4>
+                          <select class="form-control" name="estacion">
                               <?php
                                           include_once '../ProcesoSubir/conexion.php';
-                                          $verPozo= mysqli_query($mysqli,"SELECT id_pozo,codigopozo FROM pozos");
+                                          $verPozo= mysqli_query($mysqli,"SELECT id_estacion,codiogestacion FROM estacionmet");
                               ?>
                             <option>Seleccionar</option>
                             <?php
@@ -158,13 +168,14 @@
                                     ?>
                             </select>
                     
+
                         <h4>Fecha de visualizacion</h4>
                      
                        <div class="row">
                            <div class="col-md-12">
                       <div class="col-md-12"> 
                           <div class="form-group">   
-                         <input type="text" name="fechas1" class="form-control has-feedback-left -calendar" id="inputSuccess2" placeholder="fecha inicio Ej:2014-04-01"
+                           <input type="text" name="fechas1" class="form-control mask-promedio has-feedback-left -calendar" id="inputSuccess2" placeholder="Ej: 04-2017" maxlength="7" minlength="7" 
                                 autocomplete="off" required="">
                               <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
                               
@@ -193,10 +204,10 @@
                         </div>
                       </div>
 
-                    </form>
+                    </form>  <!--FIN FORMULARIO-->
                   </div>
                 </div>
-              </div>      
+              </div> <br><br><br><br><br><br><br><br><br><br>    <?php include "../Vistas/footer.php"; ?>  
             </div>
 
           
@@ -208,13 +219,14 @@
 
         <!-- footer content -->
        <?php 
-       include "../Vistas/footer.php";
+       
         if (isset($_REQUEST['tirar'])) {
         $po = $_REQUEST['pozo'];
+        $estacion = $_REQUEST['estacion'];
         $f = $_REQUEST['fechas1'];
      ?>
     <script type="text/javascript">
-location.href="modal_GD.php?po=<?php echo $po;?>&f=<?php echo $f;?>";
+location.href="BuModalPromedioEs.php? po=<?php echo $po;?> &f=<?php echo $f;?> &estacion=<?php echo $estacion;?>";
 </script>
 <?php
     }
@@ -260,5 +272,14 @@ location.href="modal_GD.php?po=<?php echo $po;?>&f=<?php echo $f;?>";
 	
   </body>
 </html>
+
+<script src="../LibreriasJS/jquery.mask.min.js"></script>
+
+<script type="text/javascript">
+    $('.mask-promedio').mask('00-0000');
+    
+</script>
+
+
 
 
