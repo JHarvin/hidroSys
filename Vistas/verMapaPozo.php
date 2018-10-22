@@ -37,16 +37,7 @@ if ($lon == "") {
     </style>
 
 <script type="text/javascript">
-function selecciona() {
-  if (document.getElementById("coordsLa").value!="" && document.getElementById("coordsLo").value!="") {
-    window.top.latitud.value=document.getElementById("coordsLa").value;
-window.top.longitud.value=document.getElementById("coordsLo").value;
-  }else
-  {
-    alert("Mueva el cursor del mapa");
-  }
 
-};
 
 
 </script>
@@ -61,10 +52,6 @@ window.top.longitud.value=document.getElementById("coordsLo").value;
 <body >
     <div id="map"></div>
 
-    
-    <input type="text" id="coordsLa" />
-    <input type="text" id="coordsLo" />
-    <input id="obtener" type="button"  onClick="selecciona()" value="Obtener"/>
     
     
     
@@ -109,7 +96,7 @@ function setMapa (coords)
       //position pondremos las mismas coordenas que obtuvimos en la geolocalización
       marker = new google.maps.Marker({
         map: map,
-        draggable: true,
+        draggable: false,
         animation: google.maps.Animation.DROP,
         position: new google.maps.LatLng(<?php echo $lat; ?>,<?php echo $lon; ?>),
 
