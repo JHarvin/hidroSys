@@ -1,4 +1,6 @@
-
+<?php
+header( 'Content-type: text/html; charset=utf-8' );
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -8,7 +10,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Ingenieria</title>
+    <title>Sistema Hidrometeorologico</title>
 
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -27,7 +29,17 @@
 
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
+    
+    
+    <style>
+    .progreso { width: 250px; height: 20px; border:2px solid black; float:left;}
+    .avance { height:20px; float:left; background: red; }
+    </style>
+    <script type="text/javascript">
+    $('#miModal').modal('show');
+</script>
   </head>
+   
 
   <body class="nav-md">
     <div class="container body">
@@ -77,86 +89,13 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="images/img.jpg" alt="">John Doe
+                    <img src="images/img.jpg" alt="">JcMoz
                     <span class=" fa fa-angle-down"></span>
                   </a>
-                  <ul class="dropdown-menu dropdown-usermenu pull-right">
-                    <li><a href="javascript:;"> Profile</a></li>
-                    <li>
-                      <a href="javascript:;">
-                        <span class="badge bg-red pull-right">50%</span>
-                        <span>Settings</span>
-                      </a>
-                    </li>
-                    <li><a href="javascript:;">Help</a></li>
-                    <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
-                  </ul>
+                 
                 </li>
 
-                <li role="presentation" class="dropdown">
-                  <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
-                    <i class="fa fa-envelope-o"></i>
-                    <span class="badge bg-green">6</span>
-                  </a>
-                  <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
-                    <li>
-                      <a>
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <div class="text-center">
-                        <a>
-                          <strong>See All Alerts</strong>
-                          <i class="fa fa-angle-right"></i>
-                        </a>
-                      </div>
-                    </li>
-                  </ul>
-                </li>
+                
               </ul>
             </nav>
           </div>
@@ -186,34 +125,27 @@
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Settings 1</a>
-                          </li>
-                          <li><a href="#">Settings 2</a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
+                     
+                      
                     </ul>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
+              
                     <table id="datatable" class="table table-striped table-bordered">
                       <thead>
                         <tr>
                           <th>Fecha</th>
                           <th>Hora</th>
                           <th>Ms</th>
-                          <th>Nivel</th>
-                          <th>Temperatura</th>
+                          <th>Nivel (m)</th>
+                          <th>Temperatura(°C)</th>
                         </tr>
                       </thead>
 
 
                       <tbody>  
+                          
                           <?php
         include_once '../ParaLectura/PHPExcel/IOFactory.php';
         include_once '../ProcesoSubir/conexion.php';
@@ -231,6 +163,7 @@
 	
 	date_default_timezone_set('America/El_Salvador');
 	 //date.timezone="Europe/Madrid";
+        
 	for($i =2; $i <= $numRows; $i++){
 		
 //		$nombre = $objPHPExcel->getActiveSheet()->getCell('A'.$i)->getCalculatedValue();
@@ -263,6 +196,7 @@
 		$nivel = $objPHPExcel->getActiveSheet()->getCell('D'.$i)->getCalculatedValue();
                 $temperatura = $objPHPExcel->getActiveSheet()->getCell('E'.$i)->getCalculatedValue();
                 ?>
+              
                         <tr>
                             <td><?php echo $nuevafecha;?></td>
                           <td><?php echo $horaImprimir; ?></td>
@@ -279,7 +213,16 @@
         ?>
                       </tbody>
                     </table>
-                      
+                       <div class="input-group">
+                                 <div class="row mb-12" style="float: right;margin-right: 20px; margin-top: 15px;">
+                                   
+                                     <a href="../ProcesoSubir/SubirPozos.php" class="btn">
+                                    <input type="submit" class="btn btn-success" value="Regresar" name="modGuardar">
+                                      </a>
+                                </div>
+                                <br>
+                               
+                                </div>
                   </div>
                 </div>
               </div>
@@ -288,7 +231,35 @@
           </div>
         </div>
         <!-- /page content -->
+         <!-- MODAL-->
+            <div class="modal fade" id="miModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
 
+                            <h4>¡Datos cargados con exito!</h4>
+                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                           
+                            <h4 class="modal-title" id="myModalLabel"></h4>
+                        </div>
+                        <div class="modal-body">
+                            
+                             <h4>¡Presione "x" para visualizarlos!</h4>
+                             <div class="row mb-12"  style="text-align:center">
+
+                                 <img src="../Imagenes/subir.jpg" width="200" height="200" style="text-align:center">
+                                    
+                                </div>
+                             
+
+
+                    </div>
+                </div>
+            </div>
+            </div>
+            <!-- Fin Div de modal-->
         <!-- footer content -->
         <?php
         include "../production/footer.php";
@@ -296,6 +267,7 @@
         <!-- /footer content -->
       </div>
     </div>
+     
 
     <!-- jQuery -->
     <script src="../vendors/jquery/dist/jquery.min.js"></script>
@@ -326,6 +298,11 @@
 
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
-
+   
+ <script type="text/javascript">
+    $('#miModal').modal('show');
+</script>
+   
+            
   </body>
 </html>

@@ -4,9 +4,8 @@ $(document).ready(function(){
     $("#departamento").on("change", function(){
 
         var depto = $("#departamento").val();
-        alert("llega");
+
         if(depto != ""){
-            alert("llega");
             $.ajax({
                 type:'POST',
                 url: '../Controladores/datosDePozos/extraerMunicipios.php',
@@ -14,10 +13,9 @@ $(document).ready(function(){
                 success:function(data){
                     if(data!= 0){
                         $("#municipio").html(data);
-                        alert(data);
                     }
                     else{
-                        $("#municipio").html("<option value=''>No hay municipios para el departamento</option>");
+                        $("#municipio").html("<option value='0' >No hay municipios para el departamento</option>");
                     }
                     
                 },
@@ -25,9 +23,9 @@ $(document).ready(function(){
                     alert("error: "+data);
                     
                 }
-            });
-        }
+            });//fin del ajax
+        }//fin del if
             
 
-    });
+    });//fin del evento change
 });

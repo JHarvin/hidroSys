@@ -28,11 +28,15 @@
     <!-- bootstrap-daterangepicker -->
     <link href="../../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
 
-    <!-- PNotify -->
-    <link href="../../vendors/pnotify/dist/pnotify.css" rel="stylesheet">
-    <link href="../../vendors/pnotify/dist/pnotify.buttons.css" rel="stylesheet">
-    <link href="../../vendors/pnotify/dist/pnotify.nonblock.css" rel="stylesheet">
+    <!-- inicio alertify -->
+      <!-- include the style -->
+      <link rel="stylesheet" href="../../libreriasJS/alertifyjs/css/alertify.css" />
+      <!-- include a theme -->
+      <link rel="stylesheet" href="../../libreriasJS/alertifyjs/css/themes/default.css" />
+    <!-- fin alertify -->
 
+    
+    
     <!-- Datatables -->
     <link href="../../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
     <link href="../../vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
@@ -178,50 +182,13 @@
 
                     <div class="x_content">
                      
-                    <button type="button" id="btnregistro" name="btnregistro" class="btn btn-primary"><i class="fa fa-plus"></i> Agregar Responsable</button>
+                    <button type="button" id="btnregistro" name="btnregistro" class="btn btn-primary" data-toggle="modal" data-target="#registro"><i class="fa fa-plus"></i> Agregar Responsable</button>
                     <br /> <br /> 
-                    
-                    <form class="form-horizontal form-label-left">
-
-                   
-                  
-					
-                    <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
-                      <thead>
-                        <tr>
-                          <th>No.</th>
-                          <th>Intituci&oacute;n</th>
-                          <th>Responsable</th>
-                          <th>Direcci&oacute;n</th>
-                          <th>Acciones</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                      <?php
-                            require '../../ProcesoSubir/conexioneq.php';
-                            $result = $conexion->query("SELECT * FROM respestaciones");
-                            $contador=1;
-                            if ($result) {
-                                while ($fila = $result->fetch_object()) {
-                                                
-                                    echo "<tr>";
-                                    echo "<td>" .$contador. "</td>";
-                                    echo "<td>" . $fila->institucion . "</td>";
-                                    echo "<td>" . $fila->responsable . "</td>";
-                                    echo "<td>" . $fila->direccion . " </td>";
-                                    echo "<td> <a class='btn btn-success openBtn' type='button' onclick='ver(".$fila->idresponsable.")'><i class='fa fa-eye'></i></a>
-                                                <a class='btn btn-info' onclick='modify(".$fila->idresponsable.")' ><i class='fa fa-edit'></i></a>
-                                            </td>";
-                                    echo "</tr>";
-                                    $contador++;
-
-                                }
-                            }
-                        ?>
-                        
-                      </tbody>
-                    </table>
-                    </form>
+                    <!-- inicio tabla-->
+                    <div id="div_resultado_responsable">
+                      <?php include ("tabla_responsables.php"); ?>
+                    </div>
+                    <!-- fin tabla-->
                   </div>
                 </div>
               </div>      
@@ -232,16 +199,17 @@
           <!-- Modal -->
           <form id="fromregistro" name="fromregistro">
                     <div class="modal fade" id="registro" name="registro" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-hidden="true">
-                    <div class="modal-dialog ">
+                    <div class="modal-dialog">
                       <div class="modal-content">
 
                         <div class="modal-header">
-                          <h4 class="modal-title" id="myModalLabel" style="color: RGB(0, 0, 128);">Registro de Representante Estaciones</h4>
+                          <h4 class="modal-title" id="myModalLabel" style="color: RGB(0, 0, 128);">Registro Responsable de Estaciones Meteorológicas
+</h4>
                         </div>
                         
 
                         <div class="modal-body1">
-                        <br/>
+                       
                         
                         <!--inicia el div para capturar la imagen -->
                         <div class="form-group " align="center" >
@@ -255,10 +223,10 @@
                               <input id="file" name="file" type="file" accept="image/*"/>
                               <span class="help-block" id="error"></span>
                             </div> 
-                          </div><br><br>
+                          </div><br>
                         <!--finaliza el div para capturar la imagen -->
                         
-                        <div class="form-group">
+                        <div class="form-group " >
                           <label class="control-label col-md-3 col-sm-3 col-xs-12" for="institucion">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Instituci&oacute;n: <span class="required" style="color: #CD5C5C;"> *</span>
                           </label>
                           <div class="col-md-8 col-sm-8 col-xs-12">
@@ -267,48 +235,50 @@
                             <span class="help-block" id="error"></span>
                           </div>
                         </div><br><br><br>
-
-                        <div class="form-group">
-                          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="responsable">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Responsable: <span class="required" style="color: #CD5C5C;"> *</span>
+                        <div class="row col-lg-12 col-sm-offset-2 col-md-8 col-md-offset-2 ">
+                        <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                          <label for="responsable">Responsable: <span class="required" style="color: #CD5C5C;"> *</span>
                           </label>
-                          <div class="col-md-8 col-sm-8 col-xs-12">
+                          <div >
                             <input type="text" id="responsable" name="responsable" placeholder="Digite Nombre Completo del Responsable" class="form-control col-md-7 col-xs-12" tabindex="2">
                             <br>
                             <span class="help-block" id="error"></span>
                           </div>
-                        </div><br><br><br>
+                        </div>
 
-                        <div class="form-group">
-                          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="direccion">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Direcci&oacute;n: <span class="required" style="color: #CD5C5C;"> *</span>
+                        <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                          <label for="direccion">Direcci&oacute;n: <span class="required" style="color: #CD5C5C;"> *</span>
                           </label>
-                          <div class="col-md-8 col-sm-8 col-xs-12">
+                          <div >
                             <input type="text" id="direccion" name="direccion" placeholder="Digite Direcci&oacute;n" class="form-control col-md-7 col-xs-12" tabindex="3">
                             <br>
                             <span class="help-block" id="error"></span>
                           </div>
-                        </div><br><br><br>
-
-                        <div class="form-group">
-                          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="telefono1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tel&eacute;fono 1: 
+                        </div>
+                        </div>
+                        <br><br><br><br><br>
+                        <div class="row col-lg-12 col-sm-offset-2 col-md-8 col-md-offset-2 ">
+                        <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                          <label for="telefono1">Tel&eacute;fono 1: 
                           </label>
-                          <div class="col-md-3 col-sm-3 col-xs-12">
+                          <div >
                             <input type="text" id="telefono1" name="telefono1" placeholder="Digite N&uacute;mero de Tel&eacute;fono" class="form-control col-md-7 col-xs-12" tabindex="4">
                             <br>
                             <span class="help-block" id="error"></span>
                           </div>
                         </div>
 
-                        <div class="form-group">
-                          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="telefono2">Tel&eacute;fono 2: 
+                        <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                          <label  for="telefono2">Tel&eacute;fono 2: 
                           </label>
-                          <div class="col-md-3 col-sm-3 col-xs-12">
+                          <div>
                             <input type="text" id="telefono2" name="telefono2" placeholder="Digite N&uacute;mero de Tel&eacute;fono" class="form-control col-md-7 col-xs-12" tabindex="5">
                             <br>
                             <span class="help-block" id="error"></span>
                           </div>
                         </div>
-
-                        <br><br><br><br>
+                        </div>
+                        <br><br><br><br><br>
                           
                         </div>
                         <div class="modal-footer">
@@ -372,10 +342,10 @@
     <script src="../../vendors/starrr/dist/starrr.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="../../build/js/custom.min.js"></script>
-    <!-- PNotify -->
-    <script src="../../vendors/pnotify/dist/pnotify.js"></script>
-    <script src="../../vendors/pnotify/dist/pnotify.buttons.js"></script>
-    <script src="../../vendors/pnotify/dist/pnotify.nonblock.js"></script>
+    
+    <!-- include the script -->
+    <script src="../../libreriasJS/alertifyjs/alertify.min.js"></script>
+    
     <!-- Datatables -->
     <script src="../../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="../../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>

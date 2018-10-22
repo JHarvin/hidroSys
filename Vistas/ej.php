@@ -64,7 +64,7 @@ window.top.longitud.value=document.getElementById("coordsLo").value;
     
     <input type="text" id="coordsLa" />
     <input type="text" id="coordsLo" />
-    <input type="button"  onClick="selecciona()" value="Obtener"/>
+    <input id="obtener" type="button"  onClick="selecciona()" value="Obtener"/>
     
     
     

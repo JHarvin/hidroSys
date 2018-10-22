@@ -79,20 +79,10 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="images/img.jpg" alt="">Kevin Montano
+                    <img src="images/img.jpg" alt="">JcMoz
                     <span class=" fa fa-angle-down"></span>
                   </a>
-                  <ul class="dropdown-menu dropdown-usermenu pull-right">
-                    <li><a href="javascript:;"> Profile</a></li>
-                    <li>
-                      <a href="javascript:;">
-                        <span class="badge bg-red pull-right">50%</span>
-                        <span>Settings</span>
-                      </a>
-                    </li>
-                    <li><a href="javascript:;">Help</a></li>
-                    <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
-                  </ul>
+                 
                 </li>
 
                
@@ -142,23 +132,24 @@
                       </div>
                        <div class="row">
                            <div class="col-md-12">
-                      <div class="col-md-6"> 
+                      <div class="col-md-10"> 
                           <div class="form-group">   
-                         <input type="text" name="fechas1" class="form-control has-feedback-left -calendar" id="inputSuccess2" placeholder="fecha inicio Ej:2014-04-01"
+                         <input type="text" name="fechas1" class="form-control has-feedback-left -calendar" id="inputSuccess2" placeholder="inicio Ej:2014-04-01"
                                 autocomplete="off" required="">
                               <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
                               
                       
                       </div>
+                          
                             </div>
                         </div>
                            
                        </div>
                     <div class="row">
                            <div class="col-md-12">
-                      <div class="col-md-6"> 
+                      <div class="col-md-10"> 
                           <div class="form-group">   
-                         <input type="text" name="fechas2" class="form-control has-feedback-left -calendar" id="inputSuccess2" placeholder="fecha inicio Ej:2014-04-30"
+                         <input type="text" name="fechas2" class="form-control has-feedback-left -calendar" id="inputSuccess2" placeholder="fin Ej:2014-04-30"
                                 autocomplete="off" required="">
                               <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
                               
@@ -168,6 +159,26 @@
                         </div>
                            
                        </div>
+                    <!--para mandar el pozo-->
+                    <div class="col-md-5 col-sm-5 col-xs-5 form-group has-feedback">
+                        <h4>Seleccione el Pozo</h4>
+                        <br>
+                      </div>
+                         <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                             <select class="form-control" name="pozo">
+                              <?php
+                                          include_once '../ProcesoSubir/conexion.php';
+                                          $verPozo= mysqli_query($mysqli,"SELECT id_pozo, codigopozo FROM pozos");
+                              ?>
+                                 <option disabled="">Codigo Pozo</option>
+                            <?php
+                             while ($row = mysqli_fetch_array($verPozo)) {
+                                         $idpozo=$row['id_pozo'];
+                                           echo '<option value='."$row[0]".'>'.$row['1'].'</option>';
+                                    }
+                                    ?>
+                            </select>
+                        </div>
                       </div>
                      
                       <div class="form-group">
@@ -205,9 +216,10 @@
         if (isset($_REQUEST['tirar'])) {
         $fe1 = $_REQUEST['fechas1'];
         $fe2 = $_REQUEST['fechas2'];
+        $pozo = $_REQUEST['pozo'];
      ?>
     <script type="text/javascript">
-location.href="modal_sensor.php?fe1=<?php echo $fe1;?>&fe2=<?php echo $fe2;?>";
+location.href="modal_sensor.php?fe1=<?php echo $fe1;?>&fe2=<?php echo $fe2;?>&p=<?php echo $pozo;?>";
 </script>
 <?php
     }

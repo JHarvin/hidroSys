@@ -138,16 +138,18 @@ $(document).ready(function(){
         
       }
     });
-
    
 });
 
-
-  $("#btnregistro").click(function(){
+ /* $("#btnregistro").click(function(){
     $('#registro').modal({show:true});
-  });
+  });*/
 
-
+  $("#telefono2").keypress(function(e) {
+    if(e.which == 13) {
+       $('#modalguardar').click();
+    }
+ });
 
   $("#modalguardar").click(function(){
     if($("#fromregistro").valid()){ 
@@ -175,6 +177,8 @@ $(document).ready(function(){
                 .done(function(listas_rep){
                  // alert(listas_rep);
                     if(listas_rep === "Exito"){
+                      
+                      $("#div_resultado_responsable").load('tabla_responsables.php');
                         $("#institucion").val("");
                         $("#responsable").val("");
                         $("#direccion").val("");
@@ -183,12 +187,8 @@ $(document).ready(function(){
                         $("#file").val("");
                         $('#preview img').attr('src', '../images/img2.png');
                         $('#registro').modal('hide'); 
-                        new PNotify({
-                          title: 'Éxito',
-                          text: 'Datos Almacenados',
-                          type: 'success',
-                          styling: 'bootstrap3'
-                        });
+                        alertify.set("notifier","position", "top-right");
+                        alertify.success("Registro almacenado correctamente.    ✔");
                         
   
                     }
@@ -201,12 +201,8 @@ $(document).ready(function(){
                       $("#file").val("");
                       $('#preview img').attr('src', '../images/img2.png');
                       $('#registro').modal('hide'); 
-                      new PNotify({
-                        title: 'Advertencia',
-                        text: 'Sin Conexión Dase Datos',
-                        type: 'warning',
-                        styling: 'bootstrap3'
-                    });
+                      alertify.set("notifier","position", "top-right");
+                      alertify.error("Algo salio mal :(");
                     }                
                     })
                     .fail(function(){

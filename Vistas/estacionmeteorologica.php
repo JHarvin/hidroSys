@@ -2,21 +2,58 @@
 //Codigo que muestra solo los errores exceptuando los notice.
 error_reporting(E_ALL & ~E_NOTICE);
 
+ include "../ProcesoSubir/conexioneq.php";
+ $conexion->set_charset("utf8");
+ //Query para generar codigo.
+ 
+                  $resultc = $conexion->query("select id_estacion as id from estacionmet");
+                      if ($resultc) {
+
+                        while ($filac = $resultc->fetch_object()) {
+                          $temp=$filac->id;
+                         
+                           }
+                      }   
+                      $codigo=sprintf("%02s",$temp+1);    
 ?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
   <script type="text/javascript">
     $(document).ready(function () {
       recargarLista();
 
+
       $('#lista1').change(function(){
         recargarLista();
+        
       });
       
     })
   </script>
+  <!-- Quitar antes de subir ya que es codigo para el live reload -->
+
+
   <script type="text/javascript">
+  function ponerAbreviatura(){
+    var iddepto=document.getElementById("lista1").value;
+    var idmunicipio=document.getElementById("lista2").value;
+    // alert(iddepto);
+    // alert(idmunicipio);
+    if(iddepto!=0 && idmunicipio!=0){
+      $.ajax({
+        type: "POST",
+        dataType: 'html',
+        url: "abreviaturas.php",
+        data: "departamento="+iddepto+"&municipio="+idmunicipio,
+        success: function(resp){
+           //alert(resp);
+           document.getElementById("codigo").value=resp+document.getElementById("correlativo").value;
+        }
+    });
+    }
+  }
   function prueba(){
     $.ajax(
       {
@@ -25,11 +62,29 @@ error_reporting(E_ALL & ~E_NOTICE);
         data:"departamento="+$('#lista1').val(),
         success:function(r){
           $('#lista').html(r);
+          ponerAbreviatura();
         }
       });
   }
+  function verificar(){
+          if(document.getElementById('codigo').value=="" ||
+            document.getElementById('lista1').value=="0"  ||
+            document.getElementById('lista2').value=="0"  ||
+            document.getElementById('institucion').value=="" ||
+            document.getElementById('latitud').value=="" ||
+            document.getElementById('longitud').value==""){
+            alert("Complete los campos");
+          }else{
+            document.getElementById('bandera').value="add";
+            alert("no van vacios.");
+           document.hidro.submit();
+          }
+
+        }
   function prueba2(){
-    alert("E ntra aqui");
+   
+    alert(document.getElementById("latitud").value);
+    alert(document.getElementById("longitud").value);
   }
   </script>
   <script>
@@ -42,7 +97,7 @@ error_reporting(E_ALL & ~E_NOTICE);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	  
-    <title>SICA | </title>
+    <title>SICA |</title>
 
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -176,14 +231,14 @@ error_reporting(E_ALL & ~E_NOTICE);
                     <input type="hidden" name="baccion" id="baccion">
 
                       <div class="col-md-6 col-sm-6 col-xs-6 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left" id="codigo" name="codigo" placeholder="Codigo">
+                        <input type="text" class="form-control has-feedback-left" id="codigo" name="codigo" placeholder="Codigo" value="<?php echo $codigo;?>" readonly>
                         <span class="fa fa-barcode form-control-feedback left" aria-hidden="true"></span>
                       </div>
                    
                       <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-6">
                           <select class="form-control" id="lista1" name='lista1' onchange="prueba()">
-                            <option>Departamento</option>
+                            <option value="0">Departamento</option>
                             <?php 
                             include "../ProcesoSubir/conexioneq.php";
                              $consulta  = "select * from departamentos";
@@ -209,15 +264,25 @@ error_reporting(E_ALL & ~E_NOTICE);
                         <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <select class="form-control" id="institucion" name="institucion">
-                            <option>Responsable</option>
-                            <option>Investigador</option>
-                            <option>Docente</option>
-                            <option>Estudiante</option>
+                            <option value="">Institucion</option>
+                            <?php 
+                            include "../ProcesoSubir/conexioneq.php";
+                             $consulta  = "select * from respestaciones";
+                             $resultado = $conexion->query($consulta);
+                             if ($resultado) {
+                               while($fila= $resultado->fetch_object()){
+                                echo "<option value='".$fila->idresponsable."'>".$fila->institucion."</option>";
+                               }
+                                 
+                             } else {
+                                echo "<option value=''>Error conectando la BD</option>";
+                             }
+                            ?>
                           </select>
                         </div>
                        </div>
                        <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Fotografía</label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Fotografía(PNG,JPEG,JPG)</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
                           <input type="file" class="form-text" id="imagen" name="imagen" required accept="image/jpg,image/png,image/jpeg">
                         </div>
@@ -225,7 +290,7 @@ error_reporting(E_ALL & ~E_NOTICE);
                       
                         <input type="hidden" class="form-control has-feedback-left" id="longitud" name="longitud" placeholder="Longitud">
                         <input type="hidden" class="form-control has-feedback-left" id="latitud" name="latitud" placeholder="Latitud">
-                      
+                      <input type="hidden" class="form-control has-feedback-left" id="correlativo" name="correlativo" placeholder="correlativo" value="<?php echo $codigo;?>">
 
                       </div>
                      
@@ -238,7 +303,7 @@ error_reporting(E_ALL & ~E_NOTICE);
                       <div class="ln_solid"></div>
                       <div class="form-group">
                         <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                        <button type="submit" class="btn btn-success">Guardar</button>
+                        <button type="button" class="btn btn-success" onclick="verificar()">Guardar</button>
                           <button type="button" class="btn btn-warning">Cancelar</button>
 						   <!-- <button class="btn btn-primary" type="reset">Reset</button> -->
                          
@@ -272,61 +337,148 @@ error_reporting(E_ALL & ~E_NOTICE);
 
             </div>
             <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="x_panel">
+               <div class="x_panel">
                   <div class="x_title">
-                    <h2>Lista <small>Estaciónes Meteorológicas.</small></h2>
-
-                    <div class="clearfix"></div>
-                  </div>
-                   <div class="x_content">
-                    <p class="text-muted font-13 m-b-30">
+                    <h2>Registros generales de estaciones meteorologicas.</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       
-                    </p>
-                    <table id="datatable" class="table table-striped table-bordered">
-                      <thead>
+                       <div class="clearfix"></div>
+                       </li>
+           
+             </ul>
+             <div class="clearfix"></div>
+              </div>
+
+      <div class="x_content">
+        <p class="text-muted font-13 m-b-30"></p>
+         <table id="datatable" class="table table-striped table-bordered">
+
+                    <thead>
                         <tr>
-                          <th>Codigo</th>
-                          <th>Departamento</th>
-                          <th>Ciudad</th>
-                          <th>Ubicación</th>
-                         
-                          <th>Acciones</th>
+                            
+                            <th width="75"><font color="black">Codigo</font></th>
+                            <th width="150"><font color="black">Departamento</font></th>
+                            <th width="150"><font color="black">Municipio</font></th>
+                            <th width="500"><font color="black">Responsable</font></th>
+                            <th width="150"><font font color="black">Ubicacion</font></th>
+                            <th width="150"><font font color="black">Ver</font></th>
+                            <th width="100"><font font font color="black">Editar</font></th>
+                            
+                            <th width="10"><font font font font font color="black">Eliminar</font></th>
                         </tr>
-                      </thead>
+                    </thead>
+
+                    <tbody>
+                        <?php
+                         $consulta  = "select * from estacionmet";
+                             $resultado = $conexion->query($consulta);
+                             
+                            while($fila= $resultado->fetch_object()){
+                            $idm =$fila->id_estacion;
+                            $codigom = $fila->codiogestacion;
+                            $activam=$fila->activa;
+                            $latitudm=$fila->latitud;
+                            $longitudm=$fila->longitud;
+                            $departamentom=$fila->iddepartamento;
+                            $municipiom=$fila->idmunicipio;
+                            $responsablem=$fila->idresponsable;
+                           
+                            ?>
+                            <tr>
+                                <td><?php echo $codigom; ?></td>
+                                <td><?php echo $departamentom; ?></td>
+                                <td><?php echo $municipiom; ?></td>
+                                <td><?php echo $responsablem; ?></td>
+                                <td ><center><button type="button" class="btn btn-success"><i class="fa fa-map"></i></button></center><?php echo $row['genero']; ?></td>
+                                
+                                <td><!--boton de ver-->
+                                  <div class="row">
+                                    <div class="col-md-6">
+                                        <center><a href="#" data-toggle="modal" data-target="#actualizarVisitante" onclick="Editar_visita('<?php echo $duiVisita; ?>','<?php echo $NombreVisita; ?>','<?php echo $generoVisita;?>','<?php echo $tipoVisita;?>','<?php echo $celularVisita;?>','<?php echo $pas;?>')" ><button type="button" class="btn btn-success"><i class="fa fa-eye"></i></button></a></center>
+                                
+                                    </div>
+
+                                    
+                                  </div>
+                                  </td>
+                                    <td><!--boton de modificar-->
+                                  <div class="row">
+                                    <div class="col-md-6">
+                                        <a href="#" data-toggle="modal" data-target="#actualizarVisitante" onclick="Editar_visita('<?php echo $duiVisita; ?>','<?php echo $NombreVisita; ?>','<?php echo $generoVisita;?>','<?php echo $tipoVisita;?>','<?php echo $celularVisita;?>','<?php echo $pas;?>')" ><button type="button" class="btn btn-success"><i class="fa fa-pencil"></i></button></a>
+                                
+                                    </div>
+
+                                    
+                                  </div>
+                                  </td>
+                                  <td>
+                                      
+                                      <div class="row">
+                                        
+                                         
+                                         <div class="col-md-6">
+                                        
+                                        <a href="#" data-href="matar.php?id_visitante=<?php echo $row['id_visitante']; ?>" data-toggle="modal" data-target="#confirm-delete" type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button></a>
+                                      
+                                
+                                    </div>
+                                          
+                                      </div>
+                                  </td>
+               
+                               
+                               
+                            </tr>
+
+                        <?php } ?>
+                    </tbody>
+                </table>
+
+      </div>
+      </div> 
+      </div> 
+</div><!-- Fin de ROW -->
 
 
-                      <tbody>
-                        
-                        <tr>
-                          <td>SASV001</td>
-                          <td>San Vicente</td>
-                          <td>San Vicente</td>
-                          <td>Mauricio</td>
-                          
-                          <td width=160>
-                            <button type="button" class="btn btn-success" data-toggle="modal" data-target=".detalle-modal-lg"><i class="fa fa-search"></i></button>
-                            <button type="button" class="btn btn-success"><i class="fa fa-pencil"></i></button>
-                            <button type="button" class="btn btn-info"><i class="fa fa-check"></i></button>
-                          </td>
-                          
-                        </tr>
-                        <tr>
-                          <td>svsc2</td>
-                          <td>San Vicente</td>
-                          <td>San Cayetano</td>
-                          
-                          <td>-243434</td>
-                         <td width=160>
-                            <button type="button" class="btn btn-success" data-toggle="modal" data-target=".detalle-modal-lg"><i class="fa fa-search"></i></button>
-                            <button type="button" class="btn btn-success"><i class="fa fa-pencil"></i></button>
-                            <button type="button" class="btn btn-info"><i class="fa fa-check"></i></button>
-                         </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
+
+ 
+ <!-- MODAL PARA MATAR A UN VISITANTE -->
+  <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title" id="myModalLabel"><font font font font color="black">Eliminar Registro</font></h3> 
                 </div>
-              </div> 
+
+                <div class="panel-body">
+
+                    ¿Seguro que desea eliminar este elemento?
+                                       
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Cancelar</button>
+                    <a class="btn btn-danger btn-ok" >Eliminar</a>
+                </div> 
+            </div>
+        </div> 
+    </div>          
+
+<?php
+include_once 'editarEstacion.php';
+
+?>
+<script>
+    $('#confirm-delete').on('show.bs.modal', function(e){
+        $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+        $('.debug-url').html('Eliminar URL: <strong>' + $(this).find('.btn-ok').attr('href') + '</strong>');
+    })
+</script>
+
+            </div> 
 
           
 
@@ -382,15 +534,18 @@ error_reporting(E_ALL & ~E_NOTICE);
   </body>
 </html>
 <?php
-include "../config/conexion.php";
+ include "../ProcesoSubir/conexioneq.php";
 $bandera          = $_REQUEST["bandera"];
 $codigo    = $_REQUEST["codigo"];
 $lista1    = $_REQUEST["lista1"];
 $lista2    = $_REQUEST["lista2"];
 $institucion = $_REQUEST["institucion"];
 $imagenEstacion = $_REQUEST["imagen"];
+$latitud = $_REQUEST["latitud"];
+$longitud = $_REQUEST["longitud"];
 
 if ($bandera == "add") {
+  msg("entra a guardar");
     $permitidos = array("image/jpg", "image/jpeg", "image/png");
     $limite_kb  = 16384; //tamanio maximo que permitira subir, es el limite de medium blow(16mb)
     if (in_array($_FILES['imagen']['type'], $permitidos) && $_FILES['imagen']['size'] <= $limite_kb * 1024) {
@@ -405,14 +560,13 @@ if ($bandera == "add") {
         //escapar los caracteres
         $data      = mysqli_real_escape_string($conexion, $data);
         
-        $consulta  = "INSERT INTO estacionmet VALUES('null','" . $codigo . "','" . $lista1 . "','" . $lista2 . "',' 0 ',' 0 ','" . $data . "','" . $tipo . "','" . $categoria  . "',' 0
-        ','" . $stockMin . "','" . $proveedor . "','" . $margen . "','" . $descripcion . "','0')";
+        $consulta  = "INSERT INTO estacionmet VALUES('null','" . $codigo . "','" . $lista1. "','" . $lista2. "','1','" . $data . "','" . $tipo . "','" . $latitud  . "','".$longitud."','".$institucion."')";
         msg($consulta);
         $resultado = $conexion->query($consulta);
         if ($resultado) {
             msg("Exito");
         } else {
-            msg(mysqli_error($conexion));
+           echo mysqli_error($conexion);
         }
     }
 

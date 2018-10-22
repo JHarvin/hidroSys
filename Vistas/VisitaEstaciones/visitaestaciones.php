@@ -2,14 +2,14 @@
 
 
 $ide = isset($_REQUEST['ide']);
-include ("../../ProcesoSubir/conexion.php");
+include ("../../ProcesoSubir/conexioneq.php");
 $ridhoja      = "";
 $rfecha       = "";
 $robservacion = "";
 $ridestacion  = "";
 $ridvistante  = "";
 
-$result = $mysqli->query("SELECT * from hojavisitasestaciones where idhojavisitaestaciones='$ide'");
+$result = $conexion->query("SELECT * from hojavisitasestaciones where idhojavisitaestaciones='$ide'");
 if ($result) {
     while ($fila = $result->fetch_object()) {
         $ridhoja      = $fila->idhojavisitaestaciones;
@@ -32,7 +32,7 @@ if ($result) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>SISPOZOS</title>
-    
+
     <!-- Bootstrap -->
     <link href="../../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -62,15 +62,15 @@ if ($result) {
   <!-- Select2 -->
     <link href="../../vendors/select2/dist/css/select2.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/estilo.css">
-  
-    
+
+
 
     <script src="../../libreriasJS/alertifyjs/alertify.js"></script>
     <script src="../../libreriasJS/alertifyjs/alertify.min.js"></script>
 
   <script src="js/visita.js"></script>
     <!-- SwettAlert2-->
-   
+
 
   </head>
 
@@ -135,8 +135,8 @@ if ($result) {
         <div class="right_col" role="main">
           <div class="">
             <div class="page-title col-md-12 col-sm-12 col-xs-12">
-              <div class=title_left">
-                <h3 >Visita Estación Meteorológica.</h3>
+              <div class="title_left">
+                <h3 >Visita Estación Meteorológica</h3>
               </div>
 
               <div class="title_right">
@@ -156,7 +156,7 @@ if ($result) {
               <div class="col-md-6 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Formulario de ingreso.</h2>
+                    <h2>Formulario de ingreso</h2>
                     <ul class="nav navbar-right panel_toolbox">
                     </ul>
                     <div class="clearfix"></div>
@@ -170,30 +170,43 @@ if ($result) {
 
 
                       <div class="form-group">
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <select class=" form-control STipo" id="tipo" name="tipo" onchange="actualiza('cambioTipo');">
+                            <option value="Tipo Visitante" >Tipo Visitante</option>
+                            <option value='Investigador'>Investigador</option>
+                            <option value='Docente'>Docente</option>
+                            <option value='Estudiante'>Estudiante</option>
+                            <option value='Otros'>Otros</option>
+                          </select>
+                      </div>
                       <div class="col-md-6 col-sm-6 col-xs-12">
                           <select class=" form-control SVisitante" id="visitante" name="visitante"  *>
                             <option value="Visitante" selected="selected">Visitante</option>
-                            <?php
-                              include "../../ProcesoSubir/conexion.php";
+                            <!--<?php
+                            /*  include "../../ProcesoSubir/conexion.php";
                               $result  = $mysqli->query("select * from visitantes ");
 
                               if ($result) {
                                   while ($fila = $result->fetch_object()) {
                                       echo "<option value='$fila->id_visitante'>$fila->nombre</option>";
                                   }
-                              }
-                            ?>
+                              }*/
+                            ?>-->
 
 
                           </select>
                       </div>
 
+
+                      </div>
+
+                      <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <select  id="estacion" name="estacion" class="form-control SEstacion">
+                          <select  id="estacion" name="estacion" class="form-control SEstacion" onchange="actualiza('cambioFoto');">
                             <option value="Estaciones" selected="selected">Estaciones</option>
                             <?php
-                              include "../../ProcesoSubir/conexion.php";
-                              $result  = $mysqli->query("select * from estacionmet ");
+                              include "../../ProcesoSubir/conexioneq.php";
+                              $result  = $conexion->query("select * from estacionmet est where est.activa = 1 ");
 
                               if ($result) {
                                   while ($fila = $result->fetch_object()) {
@@ -205,9 +218,6 @@ if ($result) {
 
                           </select>
                         </div>
-                      </div>
-
-                      <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12 form-group ">
                           <input type="input"  class="col-md-6 col-sm-6 col-xs-12 form-control has-feedback-left" id="fecha" name="fecha"  value="<?php ini_set('date.timezone',  'America/El_Salvador'); echo date('d/m/Y');  ?>" disabled >
                           <span class="fa fa-barcode form-control-feedback left" aria-hidden="true"></span>
@@ -237,19 +247,25 @@ if ($result) {
                   </div>
                   </div>
                 </div>
-                
+
                 <div class="col-md-6 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Estación Seleccionada &nbsp <h2 style="color: red"> (pendiente)</h2></h2>
+                    <h2>Estación Seleccionada</h2>
                     <ul class="nav navbar-right panel_toolbox">
                     </ul>
                     <div class="clearfix"></div>
                   </div>
                   <div class="col-md-12 col-sm-12 col-xs-12">
-                    <center>
+
+                    <div id="imagen">
+                      <center>
+                        <img  width="685" height="290" src="../../Vistas/images/volcan.jpg" alt="Los Angeles">
+                      </center>
+                    </div>
+                   <!-- <center>
                       <img  width="685" height="290" src="../../Vistas/images/volcan.jpg" alt="Los Angeles">
-                    </center>
+                    </center>-->
                   </div>
                 </div>
               </div>
@@ -260,11 +276,14 @@ if ($result) {
                     <div class="x_panel">
                       <div class="x_title">
                         <h2>Datos </h2>
-
+                        <ul class="nav navbar-right panel_toolbox">
+                          <li><a class="collapse-link"><i class="fa fa-chevron-down"></i></a>
+                          </li>
+                        </ul>
                         <div class="clearfix"></div>
                       </div>
-                      <div class="x_content">
-                        <table id="datatable-fixed-header" class="table table-striped table-bordered">
+                      <div class="x_content" id="tbl" style="display: none" >
+                        <table id="datatable-fixed-header" class="table table-striped table-bordered imprimir" >
                           <thead>
                             <tr>
                               <th>Cod</th>
@@ -276,11 +295,11 @@ if ($result) {
                           </thead>
 
 
-                          <tbody id="imprimir">
+                          <tbody >
                             <?php
-                                 include("../../ProcesoSubir/conexion.php");
+                                 include("../../ProcesoSubir/conexioneq.php");
 
-                                $result=$mysqli->query("SELECT hs.idhojavisitaestaciones, hs.fechavisita, hs.observacion, est.codiogestacion, vis.nombre from hojavisitasestaciones hs
+                                $result=$conexion->query("SELECT hs.idhojavisitaestaciones, hs.fechavisita, hs.observacion, est.codiogestacion, vis.nombre from hojavisitasestaciones hs
                                     inner join estacionmet est on hs.id_estacion = est.id_estacion
                                     inner join visitantes vis on hs.id_visitante = vis.id_visitante order by idhojavisitaestaciones");
 
@@ -300,10 +319,10 @@ if ($result) {
                                         <!--<button class="btn btn-info btn-icon left-icon"  onClick="">
                                           <i class="fa fa-pencil"></i>
                                           <span></span>
-                                        </button> -->
+                                        </button>
                                         <button class="btn btn-info btn-icon left-icon"  onClick="">
                                           <i class="fa fa-check"></i> <span></span>
-                                        </button>
+                                        </button> -->
                                       </td>
                                     </tr>
                                   <?php
@@ -317,6 +336,7 @@ if ($result) {
             </div>
 
           </div>
+          <br><br>
         </div>
         <!-- /page content -->
 
@@ -325,7 +345,7 @@ if ($result) {
           include "../footer.php";
        ?>
        <!--- Modal Detalle Visita-->
-        
+
           <div class="modal fullscreen-modal fade" id="detalle" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
           <div class="modal-dialog " role="document">
             <div class="modal-content">
@@ -336,7 +356,7 @@ if ($result) {
                 <center>
                   <h3 class="modal-title" id="exampleModalLabel">Detalle de la visita</h3> </center>
               </div>
-              <div class="modal-body" id="cargaDetalle"> 
+              <div class="modal-body" id="cargaDetalle">
 
               </div>
               <br><br><br><br><br><br>
@@ -350,8 +370,9 @@ if ($result) {
           </div>
         </div>
         <!-- Fin Modal -->
-       
+
         <!-- /footer content -->
+
       </div>
     </div>
   </div>
@@ -373,7 +394,7 @@ if ($result) {
     <!-- iCheck -->
     <script src="../../vendors/iCheck/icheck.min.js"></script>
     <!-- Skycons -->
-    <script src="/vendors/skycons/skycons.js"></script>
+
     <!-- Flot -->
     <script src="../../vendors/Flot/jquery.flot.js"></script>
     <script src="../../vendors/Flot/jquery.flot.pie.js"></script>
@@ -418,8 +439,7 @@ if ($result) {
     <script src="../../vendors/pdfmake/build/pdfmake.min.js"></script>
     <script src="../../vendors/pdfmake/build/vfs_fonts.js"></script>
 
-    <!-- PNotify3 -->
-    <script src="../../vendors/notifit-2-master/dist/notifit.min.js"></script>
+
 
     <!-- Select2 -->
     <script src="../../vendors/select2/dist/js/select2.full.min.js"></script>
@@ -427,6 +447,7 @@ if ($result) {
           $(function () {
               $('.SVisitante').select2();
               $('.SEstacion').select2();
+              $('.STipo').select2();
           });
       </script>
   </body>

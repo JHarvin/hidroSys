@@ -123,7 +123,7 @@ include "../conexion/conexion.php";
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Datos de pozos.</h3>
+                <h3>Datos de pozos</h3>
               </div>
 
               <div class="title_right">
@@ -143,7 +143,7 @@ include "../conexion/conexion.php";
               <div class="col-md-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Formulario de ingreso de datos.</h2>
+                    <h2>Formulario de ingreso de datos</h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -155,13 +155,13 @@ include "../conexion/conexion.php";
                   </div>
                   <div class="x_content">
                     <br />
-                    <form class="form-horizontal form-label-left input_mask">
+                    <form class="form-horizontal form-label-left input_mask" id="formPozos">
 
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
 
                         
 
-                        <input type="text" class="form-control has-feedback-left" id="dui" placeholder="Codigo" readonly="readonly">
+                        <input type="text" class="form-control has-feedback-left" id="codigo" placeholder="Código" readonly="readonly">
 
                         <span class="fa fa-barcode form-control-feedback left" aria-hidden="true"></span>
                       </div>
@@ -169,7 +169,7 @@ include "../conexion/conexion.php";
                       
                         <div class="col-md-6 col-sm-6 col-xs-12 form-group">
                           <select id="departamento" name="departamento" class="form-control">
-                            <option value="" disabled selected hidden>Seleccione un departamento</option>
+                            <option value="0" selected hidden>Seleccione un departamento</option>
                               <?php 
                                 $result = $conexion->query("SELECT * FROM departamentos");
                                 while($fila=$result->fetch_object()){
@@ -183,21 +183,21 @@ include "../conexion/conexion.php";
                       
                         <div class="col-md-6 col-sm-6 col-xs-12 form-group">
                           <select id="municipio" name="municipio" class="form-control">
-                            <option value="" disbled selected hidden>Seleccione un municipio</option>
+                            <option value="0"  selected hidden>Seleccione un municipio</option>
                             
                             </select>
                         </div>
-                      
-                      
+                        
                         <div class="col-md-6 col-sm-6 col-xs-12 form-group">
-                          <select id="propietario" name="propietario" class="form-control">
-                            <option>Propietario</option>
-                            <option>Alfonso Hernandez</option>
-                            <option>Jennifer Alfaro</option>
-                            <option>Carlos Gonzales</option>
-                            <option>Jorge Granados</option>
-                            </select>
+                          <select id="tipo" name="tipo" class="form-control">
+                            <option value="0" selected hidden>Tipo de pozo</option>
+                            <option value="municipal">Municipal</option>
+                            <option value="gubernamental">Gubernamental (ANDA)</option>
+                            <option value="privado">Privado</option>
+                            <option value="comunitario">Comunitario</option>
+                          </select>
                         </div>
+                        
 
                       <div class="col-md-1 col-sm-1 col-xs-12 ">
                         <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bd-example-modal-lg">Abrir mapa</button>
@@ -235,27 +235,31 @@ include "../conexion/conexion.php";
                         
                       </div>
                         
+                        <!--Selected propietarios-->
                         <div class="col-md-6 col-sm-6 col-xs-12 form-group">
-                          <select id="tipo" name="tipo" class="form-control">
-                            <option value="0">Tipo de pozo</option>
-                            <option value="municipal">Municipal</option>
-                            <option value="gubernamental">Gubernamental (ANDA)</option>
-                            <option value="privado">Privado</option>
-                            <option value="comunitario">Comunitario</option>
-                          </select>
+                          <select id="propietario" name="propietario" class="form-control">
+                            <option value="0" selected hidden>Propietario</option>
+                            <?php 
+                                $result = $conexion->query("SELECT * FROM propietariospozos");
+                                while($fila=$result->fetch_object()){
+
+                                  echo "<option value=".$fila->id_propietario.">".$fila->dui."  ".$fila->nombre."</option>";
+                                }
+                              ?>
+                            </select>
                         </div>
                       
-                        <div id="estado" name="estado" class="col-md-6 col-sm-6 col-xs-12 form-group">
-                          <select class="form-control">
-                            <option value="activo">En uso</option>
-                            <option value="inactivo">Inactivo</option>
+                        <div  class="col-md-6 col-sm-6 col-xs-12 form-group">
+                          <select id="estado" name="estado" class="form-control">
+                            <option value="1" selected>En uso</option>
+                            <option value="0">Inactivo</option>
                             
                             
                           </select>
                         </div>
 
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">        
-                          <textarea id="geologia" name="geologia" class="form-control" style="max-height:150px; min-height:100px; resize: vertical;" placeholder="Geologia."></textarea>
+                          <textarea id="geologia" name="geologia" class="form-control" style="max-height:150px; min-height:100px; resize: vertical;" placeholder="Geología."></textarea>
                       </div>
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">        
                           <textarea id="observacion" name="observacion" class="form-control" style="max-height:150px; min-height:100px;resize: vertical;" placeholder="Observación."></textarea>
@@ -270,7 +274,7 @@ include "../conexion/conexion.php";
                       <div class="ln_solid"></div>
                       <div class="form-group">
                         <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                        <button type="button" class="btn btn-success">Guardar</button>
+                        <button id="guardar" type="button" class="btn btn-success">Guardar</button>
                         <button type="reset" class="btn btn-warning">Cancelar</button>
 						  
                          
@@ -304,41 +308,19 @@ include "../conexion/conexion.php";
                     <table id="datatable" class="table table-striped table-bordered">
                       <thead>
                         <tr>
-                          <th>Codigo</th>
+                          <th>Código</th>
                           <th>Tipo de pozo</th>
-                          <th>Propietario</th>
+                          <th>DUI propietario</th>
                           <th>Estado</th>
-                          <th>Ubicacion</th>
+                          <th>Municipio</th>
+                          <th>Ubicación</th>
                           <th>Acciones</th>
                         </tr>
                       </thead>
-
-
-                      <tbody>
+                      
+                      <tbody class="tabla_ajax">
                         
-                        <tr>
-                          <td>svsv1</td>
-                          <td>Privado</td>
-                          <td>Gilberto Santa Rosa</td>
-                          <td bgcolor=#dff8e7>En uso</td>
-                          <td width=50><button type="button" class="btn btn-info" style="width:80px;"><i class="fa fa-map-marker fa-lg"></i></button></td>
-                          <td width=160>
-                            <button type="button" class="btn btn-success" data-toggle="modal" data-target=".detalle-modal-lg" style="width:70px;"><i class="fa fa-search"></i></button>
-                            <button type="button" class="btn btn-success" style="width:70px;"><i class="fa fa-pencil"></i></button>
-                          </td>
-                          
-                        </tr>
-                        <tr>
-                          <td>svsc2</td>
-                          <td>Comunitario</td>
-                          <td>Gilberto Santa Rosa</td>
-                          <td >Inactivo</td>
-                          <td width=50><button type="button" class="btn btn-info" style="width:80px;"><i class="fa fa-map-marker fa-lg"></i></button></td>
-                         <td width=160>
-                            <button type="button" class="btn btn-success" data-toggle="modal" data-target=".detalle-modal-lg" style="width:70px;"><i class="fa fa-search"></i></button>
-                            <button type="button" class="btn btn-success" style="width:70px;"><i class="fa fa-pencil"></i></button>
-                         </td>
-                        </tr>
+                       <?php include "tablaDatosPozos.php"; ?>
                       </tbody>
                     </table>
                   </div>
@@ -386,7 +368,7 @@ include "../conexion/conexion.php";
                             <div class="x_content">
                               <br />
                               <div class="embed-responsive embed-responsive-4by3">
-                                        <iframe src="ej.php" class="embed-responsive-item" allowfullscreen></iframe>
+                                        <iframe id="iframe" src="ej.php" class="embed-responsive-item" allowfullscreen></iframe>
                                       </div>
                             </div>
                           </div>
@@ -421,7 +403,7 @@ include "../conexion/conexion.php";
                       <thead>
                         <tr><th colspan=5 style="text-align:center;"> DETALLE DE POZO </th></tr>
                         <tr bgcolor=#dff8e7>
-                          <th>Codigo</th>
+                          <th>Código</th>
                           <th>Departamento</th>
                           <th>Municipio</th>
                           <th>Propietario</th>
@@ -431,18 +413,18 @@ include "../conexion/conexion.php";
                       </thead>
                       <tbody>
                         <tr>
-                          <th>1</th>
-                          <td>San vicente</td>
-                          <td>San cayetano</td>
-                          <td>Gilberto Santa Rosa</td>
-                          <td>200 mtrs</td>
+                          <th id="cod" ></th>
+                          <td id="dep" ></td>
+                          <td id="mun" ></td>
+                          <td id="prop"></td>
+                          <td id="alt" ></td>
                         </tr>
                       </tbody>
                       <thead>
                         <tr bgcolor=#dff8e7>
                           <th>Nivel de pozo</th>
                           <th>Profundidad</th>
-                          <th>Fecha de creacion</th>
+                          <th>Fecha de creación</th>
                           <th>Tipo de pozo</th>
                           <th>Estado</th>
                         
@@ -450,21 +432,23 @@ include "../conexion/conexion.php";
                       </thead>
                       <tbody>
                         <tr>
-                          <th>5 mtrs</th>
-                          <td>35 mtrs</td>
-                          <td>03/04/1996</td>
-                          <td>Comunitario</td>
-                          <td>En uso</td>
+                          <th id="niv" ></th>
+                          <td id="prof"></td>
+                          <td id="fech"></td>
+                          <td id="tip"></td>
+                          <td id="est"></td>
                         </tr>
                       </tbody>
                     </table>
                   </div>
                   <div class="row">
-                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">        
-                          <textarea id="geologia" name="geologia" class="form-control" style="max-height:150px; min-height:100px; resize: vertical;" placeholder="Geologia."></textarea>
+                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">  
+                          <p>Geología:</p>
+                          <textarea readonly id="geolo" name="geologia" class="form-control" style="max-height:150px; min-height:100px; resize: none;" placeholder="No hay descripcion de geologia"></textarea>
                       </div>
-                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">        
-                          <textarea id="observacion" name="observacion" class="form-control" style="max-height:150px; min-height:100px;resize: vertical;" placeholder="Observación."></textarea>
+                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback"> 
+                          <p>Observación:</p>
+                          <textarea readonly id="observa" name="observacion" class="form-control" style="max-height:150px; min-height:100px;resize: none;" placeholder="No hay una observacion"></textarea>
                       </div>
                   </div>
                 </div>
@@ -479,6 +463,48 @@ include "../conexion/conexion.php";
       
       <!--Detalle modal-->
 
+      <!--Ubicacion Modal-->
+        
+        
+      <div class="modal fade ubicacion-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title"><i class="fa fa-map-marker fa-3x"></i> Ubicación de pozo</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+
+                      <div class="col-md-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                              <h2>Ubicación del pozo: <p id="ubi"></p></h2>
+                              
+                              <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                              <br />
+                              <div class="embed-responsive embed-responsive-4by3">
+                                        <iframe id="iframe2" src="verMapaPozo.php" class="embed-responsive-item" allowfullscreen></iframe>
+                                      </div>
+                            </div>
+                          </div>
+                      </div>
+
+                    </div><!--Fin del row-->
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+                
+                </div><!--Fin del content-->
+              </div>
+         </div>
+        
+      <!--Ubicacion Modal-->
 
     <!-- jQuery -->
     <script src="../vendors/jquery/dist/jquery.min.js"></script>
@@ -534,11 +560,15 @@ include "../conexion/conexion.php";
     <script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
     <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
 
-    <!--Escripts de pre procesamiento-->
+    <!--scripts de pre procesamiento-->
 
     <script src="js/datosDePozosJs/cargarMunicipios.js"></script>
     
-    <!--Escripts de pre procesamiento-->
+    <!--scripts de pre procesamiento-->
+
+    <!--Scripts de procesamiento-->
+    <script src="js/datosDePozosJs/procesarDatosJs.js"></script>
+    <!--Scripts de procesamiento-->
 	
 	<!--Configuaracion de las mascaras del formulario-->
 	<script>

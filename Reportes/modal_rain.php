@@ -41,6 +41,7 @@
              <?php 
                include "../Vistas/menuPrincipal.php";
                $fe=$_GET['fe'];
+               $Esta=$_GET['E'];
             ?>
             <!-- /sidebar menu -->
 
@@ -128,15 +129,13 @@
               <div class="col-md-6 col-xs-6">
                 <div class="x_panel">
                       <!-- MODAL-->
-            <div class="modal fade" id="miModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1" id="MiModal" role="dialog" >
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
 
-                            <h4>¿Que desas visualizar?</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+                            <h4>¿Que deseas visualizar?</h4>
+                           
                             <h4 class="modal-title" id="myModalLabel"></h4>
                         </div>
                         <div class="modal-body">
@@ -147,14 +146,14 @@
                                    </a>
                                 </div>
                                  <div class="row mb-12" style="float: right; margin-right: 10px; margin-top: 15px;">
-                                     <a href="../Reportes/Reporte_rain.php?fe=<?php echo $fe; ?>" class="btn">
+                                     <a href="../Reportes/Reporte_rain.php?fe=<?php echo $fe; ?>&E=<?php echo $Esta; ?>" class="btn">
                                     <input type="submit" class="btn btn-info" value="Reporte" name="modGuardar">
                                       </a>
 
                                 </div>
                                  
                                  <div class="row mb-12" style="float: right; margin-right: 10px; margin-top: 15px;">
-                                     <a href="../Reportes/grafica_rainRate.php?fe=<?php echo $fe; ?>" class="btn">
+                                     <a href="../Reportes/grafica_rainRate.php?fe=<?php echo $fe; ?>&E=<?php echo $Esta; ?>" class="btn">
                                    <input type="submit" class="btn btn-success" value="Grafica" name="modGuardar">
                                     </a>
                                 </div>
@@ -279,5 +278,6 @@
   </body>
 </html>
 <script type="text/javascript">
-    $('#miModal').modal('show');
+    $('#MiModal').modal('show');
+    
 </script>

@@ -30,7 +30,7 @@
                   </li>
                   <li><a><i class="fa fa-edit"></i>Estacion Meteorologica<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="estacionmeteorologica.php">Estacion Meteorologica</a></li>
+                        <li><a href="estacionmeteorologica.php">Estacion Meteorologica</a></li>
                       <li><a href="../ProcesoSubir/SubirEstacion.php">Lectura Estación Meteorológica</a></li>
                       <li><a href="visitaestaciones.php">Visita Estaciones</a></li>
                       </ul>
@@ -48,7 +48,7 @@
                   </li>
                   <li><a><i class="fa fa-users"></i> Instituciones/Comunidades <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                    <li><a href="responsablesestaciones.php">Responsables</a></li>
+                    <li><a href="ResponsablesEstaciones/responsablesestaciones.php">Responsables</a></li>
                     <li><a href="comunidades.php">Instituciones y Comunidades</a></li>
                     
                     
@@ -78,10 +78,23 @@
                     </ul>
                   </li>
                   <!--REPORTES-->
+                             <!--CONSULTAS-->
+                  <li><a><i class="fa fa-mobile"></i>Consultas<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        <li><a href="listapozo.php">Listado de datos Pozos</a></li>
+                    <li><a href="medidas_basicas.php"> Listado de datos de Pozo por Medidas Basicas</a></li>
+                    <li><a href="segun_geo.php">Listado de Pozos segun Geologia</a></li>
+                    <li><a href="visitas_estaciones.php">Listado de visitas a las Estaciones</a></li>
+                    <li><a href="visita_pozo.php">Listado de hoja de visita a Pozos</a></li>
+                    <li><a href="lista_propietarios.php">Lista de Propietarios</a></li>
+                     <li><a href="lista_visitantes.php">Lista de Visitantes</a></li>
+                    </ul>
+                  </li>
+                  <!--CONSULTAS-->
                   <li><a><i class="fa fa-user"></i>Usuarios<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="fixed_sidebar.html">Nuevo usuario</a></li>
-                      <li><a href="fixed_sidebar.html">Lista de usuarios</a></li>
+                      <li><a href="usuarios.php">Nuevo usuario</a></li>
+                      
                       
                     </ul>
                   </li>

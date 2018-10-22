@@ -6,6 +6,8 @@ include_once './editarVisitante.php';
 
 ?>
 
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,7 +46,8 @@ include_once './editarVisitante.php';
     <link href="../vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
     <link href="../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
     <link href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
-
+<link rel="stylesheet" href="../libreriasJS/alertifyjs/css/alertify.rtl.min.css">
+  
 </head>
 <body>
 <div class="row">
@@ -69,14 +72,15 @@ include_once './editarVisitante.php';
                     <thead>
                         <tr>
                             
-                            <th width="75"><font color="black">Nº</font></th>
-                            <th width="150"><font color="black">Dui</font></th>
+                            
+                           
                             <th width="500"><font color="black">Nombre</font></th>
+                             <th width="150"><font color="black">Dui</font></th>
                             <th width="150"><font font color="black">Genero</font></th>
                             <th width="100"><font font font color="black">Tipo</font></th>
                             <th width="100"><font font font color="black">Celular</font></th>
-                            <th width="10"><font font font font color="black">Editar</font></th>
-                            <th width="10"><font font font font font color="black">Eliminar</font></th>
+                            <th width="10"><font font font font font color="black">Accion</font></th>
+                            
                         </tr>
                     </thead>
 
@@ -84,21 +88,31 @@ include_once './editarVisitante.php';
                         <?php
                         $pame = mysqli_query($conexion, "SELECT * FROM visitantes");
                         while ($row = mysqli_fetch_array($pame)) {
-                            $duiVisita =$row['dui'];
+                            
                             $NombreVisita = $row['nombre'];
+                            $duiVisita =$row['dui'];
                             $generoVisita=$row['genero'];
                             $tipoVisita=$row['tipo'];
                             $celularVisita=$row['celular'];
+                            
+                            
                             $pas=$row['id_visitante'];
                            
                             ?>
                             <tr>
-                                <td><?php echo $row['id_visitante']; ?></td>
-                                <td><?php echo $row['dui']; ?></td>
+                               
+                                
+                              
                                 <td><?php echo $row['nombre']; ?></td>
+                                  <td><?php echo $row['dui']; ?></td>
                                 <td><?php echo $row['genero']; ?></td>
                                 <td><?php echo $row['tipo']; ?></td>
                                 <td><?php echo $row['celular']; ?></td>
+                                
+                                
+                                 
+                                  
+                                </td>
                                 <td><!--boton de modificar-->
                                   <div class="row">
                                     <div class="col-md-6">
@@ -109,20 +123,8 @@ include_once './editarVisitante.php';
                                     
                                   </div>
                                   </td>
-                                  <td>
-                                      
-                                      <div class="row">
-                                        
-                                         
-                                         <div class="col-md-6">
-                                        
-                                        <a href="#" data-href="matar.php?id_visitante=<?php echo $row['id_visitante']; ?>" data-toggle="modal" data-target="#confirm-delete" type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button></a>
-                                      
-                                
-                                    </div>
-                                          
-                                      </div>
-                                  </td>
+                                  
+                                    
                
                                
                                
@@ -140,30 +142,54 @@ include_once './editarVisitante.php';
 
 
  
- <!-- MODAL PARA MATAR A UN VISITANTE -->
-  <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+ <!-- MODAL PARA inahabilitar A UN VISITANTE -->
+  <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h3 class="modal-title" id="myModalLabel"><font font font font color="black">Eliminar Registro</font></h3> 
+                    <h3 class="modal-title" id="myModalLabel"><font font font font color="black">Inactivar Visitante</font></h3> 
                 </div>
 
                 <div class="panel-body">
 
-                    ¿Seguro que desea eliminar este elemento?
+                    ¿Seguro que desea Inactivar al visitante?
                                        
 
                 </div>
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Cancelar</button>
-                    <a class="btn btn-danger btn-ok" >Eliminar</a>
+                    <a class="btn btn-danger btn-ok" >Inactivar</a>
                 </div> 
             </div>
         </div> 
-    </div>          
+    </div>   
+ 
+ <!-- MODAL PARA Habilitar A UN VISITANTE -->
+<div class="modal fade" id="confirm-delet" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal1" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title" id="myModalLabel1"><font font font font color="black">Inactivar Visitante</font></h3> 
+                </div>
 
+                <div class="panel-body">
+
+                    ¿Seguro que desea Habilitar al visitante?
+                                       
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Cancelar</button>
+                    <a class="btn btn-danger btn-ok" >Habilitar</a>
+                </div> 
+            </div>
+        </div> 
+    </div>
+ 
 
 <script>
     $('#confirm-delete').on('show.bs.modal', function(e){
@@ -171,7 +197,30 @@ include_once './editarVisitante.php';
         $('.debug-url').html('Eliminar URL: <strong>' + $(this).find('.btn-ok').attr('href') + '</strong>');
     })
 </script>
+ <script>
+    //accion para inhabilitar usuario
+        $(document).ready(function(){
+            
+            $("#btnInhabilitar").click(function(){
+                
 
+                var idEliminar=$("#ide").val();
+
+               // var usuario=$("#usuario").val();
+              //  var nusuario=$("#nusuario").val();
+                var idEliminar=$("#ide").val();
+                
+             
+
+                var idEliminar=$("#ide").val();
+
+            inhabilitar(idEliminar);
+                
+            });
+            
+        });
+        
+    </script>
 
 
 
@@ -212,8 +261,8 @@ include_once './editarVisitante.php';
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
 
-  <script src="../libreriasJS/jquery.mask.min.js"></script>
-
+    <script src="../libreriasJS/jquery_form/jquery.mask.min.js"></script>
+  <script src="../libreriasJS/alertifyjs/css/alertify.min.js"></script>
 
     <!-- Datatables -->
     <script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
