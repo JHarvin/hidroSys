@@ -86,7 +86,7 @@ function setMapa (coords)
       //Se crea una nueva instancia del objeto mapa
       var map = new google.maps.Map(document.getElementById('map'),
       {
-        zoom: 13,
+        zoom: 14,
         center:new google.maps.LatLng(<?php echo $lat; ?>,<?php echo $lon; ?>),
 
       });

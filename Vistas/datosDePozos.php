@@ -243,7 +243,7 @@ include "../conexion/conexion.php";
                                 $result = $conexion->query("SELECT * FROM propietariospozos");
                                 while($fila=$result->fetch_object()){
 
-                                  echo "<option value=".$fila->id_propietario.">".$fila->nombre."</option>";
+                                  echo "<option value=".$fila->id_propietario.">".$fila->dui."  ".$fila->nombre."</option>";
                                 }
                               ?>
                             </select>
