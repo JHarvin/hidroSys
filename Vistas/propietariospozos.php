@@ -482,7 +482,7 @@ if(isset($_REQUEST["id"])){
     $institucion=$_REQUEST['institucion'];
 
 if ($bandera == "guardar") {
-    $consulta  = "INSERT INTO propietariospozos VALUES('".$dui."','".$nombre."','".$apellido."','".$direccion."','".$celular."','".$telefono."','".$genero."','1','null','2','".$correo."','".$institucion."')";
+    $consulta  = "INSERT INTO propietariospozos VALUES('".$dui."','".$nombre."','".$apellido."','".$direccion."','".$celular."','".$telefono."','".$genero."','1','null','1','".$correo."','".$institucion."')";
     $resultado = $conexion->query($consulta);
     if ($resultado) {
        mensaje("exito","guardar");
