@@ -141,7 +141,7 @@
                     <form class="form-horizontal form-label-left input_mask">
 
                       <div class="col-md-5 col-sm-5 col-xs-5 form-group has-feedback">
-                        <h4>Nombre del Pozo</h4>
+                        <h4>Seleccionar Municipio</h4>
                       </div>
                          <div class="col-md-6 col-sm-6 col-xs-12 form-group">
                             <select class="form-control" name="pozo">

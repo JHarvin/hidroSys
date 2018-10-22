@@ -79,7 +79,7 @@ $pdf->AddPage();
      
         $pdf->SetFont('Arial', 'B', 12);
         
-  $pozo = mysqli_query($mysqli, "SELECT
+  $validar = mysqli_query($mysqli, "SELECT
 p.id_pozo,
 p.codigopozo,
 l.date,
@@ -90,7 +90,8 @@ INNER JOIN lecturapozos AS l ON l.id_pozo= p.id_pozo
 where EXTRACT(MONTH FROM l.date)='$mes1' and EXTRACT(YEAR FROM l.date)='$a' and p.id_pozo=$po
 GROUP BY p.codigopozo, l.date
 ORDER BY l.date");
-   while ($row1 = mysqli_fetch_array($pozo)) {
+     if(mysqli_num_rows($validar)>0){ 
+   while ($row1 = mysqli_fetch_array($validar)) {
     $esta=$row1['codigopozo'];
 }
 $pdf->SetFont('Arial', 'B', 12);
@@ -127,6 +128,11 @@ while ($row = $pozo1->fetch_assoc()) {
     $pdf->Cell(70, 6,$row['promtemp'], 1, 1, 'C');
     ;
 }
+
+}else{
+            $pdf->Ln(30);
+       $pdf->Cell(150, 6,'No hay datos almacenados', 0, 0, 'C'); 
+       }
 
 $pdf->Output();
 ?>

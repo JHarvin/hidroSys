@@ -73,8 +73,8 @@
                         <li><a href="../Reportes/Vista_rainRayte.php">Rain Rate promedio</a></li>
                         <li><a href="../Reportes/BuVistaPromedio.php">Reporte temperatura promedio estaciones</a></li>
                         <li><a href="../Reportes/BuReprtePozDep.php">Reporte pozo por departamento</a></li>
-                        <li><a href="../Reportes/vista_GD.php">Reporte teto</a></li>
-                        <li><a href="../Reportes/vista_GD1.php">Reporte teto 1</a></li>
+                        <li><a href="../Reportes/vista_GD.php">Reporte temperatura pozo </a></li>
+                        <li><a href="../Reportes/vista_GD1.php">Reporte Pozos Observacion</a></li>
                     </ul>
                   </li>
                   <!--REPORTES-->
