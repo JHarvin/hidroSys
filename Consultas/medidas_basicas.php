@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -8,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	  
-    <title>Sistema Hidrometeorologico</title>
+    <title>SISPOZOS</title>
 
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -42,13 +41,14 @@
              <?php 
                include "../Vistas/menuPrincipal.php";
             ?>
+            
             <!-- /sidebar menu -->
 
             <!-- /menu profile quick info -->
 
             <br />
 
-           
+   
 
             <!-- /menu footer buttons -->
             <div class="sidebar-footer hidden-small">
@@ -80,7 +80,7 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="images/img.jpg" alt="">Kevin Montano
+                    <img src="images/img.jpg" alt="">Kevin Jovel
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -106,16 +106,9 @@
         <!-- page content -->
         <div class="right_col" role="main">
           <div class="">
-
             <div class="page-title">
-              <div class="title_center">
-
-                <!-- ME LO CENTRA -->
-                <div  class="col-md-3 col-xs-3">
-                
-              </div>
-
-                <h3>Informe de temperatura promedio de estaciones</h3>
+              <div class="title_left">
+                <h3>Listado de datos pozos según medidas básicas</h3>
               </div>
 
               <div class="title_right">
@@ -132,82 +125,68 @@
             <div class="clearfix"></div>
             
             <div class="row">
-
-              <!-- ME LO CENTRA -->
-              <div  class="col-md-3 col-xs-3">
-                
-              </div>
-              <div class="col-md-6 col-xs-6">
+              <div class="col-md-15 col-xs-12">
                 <div class="x_panel">
-
-                  <!--INICIA FORMULARIO-->
-                <form action="" id="f1" name="f1" method="post" class="form-register" >
-        <!--<input type="hidden" value="upload" id="upload" name="a" />-->
-                   <input type="hidden" name="tirar" id="pase"/>
                   <div class="x_title">
-                    
+                    <h2>Consulta</h2>
                     <ul class="nav navbar-right panel_toolbox">                   
                     </ul>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                    <br />
-          <form class="form-horizontal form-label-left input_mask">
-                             <h4>Seleccione estacion</h4>
-                          <select class="form-control" name="estacion">
-                              <?php
-                                          include_once '../conexion/conexion.php';
-                                          $verPozo= mysqli_query($conexion,"SELECT id_estacion,codiogestacion FROM estacionmet");
-                              ?>
-                            <option>Seleccionar</option>
-                            <?php
-                             while ($row = mysqli_fetch_array($verPozo)) {
-                                         
-                                           echo '<option value='.$row['0'].'>'.$row['1'].'</option>';
-                                    }
-                                    ?>
-                            </select>
-                    
+                   <table id="datatable" class="table table-striped table-bordered">
+                      <thead>
+                        <tr>
+                          <th>Pozo </th>
+                          <th>Tipo pozo</th>
+                          <th>Latitud</th>
+                          <th>Longitud</th>
+                          <th>Altura(msnm)</th>
+                          <th>Nivel de pozo(m)</th>
+                          <th>Profundidad(m)</th>
+                          <th>Temperatura(°C)</th>
+                        </tr>
+                      </thead>
 
-                        <h4>Fecha de visualizacion</h4>
-                     
-                       <div class="row">
-                           <div class="col-md-12">
-                      <div class="col-md-12"> 
-                          <div class="form-group">   
-                           <input type="text" name="fechas1" class="form-control mask-promedio has-feedback-left -calendar" id="inputSuccess2" placeholder="Ej: 04-2017" maxlength="7" minlength="7" 
-                                autocomplete="off" required="">
-                              <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
-                              
-                      
-                      </div>
-                            </div>
-                        </div>
-                           
-                       </div>
-                        </div>
-                      </div>
-                     
-                      <div class="form-group">
-                        <!--Este div es para que agarre la linea que separa los botones.-->
-                      </div>
-                     
-                      
-                      
-                      <div class="ln_solid"></div>
-                      <div class="form-group">
-                        <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                            <button type="submit" class="btn btn-success">Procesar</button>
+
+                      <tbody>  
+                          <?php
+                          include "../ProcesoSubir/conexion.php";
+              $query = mysqli_query ($mysqli,"SELECT p.codigopozo, p.tipo, p.latitud, p.longitud, p.altura, hvp.`level`, p.profundidad, lp.temperature FROM pozos p INNER JOIN hojavisitaspozos hvp
+                INNER JOIN lecturapozos lp on lp.id_pozo = p.id_pozo;");
+
+       while ($fila=mysqli_fetch_array($query)) {
+         # code...
+       
+                ?>
+                        <tr>
+                          <td><?php echo $fila['codigopozo']; ?></td>
+                          <td><?php  echo $fila['tipo']; ?></td>
+                          <td><?php  echo $fila['latitud'];?></td>
+                          <td><?php  echo $fila['longitud']; ?></td>
+                          <td><?php  echo $fila['altura'];?></td>
+                          <td><?php  echo $fila['level'];?></td>
+                          <td><?php  echo $fila['profundidad'];?></td>
+                          <td><?php  echo $fila['temperature'];?></td>
+                          <?php
+                          ?>
+                          
+                        
+                        <?php } ?> 
+      
+                      </tbody>
+                    </table>
+
                           <button type="button" class="btn btn-warning">Cancelar</button>
 						   <!-- <button class="btn btn-primary" type="reset">Reset</button> -->
                          
                         </div>
                       </div>
 
-                    </form>  <!--FIN FORMULARIO-->
+                    </form>
                   </div>
                 </div>
-              </div> <br><br><br><br><br><br><br><br><br><br>    <?php include "../Vistas/footer.php"; ?>  
+              </div>      
             </div>
 
           
@@ -219,20 +198,17 @@
 
         <!-- footer content -->
        <?php 
-       
-        if (isset($_REQUEST['tirar'])) {
-        $po = $_REQUEST['pozo'];
-        $estacion = $_REQUEST['estacion'];
-        $f = $_REQUEST['fechas1'];
-     ?>
-    <script type="text/javascript">
-location.href="BuModalPromedioEs.php? po=<?php echo $po;?>&f=<?php echo $f;?>&estacion=<?php echo $estacion;?>";
-</script>
-<?php
-    }
-  ?>      
+       include "footer.php";
+       ?>
+        <!-- /footer content -->
       </div>
     </div>
+
+      
+
+            
+           
+          
 
     <!-- jQuery -->
     <script src="../vendors/jquery/dist/jquery.min.js"></script>
@@ -269,17 +245,22 @@ location.href="BuModalPromedioEs.php? po=<?php echo $po;?>&f=<?php echo $f;?>&es
     <script src="../vendors/starrr/dist/starrr.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
+    <!-- Datatables -->
+    <script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="../vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="../vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+    <script src="../vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+    <script src="../vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+    <script src="../vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+    <script src="../vendors/jszip/dist/jszip.min.js"></script>
+    <script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
+    <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
 	
   </body>
 </html>
-
-<script src="../LibreriasJS/jquery.mask.min.js"></script>
-
-<script type="text/javascript">
-    $('.mask-promedio').mask('00-0000');
-    
-</script>
-
-
-
-

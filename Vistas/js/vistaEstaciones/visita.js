@@ -139,4 +139,81 @@ function cancelar(){
             
             xmlhttp.open("post", "cargaModalDetalleVisita.php?idd=" + opcion , true);
             xmlhttp.send();
+<<<<<<< HEAD:Vistas/VisitaEstaciones/js/visita.js
         }
+=======
+        }
+
+    function actualiza(opcion) {
+        var cambio = document.getElementById('tipo').value;
+        var cambioF = document.getElementById('estacion').value
+        if (window.XMLHttpRequest) {
+            xmlhttp = new XMLHttpRequest();
+        }
+        else {
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function () {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                if (opcion === 'cambioTipo') {
+                    document.getElementById("visitante").innerHTML = xmlhttp.responseText;
+                    document.getElementById("visitante").value = "";
+                } else if (opcion === 'cambioFoto') {
+                    document.getElementById("imagen").innerHTML = xmlhttp.responseText;
+                    document.getElementById("imagen").value = "";
+                } 
+            }
+        }
+        
+        if (opcion === "cambioTipo") 
+            xmlhttp.open("post", "tipoVisit.php?opcion=" + opcion + "&cambio=" + cambio, true);
+        else if(opcion === "cambioFoto")
+            xmlhttp.open("post", "tipoVisit.php?opcion=" + opcion + "&cambio=" + cambioF, true);
+            xmlhttp.send();
+        
+        
+    }
+
+
+    function recargarTabla(opcion){
+        if (window.XMLHttpRequest) {
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+            xmlhttp.onreadystatechange = function() {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                   
+                        document.getElementById("tbl").innerHTML = xmlhttp.responseText;
+                        $('.imprimir').DataTable();
+                    
+                }
+            }   
+        xmlhttp.open("post", "recargaTbl.php?actualiza=tabla", true);
+        xmlhttp.send();
+    }
+
+   
+    function limpiaF(opcion){
+    //alert("Opcion   "+opcion);
+    if(opcion==="limpiar"){
+        $(document).ready(function(){
+            
+
+            $("#visitante").val("Visitante").trigger('change');
+           
+            $("#observacion").val(""); 
+            
+            
+
+            $("#tipo").val("Tipo Visitante").trigger('change');
+            
+            
+
+            $("#estacion").val("Estaciones").trigger('change');
+
+            $('#imagen').html("<img  width='685' height='290' src='images/volcan.jpg'/>" );
+        });
+    }
+}
+>>>>>>> 2e9f0d40307336f2c2ccd5d4fd20e9232a1b490a:Vistas/js/vistaEstaciones/visita.js

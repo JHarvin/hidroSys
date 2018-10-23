@@ -10,7 +10,13 @@
     
     <title>SISPOZOS</title>
 
-      
+       <!-- ALERTASSSSSS -->
+    <link rel="stylesheet"  type="text/css" href="../libreriasJS/alertifyjs/css/alertify.css"> 
+    <link rel="stylesheet" type="text/css" href="../libreriasJS/alertifyjs/css/alertify.min.css"> 
+    <link rel="stylesheet" type="text/css" href="../libreriasJS/alertifyjs/css/alertify.rtl.css">
+    <link rel="stylesheet" type="text/css" href="../libreriasJS/alertifyjs/css/alertify.rtl.min.css">
+    <link rel="stylesheet" type="text/css" href="../libreriasJS/alertifyjs/css/themes/default.css">
+
 
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -34,10 +40,7 @@
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="../libreriasJS/alertifyjs/css/alertify.css">
-    <link rel="stylesheet" href="../libreriasJS/alertifyjs/css/alertify.min.css"> 
-    <link rel="stylesheet" href="../libreriasJS/alertifyjs/css/alertify.rtl.css">
-    <link rel="stylesheet" href="../libreriasJS/alertifyjs/css/alertify.rtl.min.css">
+    
 
   </head>
 
@@ -243,7 +246,7 @@
                           <th>Pozo</th>
                           <th>Fecha</th>
                           <th>Nivel</th>
-                          <th>Observacion</th>
+                          <th>Observación</th>
                           <th>Editar</th>
                          
                         </tr>
@@ -323,6 +326,17 @@
                $result = $mysqli->query($sql);
               header("location:visitapozos.php");
              ?>
+             <!-- funcion para la alerta -->
+           <script type="text/javascript">
+              $(document).ready(function(){
+
+                $("#guarda").click(function(){
+                  alertify.alert("Modificado con exito");
+                   
+                });
+              });
+            
+            </script>
     <script type="text/javascript">
          location.href = "visitapozos.php";
 </script>
@@ -351,6 +365,8 @@
                         <?php
                          $id=$_REQUEST['ir'];
                         $fecha=$_REQUEST['f'];
+                        $idpo=$_REQUEST['p'];
+                        
                                      include_once '../ProcesoSubir/conexion.php';
                                       $verVisitante= mysqli_query($mysqli,"SELECT hvp.id_visitante, v.nombre FROM pozos p, hojavisitaspozos hvp, visitantes v
              where p.id_pozo = hvp.id_pozo and hvp.id_visitante = v.id_visitante AND hvp.id_visitante='$id'");
@@ -384,7 +400,7 @@
                               <?php
                                        include_once '../ProcesoSubir/conexion.php';
                                       $PO= mysqli_query($mysqli,"SELECT p.id_pozo,p.codigopozo FROM pozos p, hojavisitaspozos hvp, visitantes v
-             where p.id_pozo = hvp.id_pozo and hvp.id_visitante = v.id_visitante AND hvp.id_visitante='$id' AND hvp.fechavisita='$fecha'");
+             where p.id_pozo = hvp.id_pozo and hvp.id_visitante = v.id_visitante AND hvp.id_visitante='$id' AND hvp.fechavisita='$fecha' AND hvp.id_pozo='$idpo' ");
                             ?>    
                               ?>
                             <?php
@@ -396,8 +412,8 @@
                                     <?php
                                     //para que los cargue todos
                                        include_once '../ProcesoSubir/conexion.php';
-                                      $PO= mysqli_query($mysqli,"SELECT p.id_pozo,p.codigopozo, h.id_visitante FROM pozos p INNER JOIN hojavisitaspozos h
-on p.id_pozo=h.id_pozo WHERE h.id_visitante<>'$id'");
+                                      $PO= mysqli_query($mysqli,"SELECT p.id_pozo,p.codigopozo FROM pozos p
+                                        WHERE p.codigopozo<>'$id'");
                             ?>    
                               ?>
                             <?php
@@ -412,9 +428,11 @@ on p.id_pozo=h.id_pozo WHERE h.id_visitante<>'$id'");
 
                       <div class="form-group">
                         <?php
+              
+
                           include "../ProcesoSubir/conexion.php";
               $query = mysqli_query ($mysqli,"SELECT hvp.fechavisita, hvp.`level`, hvp.observacion, hvp.id_visitante FROM pozos p, hojavisitaspozos hvp, visitantes v
-             where p.id_pozo = hvp.id_pozo and hvp.id_visitante = v.id_visitante AND hvp.id_visitante='$id'AND hvp.fechavisita='$fecha'");
+             where p.id_pozo = hvp.id_pozo and hvp.id_visitante = v.id_visitante AND hvp.id_visitante='$id' AND hvp.fechavisita='$fecha' AND hvp.id_pozo='$idpo' ");
 
                 while ($fila=mysqli_fetch_array($query)) {
                     
@@ -431,17 +449,15 @@ on p.id_pozo=h.id_pozo WHERE h.id_visitante<>'$id'");
                       </div>
                       <div class="col-md-6 col-sm-6 col-xs-6 form-group has-feedback">
                         <label>Nivel(m)</label>
-                        <input type="number" name="nivel" class="form-control has-feedback-left" id="niv" placeholder="Nivel" value="<?php echo $nivel;?>">
+                        <input type="text" name="nivel" class="form-control has-feedback-left" id="niv"  value="<?php echo $nivel;?>" class="decimal-2-places" placeholder="Nivel(m)" autocomplete="off" maxlength="5">
                         <span class="fas fa-list form-control-feedback left" aria-hidden="true"></span>
                       </div>
                       
                       </div>
                       <div class="form-group">
-                        <label>Observacion</label>
-                  <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback" align="left">        
-                      <textarea class="form-control" name="obser" rows="2" placeholder="Observacion" id="obs"  >
-                        <?php echo $observa;?>
-                      </textarea>
+                        <label>Observación</label>
+                  <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">        
+                      <textarea class="form-control" name="obser" rows="2" placeholder="Observación" id="obs"><?php echo $observa;?></textarea>
                         </div>
                       </div>
                   
@@ -449,7 +465,7 @@ on p.id_pozo=h.id_pozo WHERE h.id_visitante<>'$id'");
 
                 <div class="modal-footer">
              <a href="visitapozos.php"><button type="submit" class="btn btn-warning pull-left">Cancelar</button></a>
-            <a href="visitapozos.php"><input  type="submit" class="btn btn-primary" value="Guardar" ></a>
+            <a href="visitapozos.php"><input  type="submit" class="btn btn-primary" value="Guardar" id="guarda" ></a>
                 </div> 
             </div>
         </div> 
@@ -469,8 +485,18 @@ if (isset($_REQUEST['idDeActualizacion'])) {
     $ni = $_REQUEST['nivel'];
     $obse = $_REQUEST['obser'];
 
-    mysqli_query($mysqli, "UPDATE hojavisitaspozos SET id_visitante='$nvis', id_pozo='$codip',fechavisita='$fech', level='$ni',observacion='$obse' WHERE id_visitante ='$id' AND fechavisita='$fecha'");
+    mysqli_query($mysqli, "UPDATE hojavisitaspozos SET id_visitante='$nvis', id_pozo='$codip',fechavisita='$fech', level='$ni',observacion='$obse' WHERE id_visitante ='$id' AND fechavisita='$fecha' AND id_pozo='$idpo'");
 ?>
+<script type="text/javascript">
+              $(document).ready(function(){
+
+                $("#guarda").click(function(){
+                  alertify.alert("Modificado con exito");
+                   
+                });
+              });
+            
+            </script>
 <script type="text/javascript">
     location.href = "visitapozos.php";
 </script>
@@ -543,10 +569,14 @@ if (isset($_REQUEST['idDeActualizacion'])) {
     <script src="../vendors/jszip/dist/jszip.min.js"></script>
     <script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
     <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
+
+    <!--<script src="../libreriasJS/jquery.mask.min.js"></script>-->
+    <script src="../libreriasJS/jquery.numeric.js"></script>
+    <script src="../libreriasJS/alertifyjs/alertify.js"></script>
+    <script src="../libreriasJS/alertifyjs/alertify.min.js"></script>
    
   </body>
-   <script src="../libreriasJS/alertifyjs/alertify.js"></script>
-   <script src="../libreriasJS/alertifyjs/alertify.min.js"></script>
+   
 
 </html>
     <!-- funcion para la alerta -->
@@ -564,14 +594,25 @@ if (isset($_REQUEST['idDeActualizacion'])) {
   $('#actualizarhoja').modal('show');
 </script>
 
-<script type="text/javascript">
-      
- jQuery(function($){
-            // Definimos las mascaras para cada input
-            $('#niv').mask('000.000.000.000.000,00', {reverse: true});
-            
-            
-        });
-          
-        
-    </script>
+    <script type="text/javascript">
+  $(document).ready(function(){
+    validarCualquierNumero()
+    
+  });
+  function validarCualquierNumero(){
+
+  $(".numeric").numeric();
+  $(".integer").numeric(false, function() { alert("Integers only"); this.value = ""; this.focus(); });
+  $(".positive").numeric({ negative: false }, function() { alert("No negative values"); this.value = ""; this.focus(); });
+  $(".positive-integer").numeric({ decimal: false, negative: false }, function() { alert("Positive integers only"); this.value = ""; this.focus(); });
+    $(".decimal-2-places").numeric({ decimalPlaces: 2 });
+  $("#remove").click(
+    function(e)
+    {
+      e.preventDefault();
+      $(".numeric,.integer,.positive,.positive-integer,.decimal-2-places").removeNumeric();
+    }
+  );
+  }
+
+</script>

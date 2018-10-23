@@ -31,31 +31,12 @@ if ($lon == "") {
       }
       #map {
         width: 100%;
-        height: 80%;
+        height: 90%;
       }
       #coords{width: 500px;}
     </style>
 
-<script type="text/javascript">
-function selecciona() {
-  if (document.getElementById("coordsLa").value!="" && document.getElementById("coordsLo").value!="") {
-    window.top.latitud.value=document.getElementById("coordsLa").value;
   
-window.top.longitud.value=document.getElementById("coordsLo").value;
-window.top.longitud2.value=document.getElementById("coordsLo").value;
-      window.top.latitud2.value=document.getElementById("coordsLa").value;
-  }else
-  {
-    alert("Mueva el cursor del mapa");
-  }
-
-};
-
-
-</script>
-
-    
-    
 
 </head>
 
@@ -64,12 +45,12 @@ window.top.longitud2.value=document.getElementById("coordsLo").value;
 <body >
     <div id="map"></div>
 
-    
-    <input type="text" id="coordsLa" />
-    <input type="text" id="coordsLo" />
-    <input id="obtener" type="button"  onClick="selecciona()" value="Obtener"/>
-    
-    
+ <!--  
+    <input type="text" id="coordsLat" />
+    <input type="text" id="coordsLon" />
+    <input id="obtenerCoords" type="button"  onClick="selecciona()" value="Obtener"/>
+   --> 
+
     
     <script>
 
@@ -124,8 +105,10 @@ function setMapa (coords)
       marker.addListener( 'dragend', function (event)
       {
         //escribimos las coordenadas de la posicion actual del marcador dentro del input #coords
-        document.getElementById("coordsLa").value = this.getPosition().lat();
-    document.getElementById("coordsLo").value=this.getPosition().lng();
+        //document.getElementById("coordsLat").value = this.getPosition().lat();
+    //document.getElementById("coordsLon").value=this.getPosition().lng();
+             window.top.latEdit.value = this.getPosition().lat();
+             window.top.lonEdit.value = this.getPosition().lng();
       });
 }
 

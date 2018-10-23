@@ -35,9 +35,9 @@
     }
 
 </script>
-<form name="form1" method="post" enctype="multipart/form-data">
+<form name="editform" method="POST" enctype="multipart/form-data">
 
-    <input type="hidden" name="idDeActualizacion" id="idDeActualizacion" value="00000">
+   
 
     <div class="modal fade" id="actualizarVisitante" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -50,7 +50,11 @@
 
                 <div class="panel-body">
                     <br>
-
+    	            <input type="hidden" name="bandera2" id="bandera2">
+                    <input type="hidden" name="baccion2" id="baccion2">
+                     <input type="hidden" class="form-control has-feedback-left" id="longitud2" name="longitud2" placeholder="Longitud">
+                        <input type="hidden" class="form-control has-feedback-left" id="latitud2" name="latitud2" placeholder="Latitud">
+                    <input type="hidden" class="form-control has-feedback-left" id="correaux" name="correaux" placeholder="correlativo">
                     <div class="row">
 
                         <div class="col-md-12">
@@ -134,7 +138,7 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-primary" >Actualizar</button>
+                    <button type="button" class="btn btn-primary" onclick="verificarM()">Actualizar</button>
                 </div> 
             </div>
         </div> 
