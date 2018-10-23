@@ -582,16 +582,7 @@ $("#enviarimagenes").on("submit", function(e){
     $('#datatables-example').DataTable();
 
     $("#guardar").on('click',function(){
-      $("#nomb").val(nom);
-          $("#marc").val(marca);
-          $("#num").val(num);
-          $("#donad").val(don);
-       
-          $("#grado option[value="+tip+"]").prop("selected", true);
-          $("#descr").val(des);
-        
-        
-      var grado = $('#nomb').val();
+        var grado = $('#nomb').val();
         var opcion = $('#marc').val();
         var seccion = $('#num').val();
         var cupo = $('#donad').val();
