@@ -77,6 +77,26 @@ msg("Los datos fueron almacenados con exito");
           } 
         }
       </script>
+
+      <script>
+$("#enviarimagenes").on("submit", function(e){
+  e.preventDefault();
+  var formData = new FormData(document.getElementById("enviarimagenes"));
+
+  $.ajax({
+    url: "../Controladores/subir.php",
+    type: "POST",
+    dataType: "HTML",
+    data: formData,
+    cache: false,
+    contentType: false,
+    processData: false
+  }).done(function(echo){
+    $("#mensaje").html(echo);
+  });
+});
+</script>
+
   </head>
   <!--Aqui va el javascript-->
 
@@ -231,10 +251,12 @@ msg("Los datos fueron almacenados con exito");
 
                       <div class="form-group">
                         <div class="col-md-4 col-sm-4 col-xs-12">
-                          <label>Imagen<small class="text-muted"></small></label>
+                          <label>Imagen (PNG,JPG,JPE)<small class="text-muted"></small></label>
                             <input name="imagen" type="file" onChange="ver(form.file.value)" required accept="image/jpg,image/png,image/jpeg"> 
                         </div> 
                       </div>
+
+
                    
                       <div class="form-group">
                       <div class="col-md-6 col-sm-6 col-xs-12">
@@ -330,7 +352,8 @@ msg("Los datos fueron almacenados con exito");
               <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title"><strong><i class="fa fa-list-ul fa-2x"></i></strong></h5>
+                    <h5 class="modal-title"><strong><i class="fa fa-list-ul fa-2x"> Detalle equipo</i></strong></h5>
+
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
@@ -341,7 +364,7 @@ msg("Los datos fueron almacenados con exito");
                   
                     
                       <thead>
-                        <tr><th colspan=5 style="text-align:center;">Detalle Equipo </th></tr>
+                       
                     </table>
                     <input type="hidden" id="id" name="id" value="">
                    
@@ -378,9 +401,18 @@ msg("Los datos fueron almacenados con exito");
                         <div class="form-group">
                       <div class="col-md-6 col-sm-6 col-xs-12">
                       <label>Descripción<small class="text-muted"></small></label>
-                      <textarea style="width: 850px;" rows="3" size="100" value="" class="form-control" name="descri" id="descri" disabled></textarea>
+                      <textarea style="width: 425px;" rows="3" size="100" value="" class="form-control" name="descri" id="descri" disabled></textarea>
                       </div>
+
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                      <label>Foto<small class="text-muted"></small></label>
+                      <img  src="data:image/jpg;base64. <?php echo base64_encode($row['foto_doc']);?>"/>
                       </div>
+
+
+                      </div>
+
+
                   </div>
                
                     
@@ -472,6 +504,7 @@ msg("Los datos fueron almacenados con exito");
                       <label>Descripción<small class="text-muted"></small></label>
                       <textarea style="width: 850px;" rows="3" size="100" value="" class="form-control" name="descr" id="descr"></textarea>
                       </div>
+
                       </div>
                   </div>
                

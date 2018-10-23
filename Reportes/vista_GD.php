@@ -108,7 +108,7 @@
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>RReporte de nivel de pozos segun visitas efectuadas.</h3>
+                <h3>Reporte de nivel de pozos segun visitas efectuadas.</h3>
               </div>
 
               <div class="title_right">
@@ -132,13 +132,12 @@
         <input type="hidden" name="tirar" id="pase"/>
                   <div class="x_title">
                     
-                    <ul class="nav navbar-right panel_toolbox">                   
-                    </ul>
+                   
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
                     <br />
-                    <form class="form-horizontal form-label-left input_mask">
+                    
 
                       <div class="col-md-5 col-sm-5 col-xs-5 form-group has-feedback">
                         <h4>Nombre del Pozo</h4>
@@ -157,29 +156,29 @@
                                     }
                                     ?>
                             </select>
+                        
+                      
                     
-                        <h4>Fecha de visualizacion</h4>
+                        <h4>Fecha de visualizacion(mes-año)</h4>
+                      
                      
                        <div class="row">
                            <div class="col-md-12">
                       <div class="col-md-12"> 
                           <div class="form-group">   
-                         <input type="text" name="fechas1" class="form-control has-feedback-left -calendar" id="inputSuccess2" placeholder="fecha inicio Ej:2014-04-01"
+                         <input type="text" name="fechas1" class="form-control mask-promedio has-feedback-left -calendar" id="inputSuccess2" placeholder="fecha inicio Ej:02-2014"
                                 autocomplete="off" required="">
                               <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
-                              
-                      
+                          </div>
+                          </div>
                       </div>
                             </div>
                         </div>
-                           
-                       </div>
-                        </div>
+                         
+                       
                       </div>
                      
-                      <div class="form-group">
-                        <!--Este div es para que agarre la linea que separa los botones.-->
-                      </div>
+                     
                      
                       
                       
@@ -260,5 +259,7 @@ location.href="modal_GD.php?po=<?php echo $po;?>&f=<?php echo $f;?>";
 	
   </body>
 </html>
-
-
+<script src="../libreriasJS/jquery.mask.min.js"> </script>
+<script>
+$('.mask-promedio').mask('00-0000');
+</script>

@@ -31,6 +31,14 @@
 
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
+      <link href="../libreriasJS/alertifyjs/css/themes/bootstrap.min.css" rel="stylesheet">
+      <link href="../libreriasJS/alertifyjs/css/alertify.min.css" rel="stylesheet">
+  <!-- Datatables -->
+    <link href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="../vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
+    <link href="../vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+    <link href="../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
+    <link href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
   
   <script type="text/javascript" >
 
@@ -190,35 +198,40 @@ return false;
                   <form class="form-horizontal form-label-left input_mask" action="gcomunidad.php" method="post" onsubmit="return validar()">
 
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left"  id="nombre" name="nombre" placeholder="Nombre de la  institución o comunidad.">
+                        <input type="text" class="form-control has-feedback-left"  id="nombre" name="nombre" placeholder="Nombre de la  institución o comunidad." required>
                         <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                       </div>
                         
                         <div class="form-group">
 
-                      <div class="col-md-6 col-sm-6 col-xs-12">
+                      <div class="col-md-6 col-sm-6 col-xs-12" required>
                           <select class="form-control" id="departamento" name="departamento" onchange="buscarM(this.value)">
-                            <option value="0">Departamento</option>
+                            <option value="0" >Departamento</option>
                             <?php
-          $query = $mysqli -> query ("SELECT * FROM departamentos");
-          while ($valores = mysqli_fetch_array($query)) {
-          echo "<option value=".$valores['iddepto'].">".$valores['nombredepto']."</option>";}
-                      ?>
+                              $query = $mysqli -> query ("SELECT * FROM departamentos");
+                              while ($valores = mysqli_fetch_array($query)) {
+                              echo "<option value=".$valores['iddepto'].">".$valores['nombredepto']."</option>";}
+                            ?>
                             </select>
                         </div>
                     </div>
 
-						 <div class="col-md-6 col-sm-6 col-xs-12" id="buscarMunicipio">
-                          <select class="form-control" id="municipio" name="municipio" onchange="buscarO(this.value)">
-                            <option value="0">Municipio</option>
+						 <div class="col-md-6 col-sm-6 col-xs-12" id="buscarMunicipio" >
+                          <select class="form-control" id="municipio" name="municipio" onchange="buscarO(this.value)" required>
+                            <option value="0" >Municipio</option>
                             </select>
                         </div>
                       
                               <div class="form-group">
 
-                        <div class="col-md-6 col-sm-6 col-xs-12" id="buscarResponsable">
-                          <select class="form-control" id="observador" name="observador">
+                        <div class="col-md-6 col-sm-6 col-xs-12" id="" >
+                          <select class="form-control" id="observador" name="observador" required>
                             <option value="0">Responsable de la institución o comunidad</option>
+                              <?php
+                              $query = $mysqli -> query ("SELECT * FROM respestaciones");
+                              while ($valores = mysqli_fetch_array($query)) {
+                              echo "<option value=".$valores['idresponsable'].">".$valores['institucion']."</option>";}
+                            ?>
                             </select>
                         </div>
                     
@@ -232,8 +245,8 @@ return false;
                         <br>
                         <div class="input-group " style="padding-bottom:25px;" >
      </i><span class="label label-default" style="width: 100px; font-size: 15px;margin-right:20px;margin-left:20px">Tipo</span>
-     <label class="radio-inline" style="width: 100px; font-size: 15px"><input type="radio" name="optradio" id="tcomunidad" value="Comunidad" >Comunidad</label>
-     <label class="radio-inline" style="width: 100px; font-size: 15px"><input type="radio" name="optradio" id="tinstitucion" value="Institucion">Institución</label>
+     <label class="radio-inline" style="width: 100px; font-size: 15px"><input type="radio" name="optradio" id="tcomunidad" value="Comunidad"   >Comunidad</label>
+     <label class="radio-inline" style="width: 100px; font-size: 15px"><input type="radio" name="optradio" id="tinstitucion" value="Institucion">Institución</label> 
      </div>
      
                         
@@ -269,6 +282,14 @@ return false;
         </div>
         <!-- /page content -->
           
+           <div class="form-group">
+                      
+                        <!--Este div es para que agarre la linea que separa los botones.-->
+                      </div>
+                       
+                      <div class="form-group">
+                        <!--Este div es para que agarre la linea que separa los botones.-->
+                      </div>
                      
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
@@ -288,11 +309,13 @@ return false;
                     <table id="datatable" class="table table-striped table-bordered">
                       <thead>
                         <tr>
+                            <th hidden> </th> 
                         <th>Nombre</th> 
                           <th>Tipo</th>
                           <th>Departamento</th>
                           <th>Municipio</th>
-                          <th>Observador</th>
+                          <th>Institucion responsable</th>
+                            <th> </th>
                           
                         </tr>
                       </thead>
@@ -467,7 +490,6 @@ return false;
       
       <!--Modificacion modal-->
 
-    <!-- jQuery -->
     <script src="../vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
     <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -502,6 +524,23 @@ return false;
     <script src="../vendors/starrr/dist/starrr.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
-	
+         <script src="../libreriasJS/alertifyjs/alertify.min.js"></script>
+
+     <!-- Datatables -->
+    <script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="../vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="../vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+    <script src="../vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+    <script src="../vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+    <script src="../vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+    <script src="../vendors/jszip/dist/jszip.min.js"></script>
+    <script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
+    <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
   </body>
 </html>

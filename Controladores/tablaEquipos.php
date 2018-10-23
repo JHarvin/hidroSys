@@ -11,8 +11,11 @@ if ($result) {
         echo "<td>" . $fila->numeroserie. "</td>";
         echo "<td>" . $fila->donadopor . "</td>";
         echo "<td>" . $fila->estado . "</td>";
+        echo "<td>" . $fila->imagen . "</td>";
+        
        
         echo "<td width=160>
+
         
                             <button type='button' class='btn btn-success' 'style='width:45px;' onclick=\"editar('$fila->nombre','$fila->marca','$fila->numeroserie','$fila->donadopor','$fila->tipouso','$fila->descripcion','$fila->estado','1')\";><i class='fa fa-eye'></i></button>
                             <button type='button' class='btn btn-success' 'style='width:45px;' onclick=\"editar('$fila->nombre','$fila->marca','$fila->numeroserie','$fila->donadopor','$fila->tipouso','$fila->descripcion','$fila->estado','2')\";><i class='fa fa-pencil'></i></button>

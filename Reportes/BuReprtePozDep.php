@@ -88,7 +88,7 @@ WHERE d.nombredepto='SONSONATE'
 ORDER BY
 d.iddepto ASC");
 
-    if(mysqli_num_rows($sonsonate)>0){
+if(mysqli_num_rows($sonsonate)>0){
 
 
 

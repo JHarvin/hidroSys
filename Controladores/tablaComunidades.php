@@ -1,14 +1,16 @@
 <?php
 include "../ProcesoSubir/conexioneq.php";
-$result = $conexion->query("SELECT * from comunidades ORDER BY idcomunidad");
+$result = $conexion->query("SELECT*FROM respestaciones,municipios,comunidades,departamentos where comunidades.iddepartamento=departamentos.iddepto and municipios.idmunicipio=comunidades.idmunicipio and comunidades.idobservador=respestaciones.idresponsable");
 if ($result) {
     while ($fila = $result->fetch_object()) {
         echo "<tr>";
+        echo "<td hidden>" . $fila->idcomunidad. "</td>";
         echo "<td>" . $fila->nombre . "</td>";
         echo "<td>" . $fila->tipo . "</td>";
-        echo "<td>" . $fila->iddepartamento . "</td>";
-        echo "<td>" . $fila->idmunicipio . "</td>";
-        echo "<td>" . $fila->idobservador. "</td>";
+        echo "<td>" . $fila->nombredepto. "</td>";
+        echo "<td>" . $fila->nombremunicipio. "</td>";
+        echo "<td>" . $fila->institucion. "</td>";
+        
         
         echo "<td width=160>
                             <button type='button' class='btn btn-success' data-toggle='modal' data-target='.detalle-modal-lg' style='width:35px;'><i class='fa fa-eye'></i></button>
