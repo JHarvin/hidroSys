@@ -6,7 +6,7 @@ error_reporting(E_ALL & ~E_NOTICE);
  $conexion->set_charset("utf8");
  //Query para generar codigo.
  
-                  $resultc = $conexion->query("select id_estacion as id from estacionmet");
+                  $resultc = $conexion->query("select id_estacion as id from estacionmet order by id ASC");
                       if ($resultc) {
 
                         while ($filac = $resultc->fetch_object()) {
@@ -700,11 +700,13 @@ $longitud = $_REQUEST["longitud"];
 $codigom = $_REQUEST["codigom"];
 $lista1m = $_REQUEST["lista1m"];
 $lista2m = $_REQUEST["lista2m"];
+$imagenEstacion = $_REQUEST["imagen2"];
 $institucionm = $_REQUEST["institucionm"];
+$baccion = $_REQUEST["baccion"];
 
 
 if ($bandera == "add") {
-  msg("entra a guardar");
+  if($_FILES['imagen']['name']!=null){
     $permitidos = array("image/jpg", "image/jpeg", "image/png");
     $limite_kb  = 16384; //tamanio maximo que permitira subir, es el limite de medium blow(16mb)
     if (in_array($_FILES['imagen']['type'], $permitidos) && $_FILES['imagen']['size'] <= $limite_kb * 1024) {
@@ -729,12 +731,67 @@ if ($bandera == "add") {
         }
     }
 
+}else{
+    $consulta  = "INSERT INTO estacionmet VALUES('null','" . $codigo . "','" . $lista1. "','" . $lista2. "','1','','','" . $latitud  . "','".$longitud."','".$institucion."')";
+        msg($consulta);
+        $resultado = $conexion->query($consulta);
+        if ($resultado) {
+            msg("Exito");
+        } else {
+           echo mysqli_error($conexion);
+        }
+}
+}
+
+//PARA EDITAR
+if($bandera=="mod"){
+   if($_FILES['imagen2']['name']==null){//comparamos si ya se subio una imagen
+
+        $consultac  = "UPDATE clientes set duiclientes='" . $duiCliente . "',nombreclientes='" . $nombreCliente . "',apellidoclientes='" . $apellidoCliente . "',direccionclientes='" . $direccionCliente . "',latitud='" . $latitud . "',longitud='" . $longitud . "',telefonoclientes='" . $telefonoCliente . "' where idclientes='" . $baccion . "'";
+        $resultado = $conexion->query($consultac);
+        if ($resultado) {
+            msg("Exito Cliente");
+        } else {
+            msg("No Exito Cliente");
+        }
+      }else{
+       $permitidos = array("image/jpg", "image/jpeg", "image/png");
+    $limite_kb  = 16384; //tamanio maximo que permitira subir, es el limite de medium blow(16mb)
+    if (in_array($_FILES['imagen']['type'], $permitidos) && $_FILES['imagen']['size'] <= $limite_kb * 1024) {
+        //Este es el archivo temporaral.
+        $imagen_temporal = $_FILES['imagen']['tmp_name'];
+        //este es el tipo de archivo
+        $tipo = $_FILES['imagen']['type'];
+        //leer el archivo temporarl en binario
+        $fp   = fopen($imagen_temporal, 'r+b');
+        $data = fread($fp, filesize($imagen_temporal));
+        fclose($fp);
+        //escapar los caracteres
+        $data      = mysqli_real_escape_string($conexion, $data);
+        $consulta  = "UPDATE usuarios set idusuario='" . $usuarioCliente . "',contrasena='" . $contrasenaCliente . "' where idusuario='" . $usuarioAnterior . "'";
+
+        $resultado = $conexion->query($consulta);
+        if ($resultado) {
+            //msg("Exito Usuario");
+        } else {
+            msg("No Exito Usuario");
+        }
+        $consulta  = "UPDATE clientes set duiclientes='" . $duiCliente . "',nombreclientes='" . $nombreCliente . "',apellidoclientes='" . $apellidoCliente . "',direccionclientes='" . $direccionCliente . "',latitud='" . $latitud  . "',longitud='" . $longitud . "',telefonoclientes='" . $telefonoCliente . "',fotoclientes='" . $data . "',tipofotoc='" . $tipo . "',idusuario='" . $usuarioCliente . "' where idclientes='".$baccion."'";
+        $resultado = $conexion->query($consulta);
+        if ($resultado) {
+            msg("Exito Cliente");
+        } else {
+            msg("No Exito Cliente");
+        }
+    }
+  }
 }
 function msg($texto)
 {
     echo "<script type='text/javascript'>";
     echo' alertify.success("Registro Guardado    ✔");
     alertify.set("notifier","position", "top");';
+    echo 'document.location.href="estacionmeteorologica.php";';
     echo "</script>";
 }
 ?>
