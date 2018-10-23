@@ -40,9 +40,10 @@ if ($lon == "") {
 function selecciona() {
   if (document.getElementById("coordsLa").value!="" && document.getElementById("coordsLo").value!="") {
     window.top.latitud.value=document.getElementById("coordsLa").value;
-    window.top.latitud2.value=document.getElementById("coordsLa").value;
+  
 window.top.longitud.value=document.getElementById("coordsLo").value;
 window.top.longitud2.value=document.getElementById("coordsLo").value;
+      window.top.latitud2.value=document.getElementById("coordsLa").value;
   }else
   {
     alert("Mueva el cursor del mapa");
