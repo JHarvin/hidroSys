@@ -7,7 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	  
-    <title>Sistema Hidrometeorologico</title>
+    <title>SISPOZOS</title>
+    
 
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -40,15 +41,15 @@
              <!-- sidebar menu -->
              <?php 
                include "../Vistas/menuPrincipal.php";
-               $po=$_GET['po'];
             ?>
+            
             <!-- /sidebar menu -->
 
             <!-- /menu profile quick info -->
 
             <br />
 
-           
+   
 
             <!-- /menu footer buttons -->
             <div class="sidebar-footer hidden-small">
@@ -80,7 +81,7 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="images/img.jpg" alt="">Kevin Montano
+                    <img src="images/img.jpg" alt="">Kevin Jovel
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -107,11 +108,11 @@
         <div class="right_col" role="main">
           <div class="">
             <div class="page-title">
-              <div class="title_left">
-                <h3>Reporte del Rain Rate Promedio</h3>
+              <div class="title_center">
+                <h3>Listado de Visitas a las Estaciones Hidrometeorológicas</h3>
               </div>
 
-    <div class="title_right">
+              <div class="title_right">
                 <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
                   <!-- <div class="input-group">
                     <input type="text" class="form-control" placeholder="Search for...">
@@ -125,101 +126,52 @@
             <div class="clearfix"></div>
             
             <div class="row">
-              <div class="col-md-6 col-xs-6">
+              <div class="col-md-15 col-xs-12">
                 <div class="x_panel">
-                      <!-- MODAL-->
-            
-            <div class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1" id="miModal" role="dialog" >
-                <div class="modal-dialog" role="dialog">
-                    <div class="modal-content" role="document">
-                         <div class="modal-content">
-                        <div class="modal-header">
-
-                            <h4>¿Que desas visualizar?</h4>
-                            
-                          
-                            <h4 class="modal-title" id="myModalLabel"></h4>
-                        </div>
-                        <div class="modal-body">
-                            <div class="input-group">
-                                   <div class="row mb-12" style="float: right;margin-right: 20px; margin-top: 15px;">
-                                   
-                                    <a href="../Reportes/vista_GD1.php" class="btn">
-                                    <input type="submit" class="btn btn-warning" value="Cancelar" name="modGuardar">
-                                      </a>
-                                </div>
-                                 <div class="row mb-12" style="float: right; margin-right: 10px; margin-top: 15px;">
-                                     <a href="../Reportes/reporte_GD1.php?po=<?php echo $po;?>" class="btn">
-                                    <input type="submit" class="btn btn-info" value="Reporte" name="modGuardar">
-                                      </a>
-
-                                </div>
-                               
-                                 
-<!--                                 <div class="row mb-12" style="float: right; margin-right: 10px; margin-top: 15px;">
-                                     <a href="../Reportes/grafica_visita.php?po=<?php echo $po; ?>" class="btn">
-                                   <input type="submit" class="btn btn-success" value="Grafica" name="modGuardar">
-                                    </a>
-                                </div>-->
-                               
-                                </div>
-                            
-                                </div>   
-                                <!--ERROR COMUN Y LO DEJARE AQUI PARA QUE VEAS
-                                LA ETIQUETA </form> DETRO DE ELLA SIEMPRE TEIENE QUE ESTAR LOS BOTONES-->
-
-                                
-                           
-                        </div>
-
-
-                    </div>
-                </div>
-            </div>
-            <!-- Fin Div de modal-->
-                 <form action="" id="f1" name="f1" method="post" class="form-register" >
-        <!--<input type="hidden" value="upload" id="upload" name="a" />-->
-        <input type="hidden" name="tirar" id="pase"/>
                   <div class="x_title">
-                    
+                    <h2>Consulta</h2>
                     <ul class="nav navbar-right panel_toolbox">                   
                     </ul>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                    <br />
-                    <form class="form-horizontal form-label-left input_mask">
+                   <table id="datatable" class="table table-striped table-bordered">
+                      <thead>
+                        <tr>
+                          <th>Tipo de Visitante</th>
+                          <th>Visitante</th>
+                          <th>Fecha</th>
+                          <th>Estación Hidrometeorológica</th>
+                          <th>Observación</th>
+                        </tr>
+                      </thead>
 
-                      <div class="col-md-5 col-sm-5 col-xs-5 form-group has-feedback">
-                        <h4>Estado del Pozo</h4>
-                      </div>
-                         <div class="col-md-6 col-sm-6 col-xs-12 form-group">
-                            <select class="form-control" name="pozo">
-                              <?php
-                                          include_once '../ProcesoSubir/conexion.php';
-                                          $verPozo= mysqli_query($mysqli,"SELECT id_pozo, nombre FROM pozos");
-                              ?>
-                            <option>Seleccionar</option>
-                            <?php
-                             while ($row = mysqli_fetch_array($verPozo)) {
-                                         $idpozo=$row['id_pozo'];
-                                           echo '<option value='."$row[0]".'>'.$row['1'].'</option>';
-                                    }
-                                    ?>
-                            </select>
-                        </div>
-                      </div>
-                     
-                      <div class="form-group">
-                        <!--Este div es para que agarre la linea que separa los botones.-->
-                      </div>
-                     
-                      
-                      
-                      <div class="ln_solid"></div>
-                      <div class="form-group">
-                        <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                            <button type="submit" class="btn btn-success">Procesar</button>
+
+                      <tbody>  
+                          <?php
+                          include "../ProcesoSubir/conexion.php";
+              $query = mysqli_query ($mysqli,"SELECT p.tipo,v.nombre as nombre_de_visitante, hve.fechavisita ,hve.observacion, e.codiogestacion
+FROM pozos p 
+INNER JOIN hojavisitasestaciones hve 
+INNER JOIN visitantes v 
+INNER JOIN estacionmet e;");
+
+       while ($fila=mysqli_fetch_array($query)) {
+         # code...
+       
+                ?>
+                        <tr>
+                          <td><?php echo $fila['tipo']; ?></td>
+                          <td><?php  echo $fila['nombre_de_visitante']; ?></td>
+                          <td><?php  echo $fila['fechavisita'];?></td>
+                          <td><?php  echo $fila['codiogestacion'];?></td>
+                          <td><?php  echo $fila['observacion']; ?></td>
+                        
+                        <?php } ?> 
+      
+                      </tbody>
+                    </table>
+
                           <button type="button" class="btn btn-warning">Cancelar</button>
 						   <!-- <button class="btn btn-primary" type="reset">Reset</button> -->
                          
@@ -241,10 +193,17 @@
 
         <!-- footer content -->
        <?php 
-       include "../Vistas/footer.php";
-  ?>      
+       include "footer.php";
+       ?>
+        <!-- /footer content -->
       </div>
     </div>
+
+      
+
+            
+           
+          
 
     <!-- jQuery -->
     <script src="../vendors/jquery/dist/jquery.min.js"></script>
@@ -281,9 +240,22 @@
     <script src="../vendors/starrr/dist/starrr.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
+    <!-- Datatables -->
+    <script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="../vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="../vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+    <script src="../vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+    <script src="../vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+    <script src="../vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+    <script src="../vendors/jszip/dist/jszip.min.js"></script>
+    <script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
+    <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
 	
   </body>
 </html>
-<script type="text/javascript">
-    $('#miModal').modal('show');
-</script>

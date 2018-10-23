@@ -17,14 +17,14 @@ class PDF extends FPDF {
     function Header() {
         
         $this->Ln(10);
-        $this->Image('../Imagenes/ceia.png', 160, 20, 40);
+        $this->Image('../Imagenes/ceia.png',120, 20, 40);
         $this->Image('../Imagenes/minerva.png',25, 15,25);
         //$this->Image('images/ayuda.PNG', 0,0,600,600);
 
         $this->SetFont('Arial', 'B', 15);
         $this->Cell(40, 6, '', 0, 0, 'C');
         $this->SetTextColor(0);
-        $this->SetDrawColor(231, 169, 249);
+        //$this->SetDrawColor(231, 169, 249);
         $this->SetLineWidth(1.5);
         $this->Cell(104, 6, 'Sistema Hidrometeorologico', 0, 0, 'C');
        
@@ -32,14 +32,14 @@ class PDF extends FPDF {
          $this->SetFont('Arial', 'B', 15);
         $this->Cell(40, 6, '', 0, 0, 'C');
         $this->SetTextColor(0);
-        $this->SetDrawColor(231, 169, 249);
+       // $this->SetDrawColor(231, 169, 249);
         $this->SetLineWidth(1.5);
          $this->Cell(104,6, 'Informe de observaciones y ', 0, 0, 'C');
          $this->Ln(10);
          $this->SetFont('Arial', 'B', 15);
         $this->Cell(40, 6, '', 0, 0, 'C');
         $this->SetTextColor(0);
-        $this->SetDrawColor(231, 169, 249);
+        //$this->SetDrawColor(231, 169, 249);
         $this->SetLineWidth(1.5);
          $this->Cell(104,6, 'estados de los pozos', 0, 0, 'C');
       
@@ -72,14 +72,40 @@ class PDF extends FPDF {
 //****************************fin de la plantilla encabezado.******************
 //$reporte_grado = mysqli_query($conexion, "SELECT*FROM docente");
 //
-$pdf = new PDF();
+$pdf = new FPDF('L','mm','A4');
 $pdf->AliasNbPages();
 $pdf->AddPage();
 ////Para los grado
-     
+     //titulo encabezado porque arriba no funciona por ser vertical
         $pdf->SetFont('Arial', 'B', 12);
         
-  $pozo = mysqli_query($mysqli, "SELECT
+        $pdf->Ln(10);
+        $pdf->Image('../Imagenes/ceia.png',180, 20, 40);
+        $pdf->Image('../Imagenes/minerva.png',70, 15,25);
+        $pdf->SetFont('Arial', 'B', 15);
+        $pdf->Cell(40, 6, '', 0, 0, 'C');
+        $pdf->SetTextColor(0);
+       // $pdf->SetDrawColor(231, 169, 249);
+        $pdf->SetLineWidth(1);
+        $pdf->Cell(180, 6, 'Sistema Hidrometeorologico', 0, 0, 'C');
+       
+        $pdf->Ln(10);
+         $pdf->SetFont('Arial', 'B', 15);
+        $pdf->Cell(40, 6, '', 0, 0, 'C');
+        $pdf->SetTextColor(0);
+        //$pdf->SetDrawColor(231, 169, 249);
+        $pdf->SetLineWidth(1);
+         $pdf->Cell(180,6, 'Informe de observaciones y ', 0, 0, 'C');
+         $pdf->Ln(10);
+         $pdf->SetFont('Arial', 'B', 15);
+        $pdf->Cell(40, 6, '', 0, 0, 'C');
+        $pdf->SetTextColor(0);
+        //$pdf->SetDrawColor(231, 169, 249);
+        $pdf->SetLineWidth(1);
+         $pdf->Cell(180,6, 'estados de los pozos', 0, 0, 'C');
+      
+       $pdf->Ln(20);
+  $validar = mysqli_query($mysqli, "SELECT
 m.nombre,
 p.codigopozo,
 p.tipo,
@@ -89,27 +115,30 @@ p.observacion,
 p.estado
 FROM
 pozos p
-INNER JOIN municipios m ON m.idmunicipio = $po
+INNER JOIN municipios m ON m.idmunicipio=p.id_municipio WHERE m.idmunicipio=$po
+
 ORDER BY
 m.idmunicipio ASC");
-   while ($row1 = mysqli_fetch_array($pozo)) {
+  
+   if(mysqli_num_rows($validar)>0){ 
+   while ($row1 = mysqli_fetch_array($validar)) {
     $esta=$row1['nombre'];
 }
 $pdf->SetFont('Arial', 'B', 12);
 
 $pdf->Cell(70, 10, 'Municipio: ' .$esta, 0, 0, 'C');
 
-$pdf->Ln(7);
+$pdf->Ln(10);
 $pdf->SetFillColor(116,177,189);
 $pdf->SetFont('Arial', 'B', 12);
 
-$pdf->Cell(20, 4, 'Municipio',                 1, 0, 'C', 1);
-$pdf->Cell(20, 4, 'Pozo '                    , 1, 0, 'C', 1);
-$pdf->Cell(20, 4, 'Tipo de pozo',              1, 0, 'C', 1);
-$pdf->Cell(20,4 , 'Fecha de creacion de pozo ', 1, 0, 'C', 1);
-$pdf->Cell(20, 4, 'Geologia',                   1, 0, 'C', 1);
-$pdf->Cell(20, 4, 'Observacion ',               1, 0, 'C', 1);
-$pdf->Cell(20, 4, 'Estado',                     1, 1, 'C', 1);
+$pdf->Cell(40, 6, 'Municipio',                 0, 0, 'C', 1);
+$pdf->Cell(20, 6, 'Pozo '                    , 0, 0, 'C', 1);
+$pdf->Cell(30, 6, 'Tipo de pozo',              0, 0, 'C', 1);
+$pdf->Cell(60,6, 'Fecha de creacion de pozo ', 0, 0, 'C', 1);
+$pdf->Cell(20, 6, 'Geologia',                   0, 0, 'C', 1);
+$pdf->Cell(90, 6, 'Observacion ',               0, 0, 'C', 1);
+$pdf->Cell(20, 6, 'Estado',                     0, 1, 'C', 1);
 
 
 
@@ -125,7 +154,8 @@ p.observacion,
 p.estado
 FROM
 pozos p
-INNER JOIN municipios m ON m.idmunicipio = $po
+INNER JOIN municipios m ON m.idmunicipio=p.id_municipio WHERE m.idmunicipio=$po
+
 ORDER BY
 m.idmunicipio ASC");
 
@@ -133,17 +163,20 @@ m.idmunicipio ASC");
 
 
 while ($row = $pozo1->fetch_assoc()) {
-    $pdf->Cell(20, 6,$row['nombre'],     0, 0, 'C'); 
+    $pdf->Cell(40, 6,$row['nombre'],     0, 0, 'C'); 
     $pdf->Cell(20, 6,$row['codigopozo'], 0, 0, 'C');
-    $pdf->Cell(20, 6,$row['tipo'],       0 , 0, 'C'); 
-    $pdf->Cell(20, 6,$row['fechacreacion'], 0, 0, 'C');
+    $pdf->Cell(30, 6,$row['tipo'],       0 , 0, 'C'); 
+    $pdf->Cell(60, 6,$row['fechacreacion'], 0, 0, 'C');
     $pdf->Cell(20, 6,$row['geologia'],0, 0, 'C'); 
-    $pdf->Cell(20, 6,$row['observacion'], 0, 0, 'C');
+    $pdf->Cell(90, 6,$row['observacion'], 0, 0, 'C');
     $pdf->Cell(20, 6,$row['estado'],0, 1, 'C'); 
     
     ;
 }
-
+}else{
+            $pdf->Ln(30);
+       $pdf->Cell(150, 6,'No hay datos almacenados', 0, 0, 'C'); 
+       }
 $pdf->Output();
 ?>
 

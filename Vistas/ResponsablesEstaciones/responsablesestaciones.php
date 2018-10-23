@@ -182,7 +182,7 @@
 
                     <div class="x_content">
                      
-                    <button type="button" id="btnregistro" name="btnregistro" class="btn btn-primary" data-toggle="modal" data-target="#registro"><i class="fa fa-plus"></i> Agregar Responsable</button>
+                    <button type="button" id="btnregistro" name="btnregistro" class="btn btn-primary"><i class="fa fa-plus"></i> Agregar Responsable</button>
                     <br /> <br /> 
                     <!-- inicio tabla-->
                     <div id="div_resultado_responsable">
@@ -197,42 +197,68 @@
           </div>
 
           <!-- Modal -->
-          <form id="fromregistro" name="fromregistro">
+          <div class="modal fade" id="datosResponsable" name="datosResponsable" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog ">
+                      <div class="modal-content">
+
+                        <div class="modal-header">
+                          <h4 class="modal-title" id="myModalLabel" style="color: RGB(0, 0, 128);">Informaci&oacute;n Responsable de Estaciones Meteorológicas</h4>
+                        </div>
+                        <div class="modal-body1">
+                        </div>
+                        <div class="modal-footer">
+                          <p align="left"" style="color: RGB(0, 0, 128);">( ' ) Campos no Editables.</p>
+                          <button type="button" class="btn btn-round btn-default" id="modalcancelar" name="modalcancelar" data-dismiss="modal"><i class="fa fa-times">  Cerrar</i></button>
+                        </div>
+                          
+                        
+
+                      
+                      </div>
+                    </div>
+            </div>
+            <!-- Fin Modal -->
+
+          <!-- Modal -->
+          <form id="fromregistro" name="fromregistro" enctype="multipart/form-data">
                     <div class="modal fade" id="registro" name="registro" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-hidden="true">
                     <div class="modal-dialog">
                       <div class="modal-content">
 
                         <div class="modal-header">
-                          <h4 class="modal-title" id="myModalLabel" style="color: RGB(0, 0, 128);">Registro Responsable de Estaciones Meteorológicas
+                          <h4 class="modal-title" id="myModalLabel" style="color: RGB(0, 0, 128);">
 </h4>
                         </div>
                         
 
-                        <div class="modal-body1">
-                       
+                        <div class="modal-body">
+
+                        <input type="hidden" id="actualizar" name="actualizar">
+                        <input type="hidden" id="validarcampo" name="validarcampo">
                         
                         <!--inicia el div para capturar la imagen -->
-                        <div class="form-group " align="center" >
+                        <div class="form-group " align="center" id="img1">
                           <label for="control-label" for="foto">Foto</label>
                           <div name="preview" id="preview" class="thumbnail">
                             <a href="#" id="file-select" class="btn btn-success"><span class="fa fa-camera">&nbsp;&nbsp;&nbsp;</span>Elegir archivo</a>
                             <img id="imagen" name="imagen" src="../images/img2.png"/>
+                            
                           </div>
 
                             <div id="file-submit" >
-                              <input id="file" name="file" type="file" accept="image/*"/>
-                              <span class="help-block" id="error"></span>
+                              <input id="file" name="file" type="file" accept="image/jpeg,image/jpg,image/png"/>
+                              <span class="help-block" id="img2"></span>
                             </div> 
                           </div><br>
                         <!--finaliza el div para capturar la imagen -->
                         
-                        <div class="form-group " >
+                        <div class="form-group " id="resultins">
                           <label class="control-label col-md-3 col-sm-3 col-xs-12" for="institucion">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Instituci&oacute;n: <span class="required" style="color: #CD5C5C;"> *</span>
                           </label>
-                          <div class="col-md-8 col-sm-8 col-xs-12">
+                          <div class="col-md-8 col-sm-8 col-xs-12" >
                             <input type="text" id="institucion" name="institucion" placeholder="Digite Nombre Instituci&oacute;n (Alcad&iacute;a, Unidad, Otro)" class="form-control col-md-7 col-xs-12" tabindex="1">
                             <br>
-                            <span class="help-block" id="error"></span>
+                            <span class="help-block" id="resultin"></span>
                           </div>
                         </div><br><br><br>
                         <div class="row col-lg-12 col-sm-offset-2 col-md-8 col-md-offset-2 ">
@@ -240,7 +266,7 @@
                           <label for="responsable">Responsable: <span class="required" style="color: #CD5C5C;"> *</span>
                           </label>
                           <div >
-                            <input type="text" id="responsable" name="responsable" placeholder="Digite Nombre Completo del Responsable" class="form-control col-md-7 col-xs-12" tabindex="2">
+                            <input type="text" id="responsable" name="responsable" placeholder="Digite Nombre Completo Responsable" class="form-control col-md-7 col-xs-12" tabindex="2">
                             <br>
                             <span class="help-block" id="error"></span>
                           </div>
@@ -262,7 +288,7 @@
                           <label for="telefono1">Tel&eacute;fono 1: 
                           </label>
                           <div >
-                            <input type="text" id="telefono1" name="telefono1" placeholder="Digite N&uacute;mero de Tel&eacute;fono" class="form-control col-md-7 col-xs-12" tabindex="4">
+                            <input type="text" id="telefono1" name="telefono1" placeholder="Digite N&uacute;mero de Tel&eacute;fono" data-inputmask="'mask' : '9999-9999'" class="form-control col-md-7 col-xs-12" tabindex="4">
                             <br>
                             <span class="help-block" id="error"></span>
                           </div>
@@ -272,7 +298,7 @@
                           <label  for="telefono2">Tel&eacute;fono 2: 
                           </label>
                           <div>
-                            <input type="text" id="telefono2" name="telefono2" placeholder="Digite N&uacute;mero de Tel&eacute;fono" class="form-control col-md-7 col-xs-12" tabindex="5">
+                            <input type="text" id="telefono2" name="telefono2" placeholder="Digite N&uacute;mero de Tel&eacute;fono"  data-inputmask="'mask' : '9999-9999'" class="form-control col-md-7 col-xs-12" tabindex="5">
                             <br>
                             <span class="help-block" id="error"></span>
                           </div>
@@ -284,7 +310,8 @@
                         <div class="modal-footer">
                           <p align="left" style="color:RGB(205, 92, 92);">( * ) Campos Obligatorios.</p>
                           <button class="btn btn-round btn-primary" type="button"  id="modalguardar" name="modalguardar"><i class="fa fa-save">  Guardar</i></button>
-                          <button type="button" class="btn btn-round btn-default" data-dismiss="modal"><i class="fa fa-ban">  Cancelar</i></button>
+                          <button class="btn btn-round btn-primary" type="button"  id="modalactualizar" name="modalactualizar"><i class="fa fa-refresh">  Actualizar</i></button>
+                          <button type="button" class="btn btn-round btn-default" id="modalcancelar" name="modalcancelar" data-dismiss="modal"><i class="fa fa-times">  Cerrar</i></button>
                         </div>
 
                        
@@ -345,6 +372,9 @@
     
     <!-- include the script -->
     <script src="../../libreriasJS/alertifyjs/alertify.min.js"></script>
+
+    <!-- jquery.inputmask -->
+    <script src="../../vendors/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js"></script>
     
     <!-- Datatables -->
     <script src="../../vendors/datatables.net/js/jquery.dataTables.min.js"></script>

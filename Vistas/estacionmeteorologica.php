@@ -6,7 +6,7 @@ error_reporting(E_ALL & ~E_NOTICE);
  $conexion->set_charset("utf8");
  //Query para generar codigo.
  
-                  $resultc = $conexion->query("select id_estacion as id from estacionmet");
+                  $resultc = $conexion->query("select id_estacion as id from estacionmet order by id ASC");
                       if ($resultc) {
 
                         while ($filac = $resultc->fetch_object()) {
@@ -20,10 +20,11 @@ error_reporting(E_ALL & ~E_NOTICE);
 <!DOCTYPE html>
 <html lang="es">
   <head>
+   
+ 
   <script type="text/javascript">
     $(document).ready(function () {
       recargarLista();
-
 
       $('#lista1').change(function(){
         recargarLista();
@@ -36,6 +37,26 @@ error_reporting(E_ALL & ~E_NOTICE);
 
 
   <script type="text/javascript">
+  
+  function verImagen(id){
+   
+    $.ajax(
+      {
+        type:"POST",
+        url:"imagenRecuperada.php",
+        data:"id="+id,
+        success:function(r){
+          $('#imagenRecuperada').html(r);
+         // ponerAbreviatura();
+        }
+      });
+  }
+  
+   function llamarPaginaMapa(lat,lon)
+        {
+          var url="/supermarket/pages/verMapa.php?lat="+lat+"&lon="+lon;
+          window.open(url,"Nuevo","alwaysRaised=no");
+        }
   function ponerAbreviatura(){
     var iddepto=document.getElementById("lista1").value;
     var idmunicipio=document.getElementById("lista2").value;
@@ -66,6 +87,9 @@ error_reporting(E_ALL & ~E_NOTICE);
         }
       });
   }
+
+
+  
   function verificar(){
           if(document.getElementById('codigo').value=="" ||
             document.getElementById('lista1').value=="0"  ||
@@ -73,24 +97,134 @@ error_reporting(E_ALL & ~E_NOTICE);
             document.getElementById('institucion').value=="" ||
             document.getElementById('latitud').value=="" ||
             document.getElementById('longitud').value==""){
-            alert("Complete los campos");
+            // alertify.success("Error:Porfavor complete todos los campos.");
+            // alertify.set("notifier","position", "top");
+            alert("Por favor complete todos los campos.");
           }else{
+
             document.getElementById('bandera').value="add";
-            alert("no van vacios.");
+            
            document.hidro.submit();
           }
 
+        }
+        function verificarM(){
+          if(document.getElementById('codigom').value=="" ||
+            document.getElementById('lista1m').value=="0"  ||
+            document.getElementById('lista2m').value=="0"  ||
+            document.getElementById('institucionm').value==""){
+            alertify.success("Error:Porfavor complete todos los campos.");
+            alertify.set("notifier","position", "top");
+            alert("Porfavor revise que los campos esten completos.");
+          }else{
+            document.getElementById('bandera2').value="mod";            
+           
+           document.editform.submit();
+          }
         }
   function prueba2(){
    
     alert(document.getElementById("latitud").value);
     alert(document.getElementById("longitud").value);
   }
+  //funciones para editar
+  function Editar_estacion(id,codigo,departamento,municipio,institucion,latitud,longitud,correaux){
+    
+    document.getElementById("baccion2").value=id;
+    document.getElementById("codigom").value=codigo;
+    document.getElementById("lista1m").value=departamento;
+    llenarMunicipiosM(departamento,municipio);
+    document.getElementById("institucionm").value=institucion;
+    document.getElementById("latitud2").value=latitud;
+    document.getElementById("longitud2").value=longitud;
+    document.getElementById("mapita").src="ej.php?lat="+latitud+"&lon="+longitud;
+    document.getElementById("correaux").value=correaux;
+
+  }
+  //ajax para llenar el combo del modal para editar con los municipios
+  function llenarMunicipiosM(depto,municipio){
+     $.ajax(
+      {
+        type:"POST",
+        url:"departamentosMunicipiosM.php",
+        data:"departamento="+depto+"&municipio="+municipio,
+        success:function(r){
+          $('#listam').html(r);
+          //ponerAbreviatura();
+        }
+      });
+  }
+   function pruebam(){
+    $.ajax(
+      {
+        type:"POST",
+        url:"departamentosMunicipiosM.php",
+        data:"departamento="+$('#lista1m').val()+"&municipio=0",
+        success:function(r){
+          $('#listam').html(r);
+          ponerAbreviaturaM();
+        }
+      });
+  }
+  function ponerAbreviaturaM(){
+    var iddepto=document.getElementById("lista1m").value;
+    var idmunicipio=document.getElementById("lista2m").value;
+    // alert(iddepto);
+    // alert(idmunicipio);
+    if(iddepto!=0 && idmunicipio!=0){
+      $.ajax({
+        type: "POST",
+        dataType: 'html',
+        url: "abreviaturas.php",
+        data: "departamento="+iddepto+"&municipio="+idmunicipio,
+        success: function(resp){
+           //alert(resp);
+           document.getElementById("codigom").value=resp+document.getElementById("correaux").value;
+        }
+    });
+    }
+  }
   </script>
   <script>
-
+    function activar(id){
+    
+    $.ajax(
+      {
+        type:"POST",
+        url:"onoffestacion.php",
+        data:"id="+id+"&op=1",
+        success:function(r){
+          if(r=="Si"){
+            alert("Estacion meteorologica activada.");
+            document.location.href="estacionmeteorologica.php";
+          }else{
+             alert("Error al activar la estacion.");
+          }
+         // ponerAbreviatura();
+        }
+      });
+  }
+    function desactivar(id){
+   
+    $.ajax(
+      {
+        type:"POST",
+        url:"onoffestacion.php",
+        data:"id="+id+"&op=2",
+        success:function(r){
+          if(r=="Si"){
+            alert("Estacion meteorologica desactivada.");
+            document.location.href="estacionmeteorologica.php";
+          }else{
+             alert("Error al desactivar la estacion.");
+          }
+         // ponerAbreviatura();
+        }
+      });
+  }
   </script>
-
+      <link rel="stylesheet" href="../libreriasJS/alertifyjs/alertify.min.css">
+   
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- Meta, title, CSS, favicons, etc. -->
     <meta charset="utf-8">
@@ -291,6 +425,7 @@ error_reporting(E_ALL & ~E_NOTICE);
                         <input type="hidden" class="form-control has-feedback-left" id="longitud" name="longitud" placeholder="Longitud">
                         <input type="hidden" class="form-control has-feedback-left" id="latitud" name="latitud" placeholder="Latitud">
                       <input type="hidden" class="form-control has-feedback-left" id="correlativo" name="correlativo" placeholder="correlativo" value="<?php echo $codigo;?>">
+                      
 
                       </div>
                      
@@ -360,12 +495,12 @@ error_reporting(E_ALL & ~E_NOTICE);
                             <th width="75"><font color="black">Codigo</font></th>
                             <th width="150"><font color="black">Departamento</font></th>
                             <th width="150"><font color="black">Municipio</font></th>
-                            <th width="500"><font color="black">Responsable</font></th>
+                            <th width="300"><font color="black">Responsable</font></th>
                             <th width="150"><font font color="black">Ubicacion</font></th>
                             <th width="150"><font font color="black">Ver</font></th>
                             <th width="100"><font font font color="black">Editar</font></th>
                             
-                            <th width="10"><font font font font font color="black">Eliminar</font></th>
+                            <th width="10"><font font font font font color="black">Activar/Desactivar</font></th>
                         </tr>
                     </thead>
 
@@ -387,15 +522,45 @@ error_reporting(E_ALL & ~E_NOTICE);
                             ?>
                             <tr>
                                 <td><?php echo $codigom; ?></td>
-                                <td><?php echo $departamentom; ?></td>
-                                <td><?php echo $municipiom; ?></td>
-                                <td><?php echo $responsablem; ?></td>
-                                <td ><center><button type="button" class="btn btn-success"><i class="fa fa-map"></i></button></center><?php echo $row['genero']; ?></td>
+                                <?php
+                                $consulta  = "select nombredepto from departamentos where iddepto=".$departamentom;
+                                $resultadod = $conexion->query($consulta);
+                             
+                            while($filad= $resultadod->fetch_object()){
+                              $deptotemp=$filad->nombredepto;
+                            }
+                            
+                              ?>
+                                <td><?php echo $deptotemp; ?></td>
+                                 <?php
+                                $consulta  = "select nombre from municipios where idmunicipio=".$municipiom;
+                                $resultadom = $conexion->query($consulta);
+                             
+                            while($filam= $resultadom->fetch_object()){
+                              $muntemp=$filam->nombre;
+                            }
+                            
+                              ?>
+                                <td><?php echo $muntemp; ?></td>
+                                <?php
+                                $consulta  = "select institucion from respestaciones where idresponsable=".$responsablem;
+                                $resultadom = $conexion->query($consulta);
+                            if($resultadom){ 
+                            while($filam= $resultadom->fetch_object()){
+                              $resptemp=$filam->institucion;
+                            }
+                            }
+                            $correaux = substr($codigom, -2);
+                              
+                              ?>
+                              
+                                <td><?php echo $resptemp; ?></td>
+                                <td ><center><button type='button' class='btn btn-success' onclick='llamarPaginaMapa(<?php echo $latitudm ?>,<?php echo $longitudm ?>)'><i class="fa fa-map"></i></button></center><?php echo $row['genero']; ?></td>
                                 
                                 <td><!--boton de ver-->
                                   <div class="row">
                                     <div class="col-md-6">
-                                        <center><a href="#" data-toggle="modal" data-target="#actualizarVisitante" onclick="Editar_visita('<?php echo $duiVisita; ?>','<?php echo $NombreVisita; ?>','<?php echo $generoVisita;?>','<?php echo $tipoVisita;?>','<?php echo $celularVisita;?>','<?php echo $pas;?>')" ><button type="button" class="btn btn-success"><i class="fa fa-eye"></i></button></a></center>
+                                        <center><a href="#" data-toggle="modal" data-target="#confirm-imagen" onclick="verImagen('<?php echo $idm; ?>')" ><button type="button" class="btn btn-success"><i class="fa fa-eye"></i></button></a></center>
                                 
                                     </div>
 
@@ -405,7 +570,7 @@ error_reporting(E_ALL & ~E_NOTICE);
                                     <td><!--boton de modificar-->
                                   <div class="row">
                                     <div class="col-md-6">
-                                        <a href="#" data-toggle="modal" data-target="#actualizarVisitante" onclick="Editar_visita('<?php echo $duiVisita; ?>','<?php echo $NombreVisita; ?>','<?php echo $generoVisita;?>','<?php echo $tipoVisita;?>','<?php echo $celularVisita;?>','<?php echo $pas;?>')" ><button type="button" class="btn btn-success"><i class="fa fa-pencil"></i></button></a>
+                                        <a href="#" data-toggle="modal" data-target="#actualizarVisitante" onclick="Editar_estacion('<?php echo $idm; ?>','<?php echo $codigom; ?>','<?php echo $departamentom; ?>','<?php echo $municipiom; ?>','<?php echo $responsablem; ?>','<?php echo $latitudm; ?>','<?php echo $longitudm; ?>','<?php echo $correaux; ?>')" ><button type="button" class="btn btn-success"><i class="fa fa-pencil"></i></button></a>
                                 
                                     </div>
 
@@ -418,8 +583,23 @@ error_reporting(E_ALL & ~E_NOTICE);
                                         
                                          
                                          <div class="col-md-6">
+                                        <?php 
+                                        if($activam==1){
+
+                                          ?>
+                                          <button id="activar" type='button' class='btn btn-danger' onclick="desactivar('<?php echo $idm; ?>')" title='Activar'><i class='fa fa-times'></i></button>
+                                         
                                         
-                                        <a href="#" data-href="matar.php?id_visitante=<?php echo $row['id_visitante']; ?>" data-toggle="modal" data-target="#confirm-delete" type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button></a>
+                                        <?php 
+                                        }else{
+                                          ?>
+
+                                          <button id="activar" type='button' class='btn btn-success' onclick="activar('<?php echo $idm; ?>')" title='Activar'><i class='fa fa-check-square'></i></button>
+                                          <?php
+                                        }
+                                        
+                                        ?>
+                                        
                                       
                                 
                                     </div>
@@ -466,7 +646,29 @@ error_reporting(E_ALL & ~E_NOTICE);
             </div>
         </div> 
     </div>          
+     <!-- MODAL PARA VER FOTO ESTACION -->
+  <div class="modal fade" id="confirm-imagen" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title" id="myModalLabel"><font font font font color="black">Fotografia de la estacion.</font></h3> 
+                </div>
 
+                <div class="panel-body" name="imagenRecuperada" id="imagenRecuperada">
+                          
+                    
+                                       
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-warning pull-right" data-dismiss="modal">Cerrar</button>
+                    
+                </div> 
+            </div>
+        </div> 
+    </div> 
 <?php
 include_once 'editarEstacion.php';
 
@@ -495,6 +697,8 @@ include_once 'editarEstacion.php';
       </div>
     </div>
 
+  <script src="../libreriasJS/alertifyjs/alertify.css"></script>
+   <script src="../libreriasJS/alertifyjs/alertify.min.js"></script>
     <!-- jQuery -->
     <script src="../vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
@@ -536,6 +740,7 @@ include_once 'editarEstacion.php';
 <?php
  include "../ProcesoSubir/conexioneq.php";
 $bandera          = $_REQUEST["bandera"];
+$bandera2          = $_REQUEST["bandera2"];
 $codigo    = $_REQUEST["codigo"];
 $lista1    = $_REQUEST["lista1"];
 $lista2    = $_REQUEST["lista2"];
@@ -543,9 +748,19 @@ $institucion = $_REQUEST["institucion"];
 $imagenEstacion = $_REQUEST["imagen"];
 $latitud = $_REQUEST["latitud"];
 $longitud = $_REQUEST["longitud"];
+//VARIABLES PARA LA MODIFICACION
+$codigom = $_REQUEST["codigom"];
+$lista1m = $_REQUEST["lista1m"];
+$lista2m = $_REQUEST["lista2m"];
+$latitud2 = $_REQUEST["latitud2"];
+$longitud2 = $_REQUEST["longitud2"];
+$imagenEstacion = $_REQUEST["imagen2"];
+$institucionm = $_REQUEST["institucionm"];
+$baccion = $_REQUEST["baccion2"];
+
 
 if ($bandera == "add") {
-  msg("entra a guardar");
+  if($_FILES['imagen']['name']!=null){
     $permitidos = array("image/jpg", "image/jpeg", "image/png");
     $limite_kb  = 16384; //tamanio maximo que permitira subir, es el limite de medium blow(16mb)
     if (in_array($_FILES['imagen']['type'], $permitidos) && $_FILES['imagen']['size'] <= $limite_kb * 1024) {
@@ -561,20 +776,87 @@ if ($bandera == "add") {
         $data      = mysqli_real_escape_string($conexion, $data);
         
         $consulta  = "INSERT INTO estacionmet VALUES('null','" . $codigo . "','" . $lista1. "','" . $lista2. "','1','" . $data . "','" . $tipo . "','" . $latitud  . "','".$longitud."','".$institucion."')";
-        msg($consulta);
+        //msg($consulta);
         $resultado = $conexion->query($consulta);
         if ($resultado) {
-            msg("Exito");
+            msgtest("Exito");
+           redir();
         } else {
            echo mysqli_error($conexion);
         }
     }
 
+}else{
+    $consulta  = "INSERT INTO estacionmet VALUES('null','" . $codigo . "','" . $lista1. "','" . $lista2. "','1','','','" . $latitud  . "','".$longitud."','".$institucion."')";
+       // msg($consulta);
+        $resultado = $conexion->query($consulta);
+        if ($resultado) {
+            msgtest("Exito");
+           redir();
+        } else {
+           echo mysqli_error($conexion);
+        }
+}
+}
+
+//PARA EDITAR
+if($bandera2=="mod"){
+  //msgtest("Entra a mod");
+   if($_FILES['imagen2']['name']==null){//comparamos si ya se subio una imagen o no
+       //  msgtest("Entra a modificar sin imagen.");
+        $consultac  = "UPDATE estacionmet set codiogestacion='" . $codigom . "',iddepartamento='" . $lista1m . "',idmunicipio='" . $lista2m . "',latitud='" . $latitud2 . "',longitud='" . $longitud2 . "',idresponsable='" . $institucionm . "' where id_estacion='" . $baccion . "'";
+        $resultado = $conexion->query($consultac);
+        if ($resultado) {
+            msgtest("Modificacion exitosa.");
+           redir();
+        } else {
+            msgtest("No Exito sin imagen.");
+        }
+      }else{
+       $permitidos = array("image/jpg", "image/jpeg", "image/png");
+    $limite_kb  = 16384; //tamanio maximo que permitira subir, es el limite de medium blow(16mb)
+    if (in_array($_FILES['imagen2']['type'], $permitidos) && $_FILES['imagen2']['size'] <= $limite_kb * 1024) {
+      
+        //Este es el archivo temporaral.
+        $imagen_temporal = $_FILES['imagen2']['tmp_name'];
+        //este es el tipo de archivo
+        $tipo = $_FILES['imagen2']['type'];
+        //leer el archivo temporarl en binario
+        $fp   = fopen($imagen_temporal, 'r+b');
+        $data = fread($fp, filesize($imagen_temporal));
+        fclose($fp);
+        //escapar los caracteres
+        $data      = mysqli_real_escape_string($conexion, $data);
+       
+        $consulta  = "UPDATE estacionmet set codiogestacion='" . $codigom . "',iddepartamento='" . $lista1m . "',idmunicipio='" . $lista2m . "',latitud='" . $latitud2  . "',longitud='" . $longitud2 . "',foto='" . $data . "',tipofoto='" . $tipo . "',idresponsable='" . $institucionm . "' where id_estacion='".$baccion."'";
+        $resultado = $conexion->query($consulta);
+        if ($resultado) {
+            msgtest("Exito.");
+            redir();
+        } else {
+            msgtest("No Exito.");
+        }
+    }
+  }
 }
 function msg($texto)
 {
     echo "<script type='text/javascript'>";
-    echo "alert('$texto');";
+    echo' alertify.success("Registro Guardado    ✔");
+    alertify.set("notifier","position", "top");';
+    echo 'document.location.href="estacionmeteorologica.php";';
+    echo "</script>";
+}
+function msgtest($texto){
+  echo "<script type='text/javascript'>";
+    echo "alert('".$texto."')";
+    
+    echo "</script>";
+}
+function redir(){
+  echo "<script type='text/javascript'>";
+ 
+      echo 'document.location.href="estacionmeteorologica.php";';
     echo "</script>";
 }
 ?>

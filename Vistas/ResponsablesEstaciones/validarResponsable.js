@@ -21,6 +21,45 @@ $(document).ready(function(){
             }
              
             reader.readAsDataURL(this.files[0]);
+
+            var fileName = this.files[0].name;
+          var fileSize = this.files[0].size;
+        
+          if(fileSize > 1000000){
+            $('#img1').text("El archivo no debe superar 1MB");
+            $('#img').removeClass('has-success').addClass('has-error');
+            this.value = '';
+            this.files[0].name = '';
+          }else{
+            // recuperamos la extensión del archivo
+            var ext = fileName.split('.').pop();
+        
+            // console.log(ext);
+            switch (ext) {
+              case 'jpg':{
+                $('#img2').text("");
+                $('#img1').removeClass('has-error').addClass('has-success');
+                break;
+              }
+              case 'jpeg':{
+                $('#img2').text("");
+                $('#img1').removeClass('has-error').addClass('has-success');
+                break;
+              }
+
+              case 'png': {
+                $('#img2').text("");
+                $('#img1').removeClass('has-error').addClass('has-success');
+                break;
+              }
+              default:{
+              $('#img2').text("El archivo no tiene la extensión adecuada");
+              $('#img1').removeClass('has-success').addClass('has-error');
+                this.value = ''; // reset del valor
+                this.files[0].name = '';
+              }
+            }
+          }
         });
       
     $('input').on('keypress', function(e){
@@ -110,7 +149,7 @@ $(document).ready(function(){
       messages: {
         institucion: {
           required: "Por favor, ingrese instituci&oacute;n.",
-          maxlength: "Debe ingresar m&aacute;ximo 80 carácteres.",
+          maxlength: "Debe ingresar m&aacute;ximo 100 carácteres.",
           minlength: "Debe ingresar m&iacute;nimo 7 carácteres."
         },
         responsable: {
@@ -132,82 +171,209 @@ $(document).ready(function(){
         },
         direccion: {
           required: "Por favor, ingrese dirección.",
-          maxlength: "Debe ingresar m&aacute;ximo 80 carácteres.",
+          maxlength: "Debe ingresar m&aacute;ximo 300 carácteres.",
           minlength: "Debe ingresar m&iacute;nimo 10  carácteres."
         }
         
       }
     });
-   
+ 
 });
 
- /* $("#btnregistro").click(function(){
+function editar(id){
+
+  $.ajax({
+    type: 'POST',
+    url: '../../Vistas/ResponsablesEstaciones/obtenerDatos.php',
+    data: {'id': id}
+  })
+  .done(function(obtenerDatos){
+    var datos = eval(obtenerDatos);
+      $('h4.modal-title').text("Editar Responsable de Estaciones Meteorológicas");
+      $('#modalguardar').hide();
+      $('#modalactualizar').show();
+      $('#actualizar').val(id);
+      $('#institucion').val(datos[0]);
+      $('#validarcampo').val(datos[0]);
+      $('#responsable').val(datos[1]);
+      $('#direccion').val(datos[2]);
+      $('#telefono1').val(datos[3]);
+      $('#telefono2').val(datos[4]);
+      if(datos[5]!=="<img src='data:image\/*;base64,'\/>"){
+        $('#imagen').hide();
+        $('#preview').append(datos[5]);
+      }
+      $('#registro').modal({show:true});
+    
+                     
+  })
+  .fail(function(){
+    alert('Hubo un error al cargar la Pagina')
+  })
+
+}
+
+function ver(id){
+  
+   $.ajax({
+     type: 'POST',
+     url: '../../Vistas/ResponsablesEstaciones/getDatos.php',
+     data: {'id': id}
+   })
+   .done(function(listas_rep){
+     $('.modal-body1').html(listas_rep)
+     $('#datosResponsable').modal({show:true});
+   })
+   .fail(function(){
+     alert('Hubo un error al cargar la Pagina')
+   })
+ 
+ }
+
+  $("#btnregistro").click(function(){
+    $("#fromregistro")[0].reset();
+    $('#preview img').attr('src', '../images/img2.png');
+    $('h4.modal-title').text('Registro Responsable de Estaciones Meteorológicas');
+    $('#modalactualizar').hide();
+    $('#modalguardar').show();
     $('#registro').modal({show:true});
-  });*/
+  });
 
   $("#telefono2").keypress(function(e) {
     if(e.which == 13) {
-       $('#modalguardar').click();
+      if($('#modalguardar').is(':hidden')){
+        $('#modalactualizar').click();
+      }else{
+        $('#modalguardar').click();
+      }
     }
  });
+
+ $("#institucion").blur(function() {
+    var institucion = $("#institucion").val();
+    var validarcampo = $("#validarcampo").val();
+    var id = $("#actualizar").val();
+    if(id===""){
+        $.ajax({
+          type: 'POST',
+          url: '../../Vistas/ResponsablesEstaciones/validar_institucion.php',
+          data: {'institucion': institucion}
+        })
+        .done(function(listas_re){
+          if(listas_re!==""){
+            $("#institucion").val("");
+            $('#resultin').text("Nombre Ya Existe");
+            $('#resultins').removeClass('has-success').addClass('has-error');
+          }
+        })
+        .fail(function(){
+          alert('Hubo un error al cargar la Pagina')
+        })
+      }else{
+        if(institucion !== validarcampo){
+          $.ajax({
+            type: 'POST',
+            url: '../../Vistas/ResponsablesEstaciones/validar_institucion.php',
+            data: {'institucion': institucion}
+          })
+          .done(function(listas_re){
+            if(listas_re!==""){
+              $("#institucion").val("");
+              $('#resultin').text("Nombre Ya Existe");
+              $('#resultins').removeClass('has-success').addClass('has-error');
+            }
+          })
+          .fail(function(){
+            alert('Hubo un error al cargar la Pagina')
+          })
+        }
+      }
+    
+});
+
 
   $("#modalguardar").click(function(){
     if($("#fromregistro").valid()){ 
         
-                var foto = $('#file').val();
-                var institucion = $('#institucion').val(); 
-                var responsable = $('#responsable').val();
-                var direccion = $('#direccion').val();
-                var telefono1 = $('#telefono1').val();
-                var telefono2 = $('#telefono2').val();
-                var bandera = "guardar";
-               
-                
+                var formData = new FormData($("#fromregistro")[0]);
+        
                 $.ajax({
                   type: 'POST',
-                  url: '../../Controladores/crudresponsablesestaciones.php',
-                  data: {'institucion': institucion, 
-                         'responsable': responsable,
-                         'direccion': direccion,
-                         'telefono1': telefono1,
-                         'telefono2': telefono2,
-                         'foto': foto,
-                         'bandera' : bandera}
+                  url: '../../Controladores/ResponsablesEstaciones/guardar_responsable.php',
+
+                  //datos del formulario
+                  data: formData,
+                  //necesario para subir archivos via ajax
+                  cache: false,
+                  contentType: false,
+                  processData: false,
+
                 })
                 .done(function(listas_rep){
-                 // alert(listas_rep);
                     if(listas_rep === "Exito"){
                       
                       $("#div_resultado_responsable").load('tabla_responsables.php');
-                        $("#institucion").val("");
-                        $("#responsable").val("");
-                        $("#direccion").val("");
-                        $("#telefono1").val("");
-                        $("#telefono2").val("");
-                        $("#file").val("");
+                        $("#fromregistro")[0].reset();
                         $('#preview img').attr('src', '../images/img2.png');
                         $('#registro').modal('hide'); 
                         alertify.set("notifier","position", "top-right");
-                        alertify.success("Registro almacenado correctamente.    ✔");
+                        alertify.success("Registro Almacenado Correctamente.");
                         
-  
                     }
                     if(listas_rep === "Error"){
-                      $("#institucion").val("");
-                      $("#responsable").val("");
-                      $("#direccion").val("");
-                      $("#telefono1").val("");
-                      $("#telefono2").val("");
-                      $("#file").val("");
+                      $("#fromregistro")[0].reset();
                       $('#preview img').attr('src', '../images/img2.png');
                       $('#registro').modal('hide'); 
                       alertify.set("notifier","position", "top-right");
-                      alertify.error("Algo salio mal :(");
+                      alertify.error("Sin Conexión a la Base de Datos.");
                     }                
                     })
                     .fail(function(){
-                      alert('Hubo un errror al cargar la Pagina')
+                      alert('Hubo un error al cargar la Pagina')
                     })
                   }
     
 });
+
+$("#modalactualizar").click(function(){
+  if($("#fromregistro").valid()){ 
+           var formData = new FormData($("#fromregistro")[0]);
+      
+              $.ajax({
+                type: 'POST',
+                url: '../../Controladores/ResponsablesEstaciones/editar_responsable.php',
+
+                //datos del formulario
+                data: formData,
+                //necesario para subir archivos via ajax
+                cache: false,
+                contentType: false,
+                processData: false,
+
+              })
+              .done(function(lista_ac){
+                  if(lista_ac === "Exito"){
+                    
+                    $("#div_resultado_responsable").load('tabla_responsables.php');
+                      $("#fromregistro")[0].reset();
+                      $('#preview img').attr('src', '../images/img2.png');
+                      $('#registro').modal('hide'); 
+                      alertify.set("notifier","position", "top-right");
+                      alertify.success("Registro Almacenado Correctamente.");
+                      
+                  }
+                  if(lista_ac === "Error"){
+                    $("#fromregistro")[0].reset();
+                    $('#preview img').attr('src', '../images/img2.png');
+                    $('#registro').modal('hide'); 
+                    alertify.set("notifier","position", "top-right");
+                    alertify.error("Sin Conexión a la Base de Datos.");
+                  }                
+                  })
+                  .fail(function(){
+                    alert('Hubo un error al cargar la Pagina')
+                  })
+                }
+  
+});
+

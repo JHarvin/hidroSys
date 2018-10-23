@@ -506,6 +506,232 @@ include "../conexion/conexion.php";
         
       <!--Ubicacion Modal-->
 
+      <!--Modal para modificacion-->
+
+
+        
+        <div class="modal fade editar-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title"><i class="fa fa-pencil fa-3x"></i> Editar datos de pozo</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+
+                      <div class="col-md-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                              <h2>Datos de pozo</h2>
+                              
+                              <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                              <!--Contenido-->
+                              <div id="formularioEditar" style="display:block;">
+                              <form class="form-horizontal form-label-left input_mask" id="formPozosEdit">
+                                  <input id="id" type="hidden" value="">
+                                  <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+
+                                    
+
+                                    <input type="text" class="form-control has-feedback-left" id="codigoEdit" placeholder="Código" readonly="readonly">
+
+                                    <span class="fa fa-barcode form-control-feedback left" aria-hidden="true"></span>
+                                  </div>
+
+
+                                    <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                                      <select id="deptoEdit" name="deptoEdit" class="form-control">
+                                        <option value="0" selected hidden>Seleccione un departamento</option>
+                                          <?php 
+                                            $result = $conexion->query("SELECT * FROM departamentos");
+                                            while($fila=$result->fetch_object()){
+
+                                              echo "<option value=".$fila->iddepto.">".$fila->nombredepto."</option>";
+                                            }
+                                          ?>
+                                        </select>
+                                    </div>
+
+
+                                    <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                                      <select id="muniEdit" name="muniEdit" class="form-control">
+                                        <option value="0"  selected hidden>Seleccione un municipio</option>
+                                        
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                                      <select id="tipoEdit" name="tipoEdit" class="form-control">
+                                        <option value="0" selected hidden>Tipo de pozo</option>
+                                        <option value="municipal">Municipal</option>
+                                        <option value="gubernamental">Gubernamental (ANDA)</option>
+                                        <option value="privado">Privado</option>
+                                        <option value="comunitario">Comunitario</option>
+                                      </select>
+                                    </div>
+                                    
+
+                                  <div class="col-md-1 col-sm-1 col-xs-12 ">
+                                    <button id="mapa" type="button" class="btn btn-success"> Mapa</button>
+                                  </div>
+
+                                  <div class="col-md-5 col-sm-5 col-xs-12 form-group has-feedback">
+                                    <input id="latEdit" name="latEdit" type="text" class="form-control has-feedback-left" placeholder="Latitud, g°" readonly="readonly">
+                                    <span class="fa fa-location-arrow form-control-feedback left" aria-hidden="true"></span>
+                                    <span class=" form-control-feedback rigth" aria-hidden="true">Lat</span>
+                                  </div>
+
+                                  <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                    <input id="lonEdit" name="lonEdit" type="text" class="form-control has-feedback-left" placeholder="Longitud, g°" readonly="readonly">
+                                    <span class="fa fa-location-arrow form-control-feedback left" aria-hidden="true"></span>
+                                    <span class=" form-control-feedback rigth" aria-hidden="true">Long</span>
+                                  </div>
+
+                                  <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                    <input id="alturaEdit" name="alturaEdit" type="text" class="form-control has-feedback-left" placeholder="Altura, msnm (metros sobre el nivel del mar)">
+                                    <span class="fa fa-arrow-up form-control-feedback left" aria-hidden="true"></span>
+                                  </div>
+
+                                  <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                    <input id="nivelEdit" name="nivelEdit" type="text" class="form-control has-feedback-left" placeholder="Nivel del pozo, mtrs (metros)">
+                                    <span class="fa fa-list form-control-feedback left" aria-hidden="true"></span>
+                                  </div>
+
+                                  <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                    <input id="profundidadEdit" name="profundidadEdit" type="text" class="form-control has-feedback-left" placeholder="Profundidad, mts (metros)">
+                                    <span class="fa fa-arrow-down form-control-feedback left" aria-hidden="true"></span>
+                                  </div>
+                                  <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                    <input name="fechaEdit" id="fechaEdit" type="text" class="form-control has-feedback-left" placeholder="Fecha de creación" onfocus="(this.type='date')">
+                                    <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
+                                    
+                                  </div>
+                                    
+                                    <!--Selected propietarios-->
+                                    <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                                      <select id="propEdit" name="propEdit" class="form-control">
+                                        <option value="0" selected hidden>Propietario</option>
+                                        <?php 
+                                            $result = $conexion->query("SELECT * FROM propietariospozos");
+                                            while($fila=$result->fetch_object()){
+
+                                              echo "<option value=".$fila->id_propietario.">".$fila->dui."  ".$fila->nombre."</option>";
+                                            }
+                                          ?>
+                                        </select>
+                                    </div>
+
+                                    <div  class="col-md-6 col-sm-6 col-xs-12 form-group">
+                                      <select id="estadoEdit" name="estadoEdit" class="form-control">
+                                        <option value="1" selected>En uso</option>
+                                        <option value="0">Inactivo</option>
+                                        
+                                        
+                                      </select>
+                                    </div>
+
+                                  <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">        
+                                      <textarea id="geologiaEdit" name="geologiaEdit" class="form-control" style="max-height:150px; min-height:100px; resize: vertical;" placeholder="Geología."></textarea>
+                                  </div>
+                                  <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">        
+                                      <textarea id="observacionEdit" name="observacionEdit" class="form-control" style="max-height:150px; min-height:100px;resize: vertical;" placeholder="Observación."></textarea>
+                                  </div>
+
+                                  <div class="form-group">
+                                    <!--Este div es para que agarre la linea que separa los botones.-->
+                                  </div>
+
+
+
+                                  <div class="ln_solid"></div>
+                                  <div class="form-group">
+                                    <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                                    <button id="editarPozo" type="button" class="btn btn-success">Editar</button>
+                                    
+
+                                    
+                                    </div>
+                                  </div>
+
+                              </form>
+                              </div>
+                              <!--Contenido-->
+                              <div id="mapaEdit" style="display:none;">
+                                    <div class="embed-responsive embed-responsive-4by3">
+                                              <iframe id="iframe3" src="" class="embed-responsive-item" allowfullscreen></iframe>
+                                    </div>
+                                    <div class="col-md-1 col-sm-1 col-xs-12 ">
+                                    <button id="okeditCoords" type="button" class="btn btn-success">OK!</button>
+                                    </div>
+                                  </div>   
+                              </div> 
+                              <!--iframe-->
+                            </div>
+                          </div>
+                      </div>
+
+                    </div><!--Fin del content-->
+
+                    <div class="modal-footer cerrar">
+                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+                
+                
+                </div>
+              </div>
+         
+
+      <!--Modal para modificacion-->
+
+      <!-- Mapa modal2-->
+
+
+        <div class="modal fade mapaEdit-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title"><i class="fa fa-map-marker fa-3x"></i> Ubicación de pozos</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+
+                      <div class="col-md-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                              <h2>Seleccione una ubicación</h2>
+                              
+                              <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                              <br />
+                              <div class="embed-responsive embed-responsive-4by3">
+                                        <iframe id="iframe3" src="" class="embed-responsive-item" allowfullscreen></iframe>
+                                      </div>
+                            </div>
+                          </div>
+                      </div>
+
+                    </div><!--Fin del row-->
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+                
+                </div><!--Fin del content-->
+              </div>
+         </div>
+
+      <!-- Mapa modal2-->
+
     <!-- jQuery -->
     <script src="../vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->

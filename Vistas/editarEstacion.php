@@ -35,9 +35,9 @@
     }
 
 </script>
-<form name="form1" method="post" action="">
+<form name="editform" method="POST" enctype="multipart/form-data">
 
-    <input type="hidden" name="idDeActualizacion" id="idDeActualizacion" value="00000">
+   
 
     <div class="modal fade" id="actualizarVisitante" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -50,7 +50,11 @@
 
                 <div class="panel-body">
                     <br>
-
+    	            <input type="hidden" name="bandera2" id="bandera2">
+                    <input type="hidden" name="baccion2" id="baccion2">
+                     <input type="hidden" class="form-control has-feedback-left" id="longitud2" name="longitud2" placeholder="Longitud">
+                        <input type="hidden" class="form-control has-feedback-left" id="latitud2" name="latitud2" placeholder="Latitud">
+                    <input type="hidden" class="form-control has-feedback-left" id="correaux" name="correaux" placeholder="correlativo">
                     <div class="row">
 
                         <div class="col-md-12">
@@ -60,7 +64,7 @@
                             
                                 </div>
                                 <div class="col-md-6">Departamento
-                                 <select class="form-control" id="lista1" name='lista1' onchange="prueba()">
+                                 <select class="form-control" id="lista1m" name='lista1m' onchange="pruebam()">
                             <option value="0">Departamento</option>
                             <?php 
                             include "../ProcesoSubir/conexioneq.php";
@@ -83,28 +87,11 @@
 
                             <div class="row">
                      
-                                <div class="col-md-6"> Municipio
-                                     <select class="form-control" id="lista1" name='lista1' onchange="prueba()">
-                            <option value="0">Departamento</option>
-                            <?php 
-                            include "../ProcesoSubir/conexioneq.php";
-                             $consulta  = "select * from departamentos";
-                             $resultado = $conexion->query($consulta);
-                             if ($resultado) {
-                               while($fila= $resultado->fetch_object()){
-                                echo "<option value='".$fila->iddepto."'>".$fila->nombredepto."</option>";
-                               }
-                                 
-                             } else {
-                                echo "<option value=''>Error conectando la BD</option>";
-                             }
-                            
-                            ?>
-                            
-                          </select>
+                                <div class="col-md-6" id="listam" name="listam"> Municipio
+                                    
                                 </div>
                                  <div class="col-md-6">Institucion
-                                     <select class="form-control" id="institucion" name="institucion">
+                                     <select class="form-control" id="institucionm" name="institucionm">
                             <option value="">Institucion</option>
                             <?php 
                             include "../ProcesoSubir/conexioneq.php";
@@ -127,7 +114,7 @@
                             <div class="row">
                                
                                 <div class="col-md-12">Subir Fotografía(PNG,JPEG,JPG)
-                                    <input type="file" class="form-text" id="imagen" name="imagen" required accept="image/jpg,image/png,image/jpeg">
+                                    <input type="file" class="form-text" id="imagen2" name="imagen2" required accept="image/jpg,image/png,image/jpeg">
                                 </div>
                                 
                                 
@@ -137,7 +124,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                  <div class="embed-responsive" style="height:210px;">
-                                    <iframe style="height:210px;" src="ej.php" class="embed-responsive-item" allowfullscreen></iframe>
+                                    <iframe id="mapita" name="mapita" style="height:210px;" src="ej.php" class="embed-responsive-item" allowfullscreen></iframe>
                                  </div>
                                 </div>
                             </div>
@@ -151,7 +138,7 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-primary" >Actualizar</button>
+                    <button type="button" class="btn btn-primary" onclick="verificarM()">Actualizar</button>
                 </div> 
             </div>
         </div> 
