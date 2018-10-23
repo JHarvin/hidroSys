@@ -1,14 +1,15 @@
 <?php
 include "../ProcesoSubir/conexioneq.php";
-$result = $conexion->query("SELECT*FROM observadores,municipios,comunidades,departamentos where comunidades.iddepartamento=departamentos.iddepto and municipios.idmunicipio=comunidades.idmunicipio and comunidades.idobservador=observadores.id_observador");
+$result = $conexion->query("SELECT*FROM respestaciones,municipios,comunidades,departamentos where comunidades.iddepartamento=departamentos.iddepto and municipios.idmunicipio=comunidades.idmunicipio and comunidades.idobservador=respestaciones.idresponsable");
 if ($result) {
     while ($fila = $result->fetch_object()) {
         echo "<tr>";
+        echo "<td hidden>" . $fila->idcomunidad. "</td>";
         echo "<td>" . $fila->nombre . "</td>";
         echo "<td>" . $fila->tipo . "</td>";
         echo "<td>" . $fila->nombredepto. "</td>";
         echo "<td>" . $fila->nombremunicipio. "</td>";
-        echo "<td>" . $fila->nombreobservador. "</td>";
+        echo "<td>" . $fila->institucion. "</td>";
         
         
         echo "<td width=160>

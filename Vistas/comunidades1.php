@@ -42,40 +42,6 @@ echo '<div class="" id="buscarMunicipio">
 
 
 
-if ($opcion =="buscarResponsable") {
-	# code...
 
-	$existe=true;
-	include"comunidadConexion.php";
-
-	$result = $mysqli->query("select * from observadores where id_municipio='$criterio'");
-
-
-	if ($result) {
-		# code...
-		$existe=false;
-	?>
-                         <div class="" id="buscarResponsable">
-                          <select class="form-control" id="observador" name="observador">
-                            <option value="0">Responsable de la institución o comunidad</option>
-                             <?php  while ($valores = mysqli_fetch_array($result)) {
-          echo "<option value=".$valores['id_observador'].">".$valores['nombreobservador']."</option>";}
-                      ?>
-                            </select>
-                        </div>
-
- <?php
-
-	}if ($existe) {
-echo '<div class="" id="buscarResponsable">
-                          <select class="form-control" id="observador" name="observador">
-                            <option value="0">Responsable de la institución o comunidad</option>
-                            </select>
-                        </div>' ;
-
-	}
-	
-
-}
 
 ?>
