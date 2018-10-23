@@ -224,9 +224,14 @@ return false;
                       
                               <div class="form-group">
 
-                        <div class="col-md-6 col-sm-6 col-xs-12" id="buscarResponsable" >
+                        <div class="col-md-6 col-sm-6 col-xs-12" id="" >
                           <select class="form-control" id="observador" name="observador" required>
                             <option value="0">Responsable de la institución o comunidad</option>
+                              <?php
+                              $query = $mysqli -> query ("SELECT * FROM respestaciones");
+                              while ($valores = mysqli_fetch_array($query)) {
+                              echo "<option value=".$valores['idresponsable'].">".$valores['institucion']."</option>";}
+                            ?>
                             </select>
                         </div>
                     
@@ -304,11 +309,13 @@ return false;
                     <table id="datatable" class="table table-striped table-bordered">
                       <thead>
                         <tr>
+                            <th hidden> </th> 
                         <th>Nombre</th> 
                           <th>Tipo</th>
                           <th>Departamento</th>
                           <th>Municipio</th>
-                          <th>Observador</th>
+                          <th>Institucion responsable</th>
+                            <th> </th>
                           
                         </tr>
                       </thead>
