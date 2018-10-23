@@ -208,7 +208,7 @@
                         </div>
                         <div class="modal-footer">
                           <p align="left"" style="color: RGB(0, 0, 128);">( ' ) Campos no Editables.</p>
-                          <button type="button" class="btn btn-round btn-default" id="modalcancelar" name="modalcancelar" data-dismiss="modal"><i class="fa fa-ban">  Cancelar</i></button>
+                          <button type="button" class="btn btn-round btn-default" id="modalcancelar" name="modalcancelar" data-dismiss="modal"><i class="fa fa-times">  Cerrar</i></button>
                         </div>
                           
                         
@@ -311,7 +311,7 @@
                           <p align="left" style="color:RGB(205, 92, 92);">( * ) Campos Obligatorios.</p>
                           <button class="btn btn-round btn-primary" type="button"  id="modalguardar" name="modalguardar"><i class="fa fa-save">  Guardar</i></button>
                           <button class="btn btn-round btn-primary" type="button"  id="modalactualizar" name="modalactualizar"><i class="fa fa-refresh">  Actualizar</i></button>
-                          <button type="button" class="btn btn-round btn-default" id="modalcancelar" name="modalcancelar" data-dismiss="modal"><i class="fa fa-ban">  Cancelar</i></button>
+                          <button type="button" class="btn btn-round btn-default" id="modalcancelar" name="modalcancelar" data-dismiss="modal"><i class="fa fa-times">  Cerrar</i></button>
                         </div>
 
                        
