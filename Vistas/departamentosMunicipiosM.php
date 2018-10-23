@@ -4,7 +4,7 @@ $departamento   = $_POST['departamento'];
 $municipio   = $_POST['municipio'];
 $sql="SELECT * FROM municipios where iddepto=".$departamento;
 
-$cadena='Municipio<select class="form-control" id="lista2m" name="lista2m" >';
+$cadena='Municipio<select class="form-control" id="lista2m" name="lista2m" onchange="ponerAbreviaturaM();">';
 $cadena=$cadena.'"<option value="0">Municipios</option>"';
 $resultado = $conexion->query($sql);
                              if ($resultado) {

@@ -37,7 +37,7 @@
 </script>
 <form name="form1" method="post" enctype="multipart/form-data">
 
-    <input type="hidden" name="idDeActualizacion" id="idDeActualizacion" value="00000">
+   
 
     <div class="modal fade" id="actualizarVisitante" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -134,7 +134,7 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-primary" >Actualizar</button>
+                    <button type="button" class="btn btn-primary" onclick="verificarM()">Actualizar</button>
                 </div> 
             </div>
         </div> 

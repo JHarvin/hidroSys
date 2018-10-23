@@ -107,6 +107,20 @@ error_reporting(E_ALL & ~E_NOTICE);
           }
 
         }
+        function verificarM(){
+          if(document.getElementById('codigom').value=="" ||
+            document.getElementById('lista1m').value=="0"  ||
+            document.getElementById('lista2m').value=="0"  ||
+            document.getElementById('institucionm').value==""){
+            alertify.success("Error:Porfavor complete todos los campos.");
+            alertify.set("notifier","position", "top");
+            alert("Los campos no pueden estar vacios.");
+          }else{
+            document.getElementById('bandera').value="mod";            
+            alert("no van vacios.");
+           document.form1.submit();
+          }
+        }
   function prueba2(){
    
     alert(document.getElementById("latitud").value);
@@ -114,7 +128,8 @@ error_reporting(E_ALL & ~E_NOTICE);
   }
   //funciones para editar
   function Editar_estacion(id,codigo,departamento,municipio,institucion,latitud,longitud,correaux){
-  
+    
+    document.getElementById("baccion").value=id;
     document.getElementById("codigom").value=codigo;
     document.getElementById("lista1m").value=departamento;
     llenarMunicipiosM(departamento,municipio);
@@ -146,9 +161,27 @@ error_reporting(E_ALL & ~E_NOTICE);
         data:"departamento="+$('#lista1m').val()+"&municipio=0",
         success:function(r){
           $('#listam').html(r);
-         // ponerAbreviatura();
+          ponerAbreviaturaM();
         }
       });
+  }
+  function ponerAbreviaturaM(){
+    var iddepto=document.getElementById("lista1m").value;
+    var idmunicipio=document.getElementById("lista2m").value;
+    // alert(iddepto);
+    // alert(idmunicipio);
+    if(iddepto!=0 && idmunicipio!=0){
+      $.ajax({
+        type: "POST",
+        dataType: 'html',
+        url: "abreviaturas.php",
+        data: "departamento="+iddepto+"&municipio="+idmunicipio,
+        success: function(resp){
+           //alert(resp);
+           document.getElementById("codigom").value=resp+document.getElementById("correaux").value;
+        }
+    });
+    }
   }
   </script>
   <script>
@@ -481,7 +514,8 @@ error_reporting(E_ALL & ~E_NOTICE);
                               $resptemp=$filam->institucion;
                             }
                             }
-                            $correaux=sprintf("%02s",$idm);    
+                            $correaux = substr($codigom, -2);
+                              
                               ?>
                               
                                 <td><?php echo $resptemp; ?></td>
@@ -662,6 +696,12 @@ $institucion = $_REQUEST["institucion"];
 $imagenEstacion = $_REQUEST["imagen"];
 $latitud = $_REQUEST["latitud"];
 $longitud = $_REQUEST["longitud"];
+//VARIABLES PARA LA MODIFICACION
+$codigom = $_REQUEST["codigom"];
+$lista1m = $_REQUEST["lista1m"];
+$lista2m = $_REQUEST["lista2m"];
+$institucionm = $_REQUEST["institucionm"];
+
 
 if ($bandera == "add") {
   msg("entra a guardar");
