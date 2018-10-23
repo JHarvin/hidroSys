@@ -12,7 +12,15 @@ require '../ProcesoSubir/conexion.php';
 	  
     <title>Ingenieria de Software</title>
 
+     <link rel="stylesheet"  type="text/css" href="../libreriasJS/alertifyjs/css/alertify.css">
     
+    <link rel="stylesheet" type="text/css" href="../libreriasJS/alertifyjs/css/alertify.min.css"> 
+    <link rel="stylesheet" type="text/css" href="../libreriasJS/alertifyjs/css/alertify.rtl.css">
+    <link rel="stylesheet" type="text/css" href="../libreriasJS/alertifyjs/css/alertify.rtl.min.css">
+    <link rel="stylesheet" type="text/css" href="../libreriasJS/alertifyjs/css/themes/default.css">
+
+
+
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -39,7 +47,7 @@ require '../ProcesoSubir/conexion.php';
   function sele(){
   var cond= $("#condi").val();
   if (cond==1) {
-     window.location="../Vistas/usuarios.php";
+     window.location="../Vistas/usuarios.php?aux1=1";
   }else{window.location="../Vistas/usuariosBaja.php";}
 
 }
@@ -170,9 +178,13 @@ $resultado = $mysqli->query($sql);
 <option value="0" disabled="true">Inactivo </option>
 </select>
 </div>
-
-                    <ul class="nav navbar-right panel_toolbox">                   
-                    </ul>
+<!--para desplegar la tabla-->
+                     <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                   </li>
+                      
+                    </ul><!--FIN para desplegar la tabla-->
+                   
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
@@ -186,7 +198,7 @@ $resultado = $mysqli->query($sql);
                           <th>E-mail</th>
                           <th>Contraseña</th>
                           <th>Nombre de Usuario</th>
-                          <th>Tipo</th>
+                          
                           <th>Editar</th>
                           <th>Activar</th>
                         </tr>
@@ -205,8 +217,9 @@ $resultado = $mysqli->query($sql);
                     $genero=$fila['genero'];
                     $correo=$fila['email'];
                     $contra=$fila['contrasena'];
+                   
                     $nombreusu=$fila['nombre_de_usuario'];
-                    $id=$fila['idusuario'];
+                   $id=$fila['idusuario'];
                 ?>
 
                         <tr>
@@ -217,6 +230,7 @@ $resultado = $mysqli->query($sql);
                           <td><?php  echo $fila['email']; ?></td>
                           <td><?php  echo $fila['contrasena']; ?></td>
                           <td><?php  echo $fila['nombre_de_usuario']; ?></td>
+                         
                         
                          <td><!--boton de modificar-->
                                   <div class="row">
@@ -226,8 +240,8 @@ $resultado = $mysqli->query($sql);
                                          onclick="Editar('<?php echo $nombrereal; ?>',
                                          '<?php echo $direccion; ?>','<?php echo $tel;?>',
                                          '<?php echo $genero;?>','<?php echo $correo;?>','<?php echo $contra;?>',
-                                         '<?php echo $nombreusu;?>','<?php echo $id;?>')" >
-                                         <button type="button" class="btn btn-success"><i class="fa fa-pencil"></i>
+                                         '<?php echo $nombreusu;?>','<?php echo $tipo;?>','<?php echo $id;?>')" >
+                                         <button disabled type="button" class="btn btn-success"><i class="fa fa-pencil"></i>
                                          </button></a>
                                 
                                     </div>
@@ -242,7 +256,7 @@ $resultado = $mysqli->query($sql);
                                          
                                          <div class="col-md-6">
                                         
-                                       <form action="usuarios.php" method="post" class="form-register" > 
+                                       <form action="usuarios.php?aux1=1" method="post" class="form-register" > 
                                         <button  type="submit" class="btn btn-danger" name="btnalta" id="btnalta" value="<?php echo $fila['idusuario']?>"><i class="fa fa-arrow-up" ></i></button>
                                       </form>
                                       
@@ -330,6 +344,21 @@ $resultado = $mysqli->query($sql);
     <script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
     <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
 	   <script src="../jquery.mask.min.js"></script>
+
+
+     <script src="../libreriasJS/alertifyjs/alertify.js"></script>
+    <script src="../libreriasJS/alertifyjs/alertify.min.js"></script>
+
+ <script type="text/javascript">
+    $(document).ready(function(){
+                              $("#btnalta").click(function(){
+                  alertify.alert("Usuario dado de alta con exito");
+                   
+                });
+            });
+            
+            </script>
+
   </body>
 </html>
 

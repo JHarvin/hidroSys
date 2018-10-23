@@ -91,9 +91,9 @@
                     </ul>
                   </li>
                   <!--CONSULTAS-->
-                  <li><a><i class="fa fa-user"></i>Usuarios<span class="fa fa-chevron-down"></span></a>
+                 <li><a><i class="fa fa-user"></i>Usuarios<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="usuarios.php">Nuevo usuario</a></li>
+                      <li><a href="usuarios.php?aux1=1">Gestión de usuario</a></li>
                       
                       
                     </ul>

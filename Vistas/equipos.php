@@ -66,6 +66,25 @@ msg("Los datos fueron almacenados con exito");
         }
       </script>
 
+      <script>
+$("#enviarimagenes").on("submit", function(e){
+  e.preventDefault();
+  var formData = new FormData(document.getElementById("enviarimagenes"));
+
+  $.ajax({
+    url: "../Controladores/subir.php",
+    type: "POST",
+    dataType: "HTML",
+    data: formData,
+    cache: false,
+    contentType: false,
+    processData: false
+  }).done(function(echo){
+    $("#mensaje").html(echo);
+  });
+});
+</script>
+
   </head>
   <!--Aqui va el javascript-->
 
@@ -220,10 +239,12 @@ msg("Los datos fueron almacenados con exito");
 
                       <div class="form-group">
                         <div class="col-md-4 col-sm-4 col-xs-12">
-                          <label>Imagen (PNG,JPG,JPEG)<small class="text-muted"></small></label>
+                          <label>Imagen (PNG,JPG,JPE)<small class="text-muted"></small></label>
                             <input name="imagen" type="file" onChange="ver(form.file.value)" required accept="image/jpg,image/png,image/jpeg"> 
                         </div> 
                       </div>
+
+
                    
                       <div class="form-group">
                       <div class="col-md-6 col-sm-6 col-xs-12">
@@ -373,9 +394,13 @@ msg("Los datos fueron almacenados con exito");
 
                       <div class="col-md-6 col-sm-6 col-xs-12">
                       <label>Foto<small class="text-muted"></small></label>
-                      <img src="verblob.php?idfoto=1&tam=1" alt="Imagen desde Blob" />
+                      <img  src="data:image/jpg;base64. <?php echo base64_encode($row['foto_doc']);?>"/>
                       </div>
+
+
                       </div>
+
+
                   </div>
                
                     
