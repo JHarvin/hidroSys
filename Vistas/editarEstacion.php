@@ -60,7 +60,7 @@
                             
                                 </div>
                                 <div class="col-md-6">Departamento
-                                 <select class="form-control" id="lista1" name='lista1' onchange="prueba()">
+                                 <select class="form-control" id="lista1m" name='lista1m' onchange="prueba()">
                             <option value="0">Departamento</option>
                             <?php 
                             include "../ProcesoSubir/conexioneq.php";
@@ -83,28 +83,11 @@
 
                             <div class="row">
                      
-                                <div class="col-md-6"> Municipio
-                                     <select class="form-control" id="lista1" name='lista1' onchange="prueba()">
-                            <option value="0">Departamento</option>
-                            <?php 
-                            include "../ProcesoSubir/conexioneq.php";
-                             $consulta  = "select * from departamentos";
-                             $resultado = $conexion->query($consulta);
-                             if ($resultado) {
-                               while($fila= $resultado->fetch_object()){
-                                echo "<option value='".$fila->iddepto."'>".$fila->nombredepto."</option>";
-                               }
-                                 
-                             } else {
-                                echo "<option value=''>Error conectando la BD</option>";
-                             }
-                            
-                            ?>
-                            
-                          </select>
+                                <div class="col-md-6" id="listam" name="listam"> Municipio
+                                    
                                 </div>
                                  <div class="col-md-6">Institucion
-                                     <select class="form-control" id="institucion" name="institucion">
+                                     <select class="form-control" id="institucionm" name="institucionm">
                             <option value="">Institucion</option>
                             <?php 
                             include "../ProcesoSubir/conexioneq.php";
