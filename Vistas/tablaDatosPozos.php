@@ -38,7 +38,9 @@ if($result->num_rows != 0){
           $aux2.="<i class='fa fa-search'></i></button>";
 
           $aux3= "<button type=\"button\" class=\"btn btn-success\" style=\"width:70px;\" ";
-          $aux3.="onclick=\"editar('".$fila->codigopozo."','".$fila->nombredepto."')\";>";
+          $aux3.="onclick=\"editar('".$fila->id_pozo."','".$fila->codigopozo."','".$fila->iddepto."','".$fila->idmunicipio."',
+          '".$fila->latitud."','".$fila->longitud."','".$fila->altura."','".$fila->profundidad."','".$fila->nivel."','".$fila->fechacreacion."',
+          '".$fila->id_propietario."','".$fila->tipo."','".$fila->estado."','".$fila->geologia."','".$fila->observacion."')\";>";
           $aux3.="<i class='fa fa-pencil'></i></button>";
 
         echo "<td width='50'>";    
