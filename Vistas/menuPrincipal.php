@@ -75,6 +75,8 @@
                         <li><a href="../Reportes/BuReprtePozDep.php">Reporte pozo por departamento</a></li>
                         <li><a href="../Reportes/vista_GD.php">Reporte temperatura pozo </a></li>
                         <li><a href="../Reportes/vista_GD1.php">Reporte Pozos Observacion</a></li>
+                        <li><a href="../Reportes/Reporte_Visitantes.php">Reporte de visitantes.</a></li>
+                        <li><a href="../Reportes/Vista_VisitaPozo.php">Reporte de visitantes.</a></li>
                     </ul>
                   </li>
                   <!--REPORTES-->

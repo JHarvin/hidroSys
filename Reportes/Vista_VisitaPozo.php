@@ -169,25 +169,6 @@
                            
                        </div>
                     
-
-                      
-                      <div class="row">
-                         <div class="col-md-6 col-sm-6 col-xs-12 form-group">
-                             <select class="form-control" name="pozo">
-                              <?php
-                                          include_once '../ProcesoSubir/conexion.php';
-                                          $verPozo= mysqli_query($mysqli,"SELECT idpozo, codigopozo FROM pozos");
-                              ?>
-                            <option>Codigo Pozo</option>
-                            <?php
-                             while ($row = mysqli_fetch_array($verPozo)) {
-                                         $idpozo=$row['idpozo'];
-                                           echo '<option value='."$row[0]".'>'.$row['1'].'</option>';
-                                    }
-                                    ?>
-                            </select>
-                        </div>
-                      </div>
                       </div>
                      
                       <div class="form-group">
