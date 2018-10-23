@@ -97,9 +97,11 @@ error_reporting(E_ALL & ~E_NOTICE);
             document.getElementById('institucion').value=="" ||
             document.getElementById('latitud').value=="" ||
             document.getElementById('longitud').value==""){
-            alertify.success("Error:Porfavor complete todos los campos.");
-            alertify.set("notifier","position", "top");
+            // alertify.success("Error:Porfavor complete todos los campos.");
+            // alertify.set("notifier","position", "top");
+            alert("Por favor complete todos los campos.");
           }else{
+
             document.getElementById('bandera').value="add";
             
            document.hidro.submit();
@@ -185,7 +187,7 @@ error_reporting(E_ALL & ~E_NOTICE);
   </script>
   <script>
     function activar(id){
-    alert("entra activar");
+    
     $.ajax(
       {
         type:"POST",
@@ -203,7 +205,7 @@ error_reporting(E_ALL & ~E_NOTICE);
       });
   }
     function desactivar(id){
-      alert("entra desactivar");
+   
     $.ajax(
       {
         type:"POST",
