@@ -35,9 +35,9 @@
     }
 
 </script>
-<form name="form1" method="post" action="">
+<form name="form1" method="post" enctype="multipart/form-data">
 
-    <input type="hidden" name="idDeActualizacion" id="idDeActualizacion" value="00000">
+   
 
     <div class="modal fade" id="actualizarVisitante" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -60,7 +60,7 @@
                             
                                 </div>
                                 <div class="col-md-6">Departamento
-                                 <select class="form-control" id="lista1m" name='lista1m' onchange="prueba()">
+                                 <select class="form-control" id="lista1m" name='lista1m' onchange="pruebam()">
                             <option value="0">Departamento</option>
                             <?php 
                             include "../ProcesoSubir/conexioneq.php";
@@ -110,7 +110,7 @@
                             <div class="row">
                                
                                 <div class="col-md-12">Subir Fotografía(PNG,JPEG,JPG)
-                                    <input type="file" class="form-text" id="imagen" name="imagen" required accept="image/jpg,image/png,image/jpeg">
+                                    <input type="file" class="form-text" id="imagen2" name="imagen2" required accept="image/jpg,image/png,image/jpeg">
                                 </div>
                                 
                                 
@@ -120,7 +120,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                  <div class="embed-responsive" style="height:210px;">
-                                    <iframe style="height:210px;" src="ej.php" class="embed-responsive-item" allowfullscreen></iframe>
+                                    <iframe id="mapita" name="mapita" style="height:210px;" src="ej.php" class="embed-responsive-item" allowfullscreen></iframe>
                                  </div>
                                 </div>
                             </div>
@@ -134,7 +134,7 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-primary" >Actualizar</button>
+                    <button type="button" class="btn btn-primary" onclick="verificarM()">Actualizar</button>
                 </div> 
             </div>
         </div> 
