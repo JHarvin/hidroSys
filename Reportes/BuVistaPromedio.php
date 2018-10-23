@@ -156,8 +156,8 @@
                              <h4>Seleccione estacion</h4>
                           <select class="form-control" name="estacion">
                               <?php
-                                          include_once '../ProcesoSubir/conexion.php';
-                                          $verPozo= mysqli_query($mysqli,"SELECT id_estacion,codiogestacion FROM estacionmet");
+                                          include_once '../conexion/conexion.php';
+                                          $verPozo= mysqli_query($conexion,"SELECT id_estacion,codiogestacion FROM estacionmet");
                               ?>
                             <option>Seleccionar</option>
                             <?php
@@ -226,7 +226,7 @@
         $f = $_REQUEST['fechas1'];
      ?>
     <script type="text/javascript">
-location.href="BuModalPromedioEs.php? po=<?php echo $po;?> &f=<?php echo $f;?> &estacion=<?php echo $estacion;?>";
+location.href="BuModalPromedioEs.php? po=<?php echo $po;?>&f=<?php echo $f;?>&estacion=<?php echo $estacion;?>";
 </script>
 <?php
     }

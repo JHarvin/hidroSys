@@ -5,8 +5,8 @@ require '../conexion/conexion.php';
  $estacion=$_GET['estacion'];
  $fecha=$_GET['f'];
  $x=explode("-",$fecha);
-  $mes1=$x[0];
-   $a=$x[1];
+ $mes1=$x[0];
+ $a=$x[1];
    
  
 
@@ -89,7 +89,7 @@ avg(l.tempout) as promtempout
 FROM
 estacionmet e
 INNER JOIN lecturaestaciones l ON l.idestacion = e.id_estacion
-where EXTRACT(MONTH FROM l.date)='08' and EXTRACT(YEAR FROM l.date)='2017'
+where EXTRACT(MONTH FROM l.date)='$mes1' and EXTRACT(YEAR FROM l.date)='$a' AND e.id_estacion = $estacion
 GROUP BY e.codiogestacion, l.date
 ORDER BY l.date");
 
@@ -120,7 +120,7 @@ avg(l.tempout) as promtempout
 FROM
 estacionmet e
 INNER JOIN lecturaestaciones l ON l.idestacion = e.id_estacion
-where EXTRACT(MONTH FROM l.date)='08' and EXTRACT(YEAR FROM l.date)='2017'
+where EXTRACT(MONTH FROM l.date)='$mes1' and EXTRACT(YEAR FROM l.date)='$a' AND e.id_estacion = $estacion
 GROUP BY e.codiogestacion, l.date
 ORDER BY l.date");
 
