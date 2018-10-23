@@ -352,7 +352,7 @@ $("#enviarimagenes").on("submit", function(e){
               <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title"><strong><i class="fa fa-list-ul fa-2x"> Detalle equipo</i></strong></h5>
+                    <h5 class="modal-title"><strong><i class="fa fa-list-ul fa-2x"></i></strong></h5>
 
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
@@ -364,7 +364,7 @@ $("#enviarimagenes").on("submit", function(e){
                   
                     
                       <thead>
-                       
+                      <tr><th colspan=5 style="text-align:center;">Detalle Equipo </th></tr>
                     </table>
                     <input type="hidden" id="id" name="id" value="">
                    
@@ -514,7 +514,7 @@ $("#enviarimagenes").on("submit", function(e){
                 </div>
                 <div class="modal-footer">
                   
-                  <button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
+                  <button id="guardar" class="btn btn-primary" data-dismiss="modal">Modificar</button>
                 </div>
 
                 </div><!--Fin del content-->
@@ -574,7 +574,65 @@ $("#enviarimagenes").on("submit", function(e){
     <script src="../vendors/jszip/dist/jszip.min.js"></script>
     <script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
     <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
-	
+    <script type="text/javascript">
+  $(document).ready(function(){
+    $('#datatables-example').DataTable();
+  });
+  $(document).ready(function(){
+    $('#datatables-example').DataTable();
+
+    $("#guardar").on('click',function(){
+      var grado = $('#grado').val();
+        var opcion = $('#opcion').val();
+        var seccion = $('#seccion').val();
+        var cupo = $('#cupo').val();
+
+        if(grado == ""){
+          sweetError("Grado incorrecto");
+            return false;
+        }
+        if(opcion == ""){
+            sweetError("No se selecciono una opcion");
+            return false;
+        }
+        if(seccion == ""){
+          sweetError("No se selcciono una seccion");
+            return false;
+        }
+        if(cupo ==""||cupo<0||cupo>60){
+          sweetError("Cupo incorrecto");
+            return false;
+        }
+       
+        var todo = $("#modificar").serialize();
+
+        $.ajax({
+            type: 'post',
+            url: 'editarOpcion.php',
+            data: todo,
+            success: function(respuesta) {
+             
+                $("#grado option[value=0]").prop("selected",true);
+                $("#opcion option[value=0]").prop("selected",true);
+                $("#seccion option[value=0]").prop("selected",true);
+                $("#cupo").val(0);
+                $("#modalito").modal('hide');
+                sweetGuardo(respuesta);
+                $(".tabla_ajax").load("tablaOpcCom.php"); 
+                //$('#datatables-example').DataTable();
+            },
+            error: function(respuesta){
+              alert("Error en el servidor: "+respuesta); 
+            }
+        });//fin de ajax
+
+      return false;
+    });//fin del click
+    
+  });//fin del ready
+
+</script>
+<!-- end: Javascript -->
   </body>
 </html>
 <?php
