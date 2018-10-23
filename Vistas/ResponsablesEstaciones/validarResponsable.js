@@ -324,7 +324,6 @@ function ver(id){
                         alertify.set("notifier","position", "top-right");
                         alertify.success("Registro Almacenado Correctamente.");
                         
-  
                     }
                     if(listas_rep === "Error"){
                       $("#fromregistro")[0].reset();
@@ -365,7 +364,7 @@ $("#modalactualizar").click(function(){
                       $('#preview img').attr('src', '../images/img2.png');
                       $('#registro').modal('hide'); 
                       alertify.set("notifier","position", "top-right");
-                      alertify.success("Registro Almacenado Correctamente..");
+                      alertify.success("Registro Almacenado Correctamente.");
                       
                   }
                   if(lista_ac === "Error"){
