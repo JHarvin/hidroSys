@@ -412,9 +412,38 @@ error_reporting(E_ALL & ~E_NOTICE);
                             ?>
                             <tr>
                                 <td><?php echo $codigom; ?></td>
-                                <td><?php echo $departamentom; ?></td>
-                                <td><?php echo $municipiom; ?></td>
-                                <td><?php echo $responsablem; ?></td>
+                                <?php
+                                $consulta  = "select nombredepto from departamentos where iddepto=".$departamentom;
+                                $resultadod = $conexion->query($consulta);
+                             
+                            while($filad= $resultadod->fetch_object()){
+                              $deptotemp=$filad->nombredepto;
+                            }
+                            
+                              ?>
+                                <td><?php echo $deptotemp; ?></td>
+                                 <?php
+                                $consulta  = "select nombre from municipios where idmunicipio=".$municipiom;
+                                $resultadom = $conexion->query($consulta);
+                             
+                            while($filam= $resultadom->fetch_object()){
+                              $muntemp=$filam->nombre;
+                            }
+                            
+                              ?>
+                                <td><?php echo $muntemp; ?></td>
+                                <?php
+                                $consulta  = "select institucion from respestaciones where idresponsable=".$responsablem;
+                                $resultadom = $conexion->query($consulta);
+                            if($resultadom){ 
+                            while($filam= $resultadom->fetch_object()){
+                              $resptemp=$filam->institucion;
+                            }
+                            }
+                            
+                              ?>
+                              
+                                <td><?php echo $resptemp; ?></td>
                                 <td ><center><button type='button' class='btn btn-success' onclick='llamarPaginaMapa(<?php echo $latitudm ?>,<?php echo $longitudm ?>)'><i class="fa fa-map"></i></button></center><?php echo $row['genero']; ?></td>
                                 
                                 <td><!--boton de ver-->
