@@ -111,14 +111,6 @@ $pdf->AddPage();
      
         $pdf->SetFont('Arial', 'B', 12);
 
-        $validacion= mysqli_query($mysqli,"SELECT visitantes.tipo as tipo, 
-visitantes.nombre as nombre, pozos.codigopozo as pozo, hojavisitaspozos.fechavisita as fecha,
- hojavisitaspozos.observacion as observacion, hojavisitaspozos.level as nivel, municipios.municipio as municipio
- FROM hidrodb.hojavisitaspozos INNER JOIN pozos ON hojavisitaspozos.idpozo = pozos.idpozo 
-INNER JOIN visitantes ON hojavisitaspozos.idvisitante = visitantes.idvisitante 
-inner join municipios on pozos.idmunicipio=municipios.idmunicipio 
-WHERE  hojavisitaspozos.fechavisita>='$f1' AND hojavisitaspozos.fechavisita<='$f2'
-ORDER BY hojavisitaspozos.fechavisita ASC");
          $pdf->Ln(15);
         $validacion= mysqli_query($mysqli,"SELECT visitantes.tipo as tipo, visitantes.nombre as nombre, pozos.codigopozo as pozo, hojavisitaspozos.fechavisita as fecha, hojavisitaspozos.observacion as observacion, hojavisitaspozos.level as nivel, municipios.municipio as municipio FROM hidrodb.hojavisitaspozos INNER JOIN pozos ON hojavisitaspozos.idpozo = pozos.idpozo INNER JOIN visitantes ON hojavisitaspozos.idvisitante = visitantes.idvisitante inner join municipios on pozos.idmunicipio=municipios.idmunicipio WHERE hojavisitaspozos.fechavisita>='$f1' AND hojavisitaspozos.fechavisita<='$f2'  ORDER BY hojavisitaspozos.fechavisita ASC");
 
