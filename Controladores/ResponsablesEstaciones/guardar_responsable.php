@@ -26,10 +26,10 @@
         fclose($fp);
         //escapar los caracteres
         $pic = mysqli_real_escape_string($conexion, $pic);
-        
+      }
         $consulta  = "INSERT INTO respestaciones(institucion, responsable, direccion, telefono1, telefono2, foto, activo) VALUES('$institucion','$responsable','$direccion','$telefono1','$telefono2','$pic','1')";
         $result =mysqli_query($conexion,$consulta);
-      }
+      
     if ($result) {
       $msj = "Exito";
     } else {
