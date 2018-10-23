@@ -26,8 +26,8 @@
                                     echo "<td>" . $fila->institucion . "</td>";
                                     echo "<td>" . $fila->responsable . "</td>";
                                     echo "<td>" . $fila->direccion . " </td>";
-                                    echo "<td> <a class='btn btn-success openBtn' type='button' onclick='ver(".$fila->idresponsable.")'><i class='fa fa-eye'></i></a>
-                                                <a class='btn btn-info' onclick='modify(".$fila->idresponsable.")' ><i class='fa fa-edit'></i></a>
+                                    echo "<td> <a class='btn btn-success' type='button' onclick='ver(".$fila->idresponsable.")'><i class='fa fa-eye'></i></a>
+                                                <a class='btn btn-info' onclick='editar(".$fila->idresponsable.")' ><i class='fa fa-edit'></i></a>
                                             </td>";
                                     echo "</tr>";
                                     $contador++;
