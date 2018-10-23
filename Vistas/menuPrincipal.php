@@ -20,7 +20,7 @@
 
  <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
-                <h3>General Nuevo</h3>
+                <h3>General</h3>
                 <ul class="nav side-menu">
                   <li><a><i class="fa fa-home"></i> Inicio<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
@@ -77,6 +77,8 @@
                         <li><a href="../Reportes/vista_GD1.php">Reporte Pozos Observacion</a></li>
                         <li><a href="../Reportes/Reporte_Visitantes.php">Reporte de visitantes.</a></li>
                         <li><a href="../Reportes/Vista_VisitaPozo.php">Reporte de visitantes.</a></li>
+                        <li><a href="../Reportes/ReportePozosGeo.php">Reporte Pozos y su Geologia</a></li>
+                        <li><a href="../Reportes/Reporte_datosPozos.php">Reporte de datos de pozos</a></li>
                     </ul>
                   </li>
                   <!--REPORTES-->
