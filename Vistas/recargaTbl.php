@@ -5,26 +5,26 @@ if($cambio=="tabla"){
 <table id="datatable-fixed-header" class="table table-striped table-bordered imprimir" >
     <thead>
       <tr>
-        <th>Cod</th>
         <th>Visitante</th>
+        <th>Tipo</th>
         <th>Estación</th>
         <th>Fecha</th>
-        <th>Acciones</th>
+        <th>Detalle</th>
       </tr>
     </thead>
 
 
     <tbody >
       <?php
-        include("../../ProcesoSubir/conexioneq.php");
+        include("../ProcesoSubir/conexioneq.php");
 
-        $result=$conexion->query("SELECT hs.idhojavisitaestaciones, hs.fechavisita, hs.observacion, est.codiogestacion, vis.nombre from hojavisitasestaciones hs inner join estacionmet est on hs.id_estacion = est.id_estacion inner join visitantes vis on hs.id_visitante = vis.id_visitante order by idhojavisitaestaciones");
+        $result=$conexion->query("SELECT hs.idhojavisitaestaciones, hs.fechavisita, hs.observacion, est.codiogestacion, vis.tipo, vis.nombre from hojavisitasestaciones hs inner join estacionmet est on hs.id_estacion = est.id_estacion inner join visitantes vis on hs.id_visitante = vis.id_visitante order by idhojavisitaestaciones");
 
         while($fila = $result->fetch_object()){
         ?>
           <tr>
-            <td><?php echo $fila->idhojavisitaestaciones; ?></td>
             <td><?php echo $fila->nombre; ?></td>
+            <td><?php echo $fila->tipo; ?></td>
             <td><?php echo $fila->codiogestacion; ?></td>
             <td><?php echo date('d/m/Y', strtotime($fila->fechavisita));  ?></td>
 

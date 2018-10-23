@@ -3,7 +3,7 @@
         <h4>Estación</h4>
         <div class="ln_solid"></div>
         <?php
-            include '../../ProcesoSubir/conexioneq.php';
+            include '../ProcesoSubir/conexioneq.php';
             $cambio=$_REQUEST["idd"];
             $result=$conexion->query("SELECT hs.idhojavisitaestaciones, est.foto from hojavisitasestaciones hs inner join estacionmet est on hs.id_estacion = est.id_estacion where hs.idhojavisitaestaciones= $cambio");
             
@@ -23,7 +23,7 @@
         <div class="x_panel">
             <div class="x_content">
                 <?php
-                    include '../../ProcesoSubir/conexioneq.php';
+                    include '../ProcesoSubir/conexioneq.php';
                     $cambio=$_REQUEST["idd"];
                         
                     $result=$conexion->query("SELECT hs.idhojavisitaestaciones, hs.fechavisita, hs.observacion, est.codiogestacion, vis.nombre from hojavisitasestaciones hs
