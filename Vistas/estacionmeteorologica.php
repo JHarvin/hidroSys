@@ -88,6 +88,8 @@ error_reporting(E_ALL & ~E_NOTICE);
         }
       });
   }
+
+
   
   function verificar(){
           if(document.getElementById('codigo').value=="" ||
@@ -111,7 +113,7 @@ error_reporting(E_ALL & ~E_NOTICE);
     alert(document.getElementById("longitud").value);
   }
   //funciones para editar
-  function Editar_estacion(id,codigo,departamento,municipio,institucion,latitud,longitud){
+  function Editar_estacion(id,codigo,departamento,municipio,institucion,latitud,longitud,correaux){
   
     document.getElementById("codigom").value=codigo;
     document.getElementById("lista1m").value=departamento;
@@ -120,8 +122,7 @@ error_reporting(E_ALL & ~E_NOTICE);
     document.getElementById("latitud").value=latitud;
     document.getElementById("longitud").value=longitud;
     document.getElementById("mapita").src="ej.php?lat="+latitud+"&lon="+longitud;
-    
-    
+    document.getElementById("correaux").value=correaux;
 
   }
   //ajax para llenar el combo del modal para editar con los municipios
@@ -134,6 +135,18 @@ error_reporting(E_ALL & ~E_NOTICE);
         success:function(r){
           $('#listam').html(r);
           //ponerAbreviatura();
+        }
+      });
+  }
+   function pruebam(){
+    $.ajax(
+      {
+        type:"POST",
+        url:"departamentosMunicipiosM.php",
+        data:"departamento="+$('#lista1m').val()+"&municipio=0",
+        success:function(r){
+          $('#listam').html(r);
+         // ponerAbreviatura();
         }
       });
   }
@@ -343,6 +356,7 @@ error_reporting(E_ALL & ~E_NOTICE);
                         <input type="hidden" class="form-control has-feedback-left" id="longitud" name="longitud" placeholder="Longitud">
                         <input type="hidden" class="form-control has-feedback-left" id="latitud" name="latitud" placeholder="Latitud">
                       <input type="hidden" class="form-control has-feedback-left" id="correlativo" name="correlativo" placeholder="correlativo" value="<?php echo $codigo;?>">
+                      <input type="hidden" class="form-control has-feedback-left" id="correaux" name="correaux" placeholder="correlativo">
 
                       </div>
                      
@@ -467,7 +481,7 @@ error_reporting(E_ALL & ~E_NOTICE);
                               $resptemp=$filam->institucion;
                             }
                             }
-                            
+                            $correaux=sprintf("%02s",$idm);    
                               ?>
                               
                                 <td><?php echo $resptemp; ?></td>
@@ -486,7 +500,7 @@ error_reporting(E_ALL & ~E_NOTICE);
                                     <td><!--boton de modificar-->
                                   <div class="row">
                                     <div class="col-md-6">
-                                        <a href="#" data-toggle="modal" data-target="#actualizarVisitante" onclick="Editar_estacion('<?php echo $idm; ?>','<?php echo $codigom; ?>','<?php echo $departamentom; ?>','<?php echo $municipiom; ?>','<?php echo $responsablem; ?>','<?php echo $latitudm; ?>','<?php echo $longitudm; ?>')" ><button type="button" class="btn btn-success"><i class="fa fa-pencil"></i></button></a>
+                                        <a href="#" data-toggle="modal" data-target="#actualizarVisitante" onclick="Editar_estacion('<?php echo $idm; ?>','<?php echo $codigom; ?>','<?php echo $departamentom; ?>','<?php echo $municipiom; ?>','<?php echo $responsablem; ?>','<?php echo $latitudm; ?>','<?php echo $longitudm; ?>','<?php echo $correaux; ?>')" ><button type="button" class="btn btn-success"><i class="fa fa-pencil"></i></button></a>
                                 
                                     </div>
 

@@ -60,7 +60,7 @@
                             
                                 </div>
                                 <div class="col-md-6">Departamento
-                                 <select class="form-control" id="lista1m" name='lista1m' onchange="prueba()">
+                                 <select class="form-control" id="lista1m" name='lista1m' onchange="pruebam()">
                             <option value="0">Departamento</option>
                             <?php 
                             include "../ProcesoSubir/conexioneq.php";
