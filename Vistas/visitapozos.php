@@ -10,7 +10,12 @@
 	  
     <title>SISPOZOS</title>
 
-      
+      <!-- ALERTASSSSSS -->
+    <link rel="stylesheet"  type="text/css" href="../libreriasJS/alertifyjs/css/alertify.css"> 
+    <link rel="stylesheet" type="text/css" href="../libreriasJS/alertifyjs/css/alertify.min.css"> 
+    <link rel="stylesheet" type="text/css" href="../libreriasJS/alertifyjs/css/alertify.rtl.css">
+    <link rel="stylesheet" type="text/css" href="../libreriasJS/alertifyjs/css/alertify.rtl.min.css">
+    <link rel="stylesheet" type="text/css" href="../libreriasJS/alertifyjs/css/themes/default.css">
 
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -33,11 +38,8 @@
 
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
-
-    <link rel="stylesheet" href="../libreriasJS/alertifyjs/css/alertify.css">
-    <link rel="stylesheet" href="../libreriasJS/alertifyjs/css/alertify.min.css"> 
-    <link rel="stylesheet" href="../libreriasJS/alertifyjs/css/alertify.rtl.css">
-    <link rel="stylesheet" href="../libreriasJS/alertifyjs/css/alertify.rtl.min.css">
+ 
+     
 
 
   </head>
@@ -146,12 +148,13 @@
                   <div class="x_content">
                     <br />
                     <form class="form-register" method="post" action="" name="formulario">
+                      
                       <input type="hidden" name="pase" id="pase">
                           
                       <div class="form-group">
                       <div class="col-md-6 col-sm-6 col-xs-6">
                         
-                          <select class="form-control" name="visitantes" >
+                          <select class="form-control" name="visitantes" id="visitantes" required>
                           
                              <?php
                                      include_once '../ProcesoSubir/conexion.php';
@@ -168,7 +171,7 @@
                         </div>
 
                         <div class="col-md-6 col-sm-6 col-xs-7">
-                          <select class="form-control" name="pozo">
+                          <select class="form-control" name="pozo" id="pozo" required>
                               <?php
                                           include_once '../ProcesoSubir/conexion.php';
                                           $verPozo= mysqli_query($mysqli,"SELECT id_pozo, codigopozo FROM pozos");
@@ -187,53 +190,52 @@
 
                       <div class="form-group">
                       <div class="col-md-6 col-sm-6 col-xs-6 form-group has-feedback">
-                        <input type="date" name="fecha" class="form-control has-feedback-left" placeholder="Fecha">
+                        <input type="date" name="fecha" class="form-control has-feedback-left" placeholder="Fecha" id="fecha" >
                         <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
                       </div>
                       <div class="col-md-6 col-sm-6 col-xs-6 form-group has-feedback">
-                        <input type="text" name="nivel" id="nivelito" class="form-control has-feedback-left" placeholder="Nivel (m)" autocomplete="off">
+                        <input type="text" name="nivel" id="nivelito" class="form-control decimal-2-places" placeholder="Nivel(m)" autocomplete="off" maxlength="5" required >
                        
                       </div>
                       
                       </div>
                       <div class="form-group">
                       <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback" align="left">        
-                          <textarea class="form-control" name="obser" rows="2" placeholder="Observacion"></textarea>
+                          <textarea class="form-control" name="obser" rows="2" placeholder="Observación" id="observacion" pattern=".{8,}" maxlength="200" required></textarea>
                         </div>
                       </div>
                      
                       <div class="form-group">
                         <!--Este div es para que agarre la linea que separa los botones.-->
-                      </div>
-                     
-                      
-                      
+                      </div>   
                       <div class="ln_solid"></div>
                       <div class="form-group">
                         <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                        <input type="submit" class="btn btn-success" value="Guardar" id="guarda" href="visitapozos.php">
+                       <button type="submit" class="btn btn-success" id="guarda" value="Guardar">Guardar</button>
                           <button type="submit" class="btn btn-warning" href="visitapozos.php">Cancelar</button>
                <!-- <button class="btn btn-primary" type="reset">Reset</button> -->
                          
                         </div>
                       </div>
-
-                      
-                       </form>
+ 
                       </div>
-                      
-
                    
                   </div>
                 </div>
               </div>      
             </div>
-
+</form>
        <div class="row">
               <div class="col-md-15 col-xs-15">
                 <div class="x_panel">
                   <div class="x_title">
                     <h2>Datos</h2>
+                    <!--para desplegar la tabla-->
+                     <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                   </li>
+                      
+                    </ul><!--FIN para desplegar la tabla-->
                     <ul class="nav navbar-right panel_toolbox">                   
                     </ul>
                     <div class="clearfix"></div>
@@ -246,7 +248,7 @@
                           <th>Pozo</th>
                           <th>Fecha</th>
                           <th>Nivel</th>
-                          <th>Observacion</th>
+                          <th>Observación</th>
                           <th>Editar</th>
                           
                         </tr>
@@ -256,7 +258,7 @@
 
                           <?php
                           include "../ProcesoSubir/conexion.php";
-              $query = mysqli_query ($mysqli,"SELECT v.nombre, p.codigopozo, hvp.fechavisita, hvp.`level`, hvp.observacion, hvp.id_visitante FROM pozos p, hojavisitaspozos hvp, visitantes v
+              $query = mysqli_query ($mysqli,"SELECT v.nombre, p.codigopozo, hvp.fechavisita, hvp.`level`, hvp.observacion, hvp.id_visitante, hvp.id_pozo FROM pozos p, hojavisitaspozos hvp, visitantes v
              where p.id_pozo = hvp.id_pozo and hvp.id_visitante = v.id_visitante;");
 
                 while ($fila=mysqli_fetch_array($query)) {
@@ -266,6 +268,7 @@
                     $nivel=$fila['level'];
                     $observa=$fila['observacion'];
                     $id=$fila['id_visitante'];
+                    $idpo=$fila['id_pozo'];
                 ?>
 
                         <tr>
@@ -278,7 +281,7 @@
                          <td><!--boton de modificar-->
                                   <div class="row">
                                     <div class="col-md-6">
-                                        <a href="visitapozoModal.php?ir=<?php echo $id;?>&f=<?php echo $fecha;?>" <button type="button" class="btn btn-success"><i class="fa fa-pencil"></i></button>
+                                      <a href="visitapozoModal.php?ir=<?php echo $id;?>&f=<?php echo $fecha;?>&p=<?php echo $idpo;?> "><button type="button" class="btn btn-success"><i class="fa fa-pencil"></i></button>
                                         </a>
                                 
                                     </div>
@@ -314,6 +317,7 @@
 
           <!-- insertar datos a la tabla de la base -->
            <?php 
+           
            if (isset($_REQUEST['pase'])) {
              # code...
            $visitantes=$_REQUEST['visitantes'];
@@ -321,17 +325,41 @@
             $fe=$_REQUEST['fecha'];
              $ni=$_REQUEST['nivel'];
               $ob=$_REQUEST['obser'];
+ 
+$nuevo_visi = mysqli_query ($mysqli,"SELECT * FROM hojavisitaspozos where id_visitante='$visitantes' and id_pozo='$pos' and fechavisita='$fe'");
 
-                include "../ProcesoSubir/conexion.php";
-              $sql = "INSERT INTO hojavisitaspozos (fechavisita,observacion,level,id_visitante,id_pozo) VALUE('$fe','$ob','$ni','$visitantes','$pos')";
+if(mysqli_num_rows($nuevo_visi)>0) 
+{ 
+echo " 
+<p class='avisos'> ya esta registrado</p> 
+<p><a>Volver atrás</a></p> 
+"; 
+} else {
+
+    include "../ProcesoSubir/conexion.php";
+      $sql = "INSERT INTO hojavisitaspozos (fechavisita,observacion,level,id_visitante,id_pozo) VALUE('$fe','$ob','$ni','$visitantes','$pos')";
                $result = $mysqli->query($sql);
+  
+            
                ?>
+               <!-- funcion para la alerta -->
+           <script type="text/javascript">
+              $(document).ready(function(){
+
+                $("#guarda").click(function(){
+                  alertify.alert("Guardado con exito");
+                   
+                });
+              });
+            
+            </script>
+               
                <script type="text/javascript">
          location.href = "visitapozos.php";
 </script>
 <?php
 
-             }
+             }}
             
             ?><!-- fin de insertar datos -->
 
@@ -360,8 +388,6 @@ if (!empty($_REQUEST['visitantes'])) {
 ?>
 <!-- FIN DEL PROCESO EDITAR DE LA TABLA -->
 
-
-
 <!-- MODAL PARA ELIMINAR  
   <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -374,8 +400,6 @@ if (!empty($_REQUEST['visitantes'])) {
                 <div class="panel-body">
 
                     Esta Seguro que desea eliminar este registro?
-                                       
-
                 </div>
 
                 <div class="modal-footer">
@@ -386,15 +410,15 @@ if (!empty($_REQUEST['visitantes'])) {
         </div> 
     </div>          
 
-MODAL   -->
+MODAL   
 <script>
     $('#confirm-delete').on('show.bs.modal', function(e){
         $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
         $('.debug-url').html('Eliminar URL: <strong>' + $(this).find('.btn-ok').attr('href') + '</strong>');
     })
-</script>
+</script>-->
 
-            
+        
     <!-- jQuery -->
     <script src="../vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
@@ -448,30 +472,20 @@ MODAL   -->
     <script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
     <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
 	 
-  </body>
-   <script src="../libreriasJS/alertifyjs/alertify.js"></script>
-   <script src="../libreriasJS/alertifyjs/alertify.min.js"></script>
-    <script src="../js/jquery-3.2.1.min.js"></script>
+  
     <script src="../js/toastr.js"></script>
     <script src="../js/notify.js"></script>
     <script src="../js/popper.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
     <script src="../js/main.js"></script>
-    <script src="../js/plugins/jquery.mask.min.js"></script>
-
+    <script src="../libreriasJS/jquery.mask.min.js"></script>
+    <script src="../libreriasJS/jquery.numeric.js"></script>
+    <script src="../libreriasJS/alertifyjs/alertify.js"></script>
+    <script src="../libreriasJS/alertifyjs/alertify.min.js"></script>
+</body>
 </html>
 
- <!-- funcion para la alerta -->
-           <script >
-              $(document).ready(function(){
-
-                $("#guarda").click(function(){
-                  alertify.alert("Esta seguro que desea guardar el registro");
-                   
-                });
-              });
-            
-            </script>
+ 
 <!-- funcion para  editar -->
     
 <script>
@@ -490,10 +504,32 @@ function Editar_visitapozo(codigopozo,fechavisita,level,observacion,id){
       
  jQuery(function($){
             // Definimos las mascaras para cada input
-            $('#nivelito').mask('000.000.000.000.000,', {reverse: true});
-            
-            
+            $("#").mask("00.00");
+                 
         });
           
         
     </script>
+
+    
+<script type="text/javascript">
+  $(document).ready(function(){
+    validarCualquierNumero()
+  });
+  function validarCualquierNumero(){
+
+  $(".numeric").numeric();
+  $(".integer").numeric(false, function() { alert("Integers only"); this.value = ""; this.focus(); });
+  $(".positive").numeric({ negative: false }, function() { alert("No negative values"); this.value = ""; this.focus(); });
+  $(".positive-integer").numeric({ decimal: false, negative: false }, function() { alert("Positive integers only"); this.value = ""; this.focus(); });
+    $(".decimal-2-places").numeric({ decimalPlaces: 2 });
+  $("#remove").click(
+    function(e)
+    {
+      e.preventDefault();
+      $(".numeric,.integer,.positive,.positive-integer,.decimal-2-places").removeNumeric();
+    }
+  );
+  }
+
+</script>
