@@ -111,12 +111,18 @@ error_reporting(E_ALL & ~E_NOTICE);
     alert(document.getElementById("longitud").value);
   }
   //funciones para editar
-  function Editar_estacion(id,codigo,departamento,municipio,institucion){
+  function Editar_estacion(id,codigo,departamento,municipio,institucion,latitud,longitud){
   
     document.getElementById("codigom").value=codigo;
     document.getElementById("lista1m").value=departamento;
     llenarMunicipiosM(departamento,municipio);
     document.getElementById("institucionm").value=institucion;
+    document.getElementById("latitud").value=latitud;
+    document.getElementById("longitud").value=longitud;
+    document.getElementById("mapita").src="ej.php?lat="+latitud+"&lon="+longitud;
+    
+    
+
   }
   //ajax para llenar el combo del modal para editar con los municipios
   function llenarMunicipiosM(depto,municipio){
@@ -480,7 +486,7 @@ error_reporting(E_ALL & ~E_NOTICE);
                                     <td><!--boton de modificar-->
                                   <div class="row">
                                     <div class="col-md-6">
-                                        <a href="#" data-toggle="modal" data-target="#actualizarVisitante" onclick="Editar_estacion('<?php echo $idm; ?>','<?php echo $codigom; ?>','<?php echo $departamentom; ?>','<?php echo $municipiom; ?>','<?php echo $responsablem; ?>')" ><button type="button" class="btn btn-success"><i class="fa fa-pencil"></i></button></a>
+                                        <a href="#" data-toggle="modal" data-target="#actualizarVisitante" onclick="Editar_estacion('<?php echo $idm; ?>','<?php echo $codigom; ?>','<?php echo $departamentom; ?>','<?php echo $municipiom; ?>','<?php echo $responsablem; ?>','<?php echo $latitudm; ?>','<?php echo $longitudm; ?>')" ><button type="button" class="btn btn-success"><i class="fa fa-pencil"></i></button></a>
                                 
                                     </div>
 

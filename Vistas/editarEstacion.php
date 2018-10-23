@@ -35,7 +35,7 @@
     }
 
 </script>
-<form name="form1" method="post" action="">
+<form name="form1" method="post" enctype="multipart/form-data">
 
     <input type="hidden" name="idDeActualizacion" id="idDeActualizacion" value="00000">
 
@@ -110,7 +110,7 @@
                             <div class="row">
                                
                                 <div class="col-md-12">Subir Fotografía(PNG,JPEG,JPG)
-                                    <input type="file" class="form-text" id="imagen" name="imagen" required accept="image/jpg,image/png,image/jpeg">
+                                    <input type="file" class="form-text" id="imagen2" name="imagen2" required accept="image/jpg,image/png,image/jpeg">
                                 </div>
                                 
                                 
@@ -120,7 +120,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                  <div class="embed-responsive" style="height:210px;">
-                                    <iframe style="height:210px;" src="ej.php" class="embed-responsive-item" allowfullscreen></iframe>
+                                    <iframe id="mapita" name="mapita" style="height:210px;" src="ej.php" class="embed-responsive-item" allowfullscreen></iframe>
                                  </div>
                                 </div>
                             </div>
