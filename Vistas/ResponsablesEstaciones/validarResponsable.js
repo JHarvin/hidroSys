@@ -21,6 +21,45 @@ $(document).ready(function(){
             }
              
             reader.readAsDataURL(this.files[0]);
+
+            var fileName = this.files[0].name;
+          var fileSize = this.files[0].size;
+        
+          if(fileSize > 1000000){
+            $('#img1').text("El archivo no debe superar 1MB");
+            $('#img').removeClass('has-success').addClass('has-error');
+            this.value = '';
+            this.files[0].name = '';
+          }else{
+            // recuperamos la extensión del archivo
+            var ext = fileName.split('.').pop();
+        
+            // console.log(ext);
+            switch (ext) {
+              case 'jpg':{
+                $('#img2').text("");
+                $('#img1').removeClass('has-error').addClass('has-success');
+                break;
+              }
+              case 'jpeg':{
+                $('#img2').text("");
+                $('#img1').removeClass('has-error').addClass('has-success');
+                break;
+              }
+
+              case 'png': {
+                $('#img2').text("");
+                $('#img1').removeClass('has-error').addClass('has-success');
+                break;
+              }
+              default:{
+              $('#img2').text("El archivo no tiene la extensión adecuada");
+              $('#img1').removeClass('has-success').addClass('has-error');
+                this.value = ''; // reset del valor
+                this.files[0].name = '';
+              }
+            }
+          }
         });
       
     $('input').on('keypress', function(e){
@@ -110,7 +149,7 @@ $(document).ready(function(){
       messages: {
         institucion: {
           required: "Por favor, ingrese instituci&oacute;n.",
-          maxlength: "Debe ingresar m&aacute;ximo 80 carácteres.",
+          maxlength: "Debe ingresar m&aacute;ximo 100 carácteres.",
           minlength: "Debe ingresar m&iacute;nimo 7 carácteres."
         },
         responsable: {
@@ -132,57 +171,13 @@ $(document).ready(function(){
         },
         direccion: {
           required: "Por favor, ingrese dirección.",
-          maxlength: "Debe ingresar m&aacute;ximo 80 carácteres.",
+          maxlength: "Debe ingresar m&aacute;ximo 300 carácteres.",
           minlength: "Debe ingresar m&iacute;nimo 10  carácteres."
         }
         
       }
     });
-
-    $("#file").on('change', function() {
-      if ($('#file').val()) { 
-        var fileName = this.files[0].name;
-        var fileSize = this.files[0].size;
-      
-        if(fileSize > 1000000){
-          $('#img1').text("El archivo no debe superar 1MB");
-          $('#img').removeClass('has-success').addClass('has-error');
-          this.value = '';
-          this.files[0].name = '';
-        }else{
-          // recuperamos la extensión del archivo
-          var ext = fileName.split('.').pop();
-      
-          // console.log(ext);
-          switch (ext) {
-            case 'jpg':{
-              $('#img2').text("");
-              $('#img1').removeClass('has-error').addClass('has-success');
-              break;
-            }
-            case 'jpeg':{
-              $('#img2').text("");
-              $('#img1').removeClass('has-error').addClass('has-success');
-              break;
-            }
-
-            case 'png': {
-              $('#img2').text("");
-              $('#img1').removeClass('has-error').addClass('has-success');
-              break;
-            }
-            default:{
-            $('#img2').text("El archivo no tiene la extensión adecuada");
-            $('#img1').removeClass('has-success').addClass('has-error');
-              this.value = ''; // reset del valor
-              this.files[0].name = '';
-            }
-          }
-        }
-      }
-  });
-  
-   
+ 
 });
 
 function editar(id){
