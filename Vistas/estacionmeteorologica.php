@@ -122,7 +122,7 @@ error_reporting(E_ALL & ~E_NOTICE);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	  
-    <title>SICA |</title>
+    <title>ESTACIONES METEOROLÓGICAS |</title>
 
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -194,7 +194,7 @@ error_reporting(E_ALL & ~E_NOTICE);
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="images/img.jpg" alt="">Fernando Josue
+                    <img src="images/img.jpg" alt="">Fernando Hernández
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -289,7 +289,7 @@ error_reporting(E_ALL & ~E_NOTICE);
                         <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <select class="form-control" id="institucion" name="institucion">
-                            <option value="">Institucion</option>
+                            <option value="">Institución</option>
                             <?php 
                             include "../ProcesoSubir/conexioneq.php";
                              $consulta  = "select * from respestaciones";
@@ -364,7 +364,7 @@ error_reporting(E_ALL & ~E_NOTICE);
             <div class="col-md-12 col-sm-12 col-xs-12">
                <div class="x_panel">
                   <div class="x_title">
-                    <h2>Registros generales de estaciones meteorologicas.</h2>
+                    <h2>Registros generales de estaciones meteorológicas.</h2>
                     <ul class="nav navbar-right panel_toolbox">
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       
@@ -382,11 +382,11 @@ error_reporting(E_ALL & ~E_NOTICE);
                     <thead>
                         <tr>
                             
-                            <th width="75"><font color="black">Codigo</font></th>
+                            <th width="75"><font color="black">Código</font></th>
                             <th width="150"><font color="black">Departamento</font></th>
                             <th width="150"><font color="black">Municipio</font></th>
                             <th width="500"><font color="black">Responsable</font></th>
-                            <th width="150"><font font color="black">Ubicacion</font></th>
+                            <th width="150"><font font color="black">Ubicación</font></th>
                             <th width="150"><font font color="black">Ver</font></th>
                             <th width="100"><font font font color="black">Editar</font></th>
                             
