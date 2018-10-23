@@ -1,5 +1,5 @@
 <?php
-    include "../../ProcesoSubir/conexioneq.php";
+    include "../ProcesoSubir/conexioneq.php";
 
     $opcion=$_REQUEST["opcion"];
     $cambio=$_REQUEST["cambio"];
@@ -19,7 +19,7 @@
     if($opcion==="cambioFoto"){
         ?>
         <?php
-        if($cambio === "Estaciones"){echo "<img  width='685' height='290' src='../../Vistas/images/volcan.jpg'/>";
+        if($cambio === "Estaciones"){echo "<img  width='685' height='290' src='images/volcan.jpg'/>";
     }else{       
         $result  = $conexion->query("SELECT * from estacionmet est where est.id_estacion = '".$cambio."'  ");
         while($fila = $result->fetch_object()){

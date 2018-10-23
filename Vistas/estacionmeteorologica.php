@@ -54,7 +54,7 @@ error_reporting(E_ALL & ~E_NOTICE);
   
    function llamarPaginaMapa(lat,lon)
         {
-          var url="/supermarket/pages/verMapa.php?lat="+lat+"&lon="+lon;
+          var url="verMapa.php?lat="+lat+"&lon="+lon;
           window.open(url,"Nuevo","alwaysRaised=no");
         }
   function ponerAbreviatura(){
@@ -231,7 +231,7 @@ error_reporting(E_ALL & ~E_NOTICE);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	  
-    <title>SICA |</title>
+    <title>HIDROSIS</title>
 
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">

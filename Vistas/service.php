@@ -7,7 +7,7 @@
   $fecha        = date("Y/m/d");
   $observacion  = $_REQUEST["observacion"];
 
-  require_once "../../ProcesoSubir/conexioneq.php";
+  require_once "../ProcesoSubir/conexioneq.php";
     
        $conexion->autocommit(FALSE);
        mysqli_query($conexion, "BEGIN WORK");

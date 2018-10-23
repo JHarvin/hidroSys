@@ -294,7 +294,7 @@ function cancelar(){
 
             $("#estacion").val("Estaciones").trigger('change');
 
-            $('#imagen').html("<img  width='685' height='290' src='../../Vistas/images/volcan.jpg'/>" );
+            $('#imagen').html("<img  width='685' height='290' src='images/volcan.jpg'/>" );
         });
     }
 }
