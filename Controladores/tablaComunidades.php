@@ -4,8 +4,8 @@ $result = $conexion->query("SELECT*FROM respestaciones,municipios,comunidades,de
 if ($result) {
     while ($fila = $result->fetch_object()) {
         echo "<tr>";
-        echo "<td hidden>" . $fila["idcomunidad"]. "</td>";
-        echo "<td>" . $fila["nombre"] . "</td>";
+        echo "<td hidden>" . $fila->idcomunidad. "</td>";
+        echo "<td>" . $fila->nombre . "</td>";
         echo "<td>" . $fila->tipo . "</td>";
         echo "<td>" . $fila->nombredepto. "</td>";
         echo "<td>" . $fila->nombremunicipio. "</td>";
