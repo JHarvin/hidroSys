@@ -56,7 +56,7 @@ class PDF extends FPDF {
         foreach($cabecera as $fila)
         {
  
-            $this->CellFitSpace(50,7, utf8_decode($fila),0, 0 , 'L', true);
+            $this->CellFitSpace(50,7, utf8_decode($fila),1, 0 , 'L', true);
  
         }
     }
@@ -71,9 +71,9 @@ class PDF extends FPDF {
         {
             $this->Ln();//Salto de línea para generar otra fila
             //Usaremos CellFitSpace en lugar de Cell
-            $this->CellFitSpace(50,7, utf8_decode($fila['tipo']),0, 0 , 'L', $bandera );
-            $this->CellFitSpace(50,7, utf8_decode($fila['dui']),0, 0 , 'L', $bandera );
-            $this->CellFitSpace(50,7, utf8_decode($fila['nombre']),0, 0 , 'L', $bandera );
+            $this->CellFitSpace(50,7, utf8_decode($fila['tipo']),1, 0 , 'L', $bandera );
+            $this->CellFitSpace(50,7, utf8_decode($fila['dui']),1, 0 , 'L', $bandera );
+            $this->CellFitSpace(50,7, utf8_decode($fila['nombre']),1, 0 , 'L', $bandera );
             //$this->Ln();Salto de línea para generar otra fila
             //$bandera = !$bandera;Alterna el valor de la bandera
         }
