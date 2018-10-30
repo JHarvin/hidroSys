@@ -325,7 +325,7 @@ $("#enviarimagenes").on("submit", function(e){
                           <th>Acciones</th>
                         </tr>
                       </thead>
-                      <tbody>
+                      <tbody class="tabla_ajax">
                       <?php include('../Controladores/tablaEquipos.php') ?>
                       </tbody>
                     </table>
@@ -452,7 +452,8 @@ $("#enviarimagenes").on("submit", function(e){
                         <tr><th colspan=5 style="text-align:center;">Modificar Equipo </th></tr>
                     </table>
                     <input type="hidden" id="id" name="id" value="">
-                   
+                    <form id="modificar" >
+                    
                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                         <label>Nombre del Equipo<small class="text-muted"></small></label>
                         <input type="text" class="form-control has-feedback-left" name="nomb" id="nomb">
@@ -516,7 +517,7 @@ $("#enviarimagenes").on("submit", function(e){
                   
                   <button id="guardar" class="btn btn-primary" data-dismiss="modal">Modificar</button>
                 </div>
-
+                </form>
                 </div><!--Fin del content-->
               </div>
          </div>  
@@ -582,43 +583,39 @@ $("#enviarimagenes").on("submit", function(e){
     $('#datatables-example').DataTable();
 
     $("#guardar").on('click',function(){
-        var grado = $('#nomb').val();
-        var opcion = $('#marc').val();
-        var seccion = $('#num').val();
-        var cupo = $('#donad').val();
-        var cupo = $('#descr').val();
-        if(grado == ""){
-          sweetError("Grado incorrecto");
+      alert("llega a modificar");
+        var nomb = $('#nomb').val();
+        var marc = $('#marc').val();
+        var num = $('#num').val();
+        var donad = $('#donad').val();
+        var grado = $('#grado').val();
+        var esteq = $('#esteq').val();
+        var descr = $('#descr').val();
+        if(nombre == ""){
+          alert("Nombre incorrecto");
             return false;
         }
-        if(opcion == ""){
-            sweetError("No se selecciono una opcion");
+        if(marca == ""){
+            alert("Ingrese Marca");
             return false;
         }
-        if(seccion == ""){
-          sweetError("No se selcciono una seccion");
+        if(numero == ""){
+          sweetError("Ingrese Numero de Serie");
             return false;
         }
-        if(cupo ==""||cupo<0||cupo>60){
-          sweetError("Cupo incorrecto");
-            return false;
-        }
-       
+
         var todo = $("#modificar").serialize();
 
         $.ajax({
             type: 'post',
-            url: 'editarOpcion.php',
+            url: 'editarEquipo.php',
             data: todo,
             success: function(respuesta) {
              
-                $("#grado option[value=0]").prop("selected",true);
-                $("#opcion option[value=0]").prop("selected",true);
-                $("#seccion option[value=0]").prop("selected",true);
-                $("#cupo").val(0);
+           
                 $("#modalito").modal('hide');
-                sweetGuardo(respuesta);
-                $(".tabla_ajax").load("tablaOpcCom.php"); 
+                alert(respuesta);
+                $(".tabla_ajax").load("tablaEquipo.php"); 
                 //$('#datatables-example').DataTable();
             },
             error: function(respuesta){
