@@ -583,6 +583,7 @@ $("#enviarimagenes").on("submit", function(e){
     $('#datatables-example').DataTable();
 
     $("#guardar").on('click',function(){
+      alert("llega a modificar");
         var nomb = $('#nomb').val();
         var marc = $('#marc').val();
         var num = $('#num').val();
