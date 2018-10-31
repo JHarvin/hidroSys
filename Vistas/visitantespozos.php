@@ -30,18 +30,11 @@
     <link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
 
     <!-- Custom Theme Style -->
-    <link href="../build/css/custom.min.css" rel="stylesheet"> </head>
-
-
-    
-       <link rel="stylesheet" href="../libreriasJS/alertifyjs/alertify.min.css">
-   <script src="../libreriasJS/alertifyjs/alertify.css"></script>
-   <script src="../libreriasJS/alertifyjs/alertify.min.js"></script>
-     </head>
+    <link href="../build/css/custom.min.css" rel="stylesheet">
 <script type="text/javascript">
    
   
- 
+  </head>
   <script>
     function soloNumero(e) {
         key = e.keyCode || e.which;
@@ -63,7 +56,7 @@
     function soloLetras(e) {
         key = e.keyCode || e.which;
         teclado = String.fromCharCode(key).toLowerCase();
-        letras = "áéíóúabcdefghijklmnñopqrstuvwxyz";
+        letras = " áéíóúabcdefghijklmnñopqrstuvwxyz";
         especiales = "8-37-38-46-164";
         teclado_especial = false;
         for (var i in especiales) {
@@ -75,7 +68,7 @@
         if (letras.indexOf(teclado) == -1 && !teclado_especial) {
             return false;
         }
-    } }
+    }
 
 </script>
 
@@ -256,7 +249,7 @@
   <?php
       if (isset($_REQUEST['tirar'])) {
         try {
-        include_once '../conexion/conexion.php';
+        include_once '../conexion/php_conexion.php';
         $Dui = $_POST["dui"];
         $Nombre = $_POST["nombre"];
         $Genero = $_POST["genero"];
@@ -268,8 +261,9 @@
          echo' 
              
             <script type="text/javascript">
+              
 
-     alertify.success("Registro Guardado    ✔");
+          alertify.success("Registro Guardado    ✔");
     alertify.set("notifier","position", "top");
             </script>
             ';
@@ -306,7 +300,7 @@
         
         <!-- SEGUNDO CONTENEDOR PARA LA TABLA  -->
 <?php
-include_once './buscaVisitantes.php';
+include_once '../Vistas/buscaVisitantes.php';
 
 
 ?>

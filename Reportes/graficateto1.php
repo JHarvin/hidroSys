@@ -79,13 +79,7 @@ INNER JOIN lecturapozos AS l ON l.id_pozo= p.id_pozo
 where EXTRACT(MONTH FROM l.date)='$mes1' and EXTRACT(YEAR FROM l.date)='$a' and p.id_pozo=$po
 GROUP BY p.codigopozo, l.date
 ORDER BY l.date");
-                          while ($pozito= mysqli_fetch_array($datos)){
-                              $po=$_GET['po'];
-                       $fecha=$_GET['f'];
-                $x=explode("-",$fecha);
-                    $mes1=$x[0];
-                     $a=$x[1];
-			 }
+                         
 		?>
 		
 		<script type="text/javascript">
@@ -102,7 +96,7 @@ ORDER BY l.date");
 						text: 'Sistema Hidrometeorologico'
 					},
 					subtitle: {
-						text: 'Lluvia promedio correspondiente a <?php echo $fecha;?>'
+						text: 'Temperatura promedio correspondiente a <?php echo $fecha;?>'
 					},
 					xAxis: {
 						// Le pasamos los datos que irán en el eje de las 'X' en JSON
@@ -111,7 +105,7 @@ ORDER BY l.date");
 					},
 					yAxis: {
 						title: {
-							text: 'Promedio de lluvia'
+							text: 'Promedio de temperatura'
 						}
 					},
 					tooltip: {
@@ -226,7 +220,7 @@ ORDER BY l.date");
      <?php }?>
     <div id="container" style="width: 100%; height: 500px; margin: 0 auto"></div>
                 <br><br>
-                <center><a href="../Reportes/Vista_Visita.php">
+                <center><a href="../Reportes/Vista_GD.php">
                          <button type="submit" class="btn btn-success">Regresar</button>
                     </a></center>	
 	</body>

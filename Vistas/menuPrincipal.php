@@ -39,7 +39,7 @@
                     <ul class="nav child_menu">
                       <li><a href="datosDePozos.php">Datos de pozos</a></li>
                       <li><a href="propietariospozos.php">Propietarios Pozos</a></li>
-                      <li><a href="../visitantesPozoz/visitantespozos.php">Visitantes Pozos</a></li>
+                      <li><a href="../Vistas/visitantespozos.php">Visitantes Pozos</a></li>
                       <li><a href="../ProcesoSubir/SubirPozos.php">Lectura de Pozos</a></li>
                       <li><a href="../Vistas/visitapozos.php">Visita Pozos</a></li>
                       

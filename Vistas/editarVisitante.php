@@ -87,7 +87,7 @@
                                 </div>
                                 <div class="col-md-6">Tipo
                                    
-                            <select class="form-control" name="tipito" id="tipoVi" value="">
+                                     <select class="form-control" name="tipito" id="tipoVi" value="">
                             <option value="">Tipo</option>
                             <option value="estudiante">Estudiante.</option>
                             <option value="docente">Docente</option>
