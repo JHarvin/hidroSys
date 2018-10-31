@@ -12,7 +12,7 @@ msg("Los datos fueron almacenados con exito");
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	  
+    
     <title>Ingenieria de Software</title>
 
     <!-- Bootstrap -->
@@ -45,38 +45,43 @@ msg("Los datos fueron almacenados con exito");
   
     <script type="text/javascript"> 
       function validar(){
-   
+        alert("llega");
           if( document.getElementById('nombre').value=="" ){
             alert("Complete los campos");
           }else{
               document.turismo.submit();
             }
         }
-        function editar(nom,marca,num,don,tip,des,estado,accion)
+        function editar(nom,marca,num,don,tip,des,estado)
         {
-          if(accion==1){
           $("#nombr").val(nom);
           $("#mar").val(marca);
           $("#nume").val(num);
-          $("#dona").val(don);
+         $("#dona").val(don);
           $("#tipo").val(tip);
           $("#descri").val(des);
-          $("#est").val(estado); 
-          $("#DetalleModal").modal();
-          }else if(accion==2){
-          $("#nomb").val(nom);
-          $("#marc").val(marca);
-          $("#num").val(num);
-          $("#donad").val(don);
-       
-          $("#grado option[value="+tip+"]").prop("selected", true);
-          $("#descr").val(des);
-        
-        
-          $("#ModifModal").modal();
-          } 
+          $("#est").val(estado);
+          
+        $("#DetalleModal").modal();
         }
       </script>
+
+       <script type="text/javascript">
+  
+  function verImagen(id){
+   
+    $.ajax(
+      {
+        type:"POST",
+        url:"imagenRecuperada.php",
+        data:"id="+id,
+        success:function(r){
+          $('#imagenRecuperada').html(r);
+         // ponerAbreviatura();
+        }
+      });
+  }
+  </script>
 
       <script>
 $("#enviarimagenes").on("submit", function(e){
@@ -148,7 +153,7 @@ $("#enviarimagenes").on("submit", function(e){
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="images/img.jpg" alt="">Kevinens
+                    <img src="images/img.jpg" alt="">
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -203,33 +208,33 @@ $("#enviarimagenes").on("submit", function(e){
                   </div>
                   <div class="x_content">
                     <br />
-                    <form name="form" method="post" action="../Controladores/guardarequipo.php" enctype="multipart/form-data">
+                    <form name="form" method="post" action="../Controladores/guardarequipo2.php" enctype="multipart/form-data">
 
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                         <label>Nombre del equipo<small class="text-muted"></small></label>
-                        <input type="text" class="form-control has-feedback-left" name="nombre" id="nombre" placeholder="Nombre" required>
+                        <input type="text" class="form-control has-feedback-left" name="nombre" id="nombre" placeholder="Nombre">
                         <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                       </div>
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                         <label>Marca<small class="text-muted"></small></label>
-                        <input type="text" class="form-control has-feedback-left" name="mark" id="mark" placeholder="Marca" required>
+                        <input type="text" class="form-control has-feedback-left" name="mark" id="mark" placeholder="Marca">
                         <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                       </div>
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                         <label>Número de serie<small class="text-muted"></small></label>
-                        <input type="text" class="form-control has-feedback-left" name="numserie" id="numserie" placeholder="Número de Serie" required>
+                        <input type="text" class="form-control has-feedback-left" name="numserie" id="numserie" placeholder="Número de Serie">
                         <span class="fa fa-list-ol form-control-feedback left" aria-hidden="true"></span>
                       </div>
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                         <label>Donantes<small class="text-muted"></small></label>
-                        <input type="text" class="form-control has-feedback-left" name="Donantes" id="donadores" placeholder="Donadores" required>
+                        <input type="text" class="form-control has-feedback-left" name="Donantes" id="donadores" placeholder="Donadores">
                         <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                       </div>
                       <div class="form-group">
                         <div class="col-md-4 col-sm-4 col-xs-12">
                           <label>Tipo de uso<small class="text-muted"></small></label>
                           <select class="form-control" name="tipo">
-                            <option selected hidden>Seleccione</option>
+                            <option>Seleccione</option>
                             <option>Pluviometro</option>
                             <option>Agrometeorologico</option>
                             <option>Estación Meteorologica</option>
@@ -241,7 +246,7 @@ $("#enviarimagenes").on("submit", function(e){
                         <div class="col-md-4 col-sm-4 col-xs-12">
                           <label>Estado del equipo<small class="text-muted"></small></label>
                           <select class="form-control" name="estado">
-                            <option selected hidden>Seleccione</option>
+                            <option>Seleccione</option>
                             <option>En uso</option>
                             <option>En mal estado</option>
                             <option>Extraviado</option>
@@ -284,8 +289,8 @@ $("#enviarimagenes").on("submit", function(e){
                       <div class="form-group" style="margin-top:50px;margin-left:300px">
                         <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
                         <button type="submit" onclick="validar()" class="btn btn-success">Guardar</button>
-                          <button type="reset" class="btn btn-warning">Cancelar</button>
-						   <!-- <button class="btn btn-primary" type="reset">Reset</button> -->
+                          <button type="button" class="btn btn-warning">Cancelar</button>
+               <!-- <button class="btn btn-primary" type="reset">Reset</button> -->
                          
                         </div>
                       </div>
@@ -322,11 +327,10 @@ $("#enviarimagenes").on("submit", function(e){
                           <th>Número de serie</th>
                           <th>Donador</th>
                           <th>Estado</th>
-                          <th>Imagen</th>
                           <th>Acciones</th>
                         </tr>
                       </thead>
-                      <tbody class="tabla_ajax">
+                      <tbody>
                       <?php include('../Controladores/tablaEquipos.php') ?>
                       </tbody>
                     </table>
@@ -353,7 +357,7 @@ $("#enviarimagenes").on("submit", function(e){
               <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title"><strong><i class="fa fa-list-ul fa-2x"></i></strong></h5>
+                    <h5 class="modal-title"><strong><i class="fa fa-list-ul fa-2x"> Detalle equipo</i></strong></h5>
 
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
@@ -365,7 +369,7 @@ $("#enviarimagenes").on("submit", function(e){
                   
                     
                       <thead>
-                      <tr><th colspan=5 style="text-align:center;">Detalle Equipo </th></tr>
+                       
                     </table>
                     <input type="hidden" id="id" name="id" value="">
                    
@@ -405,11 +409,6 @@ $("#enviarimagenes").on("submit", function(e){
                       <textarea style="width: 425px;" rows="3" size="100" value="" class="form-control" name="descri" id="descri" disabled></textarea>
                       </div>
 
-                      <div class="col-md-6 col-sm-6 col-xs-12">
-                      <label>Foto<small class="text-muted"></small></label>
-                      
-                      </div>
-
 
                       </div>
 
@@ -435,7 +434,7 @@ $("#enviarimagenes").on("submit", function(e){
       
       <!--Detalle modal-->
       <!--Modificacion modal-->
-     <div class="modal fade modifi-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="ModifModal">
+     <div class="modal fade modifi-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
               <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                 <div class="modal-header">
@@ -445,80 +444,63 @@ $("#enviarimagenes").on("submit", function(e){
                     </button>
                 </div>
                 <div class="modal-body">
-                <div class="row">
+                  <div class="row">
                   <table class="table table-bordered">
-                  
                     
                       <thead>
-                        <tr><th colspan=5 style="text-align:center;">Modificar Equipo </th></tr>
+                        <tr><th colspan=5 style="text-align:center;">MODIFICAR EQUIPO </th></tr>
                     </table>
-                    <input type="hidden" id="id" name="id" value="">
-                    <form id="modificar" >
-                    
+
+                  
                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                         <label>Nombre del Equipo<small class="text-muted"></small></label>
-                        <input type="text" class="form-control has-feedback-left" name="nomb" id="nomb">
+                        <input type="text" class="form-control has-feedback-left" name="Donantes" id="donadores" placeholder="Donadores">
                         <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                         <label>Marca<small class="text-muted"></small></label>
-                        <input type="text" class="form-control has-feedback-left" name="marc" id="marc">
+                        <input type="text" class="form-control has-feedback-left" name="Donantes" id="donadores" placeholder="Donadores">
                         <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                         <label>Numero de Serie<small class="text-muted"></small></label>
-                        <input type="text" class="form-control has-feedback-left" name="num" id="num">
+                        <input type="text" class="form-control has-feedback-left" name="Donantes" id="donadores" placeholder="Donadores">
                         <span class="fa fa-list-ol form-control-feedback left" aria-hidden="true"></span>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <label>Donante<small class="text-muted"></small></label>
-                        <input type="text" class="form-control has-feedback-left" name="donad" id="donad">
+                        <label>Docentes<small class="text-muted"></small></label>
+                        <input type="text" class="form-control has-feedback-left" name="Donantes" id="donadores" placeholder="Donadores">
                         <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                         </div>
-
-                         
-                         <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                          <label>Tipo de uso<small class="text-muted"></small></label>
-                          <select id="grado"  class="form-control" name="grado" onchange="verificar()">
-                            <option>Pluviometro</option>
-                            <option>Agrometeorologico</option>
-                            <option>Estación Meteorologica</option>
-                            <option>Otros</option>
-                            </select>
-                        </div>
-                      
-                    
                         <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                          <label>Estado del equipo<small class="text-muted"></small></label>
-                          <select id="esteq" class="form-control" name="esteq" onchange="verificar()">
-                           
-                            <option>En uso</option>
-                            <option>En mal estado</option>
-                            <option>Extraviado</option>
-                            </select>
-                        </div> 
-                     
-
-
-                        
+                        <label>Tipo de Uso<small class="text-muted"></small></label>
+                        <input type="text" class="form-control has-feedback-left" name="Donantes" id="donadores" placeholder="Donadores">
+                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                        <label>Estado del Equipo<small class="text-muted"></small></label>
+                        <input type="text" class="form-control has-feedback-left" name="Donantes" id="donadores" placeholder="Donadores">
+                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                        </div>
                         <div class="form-group">
                       <div class="col-md-6 col-sm-6 col-xs-12">
                       <label>Descripción<small class="text-muted"></small></label>
-                      <textarea style="width: 850px;" rows="3" size="100" value="" class="form-control" name="descr" id="descr"></textarea>
+                      <textarea style="width: 850px;" rows="3" size="100" value="" class="form-control" name="descripcion" placeholder="Descripción" id="descripcion"></textarea>
                       </div>
 
                       </div>
                   </div>
                
+                    
                 
                   
                   
                 </div>
                 <div class="modal-footer">
                   
-                  <button id="guardar" class="btn btn-primary" data-dismiss="modal">Modificar</button>
+                  <button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
                 </div>
-                </form>
+
                 </div><!--Fin del content-->
               </div>
          </div>  
@@ -576,61 +558,7 @@ $("#enviarimagenes").on("submit", function(e){
     <script src="../vendors/jszip/dist/jszip.min.js"></script>
     <script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
     <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
-    <script type="text/javascript">
-  $(document).ready(function(){
-    $('#datatables-example').DataTable();
-  });
-  $(document).ready(function(){
-    $('#datatables-example').DataTable();
-
-    $("#guardar").on('click',function(){
-      alert("llega a modificar");
-        var nomb = $('#nomb').val();
-        var marc = $('#marc').val();
-        var num = $('#num').val();
-        var donad = $('#donad').val();
-        var grado = $('#grado').val();
-        var esteq = $('#esteq').val();
-        var descr = $('#descr').val();
-        if(nombre == ""){
-          alert("Nombre incorrecto");
-            return false;
-        }
-        if(marca == ""){
-            alert("Ingrese Marca");
-            return false;
-        }
-        if(numero == ""){
-          sweetError("Ingrese Numero de Serie");
-            return false;
-        }
-
-        var todo = $("#modificar").serialize();
-
-        $.ajax({
-            type: 'post',
-            url: 'editarEquipo.php',
-            data: todo,
-            success: function(respuesta) {
-             
-           
-                $("#modalito").modal('hide');
-                alert(respuesta);
-                $(".tabla_ajax").load("tablaEquipo.php"); 
-                //$('#datatables-example').DataTable();
-            },
-            error: function(respuesta){
-              alert("Error en el servidor: "+respuesta); 
-            }
-        });//fin de ajax
-
-      return false;
-    });//fin del click
-    
-  });//fin del ready
-
-</script>
-<!-- end: Javascript -->
+  
   </body>
 </html>
 <?php
