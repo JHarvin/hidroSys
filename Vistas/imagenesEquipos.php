@@ -1,5 +1,5 @@
 <?php
-include "../config/conexioneq.php";
+include "../config/conexion.php";
 $id = $_REQUEST["id"];
 
 

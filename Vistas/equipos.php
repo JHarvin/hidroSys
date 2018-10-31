@@ -45,7 +45,7 @@ msg("Los datos fueron almacenados con exito");
   
     <script type="text/javascript"> 
     function verImagen(id){
-   alert(id);
+  
    $.ajax(
      {
        type:"POST",
@@ -261,7 +261,7 @@ $("#enviarimagenes").on("submit", function(e){
 
                       <div class="form-group">
                         <div class="col-md-4 col-sm-4 col-xs-12">
-                          <label>Imagen (PNG,JPG,JPE)<small class="text-muted"></small></label>
+                          <label>Foto (PNG,JPG,JPE)<small class="text-muted"></small></label>
                             <input name="imagen" type="file" onChange="ver(form.file.value)" required accept="image/jpg,image/png,image/jpeg"> 
                         </div> 
                       </div>
@@ -332,6 +332,7 @@ $("#enviarimagenes").on("submit", function(e){
                           <th>Número de serie</th>
                           <th>Donador</th>
                           <th>Estado</th>
+                          <th>Foto</th>
                           <th>Observar</th>
                           <th>Acciones</th>
                         </tr>
@@ -454,7 +455,12 @@ $("#enviarimagenes").on("submit", function(e){
 
                       </div>
                   </div>
-               
+                  <div class="form-group">
+                        <div class="col-md-4 col-sm-4 col-xs-12">
+                          <label>Modificar Foto (PNG,JPG,JPE)<small class="text-muted"></small></label>
+                            <input name="imagen" type="file" onChange="ver(form.file.value)" required accept="image/jpg,image/png,image/jpeg"> 
+                        </div> 
+                      </div>
                 
                   
                   

@@ -12,7 +12,7 @@ if ($result) {
         echo "<td>" . $fila->donadopor . "</td>";
         echo "<td>" . $fila->estado . "</td>";
         /* Codigo para mostrar la imagen*/
-        //echo "<td><img src='data:image/jpg;base64," .base64_encode($fila->imagen) . "' width=75 height=75;></td>";
+        echo "<td><img src='data:image/jpg;base64," .base64_encode($fila->imagen) . "' width=75 height=75;></td>";
     echo "<td width=160>  <div class='col-md-6'>
         <center><a href='#' data-toggle='modal' data-target='#confirm-imagen' onclick=verImagen('".$fila->idequipo."');><button type='button' class='btn btn-success'><i class='fa fa-eye'></i></button></a></center>
 
