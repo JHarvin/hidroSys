@@ -68,11 +68,7 @@ msg("Los datos fueron almacenados con exito");
           $("#marc").val(marca);
           $("#num").val(num);
           $("#donad").val(don);
-       
-          $("#grado option[value="+tip+"]").prop("selected", true);
           $("#descr").val(des);
-        
-        
           $("#ModifModal").modal();
           } 
         }
@@ -613,9 +609,9 @@ $("#enviarimagenes").on("submit", function(e){
             success: function(respuesta) {
              
            
-                $("#modalito").modal('hide');
+                $("#ModifModal").modal('hide');
                 alert(respuesta);
-                $(".tabla_ajax").load("tablaEquipo.php"); 
+                $(".tabla_ajax").load("tablaEquipos.php"); 
                 //$('#datatables-example').DataTable();
             },
             error: function(respuesta){
