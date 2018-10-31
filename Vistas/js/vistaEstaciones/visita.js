@@ -2,7 +2,6 @@ function cancelar(){
     var observacion = $("#observacion").val();
     var visitante = $("#visitante").val();
     var estacion = $("#estacion").val();
-    var tipo = $("#tipo").val();
     alertify.defaults.theme.ok = "btn btn-primary";
     alertify.defaults.theme.cancel = "btn btn-danger";
     
@@ -13,26 +12,21 @@ function cancelar(){
     confirmar.set({transition:'zoom'});    
                
     confirmar.set('onok', function(){ 
-        alertify.success('Has confirmado');
+    alertify.success('Has confirmado');
+    $("#observacion").val(""); 
+    $("#visitante").select2({
+        placeholder: "Visitante",
+        allowClear: true
+    });
+    $("#visitante").val("Visitante").trigger('change');
+    $("#estacion").select2({
+        placeholder: "Estaciones",
+        allowClear: true
+    });
+    $("#estacion").val("Estaciones").trigger('change');
+             
+    
 
-        $("#observacion").val(""); 
-        $("#visitante").select2({
-            placeholder: "Visitante",
-            allowClear: true
-        });
-        $("#visitante").val("Visitante").trigger('change');
-
-        $("#estacion").select2({
-            placeholder: "Estaciones",
-            allowClear: true
-        });
-        $("#estacion").val("Estaciones").trigger('change');
-
-        $("#tipo").select2({
-            placeholder: "Tipo Visitante",
-            allowClear: true
-        });
-        $("#tipo").val("Tipo Visitante").trigger('change');
     });
 
     alertify.set('notifier','position','top-right');         
@@ -44,13 +38,12 @@ function cancelar(){
     function enviarDatos(e) {
       var observacion = $("#observacion").val();
       var visitante = $("#visitante").val();
+      var fecha = $("#fecha").val();
       var estacion = $("#estacion").val();
-      var tipo = $("#tipo").val();
 
       
 
-      if(visitante=="Visitante" && estacion =="Estaciones" && observacion =="" && tipo =="Tipo Visitante"){
-        alertify.error('Debe Seleccionar un Tipo de Visitante');
+      if(visitante=="Visitante" && estacion =="Estaciones" && observacion ==""){
         alertify.error('Debe Seleccionar un Visitante');
         alertify.error('Debe Seleccionar una Estación');
         alertify.error('Debe Introducir una Observación');
@@ -58,62 +51,9 @@ function cancelar(){
         alertify.set({transition: 'zoom'});
               
         return false;
-      } else if( tipo =="Tipo Visitante" && visitante=="Visitante" && estacion =="Estaciones"  ){
-        alertify.error('Debe Seleccionar un Tipo de Visitante');
+      } else if(visitante =="Visitante"  && estacion =="Estaciones" ){
         alertify.error('Debe Seleccionar una Visitante');
         alertify.error('Debe Seleccionar una Estación');
-        alertify.set('notifier','position','top-right');
-        alertify.set({transition: 'zoom'});
-              
-        return false;
-      } else if( tipo =="Tipo Visitante" && visitante=="Visitante" && observacion ==""  ){
-        alertify.error('Debe Seleccionar un Tipo de Visitante');
-        alertify.error('Debe Seleccionar una Visitante');
-        alertify.error('Debe Introducir una Observación');
-        alertify.set('notifier','position','top-right');
-        alertify.set({transition: 'zoom'});
-              
-        return false;
-      } else if( estacion =="Estaciones"  && tipo == "Tipo Visitante" && observacion=="" ){
-        alertify.error('Debe Seleccionar un Tipo de Visitante');
-        alertify.error('Debe Introducir una Observación');
-        alertify.error('Debe Seleccionar una Estación');
-        alertify.set('notifier','position','top-right');
-        alertify.set({transition: 'zoom'});
-              
-        return false;
-      } else if( estacion =="Estaciones"  && visitante =="Visitante" && observacion=="" ){
-        alertify.error('Debe Seleccionar un Visitante');
-        alertify.error('Debe Introducir una Observación');
-        alertify.error('Debe Seleccionar una Estación');
-        alertify.set('notifier','position','top-right');
-        alertify.set({transition: 'zoom'});
-              
-        return false;
-      } else if(visitante =="Visitante"  && tipo =="Tipo Visitante" ){
-        //alertify.error('Debe Seleccionar una Visitante');
-        alertify.error('Debe Seleccionar un Tipo de Visitante');
-        alertify.set('notifier','position','top-right');
-        alertify.set({transition: 'zoom'});
-              
-        return false;
-      }else if(visitante =="Visitante"  && estacion =="Estaciones" ){
-        alertify.error('Debe Seleccionar una Visitante');
-        alertify.error('Debe Seleccionar una Estación');
-        alertify.set('notifier','position','top-right');
-        alertify.set({transition: 'zoom'});
-              
-        return false;
-      } else if(visitante =="Visitante" && observacion =="" ){
-        alertify.error('Debe Seleccionar un Visitante');
-        alertify.error('Debe Introducir una Observación');
-        alertify.set('notifier','position','top-right');
-        alertify.set({transition: 'zoom'});
-              
-        return false;
-      } else if(tipo =="Tipo Visitante" && observacion =="" ){
-        alertify.error('Debe Seleccionar un Tipo de Visitante');
-        alertify.error('Debe Introducir una Observación');
         alertify.set('notifier','position','top-right');
         alertify.set({transition: 'zoom'});
               
@@ -125,14 +65,14 @@ function cancelar(){
         alertify.set({transition: 'zoom'});
               
         return false;
-      } else if(estacion =="Estaciones" && tipo =="Tipo Visitante" ){
-        alertify.error('Debe Seleccionar una Estación');
-        alertify.error('Debe Seleccionar un Tipo de Visitante');
+      }else if(visitante =="Visitante" && observacion =="" ){
+        alertify.error('Debe Seleccionar un Visitante');
+        alertify.error('Debe Introducir una Observación');
         alertify.set('notifier','position','top-right');
         alertify.set({transition: 'zoom'});
               
         return false;
-      } else if (visitante == "Visitante") {
+      }else if (visitante == "Visitante") {
         alertify.set('notifier','position','top-right');
         alertify.error('Debe Seleccionar un Visitante');
         $("#Visitante").focus();
@@ -147,11 +87,6 @@ function cancelar(){
         alertify.error('Debe Introducir una Observación');
         $("#observacion").focus();
         return false;
-      } else if (tipo == "Tipo Visitante") {
-        alertify.set('notifier','position','top-right');
-        alertify.error('Debe Seleccionar un Tipo de Visitante');
-        $("#tipo").focus();
-        return false;
       }
 
 
@@ -164,50 +99,30 @@ function cancelar(){
         data: obtener,
         success: function(respuesta) {
           if(respuesta==1){
-            
             alertify.set('notifier','position','top-right');
-            alertify.success('Datos Insertados!'); 
-              
-            
-            limpiaF('limpiar');
-            recargarTabla('');
-          /* 
-
+            alertify.success('Los datos han sido insertados correctamente!'); 
+            $('#imprimir').load("recargaTbl.php");
             $("#visitante").select2({
                 placeholder: "Visitante",
                 allowClear: true
             });
-
             $("#visitante").val("Visitante").trigger('change');
-
             $("#estacion").select2({
                 placeholder: "Estaciones",
                 allowClear: true
             });
-
             $("#estacion").val("Estaciones").trigger('change');
            
             $("#observacion").val(""); 
-            
-            $("#tipo").select2({
-                placeholder: "Tipo Visitante",
-                allowClear: true
-            });
 
-            $("#tipo").val("Tipo Visitante").trigger('change');*/
-            
           }else{
-            alertify.set('notifier','position','top-right');
-            alertify.error('Datos no insertados!');
-            alertify.error('Verifique la información!');  
+            alertify.error('Datos no insertados!'); 
           }
         }
       }); 
       return false; 
 
     } 
-
-   
 
     function verMas(str, opcion) {
             if (window.XMLHttpRequest) {
@@ -224,6 +139,9 @@ function cancelar(){
             
             xmlhttp.open("post", "cargaModalDetalleVisita.php?idd=" + opcion , true);
             xmlhttp.send();
+<<<<<<< HEAD:Vistas/VisitaEstaciones/js/visita.js
+        }
+=======
         }
 
     function actualiza(opcion) {
@@ -298,3 +216,4 @@ function cancelar(){
         });
     }
 }
+>>>>>>> 2e9f0d40307336f2c2ccd5d4fd20e9232a1b490a:Vistas/js/vistaEstaciones/visita.js

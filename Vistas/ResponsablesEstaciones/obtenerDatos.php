@@ -16,7 +16,7 @@
           2 => $result2["direccion"],
           3 => $result2["telefono1"],
           4 => $result2["telefono2"],
-          5 => "<img src='".$foto1."'/>",
+          5 => "<img id='quitar' src='".$foto1."'/>",
           
         );
 
