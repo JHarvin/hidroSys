@@ -44,6 +44,19 @@ msg("Los datos fueron almacenados con exito");
     <link href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
   
     <script type="text/javascript"> 
+    function verImagen(id){
+   alert(id);
+   $.ajax(
+     {
+       type:"POST",
+       url:"imagenEquipo.php",
+       data:"id="+id,
+       success:function(r){
+         $('#imagenRecuperada').html(r);
+        // ponerAbreviatura();
+       }
+     });
+ }
       function validar(){
    
           if( document.getElementById('nombre').value=="" ){
@@ -62,6 +75,7 @@ msg("Los datos fueron almacenados con exito");
           $("#tipo").val(tip);
           $("#descri").val(des);
           $("#est").val(estado); 
+    
           $("#DetalleModal").modal();
           }else if(accion==2){
           $("#nomb").val(nom);
@@ -69,7 +83,7 @@ msg("Los datos fueron almacenados con exito");
           $("#num").val(num);
           $("#donad").val(don);
           $("#descr").val(des);
-          $("#ModifModal").modal();
+          $("#ModifiModal").modal();
           } 
         }
       </script>
@@ -318,7 +332,7 @@ $("#enviarimagenes").on("submit", function(e){
                           <th>Número de serie</th>
                           <th>Donador</th>
                           <th>Estado</th>
-                          <th>Imagen</th>
+                          <th>Observar</th>
                           <th>Acciones</th>
                         </tr>
                       </thead>
@@ -342,96 +356,31 @@ $("#enviarimagenes").on("submit", function(e){
         <!-- /footer content -->
       </div>
     </div>
-     <!--Detalle modal-->
-
-     <div class="modal fade detalle-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="DetalleModal">
-      
-              <div class="modal-dialog modal-lg">
-                <div class="modal-content">
+     <!-- MODAL PARA VER FOTO ESTACION -->
+  <div class="modal fade" id="confirm-imagen" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title"><strong><i class="fa fa-list-ul fa-2x"></i></strong></h5>
-
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title" id="myModalLabel"><font font font font color="black">Fotografia de Equipo.</font></h3> 
                 </div>
-                <div class="modal-body">
-                <div class="row">
-                  <table class="table table-bordered">
-                  
+
+                <div class="panel-body" name="imagenRecuperada" id="imagenRecuperada">
+                          
                     
-                      <thead>
-                      <tr><th colspan=5 style="text-align:center;">Detalle Equipo </th></tr>
-                    </table>
-                    <input type="hidden" id="id" name="id" value="">
-                   
-                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <label>Nombre del Equipo<small class="text-muted"></small></label>
-                        <input type="text" class="form-control has-feedback-left" name="nombr" id="nombr" disabled>
-                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
-                        </div>
-                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <label>Marca<small class="text-muted"></small></label>
-                        <input type="text" class="form-control has-feedback-left" name="mar" id="mar" disabled>
-                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
-                        </div>
-                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <label>Numero de Serie<small class="text-muted"></small></label>
-                        <input type="text" class="form-control has-feedback-left" name="nume" id="nume" disabled>
-                        <span class="fa fa-list-ol form-control-feedback left" aria-hidden="true"></span>
-                        </div>
-                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <label>Donante<small class="text-muted"></small></label>
-                        <input type="text" class="form-control has-feedback-left" name="dona" id="dona" disabled>
-                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
-                        </div>
-                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <label>Tipo de Uso<small class="text-muted"></small></label>
-                        <input type="text" class="form-control has-feedback-left" name="tipo" id="tipo" disabled>
-                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
-                        </div>
-                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <label>Estado del Equipo<small class="text-muted"></small></label>
-                        <input type="text" class="form-control has-feedback-left" name="est" id="est" disabled>
-                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
-                        </div>
-                        <div class="form-group">
-                      <div class="col-md-6 col-sm-6 col-xs-12">
-                      <label>Descripción<small class="text-muted"></small></label>
-                      <textarea style="width: 425px;" rows="3" size="100" value="" class="form-control" name="descri" id="descri" disabled></textarea>
-                      </div>
+                                       
 
-                      <div class="col-md-6 col-sm-6 col-xs-12">
-                      <label>Foto<small class="text-muted"></small></label>
-                      
-                      </div>
-
-
-                      </div>
-
-
-                  </div>
-               
-                    
-                
-                  
-                  
                 </div>
+
                 <div class="modal-footer">
-                  
-                  <button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
-                </div>
-
-                
-                </div><!--Fin del content-->
-                
-               
-              </div>
-         </div>  
-      
-      <!--Detalle modal-->
-      <!--Modificacion modal-->
-     <div class="modal fade modifi-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="ModifModal">
+                    <button type="button" class="btn btn-warning pull-right" data-dismiss="modal">Cerrar</button>
+                    
+                </div> 
+            </div>
+        </div> 
+    </div> 
+    <!--Modificacion modal-->
+    <div class="modal fade modifi-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="ModifiModal">
               <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                 <div class="modal-header">
@@ -520,7 +469,97 @@ $("#enviarimagenes").on("submit", function(e){
          </div>  
       
       <!--Modificacion modal-->
+     <!--Detalle modal-->
 
+     <div class="modal fade detalle-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="DetalleModal">
+      
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><strong><i class="fa fa-list-ul fa-2x"></i></strong></h5>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                <div class="row">
+                  <table class="table table-bordered">
+                  
+                    
+                      <thead>
+                      <tr><th colspan=5 style="text-align:center;">Detalle Equipo </th></tr>
+                    </table>
+                    <input type="hidden" id="id" name="id" value="">
+                   
+                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                        <label>Nombre del Equipo<small class="text-muted"></small></label>
+                        <input type="text" class="form-control has-feedback-left" name="nombr" id="nombr" disabled>
+                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                        <label>Marca<small class="text-muted"></small></label>
+                        <input type="text" class="form-control has-feedback-left" name="mar" id="mar" disabled>
+                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                        <label>Numero de Serie<small class="text-muted"></small></label>
+                        <input type="text" class="form-control has-feedback-left" name="nume" id="nume" disabled>
+                        <span class="fa fa-list-ol form-control-feedback left" aria-hidden="true"></span>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                        <label>Donante<small class="text-muted"></small></label>
+                        <input type="text" class="form-control has-feedback-left" name="dona" id="dona" disabled>
+                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                        <label>Tipo de Uso<small class="text-muted"></small></label>
+                        <input type="text" class="form-control has-feedback-left" name="tipo" id="tipo" disabled>
+                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                        <label>Estado del Equipo<small class="text-muted"></small></label>
+                        <input type="text" class="form-control has-feedback-left" name="est" id="est" disabled>
+                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                        </div>
+                        <div class="form-group">
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                      <label>Descripción<small class="text-muted"></small></label>
+                      <textarea style="width: 425px;" rows="3" size="100" value="" class="form-control" name="descri" id="descri" disabled></textarea>
+                      </div>
+
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                      <label>Foto<small class="text-muted"></small></label>
+                      
+
+
+                      </div>
+
+
+                  </div>
+               
+                    
+                
+                  
+                  
+                </div>
+                <div class="modal-footer">
+                  
+                  <button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
+                </div>
+
+                
+                </div><!--Fin del content-->
+                
+               
+              </div>
+         </div>  
+      
+      <!--Detalle modal-->
+      
+      
+      <script src="../libreriasJS/alertifyjs/alertify.css"></script>
+   <script src="../libreriasJS/alertifyjs/alertify.min.js"></script>
     <!-- jQuery -->
     <script src="../vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
@@ -630,13 +669,13 @@ $("#enviarimagenes").on("submit", function(e){
   </body>
 </html>
 <?php
- function msg($texto)
- {
-     echo "<script type='text/javascript'>";
-     echo "alert('$texto');";
-     //echo "document.location.href='materias.php';";
-     echo "</script>";
- }
+function msg($texto)
+{
+    echo "<script type='text/javascript'>";
+    echo' alertify.success("Registro Guardado    ✔");
+    alertify.set("notifier","position", "top");';
+    echo "</script>";
+}
  function msgError($texto)
 {
     echo "<script type='text/javascript'>";

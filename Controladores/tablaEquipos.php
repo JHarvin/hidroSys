@@ -12,15 +12,26 @@ if ($result) {
         echo "<td>" . $fila->donadopor . "</td>";
         echo "<td>" . $fila->estado . "</td>";
         /* Codigo para mostrar la imagen*/
-        echo "<td><img src='data:image/jpg;base64," .base64_encode($fila->imagen) . "' width=75 height=75;></td>";
+        //echo "<td><img src='data:image/jpg;base64," .base64_encode($fila->imagen) . "' width=75 height=75;></td>";
+    echo "<td width=160>  <div class='col-md-6'>
+        <center><a href='#' data-toggle='modal' data-target='#confirm-imagen' onclick=verImagen('".$fila->idequipo."');><button type='button' class='btn btn-success'><i class='fa fa-eye'></i></button></a></center>
 
+    </div>
+    </td>";
 
         echo "<td width=160>
                 <center>
-                <button type='button' class='btn btn-success' 'style='width:45px;' onclick=\"editar('$fila->nombre','$fila->marca','$fila->numeroserie','$fila->donadopor','$fila->tipouso','$fila->descripcion','$fila->estado','1')\";><i class='fa fa-eye'></i></button>
-                <button type='button' class='btn btn-success' 'style='width:45px;' onclick=\"editar('$fila->nombre','$fila->marca','$fila->numeroserie','$fila->donadopor','$fila->tipouso','$fila->descripcion','$fila->estado','2')\";><i class='fa fa-pencil'></i></button>
-            
+                <button type='button' class='btn btn-success' 'style='width:45px;' onclick=\"editar('$fila->nombre','$fila->marca','$fila->numeroserie','$fila->donadopor','$fila->tipouso','$fila->descripcion','$fila->estado','1')\";><i style='height:3px' class='fa fa-eye'></i></button>
+                <button type='button' class='btn btn-success' 'style='width:45px;' onclick=\"editar('$fila->nombre','$fila->marca','$fila->numeroserie','$fila->donadopor','$fila->tipouso','$fila->descripcion','$fila->estado','2')\";><i style='height:3px' class='fa fa-pencil'></i></button>
+                
                 </center>
+               
+                                  
+                                   
+
+                                    
+                                  
+                                 
         
                             
                             </td>";
