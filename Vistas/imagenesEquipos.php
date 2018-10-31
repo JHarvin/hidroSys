@@ -1,5 +1,5 @@
 <?php
-include "../config/conexion.php";
+include "../ProcesoSubir/conexioneq.php";
 $id = $_REQUEST["id"];
 
 

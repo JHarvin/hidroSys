@@ -332,7 +332,7 @@ $("#enviarimagenes").on("submit", function(e){
                           <th>Número de serie</th>
                           <th>Donador</th>
                           <th>Estado</th>
-                          <th>Foto</th>
+                      
                           <th>Observar</th>
                           <th>Acciones</th>
                         </tr>
@@ -678,8 +678,7 @@ $("#enviarimagenes").on("submit", function(e){
 function msg($texto)
 {
     echo "<script type='text/javascript'>";
-    echo' alertify.success("Registro Guardado    ✔");
-    alertify.set("notifier","position", "top");';
+    echo"alert('$texto');";
     echo "</script>";
 }
  function msgError($texto)
