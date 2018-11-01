@@ -12,7 +12,7 @@ msg("Los datos fueron almacenados con exito");
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	  
+    
     <title>Ingenieria de Software</title>
 
     <!-- Bootstrap -->
@@ -226,8 +226,8 @@ $("#enviarimagenes").on("submit", function(e){
                         <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                       </div>
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <label>Número de serie<small class="text-muted"></small></label>
-                        <input type="text" class="form-control has-feedback-left" name="numserie" id="numserie" placeholder="Número de Serie" required>
+                        <label>N˙mero de serie<small class="text-muted"></small></label>
+                        <input type="text" class="form-control has-feedback-left" name="numserie" id="numserie" placeholder="N˙mero de Serie" required>
                         <span class="fa fa-list-ol form-control-feedback left" aria-hidden="true"></span>
                       </div>
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
@@ -242,7 +242,7 @@ $("#enviarimagenes").on("submit", function(e){
                             <option selected hidden>Seleccione</option>
                             <option>Pluviometro</option>
                             <option>Agrometeorologico</option>
-                            <option>Estación Meteorologica</option>
+                            <option>EstaciÛn Meteorologica</option>
                             <option>Otros</option>
                             </select>
                         </div>
@@ -270,8 +270,8 @@ $("#enviarimagenes").on("submit", function(e){
                    
                       <div class="form-group">
                       <div class="col-md-6 col-sm-6 col-xs-12">
-                      <label>Descripción<small class="text-muted"></small></label>
-                      <textarea style="width: 1065px;" rows="3" size="100" value="" class="form-control" name="descripcion" placeholder="Descripción" id="descripcion"></textarea>
+                      <label>DescripciÛn<small class="text-muted"></small></label>
+                      <textarea style="width: 1065px;" rows="3" size="100" value="" class="form-control" name="descripcion" placeholder="DescripciÛn" id="descripcion"></textarea>
                       </div>
                       </div>
                    
@@ -295,7 +295,7 @@ $("#enviarimagenes").on("submit", function(e){
                         <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
                         <button type="submit" onclick="validar()" class="btn btn-success">Guardar</button>
                           <button type="reset" class="btn btn-warning">Cancelar</button>
-						   <!-- <button class="btn btn-primary" type="reset">Reset</button> -->
+               <!-- <button class="btn btn-primary" type="reset">Reset</button> -->
                          
                         </div>
                       </div>
@@ -326,10 +326,10 @@ $("#enviarimagenes").on("submit", function(e){
                       <thead>
                         <tr>
                         <th>Nombre</th>
-                          <th>Descripción</th>
+                          <th>DescripciÛn</th>
                           <th>Tipo de uso</th>
                           <th>Marca</th>
-                          <th>Número de serie</th>
+                          <th>N˙mero de serie</th>
                           <th>Donador</th>
                           <th>Estado</th>
                       
@@ -428,7 +428,7 @@ $("#enviarimagenes").on("submit", function(e){
                           <select id="tipou"  class="form-control" name="tipou" onchange="verificar()">
                             <option>Pluviometro</option>
                             <option>Agrometeorologico</option>
-                            <option>Estación Meteorologica</option>
+                            <option>EstaciÛn Meteorologica</option>
                             <option>Otros</option>
                             </select>
                         </div>
@@ -449,7 +449,7 @@ $("#enviarimagenes").on("submit", function(e){
                         
                         <div class="form-group">
                       <div class="col-md-6 col-sm-6 col-xs-12">
-                      <label>Descripción<small class="text-muted"></small></label>
+                      <label>DescripciÛn<small class="text-muted"></small></label>
                       <textarea style="width: 850px;" rows="3" size="100" value="" class="form-control" name="descr" id="descr"></textarea>
                       </div>
 
@@ -530,7 +530,7 @@ $("#enviarimagenes").on("submit", function(e){
                         </div>
                         <div class="form-group">
                       <div class="col-md-6 col-sm-6 col-xs-12">
-                      <label>Descripción<small class="text-muted"></small></label>
+                      <label>DescripciÛn<small class="text-muted"></small></label>
                       <textarea style="width: 425px;" rows="3" size="100" value="" class="form-control" name="descri" id="descri" disabled></textarea>
                       </div>
 
@@ -619,28 +619,30 @@ $("#enviarimagenes").on("submit", function(e){
 
     $("#guardar").on('click',function(){
       alert("llega a modificar");
-        var nomb = $('#nomb').val();
-        var marc = $('#marc').val();
+        var nomb = $('#nombr').val();
+        var marc = $('#mar').val();
         var num = $('#num').val();
-        var donad = $('#donad').val();
-        var grado = $('#grado').val();
-        var esteq = $('#esteq').val();
-        var descr = $('#descr').val();
-        if(nombre == ""){
-          alert("Nombre incorrecto");
-            return false;
-        }
-        if(marca == ""){
-            alert("Ingrese Marca");
-            return false;
-        }
-        if(numero == ""){
-          sweetError("Ingrese Numero de Serie");
-            return false;
-        }
+        var donad = $('#dona').val();
+        var tipou = $('#tipo').val();
+        var esteq = $('#est').val();
+        var descr = $('#descri').val();
+//        if(nomb == ""){
+//          alert("Nombre incorrecto");
+//            return false;
+//        }
+//        if(marc == ""){
+//            alert("Ingrese Marca");
+//            return false;
+//        }
+//        if(num == ""){
+//          sweetError("Ingrese Numero de Serie");
+//            return false;
+//        }
 
+
+alert("var todo");
         var todo = $("#modificar").serialize();
-
+alert("entro a ajax");
         $.ajax({
             type: 'post',
             url: 'editarEquipo.php',

@@ -1,6 +1,6 @@
 <?php
-include "../config/conexion.php";
-$modi = $_REQUEST["mod"];
+include "../conexion/conexion.php";
+$modi = $_REQUEST['mod'];
 $nombre = $_REQUEST['nomb'];
 $marca = $_REQUEST['marc'];
 $numero = $_REQUEST['num'];
@@ -10,8 +10,8 @@ $estado= $_REQUEST['esteq'];
 $descripcion = $_REQUEST['descr'];
 $mensaje = "";
 
-        $consulta  = "UPDATE equipos SET nombre'" .$nombre. "', marca='" . $marca . "', numeroserie='".$numero."',donadopor='".$donado."',tipouso='".$tipous."',estado='".$estado."',descripcion='".$descripcion."' WHERE idequipo='".$modi."'";
-        $resultado = $conexion->query($consulta);
+$consulta = "UPDATE equipos SET nombre'" . $nombre . "', descripcion='" . $descripcion . "', tipouso='" . $tipous . "',marca='" . $marca . "',numeroserie='" . $numero . "',donadopor='" . $donado . "',estado='" . $estado . "' WHERE idequipo='" . $modi . "'";
+$resultado = $conexion->query($consulta);
           if ($resultado) {
               $mensaje="Se editaron los datos correctamente";
           } else {
