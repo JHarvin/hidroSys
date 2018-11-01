@@ -5,7 +5,7 @@ if(isset($_REQUEST["id"])){
     $result = $conexion->query("select * from propietariospozos where id_propietario='$iddatos'");
         if ($result) {
             while ($fila = $result->fetch_object()) {
-                $nombre=$fila->nombre;
+                $nombre=$fila->nom;
                 $apellido=$fila->apellido;
                 $dui=$fila->dui;
                 $direccion=$fila->direccion;
@@ -14,6 +14,7 @@ if(isset($_REQUEST["id"])){
                 $genero=$fila->genero;
                 $correo=$fila->correo;
                 $institucion=$fila->institucion;
+                $sitoWeb=$fila->sitio_web;
             }
         }
 }else{
@@ -26,6 +27,7 @@ if(isset($_REQUEST["id"])){
     $genero=0;
     $correo=null;
     $institucion=null;
+    $sitoWeb=null;
 }
 ?>
 <!DOCTYPE html>
@@ -59,6 +61,7 @@ if(isset($_REQUEST["id"])){
     <link href="../libreriasJS/alertifyjs/css/alertify.min.css" rel="stylesheet">
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../libreriasJS/alertifyjs/css/themes/bootstrap.css"/>
     <!-- Datatables -->
     <link href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
     <link href="../vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
@@ -163,6 +166,7 @@ if(isset($_REQUEST["id"])){
   
                     <form class="form-horizontal" id="formPropietario" name="formPropietario" method="post">
                     <input type="hidden" name="bandera" id="bandera"/>
+                    <input type="hidden" name="tipoPropietario" id="tipoPropietario"/>
                     <div id="cambiaso"><input type="hidden" id="baccionVer" value="1" /></div>
                     <div class="row">
                     <?php  if(!isset($_REQUEST["id"])){ ?>
@@ -176,33 +180,43 @@ if(isset($_REQUEST["id"])){
                     <?php }else{?>
                     <div id="datosPersona">
                     <?php }?>
-                         <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                       <?php
-                          if(isset($_REQUEST["id"])){
-                              ?>
-                            <input type="text" class="form-control has-feedback-left" id="dui" name="dui" placeholder="DUI" onblur="verificarCodigo('dui');" data-inputmask="'mask': '99999999-9'" value="<?php echo $dui; ?>" disabled>
-                            <?php
-                          }else{
-                              ?>
-                             <input type="text" class="form-control has-feedback-left" id="dui" name="dui" placeholder="DUI" onblur="return verificar('dui');" data-inputmask="'mask': '99999999-9'" value="<?php echo $dui; ?>">
-                             <?php
-                          }
-                              ?>
-                              
+                    
+                     <?php  if($institucion==="" || $institucion===null){ ?>
+                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback" id="divDui">  
+                        <?php }else{?>
+                             <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback" id="divDui" hidden>  
+                                <?php }?>
+                                        
+                             <input type="text" class="form-control has-feedback-left" id="dui" name="dui" placeholder="DUI" onblur="return verificar('dui');" data-inputmask="'mask': '99999999-9'" value="<?php echo $dui; ?>">                              
                         <span class="fa fa-barcode form-control-feedback left" aria-hidden="true" ></span>
-                      </div>
+                    </div>
+                     <?php  if($institucion==="" || $institucion===null){ ?>
+                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback" id="divSitio" hidden> 
+                        <?php }else{?>
+                            <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback" id="divSitio"> 
+                                <?php }?>                                           
+                             <input type="text" class="form-control has-feedback-left" id="sitio" name="sitio" placeholder="Sitio web de la institución"  value="<?php echo $sitoWeb; ?>">                              
+                        <span class="fa fa-barcode form-control-feedback left" aria-hidden="true" ></span>
+                    </div>
+                     
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                         <input type="text" class="form-control has-feedback-left" id="correo" name="correo" placeholder="Correo electrónico." value="<?php echo $correo; ?>" onblur="return verificar('correo');">
                         <span class="fa fa-at form-control-feedback left" aria-hidden="true"></span>
                       </div>
-                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left" id="nombre" name="nombre"  placeholder="Nombre" value="<?php echo $nombre;?>" onkeypress="return soloLetras(event)">
-                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
-                      </div>
-                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left" id="apellido" name="apellido" placeholder="Apellido"
-                        value="<?php echo $apellido;?>" onkeypress="return soloLetras(event)">
-                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                    <?php  if($institucion==="" || $institucion===null){ ?>
+                    <div id="divNombre" >
+                        <?php }else{?>
+                            <div id="divNombre" hidden>
+                                <?php }?>
+                          <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                            <input type="text" class="form-control has-feedback-left" id="nombre" name="nombre"  placeholder="Nombre" value="<?php echo $nombre;?>" onkeypress="return soloLetras(event)">
+                            <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                          </div>
+                          <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                            <input type="text" class="form-control has-feedback-left" id="apellido" name="apellido" placeholder="Apellido"
+                            value="<?php echo $apellido;?>" onkeypress="return soloLetras(event)">
+                            <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                          </div>
                       </div>
                      
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
@@ -218,7 +232,12 @@ if(isset($_REQUEST["id"])){
                         <input type="text" class="form-control has-feedback-left" id="direccion" name="direccion" placeholder="Dirección" value="<?php echo $direccion; ?>">
                         <span class="fa fa-map form-control-feedback left" aria-hidden="true"></span>
                       </div>
-                      <div class="form-group">
+                      <?php  if($institucion==="" || $institucion===null){ ?>
+                    <div class="form-group" id="divGenero">
+                        <?php }else{?>
+                            <div class="form-group" id="divGenero" hidden> 
+                                <?php }?>
+                      
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <select class="form-control SSexo" id="sexo" name="sexo" style="width: 100%">
                            <?php if($genero===0){
@@ -243,20 +262,18 @@ if(isset($_REQUEST["id"])){
                               ?>
                           </select>
                         </div>
-                      </div>  
-                     </div>
-                     
-                     <?php  if($institucion==="" || $institucion===null){ ?>
-                        <div id="divInstitucion" hidden>
+                      </div>
+                      <?php  if($institucion==="" || $institucion===null){ ?>
+                    <div id="divInstitucion" hidden>
                         <?php }else{?>
-                           <div id="divInstitucion">
+                            <div id="divInstitucion">
                                 <?php }?>
-                     
-                         <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left" id="institucion" name="institucion" placeholder="Institución que representa" value="<?php echo $institucion ?>">
-                        <span class="fa fa-institution form-control-feedback left" aria-hidden="true"></span>
-                      </div>  
+                                <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                <input type="text" class="form-control has-feedback-left" id="institucion" name="institucion" placeholder="Institución que representa" value="<?php echo $institucion ?>"> <span class="fa fa-institution form-control-feedback left" aria-hidden="true"></span> </div>
+                    </div>  
                      </div>
+                     
+                    
                                        
                       <div class="form-group">
                         <!--Este div es para que agarre la linea que separa los botones.-->
@@ -321,34 +338,36 @@ if(isset($_REQUEST["id"])){
                         <thead>
                           <tr>
                           <th>Tipo</th>
-                          <th>DUI</th>
                           <th>Nombre</th>
                           <th>Celular</th>
                           <th>Direccion</th>
-                           <th>Acciones</th>
+                          <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
                       <?php
                     include "../Config/conexion.php";
-                    $result = $conexion->query("select * from propietariospozos where activo='1' order by nombre");
+                    $result = $conexion->query("select * from propietariospozos where activo='1'");
                     if ($result) {
                         while ($fila = $result->fetch_object()) {
                             echo "<tr>";
                             $insti=$fila->institucion;
                             if($insti===null || $insti===""){
                                 echo "<td>Persona</td>";
-                            }else
+                                $tipo=0;
+                            }else{
                                 echo '<td>Institución</td>';
-                            ?>
-                            <td><?php echo $fila->dui ?></td>
-                            <td><?php echo $fila->nombre.' '.$fila->apellido?></td>
+                                $tipo=1;
+                            }
+                             if($tipo==0){echo '<td>'.$fila->nom.' '.$fila->apellido.'</td>';}
+                             if($tipo==1){echo '<td>'.$fila->institucion.'</td>';}
+                            ?>                                 
                             <td><?php echo $fila->telcelular ?></td>
                             <td><?php echo $fila->direccion ?></td>
                             <td width=160 class="text-center">
                             <button type="button" class="btn btn-success" data-toggle="modal" data-target="#propietarioModal" onclick="actualizarModalPropietario('', '<?php echo $fila->id_propietario ?>')"><i class="fa fa-search" ></i></button>
-                            <button type="button" class="btn btn-success" onclick="cambios('modificar','<?php echo $fila->id_propietario ?>','<?php echo $fila->nombre.' '.$fila->apellido ?>')"><i class="fa fa-pencil"></i></button>
-                            <button type="button" class="btn btn-warning" onclick="cambios('desactivar','<?php echo $fila->id_propietario ?>','<?php echo $fila->nombre.' '.$fila->apellido ?>');"><i class="fa fa-arrow-circle-down"></i></button>
+                            <button type="button" class="btn btn-success" onclick="cambios('modificar','<?php echo $fila->id_propietario ?>','<?php if($tipo==0){echo $fila->nom.' '.$fila->apellido; }else if($tipo===1){echo $fila->institucion;}?>')"><i class="fa fa-pencil"></i></button>
+                            <button type="button" class="btn btn-warning" onclick="cambios('desactivar','<?php echo $fila->id_propietario ?>','<?php if($tipo==0){echo $fila->nom.' '.$fila->apellido; }else if($tipo===1){echo $fila->institucion;}?>');"><i class="fa fa-arrow-circle-down"></i></button>
                              </td>
                             <?php
                             echo "</tr>";
@@ -389,7 +408,7 @@ if(isset($_REQUEST["id"])){
                 <div class="modal-content">
                     <div class="modal-header">
                         <center>
-                            <h4 class="modal-title" id="exampleModalLabel">Informacion propietario.</h4> </center>
+                            <h4 class="modal-title" id="exampleModalLabel">Informacion propietario</h4> </center>
                     </div>
                     <div class="modal-body" id="cargala"> 
                     <br><br><br><br><br><br><br><br><br><br><br>
@@ -480,9 +499,10 @@ if(isset($_REQUEST["id"])){
     $correo=$_REQUEST["correo"];
     $dui=$_REQUEST["dui"];
     $institucion=$_REQUEST['institucion'];
+    $sitio=$_REQUEST["sitio"];
 
 if ($bandera == "guardar") {
-    $consulta  = "INSERT INTO propietariospozos VALUES('".$dui."','".$nombre."','".$apellido."','".$direccion."','".$celular."','".$telefono."','".$genero."','1','null','1','".$correo."','".$institucion."')";
+    $consulta  = "INSERT INTO propietariospozos VALUES('".$dui."','".$nombre."','".$apellido."','".$direccion."','".$celular."','".$telefono."','".$genero."','1','null','1','".$correo."','".$institucion."','".$sitio."')";
     $resultado = $conexion->query($consulta);
     if ($resultado) {
        mensaje("exito","guardar");
@@ -491,7 +511,7 @@ if ($bandera == "guardar") {
     }
 }
 if($bandera==="modificar"){
-     $consulta  = "UPDATE propietariospozos set apellido='".$apellido."',  nombre='" . $nombre."',telfijo='" . $telefono . "',direccion='" . $direccion . "', telcelular='".$celular."', correo='".$correo."', genero='".$genero."', institucion='".$institucion."' where id_propietario='".$iddatos."'";
+     $consulta  = "UPDATE propietariospozos set apellido='".$apellido."',  nom='" . $nombre."',telfijo='" . $telefono . "',direccion='" . $direccion . "', telcelular='".$celular."', correo='".$correo."', genero='".$genero."', institucion='".$institucion."', sitio_web='".$sitio."' where id_propietario='".$iddatos."'";
      $resultado = $conexion->query($consulta);
     if ($resultado) {
         mensaje("exito","modificar");
