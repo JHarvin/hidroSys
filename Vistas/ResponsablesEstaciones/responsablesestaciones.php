@@ -207,7 +207,7 @@
                           <label class="control-label col-md-1 col-xs-12" for="institucion">Instituci&oacute;n: </label>
                           <div class="col-md-12 col-xs-12">
                             <input type="text" class="form-control has-feedback-left" id="institucion" name="institucion" placeholder="Digite Nombre Instituci&oacute;n (Alcad&iacute;a, Unidad, Otro)" tabindex="1">
-                            <span class="fa fa-phone form-control-feedback left" aria-hidden="true"></span>
+                            <span class="fa fa-institution form-control-feedback left" aria-hidden="true"></span>
                             <span class="help-block" id="resultin"></span>
                           </div>
                          
@@ -217,7 +217,7 @@
                           <label class="control-label col-md-1 col-xs-12" for="responsable">Responsable: </label>
                           <div class="col-md-12 col-xs-12">
                             <input type="text" class="form-control has-feedback-left" id="responsable" name="responsable"  placeholder="Digite Nombre Completo Responsable" tabindex="2">
-                            <span class="fa fa-phone form-control-feedback left" aria-hidden="true"></span>
+                            <span class="fa fa-male form-control-feedback left" aria-hidden="true"></span>
                             <span class="help-block" id="error"></span>
                           </div>
                         </div>
@@ -226,7 +226,7 @@
                           <label class="control-label col-md-1 col-xs-12" for="direccion">Direcci&oacute;n: </label>
                           <div class="col-md-12 col-xs-12">
                             <input type="text" class="form-control has-feedback-left" id="direccion" name="direccion" placeholder="Digite Direcci&oacute;n" tabindex="3">
-                            <span class="fa fa-phone form-control-feedback left" aria-hidden="true"></span>
+                            <span class="fa fa-home form-control-feedback left" aria-hidden="true"></span>
                             <span class="help-block" id="error"></span>
                           </div>
                         </div>
