@@ -65,9 +65,9 @@ msg("Los datos fueron almacenados con exito");
               document.turismo.submit();
             }
         }
-        function editar(nom,marca,num,don,tip,des,estado,accion)
+        function editar(id,nom,marca,num,don,tip,des,estado)
         {
-          if(accion==1){
+         
           $("#nombr").val(nom);
           $("#mar").val(marca);
           $("#nume").val(num);
@@ -75,17 +75,34 @@ msg("Los datos fueron almacenados con exito");
           $("#tipo").val(tip);
           $("#descri").val(des);
           $("#est").val(estado); 
-    
           $("#DetalleModal").modal();
-          }else if(accion==2){
-          $("#nomb").val(nom);
-          $("#marc").val(marca);
+         
+        
+          
+          
+        }
+        function edit(id,nom,marca,num,don,tip,des,estado)
+        {
+         // document.getElementById("baccion2").value=id;
+         // document.getElementById("nom").value=nom;
+         // document.getElementById("marc").value=marca;
+         // document.getElementById("num").value=num;
+         // document.getElementById("descr").value=des;
+         // document.getElementById("donad").value=don;
+         $("#baccion2").val(id);
+          document.getElementById("tipou").value=tip;
+          document.getElementById("esteq").value=estado;
+         $("#nomb").val(nom);
+        $("#marc").val(marca);
           $("#num").val(num);
           $("#donad").val(don);
           $("#descr").val(des);
           $("#ModifiModal").modal();
-          } 
+        //Ya manda todos los datos correcatamente
+          
+          
         }
+        
       </script>
 
       <script>
@@ -242,7 +259,7 @@ $("#enviarimagenes").on("submit", function(e){
                             <option selected hidden>Seleccione</option>
                             <option>Pluviometro</option>
                             <option>Agrometeorologico</option>
-                            <option>EstaciÛn Meteorologica</option>
+                            <option>Estación Meteorologica</option>
                             <option>Otros</option>
                             </select>
                         </div>
@@ -399,8 +416,8 @@ $("#enviarimagenes").on("submit", function(e){
                         <tr><th colspan=5 style="text-align:center;">Modificar Equipo </th></tr>
                     </table>
                     <input type="hidden" id="id" name="id" value="">
-                    <form id="modificar" method="post" action="editarEquipo.php">
-                    
+                    <form id="modifi">
+                    <input type="hidden" name="baccion2" id="baccion2">
                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                         <label>Nombre del Equipo<small class="text-muted"></small></label>
                         <input type="text" class="form-control has-feedback-left" name="nomb" id="nomb">
@@ -455,19 +472,14 @@ $("#enviarimagenes").on("submit", function(e){
 
                       </div>
                   </div>
-                  <div class="form-group">
-                        <div class="col-md-4 col-sm-4 col-xs-12">
-                          <label>Modificar Foto (PNG,JPG,JPE)<small class="text-muted"></small></label>
-                            <input name="imagen" type="file" onChange="ver(form.file.value)" required accept="image/jpg,image/png,image/jpeg"> 
-                        </div> 
-                      </div>
+                 
                 
                   
                   
                 </div>
                 <div class="modal-footer">
                   
-                  <button id="guardar" name="btnmodi" class="btn btn-primary" data-dismiss="modal">Modificar</button>
+                  <button name="btnmodi" class="btn btn-primary" data-dismiss="modal" id="guardar">Modificar</button>
                 </div>
                 </form>
                 </div><!--Fin del content-->
@@ -529,9 +541,9 @@ $("#enviarimagenes").on("submit", function(e){
                         <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                         </div>
                         <div class="form-group">
-                      <div class="col-md-6 col-sm-6 col-xs-12">
-                      <label>DescripciÛn<small class="text-muted"></small></label>
-                      <textarea style="width: 425px;" rows="3" size="100" value="" class="form-control" name="descri" id="descri" disabled></textarea>
+                      <div class="col-md-12 col-sm-12 col-xs-12">
+                      <label>Descripción<small class="text-muted"></small></label>
+                      <textarea style="width: 865px;" rows="3" size="100" value="" class="form-control" name="descri" id="descri" disabled></textarea>
                       </div>
 
 
@@ -618,14 +630,16 @@ $("#enviarimagenes").on("submit", function(e){
     $('#datatables-example').DataTable();
 
     $("#guardar").on('click',function(){
-      alert("llega a modificar");
-        var nomb = $('#nombr').val();
-        var marc = $('#mar').val();
+     
+        var id=$('#baccion2').val();
+        var nomb = $('#nomb').val();
+        var marc = $('#marc').val();
         var num = $('#num').val();
-        var donad = $('#dona').val();
-        var tipou = $('#tipo').val();
-        var esteq = $('#est').val();
-        var descr = $('#descri').val();
+        var donad = $('#donad').val();
+        var tipou = $('#tipou').val();
+        var esteq = $('#esteq').val();
+        var descr = $('#descr').val();
+       
 //        if(nomb == ""){
 //          alert("Nombre incorrecto");
 //            return false;
@@ -639,17 +653,14 @@ $("#enviarimagenes").on("submit", function(e){
 //            return false;
 //        }
 
+        var todo = $("#modifi").serialize();
 
-alert("var todo");
-        var todo = $("#modificar").serialize();
-alert("entro a ajax");
         $.ajax({
             type: 'post',
             url: 'editarEquipo.php',
             data: todo,
             success: function(respuesta) {
-             
-           
+
                 $("#ModifModal").modal('hide');
                 alert(respuesta);
                 $(".tabla_ajax").load("tablaEquipos.php"); 
@@ -658,7 +669,7 @@ alert("entro a ajax");
             error: function(respuesta){
               alert("Error en el servidor: "+respuesta); 
             }
-        });//fin de ajax
+        });//fin de ajax*/
 
       return false;
     });//fin del click

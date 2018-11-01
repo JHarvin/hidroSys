@@ -1,6 +1,7 @@
 <?php
-include "../conexion/conexion.php";
-$modi = $_REQUEST['mod'];
+include "../ProcesoSubir/conexioneq.php";
+$modi = $_REQUEST['baccion2'];
+
 $nombre = $_REQUEST['nomb'];
 $marca = $_REQUEST['marc'];
 $numero = $_REQUEST['num'];
@@ -10,14 +11,14 @@ $estado= $_REQUEST['esteq'];
 $descripcion = $_REQUEST['descr'];
 $mensaje = "";
 
-$consulta = "UPDATE equipos SET nombre'" . $nombre . "', descripcion='" . $descripcion . "', tipouso='" . $tipous . "',marca='" . $marca . "',numeroserie='" . $numero . "',donadopor='" . $donado . "',estado='" . $estado . "' WHERE idequipo='" . $modi . "'";
+$consulta = "UPDATE equipos SET nombre='$nombre', descripcion='$descripcion', tipouso='$tipous',marca='$marca',numeroserie='$numero',donadopor='$donado',estado='$estado' WHERE idequipo='$modi'";
 $resultado = $conexion->query($consulta);
           if ($resultado) {
               $mensaje="Se editaron los datos correctamente";
           } else {
               $mensaje="Error al editar los datos";
           }
-        
+          
 echo $mensaje;
 
 ?>
