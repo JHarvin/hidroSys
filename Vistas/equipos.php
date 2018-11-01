@@ -36,6 +36,11 @@ msg("Los datos fueron almacenados con exito");
 
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
+    <!-- inicio alertify -->
+      <!-- include the style -->
+      <link rel="stylesheet" href="../llibreriasJS/alertifyjs/css/alertify.css" />
+      <!-- include a theme -->
+      <link rel="stylesheet" href="../libreriasJS/alertifyjs/css/themes/default.css" />
     <!-- Datatables -->
     <link href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
     <link href="../vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
@@ -243,8 +248,8 @@ $("#enviarimagenes").on("submit", function(e){
                         <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                       </div>
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <label>N˙mero de serie<small class="text-muted"></small></label>
-                        <input type="text" class="form-control has-feedback-left" name="numserie" id="numserie" placeholder="N˙mero de Serie" required>
+                        <label>Numero de serie<small class="text-muted"></small></label>
+                        <input type="text" class="form-control has-feedback-left" name="numserie" id="numserie" placeholder="Numero de Serie" required>
                         <span class="fa fa-list-ol form-control-feedback left" aria-hidden="true"></span>
                       </div>
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
@@ -287,8 +292,8 @@ $("#enviarimagenes").on("submit", function(e){
                    
                       <div class="form-group">
                       <div class="col-md-6 col-sm-6 col-xs-12">
-                      <label>DescripciÛn<small class="text-muted"></small></label>
-                      <textarea style="width: 1065px;" rows="3" size="100" value="" class="form-control" name="descripcion" placeholder="DescripciÛn" id="descripcion"></textarea>
+                      <label>Descripción<small class="text-muted"></small></label>
+                      <textarea style="width: 1065px;" rows="3" size="100" value="" class="form-control" name="descripcion" placeholder="Descripción" id="descripcion"></textarea>
                       </div>
                       </div>
                    
@@ -343,10 +348,10 @@ $("#enviarimagenes").on("submit", function(e){
                       <thead>
                         <tr>
                         <th>Nombre</th>
-                          <th>DescripciÛn</th>
+                          <th>Descripción</th>
                           <th>Tipo de uso</th>
                           <th>Marca</th>
-                          <th>N˙mero de serie</th>
+                          <th>Numero de serie</th>
                           <th>Donador</th>
                           <th>Estado</th>
                       
@@ -472,7 +477,12 @@ $("#enviarimagenes").on("submit", function(e){
 
                       </div>
                   </div>
-                 
+                  <div class="form-group">
+                        <div class="col-md-4 col-sm-4 col-xs-12">
+                          <label>Modificar Foto (PNG,JPG,JPE)<small class="text-muted"></small></label>
+                            <input name="imagen2" id="imagen2" type="file" onChange="ver(form.file.value)" required accept="image/jpg,image/png,image/jpeg"> 
+                        </div> 
+                      </div>
                 
                   
                   
@@ -639,6 +649,7 @@ $("#enviarimagenes").on("submit", function(e){
         var tipou = $('#tipou').val();
         var esteq = $('#esteq').val();
         var descr = $('#descr').val();
+        var imag = $('#imagen2').val();
        
 //        if(nomb == ""){
 //          alert("Nombre incorrecto");
@@ -661,9 +672,9 @@ $("#enviarimagenes").on("submit", function(e){
             data: todo,
             success: function(respuesta) {
 
-                $("#ModifModal").modal('hide');
+                $("#ModifiModal").modal('hide');
                 alert(respuesta);
-                $(".tabla_ajax").load("tablaEquipos.php"); 
+                $(".tabla_ajax").load("../Controladores/tablaEquipos.php"); 
                 //$('#datatables-example').DataTable();
             },
             error: function(respuesta){

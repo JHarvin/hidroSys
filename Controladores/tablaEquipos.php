@@ -15,14 +15,14 @@ if ($result) {
         //echo "<td><img src='data:image/jpg;base64," .base64_encode($fila->imagen) . "' width=75 height=75;></td>";
     echo "<td width=160> 
         <center><a href='#' data-toggle='modal' data-target='#confirm-imagen' onclick=verImagen('".$fila->idequipo."');><button type='button' title='Ver Foto' class='btn btn-success'><i class='fa fa-eye'></i></button></a>
-        <button type='button' title='Listar Detalles' class='btn btn-success' 'style='width:45px;' onclick=\"editar('$fila->idequipo','$fila->nombre','$fila->marca','$fila->numeroserie','$fila->donadopor','$fila->tipouso','$fila->descripcion','$fila->estado')\";><i style='height:3px' class='fa fa-list'></i></button>
+        <button type='button' title='Listar Detalles' class='btn btn-success' 'style='width:45px;' onclick=\"editar('$fila->idequipo','$fila->nombre','$fila->marca','$fila->numeroserie','$fila->donadopor','$fila->tipouso','$fila->descripcion','$fila->estado')\";><i class='fa fa-list'></i></button>
         </center>
     </td>";
 
         echo "<td width=160>
                 <center>
                 
-                <button type='button' title='Modificar' class='btn btn-success' 'style='width:45px;' onclick=\"edit('$fila->idequipo','$fila->nombre','$fila->marca','$fila->numeroserie','$fila->donadopor','$fila->tipouso','$fila->descripcion','$fila->estado')\";><i style='height:3px' class='fa fa-pencil'></i></button>
+                <button type='button' title='Modificar' class='btn btn-success' 'style='width:45px;' onclick=\"edit('$fila->idequipo','$fila->nombre','$fila->marca','$fila->numeroserie','$fila->donadopor','$fila->tipouso','$fila->descripcion','$fila->estado')\";><i class='fa fa-pencil'></i></button>
                 
                 </center>
                

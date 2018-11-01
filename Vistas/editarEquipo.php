@@ -9,6 +9,7 @@ $donado = $_REQUEST['donad'];
 $tipous = $_REQUEST['tipou'];
 $estado= $_REQUEST['esteq'];
 $descripcion = $_REQUEST['descr'];
+
 $mensaje = "";
 
 $consulta = "UPDATE equipos SET nombre='$nombre', descripcion='$descripcion', tipouso='$tipous',marca='$marca',numeroserie='$numero',donadopor='$donado',estado='$estado' WHERE idequipo='$modi'";
