@@ -1,16 +1,16 @@
 <?php
 include "../config/conexion.php";
-
-$nombre = $_POST['nomb'];
-$marca = $_POST['marc'];
-$numero = $_POST['num'];
-$donado = $_POST['donad'];
-$grado = $_POST['grado'];
-$estado= $_POST['esteq'];
-$descripcion = $_POST['descr'];
+$modi = $_REQUEST["mod"];
+$nombre = $_REQUEST['nomb'];
+$marca = $_REQUEST['marc'];
+$numero = $_REQUEST['num'];
+$donado = $_REQUEST['donad'];
+$tipous = $_REQUEST['tipou'];
+$estado= $_REQUEST['esteq'];
+$descripcion = $_REQUEST['descr'];
 $mensaje = "";
 
-        $consulta  = "UPDATE equipos SET nombre'" .$nombre. "', marca='" . $marca . "', numeroserie='".$numero."',donadopor='".$donado."',tipouso='".$grado."',estado='".$estado."',descripcion='".$descripcion."' WHERE nombre='".$nombre."'";
+        $consulta  = "UPDATE equipos SET nombre'" .$nombre. "', marca='" . $marca . "', numeroserie='".$numero."',donadopor='".$donado."',tipouso='".$tipous."',estado='".$estado."',descripcion='".$descripcion."' WHERE idequipo='".$modi."'";
         $resultado = $conexion->query($consulta);
           if ($resultado) {
               $mensaje="Se editaron los datos correctamente";

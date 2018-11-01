@@ -399,7 +399,7 @@ $("#enviarimagenes").on("submit", function(e){
                         <tr><th colspan=5 style="text-align:center;">Modificar Equipo </th></tr>
                     </table>
                     <input type="hidden" id="id" name="id" value="">
-                    <form id="modificar" >
+                    <form id="modificar" method="post" action="editarEquipo.php">
                     
                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                         <label>Nombre del Equipo<small class="text-muted"></small></label>
@@ -425,7 +425,7 @@ $("#enviarimagenes").on("submit", function(e){
                          
                          <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                           <label>Tipo de uso<small class="text-muted"></small></label>
-                          <select id="grado"  class="form-control" name="grado" onchange="verificar()">
+                          <select id="tipou"  class="form-control" name="tipou" onchange="verificar()">
                             <option>Pluviometro</option>
                             <option>Agrometeorologico</option>
                             <option>Estación Meteorologica</option>
@@ -467,7 +467,7 @@ $("#enviarimagenes").on("submit", function(e){
                 </div>
                 <div class="modal-footer">
                   
-                  <button id="guardar" class="btn btn-primary" data-dismiss="modal">Modificar</button>
+                  <button id="guardar" name="btnmodi" class="btn btn-primary" data-dismiss="modal">Modificar</button>
                 </div>
                 </form>
                 </div><!--Fin del content-->
@@ -532,13 +532,6 @@ $("#enviarimagenes").on("submit", function(e){
                       <div class="col-md-6 col-sm-6 col-xs-12">
                       <label>Descripción<small class="text-muted"></small></label>
                       <textarea style="width: 425px;" rows="3" size="100" value="" class="form-control" name="descri" id="descri" disabled></textarea>
-                      </div>
-
-                      <div class="col-md-6 col-sm-6 col-xs-12">
-                      <label>Foto<small class="text-muted"></small></label>
-                      
-
-
                       </div>
 
 
