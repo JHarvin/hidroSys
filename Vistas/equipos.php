@@ -389,8 +389,7 @@ $("#enviarimagenes").on("submit", function(e){
                 </div>
 
                 <div class="panel-body" name="imagenRecuperada" id="imagenRecuperada">
-                          
-                    
+                        
                                        
 
                 </div>
