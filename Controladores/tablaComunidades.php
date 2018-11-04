@@ -5,11 +5,8 @@ if ($result) {
     while ($fila = $result->fetch_object()) {
         echo "<tr>";
         echo "<td hidden>" . $fila->idcomunidad. "</td>";
-<<<<<<< HEAD
         echo "<td>" . $fila->nombre. "</td>";
-=======
         echo "<td>" . $fila->nombre . "</td>";
->>>>>>> 01fd6698e5331788f33983e967f371d5b92e87da
         echo "<td>" . $fila->tipo . "</td>";
         echo "<td>" . $fila->nombredepto. "</td>";
         echo "<td>" . $fila->municipios. "</td>";
