@@ -649,7 +649,7 @@ $("#enviarimagenes").on("submit", function(e){
         var tipou = $('#tipou').val();
         var esteq = $('#esteq').val();
         var descr = $('#descr').val();
-        var imag = $('#imagen2').val();
+        var img = $('#imagen2').val();
        
 //        if(nomb == ""){
 //          alert("Nombre incorrecto");
