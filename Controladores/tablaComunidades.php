@@ -5,7 +5,6 @@ if ($result) {
     while ($fila = $result->fetch_object()) {
         echo "<tr>";
         echo "<td hidden>" . $fila->idcomunidad. "</td>";
-        echo "<td>" . $fila->nombre. "</td>";
         echo "<td>" . $fila->nombre . "</td>";
         echo "<td>" . $fila->tipo . "</td>";
         echo "<td>" . $fila->nombredepto. "</td>";
@@ -14,9 +13,12 @@ if ($result) {
         
         
         echo "<td width=160>
-                            <button type='button' class='btn btn-success' data-toggle='modal' data-target='.detalle-modal-lg' style='width:35px;'><i class='fa fa-eye'></i></button>
-                            <button type='button' class='btn btn-success' data-toggle='modal' data-target='.modifi-modal-lg' style='width:35px;'><i class='fa fa-pencil'></i></button>
-                            <button type='button' class='btn btn-danger' style='width:35px;'><i class='fa fa-down'></i></button>
+         <center>
+                            <button type='button' title='Listar Detalles' class='btn btn-success' 'style='width:45px;' onclick=\"editar('$fila->idcomunidad','$fila->nombre','$fila->tipo','$fila->nombredepto','$fila->municipios','$fila->institucion')\";><i class='fa fa-list'></i></button>
+                            <button type='button' title='Modificar' class='btn btn-success' 'style='width:45px;' onclick=\"edit('$fila->idcomunidad','$fila->nombre','$fila->tipo','$fila->nombredepto','$fila->municipios','$fila->institucion')\";><i class='fa fa-pencil'></i></button>
+                            
+        </center>
+                            
         </td>";
      /*   if ($fila->eestado==1) {
             echo "<td>Activo</td>";
