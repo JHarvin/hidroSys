@@ -89,6 +89,45 @@ return false;
    }
 
   </script>
+      
+      <script type="text/javascript"> 
+
+
+        function editar(id,nom,tipo,depto,municipio,inst)
+        {
+         
+          $("#nomb").val(nom);
+          $("#tip").val(tipo);
+          $("#nomdepto").val(depto);
+          $("#municip").val(municipio);
+          $("#inst").val(inst);
+          $("#DetalleModal").modal();
+         
+        
+          
+          
+        }
+        function edit(id,nom,tipo,depto,municipio,inst)
+        {
+         // document.getElementById("baccion2").value=id;
+         // document.getElementById("nom").value=nom;
+         // document.getElementById("marc").value=marca;
+         // document.getElementById("num").value=num;
+         // document.getElementById("descr").value=des;
+         // document.getElementById("donad").value=don;
+         $("#baccion2").val(id);
+         $("#nombr").val(nom);
+        $("#tipp").val(tipo);
+          $("#nombdepto").val(depto);
+          $("#municipi").val(municipio);
+          $("#insti").val(inst);
+          $("#ModifiModal").modal();
+        //Ya manda todos los datos correcatamente
+          
+          
+        }
+        
+      </script>
 
   </head>
 
@@ -260,8 +299,8 @@ return false;
                       
                       
                       <div class="ln_solid"></div>
-                      <div class="form-group">
-                        <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                      <div class="form-group" style="margin-top:50px;margin-left:300px">
+                        <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3 ">
                         <button type="submit" class="btn btn-success" >Guardar</button>
                           <button type="reset" class="btn btn-warning">Cancelar</button>
 						   <!-- <button class="btn btn-primary" type="reset">Reset</button> -->
@@ -336,79 +375,55 @@ return false;
       </div>
     </div>
     
-         <!--Detalle modal-->
+<!--Detalle modal-->
 
-     <div class="modal fade detalle-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+     <div class="modal fade detalle-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="DetalleModal">
       
               <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title"><strong><i class="fa fa-list-ul fa-2x"></i></strong></h5>
+
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                  <div class="row">
-
+                <div class="row">
                   <table class="table table-bordered">
+                  
                     
                       <thead>
-                        <tr><th colspan=5 style="text-align:center;"> DETALLE DE INSTITUCIONES Y COMUNIDADES </th></tr>
+                      <tr><th colspan=5 style="text-align:center;">Detalle Instituciones y Comunidades </th></tr>
                     </table>
-                    <!--Consulta donde extraigo los campos de la tabla-->
-                    <?php
-
-                                    include_once '../conexion/conexion.php';
-                                    $sacar = mysqli_query($conexion, "SELECT*FROM comunidades");
-                                    while ($fila = mysqli_fetch_array($sacar)) {
-                                        $modificar = $fila['idcomunidad'];
-                                        $nom = $fila['nombre'];
-                                        $mar = $fila['tipo'];
-                                        $nums = $fila['iddepartamento'];
-                                        $don = $fila['idmunicipio'];
-                                        $tipou = $fila['idobservador'];
-                                        
-                                        }
-                                    ?>
-                  
+                    <input type="hidden" id="id" name="id" value="">
+                   
                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                      
-                        <label>Nombre de la Institucion o Comunidad<small class="text-muted"></small></label>
-                        
-                        <!--Uso una variable de tipo hidden para probar -->
-                        <input type="hidden" class="form-control has-feedback-left" id="idcomunidad" name="idcomunidad" value="<?php echo $nom; ?>">
-
+                        <label>Nombre de la Comunidad<small class="text-muted"></small></label>
+                        <input type="text" class="form-control has-feedback-left" name="nomb" id="nomb" disabled>
                         <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                         </div>
-
                         <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                         <label>Tipo<small class="text-muted"></small></label>
-                        <input type="text" class="form-control has-feedback-left" value="<?php echo $mar; ?>" name="Donantes" id="donadores" >
+                        <input type="text" class="form-control has-feedback-left" name="tip" id="tip" disabled>
                         <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                         </div>
-
                         <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                         <label>Departamento<small class="text-muted"></small></label>
-                        <input type="text" class="form-control has-feedback-left" name="Donantes" id="donadores" placeholder="Donadores">
+                        <input type="text" class="form-control has-feedback-left" name="nomdepto" id="nomdepto" disabled>
                         <span class="fa fa-list-ol form-control-feedback left" aria-hidden="true"></span>
                         </div>
-
                         <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                         <label>Municipio<small class="text-muted"></small></label>
-                        <input type="text" class="form-control has-feedback-left" name="Donantes" id="donadores" placeholder="Donadores">
+                        <input type="text" class="form-control has-feedback-left" name="municip" id="municip" disabled>
                         <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                         </div>
-
                         <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <label>Observador<small class="text-muted"></small></label>
-                        <input type="text" class="form-control has-feedback-left" name="Donantes" id="donadores" placeholder="Donadores">
+                        <label>Institucion Responsable<small class="text-muted"></small></label>
+                        <input type="text" class="form-control has-feedback-left" name="inst" id="inst" disabled>
                         <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                         </div>
-
                         
-
-                  </div>
                
                     
                 
@@ -425,10 +440,12 @@ return false;
                 
                
               </div>
-         </div> 
+         </div>  
+       </div>  
+      <!--Detalle modal--> 
          
-               <!--Modificacion modal-->
-     <div class="modal fade modifi-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <!--Modificacion modal-->
+    <div class="modal fade modifi-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="ModifiModal">
               <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                 <div class="modal-header">
@@ -438,52 +455,56 @@ return false;
                     </button>
                 </div>
                 <div class="modal-body">
-                  <div class="row">
+                <div class="row">
                   <table class="table table-bordered">
+                  
                     
                       <thead>
-                        <tr><th colspan=5 style="text-align:center;">MODIFICAR INTITUCIONES Y COMUNIDADES </th></tr>
+                        <tr><th colspan=5 style="text-align:center;">Modificar Comunidades </th></tr>
                     </table>
-
-                  
+                    <input type="hidden" id="id" name="id" value="">
+                    <form id="modifi">
+                    <input type="hidden" name="baccion2" id="baccion2">
                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <label>Nombre de Institucion o Counidad<small class="text-muted"></small></label>
-                        <input type="text" class="form-control has-feedback-left" name="Donantes" id="donadores" placeholder="Donadores">
+                        <label>Nombre de la comunidad<small class="text-muted"></small></label>
+                        <input type="text" class="form-control has-feedback-left" name="nombr" id="nombr">
                         <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                         <label>Tipo<small class="text-muted"></small></label>
-                        <input type="text" class="form-control has-feedback-left" name="Donantes" id="donadores" placeholder="Donadores">
+                        <input type="text" class="form-control has-feedback-left" name="tipp" id="tipp">
                         <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                         <label>Departamento<small class="text-muted"></small></label>
-                        <input type="text" class="form-control has-feedback-left" name="Donantes" id="donadores" placeholder="Donadores">
+                        <input type="text" class="form-control has-feedback-left" name="nombdepto" id="nombdepto">
                         <span class="fa fa-list-ol form-control-feedback left" aria-hidden="true"></span>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                         <label>Municipio<small class="text-muted"></small></label>
-                        <input type="text" class="form-control has-feedback-left" name="Donantes" id="donadores" placeholder="Donadores">
+                        <input type="text" class="form-control has-feedback-left" name="municipi" id="municipi">
                         <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                         </div>
-                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <label>Oservador<small class="text-muted"></small></label>
-                        <input type="text" class="form-control has-feedback-left" name="Donantes" id="donadores" placeholder="Donadores">
+
+                         
+
+                        
+                         <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                        <label>Institucion<small class="text-muted"></small></label>
+                        <input type="text" class="form-control has-feedback-left" name="insti" id="insti">
                         <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                         </div>
-                       
                   </div>
-               
-                    
+                 
                 
                   
                   
                 </div>
                 <div class="modal-footer">
                   
-                  <button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
+                  <button name="btnmodi" class="btn btn-primary" data-dismiss="modal" id="guardar">Modificar</button>
                 </div>
-
+                </form>
                 </div><!--Fin del content-->
               </div>
          </div>  
@@ -542,5 +563,61 @@ return false;
     <script src="../vendors/jszip/dist/jszip.min.js"></script>
     <script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
     <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
+         <script type="text/javascript">
+  $(document).ready(function(){
+    $('#datatables-example').DataTable();
+  });
+  $(document).ready(function(){
+    $('#datatables-example').DataTable();
+
+    $("#guardar").on('click',function(){
+     
+        var id=$('#baccion2').val();
+        var nomb = $('#nombr').val();
+        var marc = $('#tipp').val();
+        var num = $('#nombdepto').val();
+        var donad = $('#municipi').val();
+        var tipou = $('#insti').val();
+        
+       
+//        if(nomb == ""){
+//          alert("Nombre incorrecto");
+//            return false;
+//        }
+//        if(marc == ""){
+//            alert("Ingrese Marca");
+//            return false;
+//        }
+//        if(num == ""){
+//          sweetError("Ingrese Numero de Serie");
+//            return false;
+//        }
+
+        var todo = $("#modifi").serialize();
+
+        $.ajax({
+            type: 'post',
+            url: 'editarComunidad.php',
+            data: todo,
+            success: function(respuesta) {
+
+                $("#ModifiModal").modal('hide');
+                alert(respuesta);
+                $(".tabla_ajax").load("../Controladores/tablaComunidades.php"); 
+                //$('#datatables-example').DataTable();
+            },
+            error: function(respuesta){
+              alert("Error en el servidor: "+respuesta); 
+            }
+        });//fin de ajax*/
+
+      return false;
+    });//fin del click
+    
+  });//fin del ready
+
+</script>
+<!-- end: Javascript -->   
+        
   </body>
 </html>
