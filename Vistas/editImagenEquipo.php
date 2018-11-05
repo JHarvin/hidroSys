@@ -1,4 +1,5 @@
 <?php
+$id=$_GET["id"];
 $guardo  = $_REQUEST["guardo"];
 if($guardo==1){
 msg("Los datos fueron almacenados con exito");
@@ -235,9 +236,9 @@ $("#enviarimagenes").on("submit", function(e){
                   </div>
                   <div class="x_content">
                     <br />
-                    <form name="form" method="post" action="../Controladores/guardarequipo.php" enctype="multipart/form-data">
+                    <form name="form" method="post" action="../Controladores/actualizarImagenEquipo.php" enctype="multipart/form-data">
 
-                      
+                      <input type="hidden" id="id" name="id" value="<?php echo $id; ?>">
 
                       <div class="form-group">
                         <div class="col-md-4 col-sm-4 col-xs-12">

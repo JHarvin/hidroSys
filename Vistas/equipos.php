@@ -478,9 +478,10 @@ $("#enviarimagenes").on("submit", function(e){
                   </div>
                   <div class="form-group">
                         <div class="col-md-4 col-sm-4 col-xs-12">
+                         
                           <label>Modificar Foto (PNG,JPG,JPE)<small class="text-muted"></small></label>
-                            <input name="imagen2" id="imagen2" type="file" onChange="ver(form.file.value)" required accept="image/jpg,image/png,image/jpeg"> 
-                        </div> 
+                           <button id="btnimg" name="btnimg" class="btn btn-info">Cambiar imagen</button>
+                            
                       </div>
                 
                   
@@ -632,6 +633,13 @@ $("#enviarimagenes").on("submit", function(e){
     <script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
     <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
     <script type="text/javascript">
+        $(document).ready(function(){
+        $("#btnimg").on("click",function(){
+            var id=$("baccion2").val();
+            alert("hi"+id);
+            location.href="editImagenEquipo.php";
+        });
+        });
   $(document).ready(function(){
     $('#datatables-example').DataTable();
   });
