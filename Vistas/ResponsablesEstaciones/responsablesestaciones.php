@@ -204,9 +204,9 @@
                       <div class="form-group col-md-6 col-sm-6 col-xs-12">
 
                         <div class="form-group" id="resultins">
-                          <label class="control-label col-md-1 col-xs-12" for="institucion">Instituci&oacute;n: </label>
+                          <label for="institucion">&nbsp;&nbsp;Instituci&oacute;n / Comunidad: </label>
                           <div class="col-md-12 col-xs-12">
-                            <input type="text" class="form-control has-feedback-left" id="institucion" name="institucion" placeholder="Digite Nombre Instituci&oacute;n (Alcad&iacute;a, Unidad, Otro)" tabindex="1">
+                            <input type="text" class="form-control has-feedback-left" id="institucion" name="institucion" placeholder="Digite Nombre Instituci&oacute;n (Alcad&iacute;a, ADESCO, Unidad,  Otro)" tabindex="1">
                             <span class="fa fa-institution form-control-feedback left" aria-hidden="true"></span>
                             <span class="help-block" id="resultin"></span>
                           </div>
@@ -232,7 +232,7 @@
                         </div>
 
                         <div class="form-group">
-                          <label class="control-label" for="telefono1">&nbsp;&nbsp;Tel&eacute;fono 1: </label>
+                          <label class="control-label" for="telefono1">&nbsp;&nbsp;Tel&eacute;fono Fijo: </label>
                           <div class="col-md-12 col-xs-12">
                             <input type="text" class="form-control has-feedback-left" id="telefono1" name="telefono1" placeholder="Digite N&uacute;mero de Tel&eacute;fono" data-inputmask="'mask': '9999-9999'" tabindex="4">
                             <span class="fa fa-phone form-control-feedback left" aria-hidden="true"></span>
@@ -243,7 +243,7 @@
 
 
                         <div class="form-group">
-                          <label class="control-label" for="telefono2">&nbsp;&nbsp;Tel&eacute;fono 2: </label>
+                          <label class="control-label" for="telefono2">&nbsp;&nbsp;Tel&eacute;fono Celular: </label>
                           <div class="col-md-12 col-xs-12">
                             <input type="text" class="form-control has-feedback-left" id="telefono2" name="telefono2" placeholder="Digite N&uacute;mero de Tel&eacute;fono" data-inputmask="'mask': '9999-9999'" tabindex="5">
                             <span class="fa fa-phone form-control-feedback left" aria-hidden="true"></span>

@@ -143,7 +143,7 @@ $(document).ready(function(){
           alfanumOespacio: true,
           required: true,
           minlength: 10,
-          maxlength: 80
+          maxlength: 400
         }
        
       },
@@ -173,7 +173,7 @@ $(document).ready(function(){
         },
         direccion: {
           required: "Por favor, ingrese dirección.",
-          maxlength: "Debe ingresar m&aacute;ximo 300 carácteres.",
+          maxlength: "Debe ingresar m&aacute;ximo 400 carácteres.",
           minlength: "Debe ingresar m&iacute;nimo 10  carácteres."
         }
         
