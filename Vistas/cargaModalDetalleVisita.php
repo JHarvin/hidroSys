@@ -31,7 +31,8 @@
                                     inner join visitantes vis on hs.id_visitante = vis.id_visitante where hs.idhojavisitaestaciones= $cambio");
                     while($fila = $result->fetch_object()){
                     ?>
-                        <div class="text-center infoCompleto col-md-2 col-sm-2 col-xs-12 form-group has-feedback"><strong><h5  style="color: white">Visitante:</strong></h5></div>
+                        <div class="text-center infoCompleto col-md-2 col-sm-2 col-xs-12 form-group has-feedback"><strong><h5  style="color: white">Visitante:</strong></h5>
+                        </div>
                         <div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
                             <h4 class="control-label col-md-12 col-sm-12 col-xs-12"><?php echo $fila->nombre;?></h4>
                         </div>

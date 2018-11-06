@@ -9,7 +9,7 @@ if($cambio=="tabla"){
         <th>Tipo</th>
         <th>Estación</th>
         <th>Fecha</th>
-        <th>Detalle</th>
+        <th>Acciones</th>
       </tr>
     </thead>
 
@@ -33,13 +33,10 @@ if($cambio=="tabla"){
                 <i class="fa fa-search"></i>
                 <span></span>
               </button>
-              <!--<button class="btn btn-info btn-icon left-icon"  onClick="">
-                    <i class="fa fa-pencil"></i>
-                    <span></span>
-                  </button> 
-                  <button class="btn btn-info btn-icon left-icon"  onClick="">
-                    <i class="fa fa-check"></i> <span></span>
-                  </button>-->
+              <button class="btn btn-info btn-icon left-icon" data-toggle="modal" data-target="#modificacion" onclick="Act('', '<?php echo $fila->idhojavisitaestaciones; ?>')">
+                <i class="fa fa-pencil"></i>
+                <span></span>
+              </button> 
             </td>
           </tr>
         <?php

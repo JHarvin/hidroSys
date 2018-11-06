@@ -124,25 +124,75 @@ function cancelar(){
 
     } 
 
-    function verMas(str, opcion) {
-            if (window.XMLHttpRequest) {
-                xmlhttp = new XMLHttpRequest();
-            }
-            else {
-                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-            }
-            xmlhttp.onreadystatechange = function () {
-                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                    document.getElementById("cargaDetalle").innerHTML = xmlhttp.responseText;
-                }
-            }
+
+    function actualizaDatos(e) {
+      var observacion = $("#observacions").val();
+      var visitante = $("#visitantes").val();
+      var estacion = $("#estacions").val();
+      var tipo = $("#tipos").val();
+      var idhoja = $("#baccion").val();
+
+      var obtener = $("#frmactualiza").serialize();
+
+      $.ajax({
+        type: "GET",
+        url: "actualizaVis.php",
+        data: obtener,
+        success: function(respuesta) {
+          if(respuesta==1){
             
-            xmlhttp.open("post", "cargaModalDetalleVisita.php?idd=" + opcion , true);
-            xmlhttp.send();
-<<<<<<< HEAD:Vistas/VisitaEstaciones/js/visita.js
+            alertify.set('notifier','position','top-right');
+            alertify.success('Datos Actualizados!'); 
+              
+            
+           // limpiaF('limpiar');
+            recargarTabla('');
+            $('#modificacion').modal('hide');
+            
+          }else{
+            alertify.set('notifier','position','top-right');
+            alertify.error('Datos no insertados!');
+            alertify.error('Verifique la información!');  
+          }
         }
-=======
+      }); 
+      return false; 
+
+    } 
+
+    function Act(str, opcion) {
+        if (window.XMLHttpRequest) {
+            xmlhttp = new XMLHttpRequest();
+        }else {
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
         }
+        xmlhttp.onreadystatechange = function () {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                document.getElementById("cargaAct").innerHTML = xmlhttp.responseText;
+            }
+        }
+            
+        xmlhttp.open("post", "cargaModalModificacion.php?idd=" + opcion , true);
+        xmlhttp.send();
+    }
+   
+
+
+    function verMas(str, opcion) {
+        if (window.XMLHttpRequest) {
+            xmlhttp = new XMLHttpRequest();
+        }else {
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function () {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                document.getElementById("cargaDetalle").innerHTML = xmlhttp.responseText;
+            }
+        }
+            
+        xmlhttp.open("post", "cargaModalDetalleVisita.php?idd=" + opcion , true);
+        xmlhttp.send();
+    }
 
     function actualiza(opcion) {
         var cambio = document.getElementById('tipo').value;
@@ -170,6 +220,34 @@ function cancelar(){
         else if(opcion === "cambioFoto")
             xmlhttp.open("post", "tipoVisit.php?opcion=" + opcion + "&cambio=" + cambioF, true);
             xmlhttp.send();
+    }
+
+    function actualizaM(opcion) {
+        var cambio = document.getElementById('tipos').value;
+        var cambioF = document.getElementById('estacions').value
+        if (window.XMLHttpRequest) {
+            xmlhttp = new XMLHttpRequest();
+        }
+        else {
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function () {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                if (opcion === 'cambioTipo') {
+                    document.getElementById("visitantes").innerHTML = xmlhttp.responseText;
+                    document.getElementById("visitantes").value = "";
+                } else if (opcion === 'cambioFoto') {
+                    document.getElementById("imagens").innerHTML = xmlhttp.responseText;
+                    document.getElementById("imagens").value = "";
+                } 
+            }
+        }
+        
+        if (opcion === "cambioTipo") 
+            xmlhttp.open("post", "tipoVisit.php?opcion=" + opcion + "&cambio=" + cambio, true);
+        else if(opcion === "cambioFoto")
+            xmlhttp.open("post", "tipoVisit.php?opcion=" + opcion + "&cambio=" + cambioF, true);
+            xmlhttp.send();
         
         
     }
@@ -183,10 +261,8 @@ function cancelar(){
         }
             xmlhttp.onreadystatechange = function() {
                 if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                   
-                        document.getElementById("tbl").innerHTML = xmlhttp.responseText;
-                        $('.imprimir').DataTable();
-                    
+                    document.getElementById("tbl").innerHTML = xmlhttp.responseText;
+                    $('.imprimir').DataTable();
                 }
             }   
         xmlhttp.open("post", "recargaTbl.php?actualiza=tabla", true);
@@ -195,25 +271,15 @@ function cancelar(){
 
    
     function limpiaF(opcion){
-    //alert("Opcion   "+opcion);
-    if(opcion==="limpiar"){
-        $(document).ready(function(){
-            
-
-            $("#visitante").val("Visitante").trigger('change');
-           
-            $("#observacion").val(""); 
-            
-            
-
-            $("#tipo").val("Tipo Visitante").trigger('change');
-            
-            
-
-            $("#estacion").val("Estaciones").trigger('change');
-
-            $('#imagen').html("<img  width='685' height='290' src='images/volcan.jpg'/>" );
-        });
+        //alert("Opcion   "+opcion);
+        if(opcion==="limpiar"){
+            $(document).ready(function(){
+                $("#visitante").val("Visitante").trigger('change');
+                $("#observacion").val(""); 
+                $("#tipo").val("Tipo Visitante").trigger('change');
+                $("#estacion").val("Estaciones").trigger('change');
+                $('#imagen').html("<img  width='685' height='290' src='images/volcan.jpg'/>" );
+            });
+        }
     }
-}
->>>>>>> 2e9f0d40307336f2c2ccd5d4fd20e9232a1b490a:Vistas/js/vistaEstaciones/visita.js
+

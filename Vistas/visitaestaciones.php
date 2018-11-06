@@ -1,27 +1,4 @@
-<?php
 
-
-$ide = isset($_REQUEST['ide']);
-include ("../ProcesoSubir/conexioneq.php");
-$ridhoja      = "";
-$rfecha       = "";
-$robservacion = "";
-$ridestacion  = "";
-$ridvistante  = "";
-
-$result = $conexion->query("SELECT * from hojavisitasestaciones where idhojavisitaestaciones='$ide'");
-if ($result) {
-    while ($fila = $result->fetch_object()) {
-        $ridhoja      = $fila->idhojavisitaestaciones;
-        $rfecha       = $fila->fechavisita;
-        $robservacion = $fila->observacion;
-        $ridestacion  = $fila->id_estacion;
-        $ridvistante  = $fila->id_visitante;
-    }
-
-}
-
-?>
 <!DOCTYPE html>
 <html lang="es">
   <head>
@@ -69,8 +46,7 @@ if ($result) {
     <script src="../libreriasJS/alertifyjs/alertify.min.js"></script>
 
   <script src="js/vistaEstaciones/visita.js"></script>
-    <!-- SwettAlert2-->
-
+  
 
   </head>
 
@@ -108,7 +84,7 @@ if ($result) {
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="../images/img.jpg" alt="">Alexander Orellana
+                    <img src="images/img.jpg" alt="">Alexander Orellana</img>
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -290,7 +266,7 @@ if ($result) {
                               <th>Tipo</th>
                               <th>Estación</th>
                               <th>Fecha</th>
-                              <th>Detalle</th>
+                              <th>Acciones</th>
                             </tr>
                           </thead>
 
@@ -316,13 +292,11 @@ if ($result) {
                                           <i class="fa fa-search"></i>
                                           <span></span>
                                         </button>
-                                        <!--<button class="btn btn-info btn-icon left-icon"  onClick="">
+                                        <button class="btn btn-info btn-icon left-icon" data-toggle="modal" data-target="#modificacion" 
+                                        onclick="Act('', '<?php echo $fila->idhojavisitaestaciones; ?>')">
                                           <i class="fa fa-pencil"></i>
                                           <span></span>
-                                        </button>
-                                        <button class="btn btn-info btn-icon left-icon"  onClick="">
-                                          <i class="fa fa-check"></i> <span></span>
-                                        </button> -->
+                                        </button> 
                                       </td>
                                     </tr>
                                   <?php
@@ -346,8 +320,8 @@ if ($result) {
        ?>
        <!--- Modal Detalle Visita-->
 
-          <div class="modal fullscreen-modal fade" id="detalle" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-          <div class="modal-dialog " role="document">
+        <div class="modal fullscreen-modal fade" id="detalle" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog large " role="document">
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -363,7 +337,33 @@ if ($result) {
               <br><br><br><br><br><br>
               <br><br><br><br><br><br>
               <br><br><br><br><br>
+              
                 <div class="modal-footer">
+                  <button type="button" class="btn btn-round btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+          </div>
+        </div>
+        <!-- Fin Modal -->
+
+        <!--- Modal Detalle Actualizar-->
+
+        <div class="modal fade" id="modificacion" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog modal-lg " role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                <center>
+                  <h3 class="modal-title" id="exampleModalLabel">Actualización</h3> </center>
+              </div>
+              <div class="modal-body" id="cargaAct">
+
+              </div>
+              
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-round btn-success" data-dismiss="modal" onclick="actualizaDatos();" >Modificar</button>
                   <button type="button" class="btn btn-round btn-secondary" data-dismiss="modal">Cerrar</button>
                 </div>
             </div>
@@ -376,12 +376,7 @@ if ($result) {
       </div>
     </div>
   </div>
-  <Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-  quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-  consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-  cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-  proident, sunt in culpa qui officia deserunt mollit anim id est laborum./>
+
 
      <!-- jQuery -->
     <script src="../vendors/jquery/dist/jquery.min.js"></script>
@@ -450,11 +445,19 @@ if ($result) {
     <!-- Select2 -->
     <script src="../vendors/select2/dist/js/select2.full.min.js"></script>
     <script>
+
           $(function () {
-              $('.SVisitante').select2();
-              $('.SEstacion').select2();
-              $('.STipo').select2();
+            $('.SVisitante').select2();
+            $('.SEstacion').select2();
+            $('.STipo').select2();
           });
-      </script>
+
+
+        $(document).ready(function () {
+            $("#visitantes").select2();
+            $("#estacions").select2();
+        });
+           
+    </script>
   </body>
 </html>
