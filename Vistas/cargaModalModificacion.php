@@ -47,7 +47,7 @@
 
             <div class="form-group">
               <div class="col-md-6 col-sm-6 col-xs-12">
-                <select class=" form-control STip" id="tipos" name="tipos" onchange="actualizaM('cambioTipo');"  >
+                <select class=" form-control STip" id="tipos" name="tipos" onchange="actualizaM('cambioTipos');"  >
                 <option value="Tipo Visitante" >Tipo Visitante</option>
                 <?php                                         
                       if($rtipovistante==="Investigador"){
@@ -76,7 +76,7 @@
                 ?> 
               </div>
               <div class="col-md-6 col-sm-6 col-xs-12">
-                <select class=" form-control SVisit" id="visitantes" name="visitantes"  >
+                <select class="form-control " id="visitantes" name="visitantes"  >
                   <option value="Visitante" selected="selected">Visitante</option>
                     <?php
                     include "../ProcesoSubir/conexioneq.php";

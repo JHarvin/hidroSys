@@ -233,7 +233,7 @@ function cancelar(){
         }
         xmlhttp.onreadystatechange = function () {
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                if (opcion === 'cambioTipo') {
+                if (opcion === 'cambioTipos') {
                     document.getElementById("visitantes").innerHTML = xmlhttp.responseText;
                     document.getElementById("visitantes").value = "";
                 } else if (opcion === 'cambioFoto') {
@@ -243,7 +243,7 @@ function cancelar(){
             }
         }
         
-        if (opcion === "cambioTipo") 
+        if (opcion === "cambioTipos") 
             xmlhttp.open("post", "tipoVisit.php?opcion=" + opcion + "&cambio=" + cambio, true);
         else if(opcion === "cambioFoto")
             xmlhttp.open("post", "tipoVisit.php?opcion=" + opcion + "&cambio=" + cambioF, true);
