@@ -222,8 +222,11 @@ function cancelar(){
             xmlhttp.send();
     }
 
+    
+
     function actualizaM(opcion) {
         var cambio = document.getElementById('tipos').value;
+        
         var cambioF = document.getElementById('estacions').value
         if (window.XMLHttpRequest) {
             xmlhttp = new XMLHttpRequest();
@@ -244,7 +247,7 @@ function cancelar(){
         }
         
         if (opcion === "cambioTipos") 
-            xmlhttp.open("post", "tipoVisit.php?opcion=" + opcion + "&cambio=" + cambio, true);
+            xmlhttp.open("post", "tipoVisit.php?opcion=" + opcion + "&cambio=" + cambio + "&vis=0" , true);
         else if(opcion === "cambioFoto")
             xmlhttp.open("post", "tipoVisit.php?opcion=" + opcion + "&cambio=" + cambioF, true);
             xmlhttp.send();

@@ -75,9 +75,9 @@
                   echo '</select>';
                 ?> 
               </div>
-              <div class="col-md-6 col-sm-6 col-xs-12">
+              <div class="col-md-6 col-sm-6 col-xs-12" id="visitantes" name="visitantes">
                 <select class="form-control " id="visitantes" name="visitantes"  >
-                  <option value="Visitante" selected="selected">Visitante</option>
+                  <option value="Visitante" selected>Visitante</option>
                     <?php
                     include "../ProcesoSubir/conexioneq.php";
                     $result  = $conexion->query("SELECT * from visitantes ");
@@ -91,7 +91,7 @@
                           </option>
                           <?php
                         }
-                        //echo "<option value='$fila->id_estacion'>$fila->codiogestacion</option>";
+                        
                       }
                     }
                     ?>

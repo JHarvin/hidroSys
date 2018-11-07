@@ -5,11 +5,12 @@ if($cambio=="tabla"){
 <table id="datatable-fixed-header" class="table table-striped table-bordered imprimir" >
     <thead>
       <tr>
-        <th>Visitante</th>
-        <th>Tipo</th>
-        <th>Estación</th>
-        <th>Fecha</th>
-        <th>Acciones</th>
+        <th style="display:none;">id</th>
+        <th style="width: 270px">Visitante</th>
+        <th style="width: 130px">Tipo</th>
+        <th style="width: 130px">Estación</th>
+        <th style="width: 130px">Fecha</th>
+        <th style="width: 200px">Acciones</th>
       </tr>
     </thead>
 
@@ -23,17 +24,19 @@ if($cambio=="tabla"){
         while($fila = $result->fetch_object()){
         ?>
           <tr>
-            <td><?php echo $fila->nombre; ?></td>
-            <td><?php echo $fila->tipo; ?></td>
-            <td><?php echo $fila->codiogestacion; ?></td>
-            <td><?php echo date('d/m/Y', strtotime($fila->fechavisita));  ?></td>
+            <td style="display:none;"><?php echo $fila->idhojavisitaestaciones; ?></td>
+            <td style="width: 270px"><?php echo $fila->nombre; ?></td>
+            <td style="width: 130px"><?php echo $fila->tipo; ?></td>
+            <td style="width: 130px"><?php echo $fila->codiogestacion; ?></td>
+            <td style="width: 130px"><?php echo date('d/m/Y', strtotime($fila->fechavisita));  ?></td>
 
-            <td class="text-center">
+            <td style="width: 200px" class="text-center">
               <button class="btn btn-success btn-icon left-icon" data-toggle="modal"  data-target="#detalle" onclick="verMas('', '<?php echo $fila->idhojavisitaestaciones; ?>')">
                 <i class="fa fa-search"></i>
                 <span></span>
               </button>
-              <button class="btn btn-info btn-icon left-icon" data-toggle="modal" data-target="#modificacion" onclick="Act('', '<?php echo $fila->idhojavisitaestaciones; ?>')">
+              <button class="btn btn-info btn-icon left-icon" data-toggle="modal" data-target="#modificacion" 
+                                        onclick="Act('', '<?php echo $fila->idhojavisitaestaciones; ?>')" >
                 <i class="fa fa-pencil"></i>
                 <span></span>
               </button> 

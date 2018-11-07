@@ -3,6 +3,7 @@
 
     $opcion=$_REQUEST["opcion"];
     $cambio=$_REQUEST["cambio"];
+    $vis=$_REQUEST["vis"];
    // echo '<input type="text" name="esta" value="'.$cambio.'">';
     if($opcion==="cambioTipo"){
         ?>
@@ -34,20 +35,25 @@
     }
     
     if($opcion==="cambioTipos"){
-        ?>
-        <select class=" form-control " id="visitantes" name="visitantes"  >
-        <option selected="selected" value="Visitante">Visitante</option>
-        <?php       
-        $result=$conexion->query("SELECT vis.id_visitante, vis.nombre, vis.tipo from visitantes vis where vis.tipo = '".$cambio."' ");
+
+        $result=$conexion->query("SELECT * from visitantes where tipo = '".$cambio."' ");
+
+        $cadena='<select class="form-control " id="visitantes" name="visitantes"  >';
+        $cadena=$cadena.'"<option value="0" >Visitante</option>"';
         
-        while($fila = $result->fetch_object()){
-        ?>
-            <option value="<?php echo $fila->id_visitante;?>"><?php echo $fila->nombre?></option>
-            <?php
-        }
-        ?>
-         </select>
-         <?php
+            if ($result) {
+                while($fila= $result->fetch_object()){
+                    if($vis==$fila->id_visitante){
+                        $cadena=$cadena."<option value='".$fila->id_visitante."' selected>".$fila->nombre."</option>";
+                    }else{
+                        $cadena=$cadena."<option value='".$fila->id_visitante."'>".$fila->nombre."</option>";
+                    }
+                }                                 
+            } else {
+            }
+        echo $cadena."</select>";
+        
+         
     }
 
     
