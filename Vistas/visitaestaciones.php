@@ -111,20 +111,7 @@
         <div class="right_col" role="main">
           <div class="">
             <div class="page-title col-md-12 col-sm-12 col-xs-12">
-              <div class="title_left">
-                <h3 >Visita Estación Meteorológica</h3>
-              </div>
-
-              <div class="title_right">
-                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                  <!-- <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for...">
-                    <span class="input-group-btn">
-                      <button class="btn btn-default" type="button">Go!</button>
-                    </span>
-                  </div> -->
-                </div>
-              </div>
+              <h3 >Visita Estación Meteorológica</h3>
             </div>
             <div class="clearfix"></div>
 
@@ -344,7 +331,7 @@
               <br><br><br>
               
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-warning" data-dismiss="modal">Cerrar</button>
+                  <button type="button" class="btn btn-round btn-warning" data-dismiss="modal">Cerrar</button>
                 </div>
             </div>
           </div>
@@ -368,9 +355,8 @@
               </div>
               
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Cancelar</button>
-                  <button type="button" class="btn btn-round btn-success" data-dismiss="modal" onclick="actualizaDatos();" >Modificar</button>
-                  
+                  <button type="button" class="btn btn-round btn-success pull-left" data-dismiss="modal" onclick="actualizaDatos();" >Modificar</button>
+                  <button type="button" class="btn btn-round btn-warning pull-right" data-dismiss="modal">Cancelar</button>
                 </div>
             </div>
           </div>

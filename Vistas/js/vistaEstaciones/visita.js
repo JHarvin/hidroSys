@@ -100,20 +100,9 @@ function cancelar(){
         success: function(respuesta) {
           if(respuesta==1){
             alertify.set('notifier','position','top-right');
-            alertify.success('Los datos han sido insertados correctamente!'); 
-            $('#imprimir').load("recargaTbl.php");
-            $("#visitante").select2({
-                placeholder: "Visitante",
-                allowClear: true
-            });
-            $("#visitante").val("Visitante").trigger('change');
-            $("#estacion").select2({
-                placeholder: "Estaciones",
-                allowClear: true
-            });
-            $("#estacion").val("Estaciones").trigger('change');
-           
-            $("#observacion").val(""); 
+            alertify.success('Datos insertados!'); 
+            limpiaF('limpiar');
+            recargarTabla('tabla');  
 
           }else{
             alertify.error('Datos no insertados!'); 
