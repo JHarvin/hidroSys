@@ -29,7 +29,7 @@ class PDF extends FPDF {
         $this->SetTextColor(0);
         $this->SetDrawColor(231, 169, 249);
         $this->SetLineWidth(1.5);
-         $this->Cell(104,6, 'Informe de datos de pozos y su geologia', 0, 0, 'C');
+         $this->Cell(104,6, 'Informe de datos de pozos', 0, 0, 'C');
          $this->Ln(10);
          $this->SetFont('Arial', 'B', 15);
         $this->Cell(40, 6, '', 0, 0, 'C');
