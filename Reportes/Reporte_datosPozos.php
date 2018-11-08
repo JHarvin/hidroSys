@@ -82,7 +82,7 @@ $pdf->Ln(10);
         $pdf->SetTextColor(0);
         //$pdf->SetDrawColor(231, 169, 249);
         $pdf->SetLineWidth(1.5);
-         $pdf->Cell(180,6, 'Informe de datos de pozos y su geologia', 0, 0, 'C');
+         $pdf->Cell(180,6, 'Informe de datos de pozos', 0, 0, 'C');
          $pdf->Ln(10);
          $pdf->SetFont('Arial', 'B', 15);
         $pdf->Cell(40, 6, '', 0, 0, 'C');
