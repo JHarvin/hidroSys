@@ -2,6 +2,7 @@ function cancelar(){
     var observacion = $("#observacion").val();
     var visitante = $("#visitante").val();
     var estacion = $("#estacion").val();
+    var tipo = $("#tipo").val();
     alertify.defaults.theme.ok = "btn btn-primary";
     alertify.defaults.theme.cancel = "btn btn-danger";
     
@@ -12,17 +13,13 @@ function cancelar(){
     confirmar.set({transition:'zoom'});    
                
     confirmar.set('onok', function(){ 
-    alertify.success('Has confirmado');
+    alertify.success('Registro Cancelado');
     $("#observacion").val(""); 
-    $("#visitante").select2({
-        placeholder: "Visitante",
-        allowClear: true
-    });
+    
+    $("#tipo").val("Tipo Visitante").trigger('change');
+    
     $("#visitante").val("Visitante").trigger('change');
-    $("#estacion").select2({
-        placeholder: "Estaciones",
-        allowClear: true
-    });
+    
     $("#estacion").val("Estaciones").trigger('change');
              
     
@@ -31,7 +28,7 @@ function cancelar(){
 
     alertify.set('notifier','position','top-right');         
     confirmar.set('oncancel', function(){ 
-      alertify.error('No');
+      alertify.error('Registro No Cancelado');
     });
 }
     
@@ -40,10 +37,19 @@ function cancelar(){
       var visitante = $("#visitante").val();
       var fecha = $("#fecha").val();
       var estacion = $("#estacion").val();
+      var tipo = $("#tipo").val();
 
       
-
-      if(visitante=="Visitante" && estacion =="Estaciones" && observacion ==""){
+      if(visitante=="Visitante" && estacion =="Estaciones" && observacion =="" && tipo=="Tipo Visitante"){
+        alertify.error('Debe Seleccionar un Tipo de Visitante');
+        alertify.error('Debe Seleccionar un Visitante');
+        alertify.error('Debe Seleccionar una Estación');
+        alertify.error('Debe Introducir una Observación');
+        alertify.set('notifier','position','top-right');
+        alertify.set({transition: 'zoom'});
+              
+        return false;
+      } else  if(visitante=="Visitante" && estacion =="Estaciones" && observacion ==""){
         alertify.error('Debe Seleccionar un Visitante');
         alertify.error('Debe Seleccionar una Estación');
         alertify.error('Debe Introducir una Observación');
@@ -76,6 +82,11 @@ function cancelar(){
         alertify.set('notifier','position','top-right');
         alertify.error('Debe Seleccionar un Visitante');
         $("#Visitante").focus();
+        return false;
+      }else if (tipo == "Tipo Visitante") {
+        alertify.set('notifier','position','top-right');
+        alertify.error('Debe Seleccionar un Tipo de Visitante');
+        $("#tipo").focus();
         return false;
       } else if (estacion == "Estaciones") {
         alertify.set('notifier','position','top-right');
@@ -115,16 +126,27 @@ function cancelar(){
 
 
     function actualizaDatos(e) {
-      var observacion = $("#observacions").val();
-      var visitante = $("#visitantes").val();
-      var estacion = $("#estacions").val();
-      var tipo = $("#tipos").val();
+      var observacions = $("#observacions").val();
+      var visitantes = $("#visitantes").val();
+      var estacions = $("#estacions").val();
+      var tipos = $("#tipos").val();
       var idhoja = $("#baccion").val();
+
+      if(visitantes=="Visitante" && estacions =="Estaciones" && observacions =="" && tipos=="Tipo Visitante"){
+        alertify.error('Debe Seleccionar un Tipo de Visitante');
+        alertify.error('Debe Seleccionar un Visitante');
+        alertify.error('Debe Seleccionar una Estación');
+        alertify.error('Debe Introducir una Observación');
+        alertify.set('notifier','position','top-right');
+        alertify.set({transition: 'zoom'});
+              
+        return false;
+      }
 
       var obtener = $("#frmactualiza").serialize();
 
       $.ajax({
-        type: "GET",
+        type: "POST",
         url: "actualizaVis.php",
         data: obtener,
         success: function(respuesta) {
@@ -132,16 +154,14 @@ function cancelar(){
             
             alertify.set('notifier','position','top-right');
             alertify.success('Datos Actualizados!'); 
-              
-            
-           // limpiaF('limpiar');
             recargarTabla('');
-            $('#modificacion').modal('hide');
             
-          }else{
+            
+          }else if(respuesta==2){
             alertify.set('notifier','position','top-right');
-            alertify.error('Datos no insertados!');
-            alertify.error('Verifique la información!');  
+            alertify.error('Datos no insertados, Verifique la información!');
+            
+            
           }
         }
       }); 
