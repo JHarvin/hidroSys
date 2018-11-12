@@ -26,7 +26,7 @@
 
 ?>
 <!-- Select2 -->
-    <link href="../vendors/select2/dist/css/select2.min.css" rel="stylesheet">
+  <link href="../vendors/select2/dist/css/select2.min.css" rel="stylesheet">
 
   <div class="row">
     <div class="col-md-6 col-sm-12 col-xs-12">
@@ -79,21 +79,21 @@
                 <select class="form-control " id="visitantes" name="visitantes"  >
                   <option value="Visitante" selected>Visitante</option>
                     <?php
-                    include "../ProcesoSubir/conexioneq.php";
-                    $result  = $conexion->query("SELECT * from visitantes ");
+                      include "../ProcesoSubir/conexioneq.php";
+                      $result  = $conexion->query("SELECT * from visitantes ");
 
-                    if ($result) {
-                      while ($fila = $result->fetch_object()) {
-                        if($fila->id_visitante == $ridvistante){
-                          ?>
-                          <option selected="" value="<?php echo $fila->id_visitante?>">
-                            <?php echo $fila->nombre?>
-                          </option>
-                          <?php
+                      if ($result) {
+                        while ($fila = $result->fetch_object()) {
+                          if($fila->id_visitante == $ridvistante){
+                            ?>
+                            <option selected="" value="<?php echo $fila->id_visitante?>">
+                              <?php echo $fila->nombre?>
+                            </option>
+                            <?php
+                          }
+                          
                         }
-                        
                       }
-                    }
                     ?>
                 </select>
               </div>
@@ -185,7 +185,3 @@
       </div>
     </div>
   </div>
-  <script>
-
-          
-  </script>
