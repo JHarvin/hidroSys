@@ -544,12 +544,7 @@ return false;
 
     $("#guardar").on('click',function(){
      
-        var id=$('#baccion2').val();
-        var nomb = $('#nombr').val();
-        var marc = $('#tipp').val();
-        var num = $('#nombdepto').val();
-        var donad = $('#municipi').val();
-        var tipou = $('#insti').val();
+        
         
        
 //        if(nomb == ""){

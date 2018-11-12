@@ -55,7 +55,7 @@ echo '<div class="" id="buscarMunicipio">
   ?>
 
     <div class="" id="buscarMunicipios">
-      <select class="form-control" id="municipio" name="municipio" onchange="buscarO(this.value)">
+      <select class="form-control" id="municipis" name="municipis" onchange="buscarO(this.value)">
         <option value="0">Municipio</option>
         <?php  while ($valores = mysqli_fetch_array($result)) {
           echo "<option value=".$valores['idmunicipio'].">".$valores['nombre']."</option>";}
