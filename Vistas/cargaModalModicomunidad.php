@@ -118,6 +118,12 @@
                               <?php echo $fila->institucion?>
                             </option>
                             <?php
+                          }else{
+                          ?>
+                            <option value="<?php echo $fila->idresponsable?>">
+                              <?php echo $fila->institucion?>
+                            </option>
+                            <?php
                           }
                           
                         }
