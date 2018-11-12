@@ -243,17 +243,17 @@
                         </ul>
                         <div class="clearfix"></div>
                       </div>
-                      <div class="x_content" id="tbl" style="display: none" >
-                        <table id="datatable-fixed-header" class="table table-striped table-bordered imprimir" style="width: 100px" >
+                      <div class="x_content" id="tbl"  >
+                        <table id="datatable-fixed-header" class="table table-striped table-bordered imprimir" >
                           <thead>
                             <tr>
                               <th style="display:none;">id</th>
-                              <th style="width: 270px">Visitante</th>
-                              <th style="width: 154px">Tipo</th>
-                              <th style="width: 154px">Estación</th>
-                              <th style="width: 154px">Fecha</th>
-                              <th style="width: 50x">Ver</th>
-                              <th style="width: 50px">Editar</th>
+                              <th >Visitante</th>
+                              <th >Tipo</th>
+                              <th >Estación</th>
+                              <th >Fecha</th>
+                              <th >Ver</th>
+                              <th >Editar</th>
                             </tr>
                           </thead>
 
@@ -270,18 +270,18 @@
                                   ?>
                                     <tr>
                                       <td style="display:none;"><?php echo $fila->idhojavisitaestaciones; ?></td>
-                                      <td style="width: 270px"><?php echo $fila->nombre; ?></td>
-                                      <td style="width: 154px"><?php echo $fila->tipo; ?></td>
-                                      <td style="width: 154px"><?php echo $fila->codiogestacion; ?></td>
-                                      <td style="width: 154px"><?php echo date('d/m/Y', strtotime($fila->fechavisita));  ?></td>
+                                      <td ><?php echo $fila->nombre; ?></td>
+                                      <td ><?php echo $fila->tipo; ?></td>
+                                      <td ><?php echo $fila->codiogestacion; ?></td>
+                                      <td ><?php echo date('d/m/Y', strtotime($fila->fechavisita));  ?></td>
 
-                                      <td style="width: 50px" class="text-center">
+                                      <td  class="text-center">
                                         <button class="btn btn-success btn-icon left-icon" data-toggle="modal"  data-target="#detalle" onclick="verMas('', '<?php echo $fila->idhojavisitaestaciones; ?>')">
                                           <i class="fa fa-search"></i>
                                           <span></span>
                                         </button>
                                       </td>
-                                      <td style="width: 50px" class="text-center" >
+                                      <td  class="text-center" >
                                         <button class="btn btn-info btn-icon left-icon" data-toggle="modal" data-target="#modificacion" 
                                         onclick="Act('', '<?php echo $fila->idhojavisitaestaciones; ?>')" >
                                           <i class="fa fa-pencil"></i>
@@ -342,9 +342,7 @@
           <div class="modal-dialog modal-lg " role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
+                
                 <center>
                   <h3 class="modal-title" id="exampleModalLabel">Actualización</h3> </center>
               </div>
@@ -353,8 +351,8 @@
               </div>
               
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-round btn-success pull-left" data-dismiss="modal" onclick="actualizaDatos();" >Modificar</button>
-                  <button type="button" class="btn btn-round btn-warning pull-right" data-dismiss="modal">Cancelar</button>
+                  <button type="button" class="btn btn-success pull-left" data-dismiss="modal" onclick="actualizaDatos();" >Modificar</button>
+                  <button type="button" class="btn btn-warning pull-right" data-dismiss="modal" onclick="cancelarM()">Cancelar</button>
                 </div>
             </div>
           </div>

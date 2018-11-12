@@ -1,36 +1,36 @@
-function cancelar(){
-    var observacion = $("#observacion").val();
-    var visitante = $("#visitante").val();
-    var estacion = $("#estacion").val();
-    var tipo = $("#tipo").val();
-    alertify.defaults.theme.ok = "btn btn-primary";
-    alertify.defaults.theme.cancel = "btn btn-danger";
-    
-    var confirmar = alertify.confirm("<center>ATENCI&Oacute;N!</center>", 
-    "<center><h2>Desea cancelar el registro?</h2></center>",null,null).set('labels', {ok:'Si', cancel:'Cancelar'});  
-          
-    confirmar.set('notifier','position','top-right');
-    confirmar.set({transition:'zoom'});    
-               
-    confirmar.set('onok', function(){ 
-    alertify.success('Registro Cancelado');
-    $("#observacion").val(""); 
-    
-    $("#tipo").val("Tipo Visitante").trigger('change');
-    
-    $("#visitante").val("Visitante").trigger('change');
-    
-    $("#estacion").val("Estaciones").trigger('change');
-             
-    
+    function cancelar(){
+        var observacion = $("#observacion").val();
+        var visitante = $("#visitante").val();
+        var estacion = $("#estacion").val();
+        var tipo = $("#tipo").val();
+        alertify.defaults.theme.ok = "btn btn-primary";
+        alertify.defaults.theme.cancel = "btn btn-danger";
+        
+        var confirmar = alertify.confirm("<center>Confirmaci&oacute;n!</center>", 
+        "<center><h2>Desea cancelar el registro?</h2></center>",null,null).set('labels', {ok:'Si', cancel:'Cancelar'});  
+              
+        confirmar.set('notifier','position','top-right');
+        confirmar.set({transition:'zoom'});    
+                   
+        confirmar.set('onok', function(){ 
+        alertify.success('Registro Cancelado');
+        $("#observacion").val(""); 
+        
+        $("#tipo").val("Tipo Visitante").trigger('change');
+        
+        $("#visitante").val("Visitante").trigger('change');
+        
+        $("#estacion").val("Estaciones").trigger('change');
+                 
+        
 
-    });
+        });
 
-    alertify.set('notifier','position','top-right');         
-    confirmar.set('oncancel', function(){ 
-      alertify.error('Registro No Cancelado');
-    });
-}
+        alertify.set('notifier','position','top-right');         
+        confirmar.set('oncancel', function(){ 
+          //alertify.error('Registro No Cancelado');
+        });
+    }
     
     function enviarDatos(e) {
       var observacion = $("#observacion").val();
@@ -78,7 +78,28 @@ function cancelar(){
         alertify.set({transition: 'zoom'});
               
         return false;
-      }else if (visitante == "Visitante") {
+      }else if(visitante =="Visitante" && tipo == "Tipo Visitante" ){
+        alertify.error('Debe Seleccionar un Visitante');
+        alertify.error('Debe Seleccionar un Tipo de Visitante');
+        alertify.set('notifier','position','top-right');
+        alertify.set({transition: 'zoom'});
+              
+        return false;
+      }else if(estacion =="Estaciones" && tipo == "Tipo Visitante" ){
+        alertify.error('Debe Seleccionar una Estación');
+        alertify.error('Debe Seleccionar un Tipo de Visitante');
+        alertify.set('notifier','position','top-right');
+        alertify.set({transition: 'zoom'});
+              
+        return false;
+      }else if(observacion =="" && tipo == "Tipo Visitante" ){
+        alertify.error('Debe Introducir una Observación');
+        alertify.error('Debe Seleccionar un Tipo de Visitante');
+        alertify.set('notifier','position','top-right');
+        alertify.set({transition: 'zoom'});
+              
+        return false;
+      } else if (visitante == "Visitante") {
         alertify.set('notifier','position','top-right');
         alertify.error('Debe Seleccionar un Visitante');
         $("#Visitante").focus();
@@ -111,12 +132,12 @@ function cancelar(){
         success: function(respuesta) {
           if(respuesta==1){
             alertify.set('notifier','position','top-right');
-            alertify.success('Datos insertados!'); 
+            alertify.error('Datos no almacenados!'); 
             limpiaF('limpiar');
             recargarTabla('tabla');  
 
           }else{
-            alertify.error('Datos no insertados!'); 
+            alertify.error('Datos no almacenados!'); 
           }
         }
       }); 
@@ -124,6 +145,33 @@ function cancelar(){
 
     } 
 
+    function cancelarM(e) {
+        
+        alertify.defaults.theme.ok = "btn btn-primary";
+        alertify.defaults.theme.cancel = "btn btn-danger";
+        
+        var confirmar = alertify.confirm("<center>Confirmaci&oacute;n!</center>", 
+        "<center><h2>Desea cancelar el registro  ?</h2></center>",null,null).set('labels', {ok:'Si', cancel:'Cancelar'});  
+              
+        confirmar.set('notifier','position','top-right');
+        confirmar.set({transition:'zoom'});    
+                   
+        confirmar.set('onok', function(){ 
+        //alertify.success('Registro Modificado');
+            $('#modificacion').modal('hide');
+            alertify.success('Registro Cancelado');
+        });
+
+            alertify.set('notifier','position','top-right');         
+            confirmar.set('oncancel', function(){ 
+              
+              $('#modificacion').modal('show');
+            });
+    
+      
+      return false; 
+
+    } 
 
     function actualizaDatos(e) {
       var observacions = $("#observacions").val();
@@ -132,39 +180,51 @@ function cancelar(){
       var tipos = $("#tipos").val();
       var idhoja = $("#baccion").val();
 
-      if(visitantes=="Visitante" && estacions =="Estaciones" && observacions =="" && tipos=="Tipo Visitante"){
-        alertify.error('Debe Seleccionar un Tipo de Visitante');
-        alertify.error('Debe Seleccionar un Visitante');
-        alertify.error('Debe Seleccionar una Estación');
-        alertify.error('Debe Introducir una Observación');
-        alertify.set('notifier','position','top-right');
-        alertify.set({transition: 'zoom'});
-              
-        return false;
-      }
-
       var obtener = $("#frmactualiza").serialize();
 
-      $.ajax({
-        type: "POST",
-        url: "actualizaVis.php",
-        data: obtener,
-        success: function(respuesta) {
-          if(respuesta==1){
-            
-            alertify.set('notifier','position','top-right');
-            alertify.success('Datos Actualizados!'); 
-            recargarTabla('');
-            
-            
-          }else if(respuesta==2){
-            alertify.set('notifier','position','top-right');
-            alertify.error('Datos no insertados, Verifique la información!');
-            
-            
-          }
-        }
-      }); 
+        
+        alertify.defaults.theme.ok = "btn btn-primary";
+        alertify.defaults.theme.cancel = "btn btn-danger";
+        
+        var confirmar = alertify.confirm("<center>Confirmaci&oacute;n!</center>", 
+        "<center><h2>Desea modificar el registro  ?</h2></center>",null,null).set('labels', {ok:'Si', cancel:'Cancelar'});  
+              
+        confirmar.set('notifier','position','top-right');
+        confirmar.set({transition:'zoom'});    
+                   
+        confirmar.set('onok', function(){ 
+        //alertify.success('Registro Modificado');
+         $.ajax({
+            type: "POST",
+            url: "actualizaVis.php",
+            data: obtener,
+            success: function(respuesta) {
+              if(respuesta==1){
+                
+                alertify.set('notifier','position','top-right');
+                alertify.success('Datos actualizados!'); 
+                recargarTabla('');
+                
+                
+              }else if(respuesta==2){
+                alertify.set('notifier','position','top-right');
+                alertify.error('Datos no actualizados, Verifique la información!');
+                $('#modificacion').modal('show');
+                
+              }
+            }
+          });         
+        
+
+        });
+
+            alertify.set('notifier','position','top-right');         
+            confirmar.set('oncancel', function(){ 
+              alertify.success('Registro Cancelado');
+              
+            });
+    
+      
       return false; 
 
     } 
