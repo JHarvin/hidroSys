@@ -75,8 +75,11 @@
                     ?>
                 </select>
               </div>
+                 <br>
+               
             </div>
-
+               <br>
+               <br>
             <div class="col-md-6 col-sm-6 col-xs-12" id="buscarMunicipios" >
               <select class="form-control" id="municipis" name="municipis"  required>
                 <option value="0" >Municipio</option>
@@ -99,7 +102,8 @@
                     ?>
               </select>
             </div>
-                      
+              
+                       
             <div class="form-group">
 
               <div class="col-md-6 col-sm-6 col-xs-12" id="" >
@@ -136,6 +140,8 @@
               <br>
               <br>
               <br>
+                 <br>
+                 <br>
               
               <div class="input-group " style="padding-bottom:25px;" >
                 <span class="label label-default" style="width: 100px; font-size: 15px;margin-right:20px;margin-left:20px">Tipo</span>

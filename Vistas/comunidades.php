@@ -31,14 +31,20 @@
 
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
-      <link href="../libreriasJS/alertifyjs/css/themes/bootstrap.min.css" rel="stylesheet">
-      <link href="../libreriasJS/alertifyjs/css/alertify.min.css" rel="stylesheet">
+      
   <!-- Datatables -->
     <link href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
     <link href="../vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
     <link href="../vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
     <link href="../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
     <link href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+
+    <!-- alertify -->
+    <link rel="stylesheet" href="../libreriasJS/alertifyjs/css/alertify.css"/>
+    <link rel="stylesheet" href="../libreriasJS/alertifyjs/css/alertify.min.css"/>
+    <link rel="stylesheet" href="../libreriasJS/alertifyjs/css/themes/bootstrap.css"/>
+    <script src="../libreriasJS/alertifyjs/alertify.js"></script>
+    <script src="../libreriasJS/alertifyjs/alertify.min.js"></script>
   
   <script type="text/javascript" >
 
@@ -465,7 +471,9 @@ return false;
           <div class="modal-dialog modal-lg " role="document">
             <div class="modal-content">
               <div class="modal-header">
-                
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
                 <center>
                   <h3 class="modal-title" id="exampleModalLabel">Actualización</h3> </center>
               </div>
@@ -544,7 +552,12 @@ return false;
 
     $("#guardar").on('click',function(){
      
-        
+        var id=$('#baccion2').val();
+        var nomb = $('#nombr').val();
+        var marc = $('#tipp').val();
+        var num = $('#nombdepto').val();
+        var donad = $('#municipi').val();
+        var tipou = $('#insti').val();
         
        
 //        if(nomb == ""){
@@ -567,11 +580,21 @@ return false;
             url: 'editarComunidad.php',
             data: todo,
             success: function(respuesta) {
-
+              if(respuesta == 1){
                 $("#ModifiModal").modal('hide');
-                alert(respuesta);
-                location.href = ("comunidades.php");
-                //$('#datatables-example').DataTable();
+                 
+                //location.href = ("comunidades.php");
+                alertify.set('notifier','position','top-right');
+                alertify.success('Se editaron los datos correctamente');
+                setTimeout (function llamarPagina(){
+                                        location.href=('comunidades.php');
+                                     }, 1000);
+              }else{
+                alertify.set('notifier','position','top-right');
+                alertify.error('Error al editar los datos!');
+              }
+
+                
             },
             error: function(respuesta){
               alert("Error en el servidor: "+respuesta); 

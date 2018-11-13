@@ -8,16 +8,15 @@ $departamento = $_REQUEST['nombdepto'];
 $municipio = $_REQUEST['municipis'];
 $institucion = $_REQUEST['insti'];
 
-$mensaje = "";
 
-$consulta = "UPDATE comunidades SET nombre='$nombre', tipo='$tipo', iddepartamento='$departamento',idmunicipio='$municipio',idobservador='$institucion' where idcomunidad='$modi' ";
+$consulta = "UPDATE comunidades SET nombre='$nombre', tipo='$tipo', iddepartamento='$departamento',idmunicipio='$municipio',idobservador='$institucion' where idcomunidad='$modi'";
 $resultado = $conexion->query($consulta);
           if ($resultado) {
-              $mensaje="Se editaron los datos correctamente";
+
+              echo 1;
           } else {
-              $mensaje="Error al editar los datos";
+              echo 2;
           }
           
-echo $mensaje;
 
 ?>
