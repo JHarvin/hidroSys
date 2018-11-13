@@ -475,7 +475,7 @@ return false;
                   <span aria-hidden="true">&times;</span>
                 </button>
                 <center>
-                  <h3 class="modal-title" id="exampleModalLabel">Actualización</h3> </center>
+                  <h3 class="modal-title" id="exampleModalLabel">Modificar Instituciones y comunidades</h3> </center>
               </div>
               <div class="modal-body" id="cargaAct">
 
