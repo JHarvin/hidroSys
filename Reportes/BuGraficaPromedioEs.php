@@ -46,7 +46,7 @@ $validar= mysqli_query($conexion,"SELECT
 l.date, 
 e.id_estacion,
 e.codiogestacion,
-avg(l.tempout) as promtempout
+TRUNCATE(avg(l.tempout),2) as promtempout
 FROM
 estacionmet e
 INNER JOIN lecturaestaciones l ON l.idestacion = e.id_estacion
@@ -61,7 +61,7 @@ $temperatura= mysqli_query($conexion,"SELECT
 l.date, 
 e.id_estacion,
 e.codiogestacion,
-avg(l.tempout) as promtempout
+TRUNCATE(avg(l.tempout),2) as promtempout
 FROM
 estacionmet e
 INNER JOIN lecturaestaciones l ON l.idestacion = e.id_estacion
@@ -75,7 +75,7 @@ $fechas= mysqli_query($conexion,"SELECT
 l.date, 
 e.id_estacion,
 e.codiogestacion,
-avg(l.tempout) as promtempout
+TRUNCATE(avg(l.tempout),2) as promtempout
 FROM
 estacionmet e
 INNER JOIN lecturaestaciones l ON l.idestacion = e.id_estacion
@@ -109,7 +109,7 @@ ORDER BY l.date");
 					},
 					yAxis: {
 						title: {
-							text: 'Temperatura promedio'
+							text: 'Temperatura promedio en Grados celcius'
 						}
 					},
 					tooltip: {
