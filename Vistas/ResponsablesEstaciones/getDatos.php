@@ -62,11 +62,11 @@
                                 <th><label class="text-center"><?php echo $direccion ?></label></th>
                             </tr>
                             <tr>
-                                <th style="padding-left:40px;" class="text-center"><b><i class="fa fa-phone"></i>   Teléfono 1:</b></th>
+                                <th style="padding-left:40px;" class="text-center"><b><i class="fa fa-phone"></i>   Teléfono Fijo:</b></th>
                                 <th><label class="text-center"><?php echo $telefono1 ?></label></th>
                             </tr>
                             <tr>
-                                <th style="padding-left:40px;" class="text-center"><b><i class="fa fa-phone"></i>   Teléfono 2:</b></th>
+                                <th style="padding-left:40px;" class="text-center"><b><i class="fa fa-phone"></i>   Teléfono Celular:</b></th>
                                 <th><label class="text-center"><?php echo $telefono2 ?></label></th>
                             </tr>
                             
