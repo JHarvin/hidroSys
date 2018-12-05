@@ -85,7 +85,7 @@ $validar= mysqli_query($conexion, "SELECT
 l.date, 
 e.id_estacion,
 e.codiogestacion,
-avg(l.tempout) as promtempout
+TRUNCATE(avg(l.tempout),2) as promtempout
 FROM
 estacionmet e
 INNER JOIN lecturaestaciones l ON l.idestacion = e.id_estacion
@@ -116,7 +116,7 @@ $fech = mysqli_query($conexion, "SELECT
 l.date, 
 e.id_estacion,
 e.codiogestacion,
-avg(l.tempout) as promtempout
+TRUNCATE(avg(l.tempout),2) as promtempout
 FROM
 estacionmet e
 INNER JOIN lecturaestaciones l ON l.idestacion = e.id_estacion

@@ -31,14 +31,20 @@
 
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
-      <link href="../libreriasJS/alertifyjs/css/themes/bootstrap.min.css" rel="stylesheet">
-      <link href="../libreriasJS/alertifyjs/css/alertify.min.css" rel="stylesheet">
+      
   <!-- Datatables -->
     <link href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
     <link href="../vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
     <link href="../vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
     <link href="../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
     <link href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+
+    <!-- alertify -->
+    <link rel="stylesheet" href="../libreriasJS/alertifyjs/css/alertify.css"/>
+    <link rel="stylesheet" href="../libreriasJS/alertifyjs/css/alertify.min.css"/>
+    <link rel="stylesheet" href="../libreriasJS/alertifyjs/css/themes/bootstrap.css"/>
+    <script src="../libreriasJS/alertifyjs/alertify.js"></script>
+    <script src="../libreriasJS/alertifyjs/alertify.min.js"></script>
   
   <script type="text/javascript" >
 
@@ -56,21 +62,38 @@ return false;
  }
   }  	
 
-    function buscarM(str){
+    function buscarM(str,opcion){
   //alert(str);
 
-  if (str==""){document.getElementById("buscarMunicipio").innerHTML="";return;}
+  if (str==""){
+    document.getElementById("buscarMunicipio").innerHTML="";
+    document.getElementById("buscarMunicipios").innerHTML="";
+    return;
+  }
       if (window.XMLHttpRequest){ // code for IE7+, Firefox, Chrome, Opera, Safari
         xmlhttp=new XMLHttpRequest();}
       else  {// code for IE6, IE5
         xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
         }
-        xmlhttp.onreadystatechange=function(){if (xmlhttp.readyState==4 && xmlhttp.status==200){document.getElementById("buscarMunicipio").innerHTML=xmlhttp.responseText;}}
-
-      xmlhttp.open("GET","comunidades1.php?opcion=buscarMunicipio&criterio="+str,true);
-      xmlhttp.send();
+        xmlhttp.onreadystatechange=function(){
+          if (xmlhttp.readyState==4 && xmlhttp.status==200){
+            if (opcion === 'buscarMunicipio') {
+                    document.getElementById("buscarMunicipio").innerHTML=xmlhttp.responseText;
+                } else if (opcion === 'buscarMunicipios') {
+                    document.getElementById("buscarMunicipios").innerHTML=xmlhttp.responseText;
+                } 
+            
+          }
+        }
+        if (opcion === "buscarMunicipio") 
+            xmlhttp.open("GET","comunidades1.php?opcion="+ opcion +"&criterio="+str,true);
+        else if(opcion === "buscarMunicipios")
+            xmlhttp.open("GET","comunidades1.php?opcion="+ opcion +"&criterio="+str,true);
+            xmlhttp.send();
   
    }
+
+
 
    function buscarO(str){
   //alert(str);
@@ -107,25 +130,24 @@ return false;
           
           
         }
-        function edit(id,nom,tipo,depto,municipio,inst)
-        {
-         // document.getElementById("baccion2").value=id;
-         // document.getElementById("nom").value=nom;
-         // document.getElementById("marc").value=marca;
-         // document.getElementById("num").value=num;
-         // document.getElementById("descr").value=des;
-         // document.getElementById("donad").value=don;
-         $("#baccion2").val(id);
-         $("#nombr").val(nom);
-        $("#tipp").val(tipo);
-          $("#nombdepto").val(depto);
-          $("#municipi").val(municipio);
-          $("#insti").val(inst);
-          $("#ModifiModal").modal();
-        //Ya manda todos los datos correcatamente
-          
-          
+
+        function edit(str, opcion) {
+            if (window.XMLHttpRequest) {
+                xmlhttp = new XMLHttpRequest();
+            }else {
+                    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xmlhttp.onreadystatechange = function () {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    document.getElementById("cargaAct").innerHTML = xmlhttp.responseText;
+                }
+            }
+                
+            xmlhttp.open("post", "cargaModalModicomunidad.php?idd=" + opcion , true);
+            xmlhttp.send();
         }
+
+        
         
       </script>
 
@@ -244,7 +266,7 @@ return false;
                         <div class="form-group">
 
                       <div class="col-md-6 col-sm-6 col-xs-12" required>
-                          <select class="form-control" id="departamento" name="departamento" onchange="buscarM(this.value)">
+                          <select class="form-control" id="departamento" name="departamento" onchange="buscarM(this.value,'buscarMunicipio')">
                             <option value="0" >Departamento</option>
                             <?php
                               $query = $mysqli -> query ("SELECT * FROM departamentos");
@@ -445,69 +467,27 @@ return false;
       <!--Detalle modal--> 
          
     <!--Modificacion modal-->
-    <div class="modal fade modifi-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="ModifiModal">
-              <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title"><strong><i class="fa fa-list-ul fa-2x"></i></strong></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                <div class="row">
-                  <table class="table table-bordered">
-                  
-                    
-                      <thead>
-                        <tr><th colspan=5 style="text-align:center;">Modificar Comunidades </th></tr>
-                    </table>
-                    <input type="hidden" id="id" name="id" value="">
-                    <form id="modifi">
-                    <input type="hidden" name="baccion2" id="baccion2">
-                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <label>Nombre de la comunidad<small class="text-muted"></small></label>
-                        <input type="text" class="form-control has-feedback-left" name="nombr" id="nombr">
-                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
-                        </div>
-                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <label>Tipo<small class="text-muted"></small></label>
-                        <input type="text" class="form-control has-feedback-left" name="tipp" id="tipp">
-                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
-                        </div>
-                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <label>Departamento<small class="text-muted"></small></label>
-                        <input type="text" class="form-control has-feedback-left" name="nombdepto" id="nombdepto">
-                        <span class="fa fa-list-ol form-control-feedback left" aria-hidden="true"></span>
-                        </div>
-                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <label>Municipio<small class="text-muted"></small></label>
-                        <input type="text" class="form-control has-feedback-left" name="municipi" id="municipi">
-                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
-                        </div>
+    <div class="modal fade" id="ModifiModal" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog modal-lg " role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                <center>
+                  <h3 class="modal-title" id="exampleModalLabel">Modificar Instituciones y comunidades</h3> </center>
+              </div>
+              <div class="modal-body" id="cargaAct">
 
-                         
-
-                        
-                         <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <label>Institucion<small class="text-muted"></small></label>
-                        <input type="text" class="form-control has-feedback-left" name="insti" id="insti">
-                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
-                        </div>
-                  </div>
-                 
-                
-                  
-                  
-                </div>
+              </div>
+              
                 <div class="modal-footer">
-                  
                   <button name="btnmodi" class="btn btn-primary" data-dismiss="modal" id="guardar">Modificar</button>
                 </div>
-                </form>
-                </div><!--Fin del content-->
-              </div>
-         </div>  
+            </div>
+          </div>
+        </div>
+     
       
       <!--Modificacion modal-->
 
@@ -600,11 +580,21 @@ return false;
             url: 'editarComunidad.php',
             data: todo,
             success: function(respuesta) {
-
+              if(respuesta == 1){
                 $("#ModifiModal").modal('hide');
-                alert(respuesta);
-                $(".tabla_ajax").load("../Controladores/tablaComunidades.php"); 
-                //$('#datatables-example').DataTable();
+                 
+                //location.href = ("comunidades.php");
+                alertify.set('notifier','position','top-right');
+                alertify.success('Se editaron los datos correctamente');
+                setTimeout (function llamarPagina(){
+                                        location.href=('comunidades.php');
+                                     }, 1000);
+              }else{
+                alertify.set('notifier','position','top-right');
+                alertify.error('Error al editar los datos!');
+              }
+
+                
             },
             error: function(respuesta){
               alert("Error en el servidor: "+respuesta); 

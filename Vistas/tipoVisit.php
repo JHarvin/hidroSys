@@ -8,7 +8,7 @@
     if($opcion==="cambioTipo"){
         ?>
 
-        <option selected="selected" value="Visitante">Visitante</option>
+        <option value="Visitante" selected>Visitante</option>
         <?php       
         $result=$conexion->query("SELECT vis.id_visitante, vis.nombre, vis.tipo from visitantes vis where vis.tipo = '".$cambio."' ");
         

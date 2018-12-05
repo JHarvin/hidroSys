@@ -199,18 +199,18 @@
                       </div>
 
                       <div class="col-md-6 col-sm-6 col-xs-6 form-group has-feedback">
-                        <input name="celular" type="text" class="form-control mask-celular has-feedback-left" id="inputSuccess2" placeholder="Celular" autocomplete="off" size="10" required="">
+                        <input name="celular" type="text" class="form-control mask-celular has-feedback-left" id="inputSuccess2" placeholder="Celular" autocomplete="off">
                         <span class="fa fa-phone form-control-feedback left" aria-hidden="true"></span>
                       </div>
 
                       <div class="col-md-6 col-sm-6 col-xs-6 form-group has-feedback">
-                        <input name="dui" type="text" class="form-control mask-dui has-feedback-left" id="inputSuccess2" placeholder="DUI" autocomplete="off" required autofocus">
+                        <input name="dui" type="text" class="form-control mask-dui has-feedback-left" id="inputSuccess2" placeholder="DUI" autocomplete="off">
                         <span class="fa fa-barcode form-control-feedback left" aria-hidden="true"></span>
                       </div>
 
                      <div class="col-md-6 col-sm-6 col-xs-6 form-group has-feedback">
                         <select class="form-control" name="genero">
-                          <option value="">Genero</option>
+                          <option disabled="">Genero</option>
                           <option value="Femenino">Femenino</option>
                           <option value="Masculino">Masculino</option>
 
@@ -221,7 +221,7 @@
                       <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <select name="tipo" class="form-control">
-                            <option value="">Tipo</option>
+                            <option disabled="">Tipo</option>
                             <option value="estudiante">Estudiante.</option>
                             <option value="docente">Docente</option>
                             <option value="investigador">Investigador</option>

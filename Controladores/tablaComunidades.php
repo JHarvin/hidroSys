@@ -15,7 +15,7 @@ if ($result) {
         echo "<td width=160>
          <center>
                             <button type='button' title='Listar Detalles' class='btn btn-success' 'style='width:45px;' onclick=\"editar('$fila->idcomunidad','$fila->nombre','$fila->tipo','$fila->nombredepto','$fila->municipios','$fila->institucion')\";><i class='fa fa-list'></i></button>
-                            <button type='button' title='Modificar' class='btn btn-success' 'style='width:45px;' onclick=\"edit('$fila->idcomunidad','$fila->nombre','$fila->tipo','$fila->nombredepto','$fila->municipios','$fila->institucion')\";><i class='fa fa-pencil'></i></button>
+                            <button type='button' data-toggle='modal' data-target='#ModifiModal'  class='btn btn-success' 'style='width:45px;' onclick=\"edit('', ".$fila->idcomunidad.")\";><i class='fa fa-pencil'></i></button>
                             
         </center>
                             

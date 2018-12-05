@@ -1,4 +1,6 @@
-
+<?php 
+  error_reporting(E_ALL & ~E_NOTICE);
+?>
 <!DOCTYPE html>
 <html lang="es">
   <head>
@@ -14,16 +16,10 @@
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <!-- NProgress -->
-    <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
-    <!-- iCheck -->
-    <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+    
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
-    <!-- bootstrap-progressbar -->
-    <link href="../vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
-    <link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
-    <link href="../vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
+    
     <!-- Datatables -->
     <link href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
     <link href="../vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
@@ -33,10 +29,10 @@
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
    <!-- Librerias de Alertify -->
-  <link rel="stylesheet" href="../libreriasJS/alertifyjs/css/alertify.css"/>
-  <link rel="stylesheet" href="../libreriasJS/alertifyjs/css/alertify.min.css"/>
-  <link rel="stylesheet" href="../libreriasJS/alertifyjs/css/themes/bootstrap.css"/>
-  <!-- Select2 -->
+    <link rel="stylesheet" href="../libreriasJS/alertifyjs/css/alertify.css"/>
+    <link rel="stylesheet" href="../libreriasJS/alertifyjs/css/alertify.min.css"/>
+    <link rel="stylesheet" href="../libreriasJS/alertifyjs/css/themes/bootstrap.css"/>
+    <!-- Select2 -->
     <link href="../vendors/select2/dist/css/select2.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/visitaEstaciones/estilo.css">
 
@@ -45,7 +41,7 @@
     <script src="../libreriasJS/alertifyjs/alertify.js"></script>
     <script src="../libreriasJS/alertifyjs/alertify.min.js"></script>
 
-  <script src="js/vistaEstaciones/visita.js"></script>
+    <script src="js/vistaEstaciones/visita.js"></script>
   
 
   </head>
@@ -68,7 +64,20 @@
 
 
             <!-- /menu footer buttons -->
-
+            <div class="sidebar-footer hidden-small">
+              <a data-toggle="tooltip" data-placement="top" title="Settings">
+                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+              </a>
+              <a data-toggle="tooltip" data-placement="top" title="FullScreen">
+                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+              </a>
+              <a data-toggle="tooltip" data-placement="top" title="Lock">
+                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+              </a>
+              <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
+                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+              </a>
+            </div>
             <!-- /menu footer buttons -->
           </div>
         </div>
@@ -145,17 +154,6 @@
                       <div class="col-md-6 col-sm-6 col-xs-12">
                           <select class=" form-control SVisitante" id="visitante" name="visitante"  *>
                             <option value="Visitante" selected="selected">Visitante</option>
-                            <!--<?php
-                            /*  include "../../ProcesoSubir/conexion.php";
-                              $result  = $mysqli->query("select * from visitantes ");
-
-                              if ($result) {
-                                  while ($fila = $result->fetch_object()) {
-                                      echo "<option value='$fila->id_visitante'>$fila->nombre</option>";
-                                  }
-                              }*/
-                            ?>-->
-
 
                           </select>
                       </div>
@@ -245,17 +243,17 @@
                         </ul>
                         <div class="clearfix"></div>
                       </div>
-                      <div class="x_content" id="tbl" style="display: none" >
+                      <div class="x_content" id="tbl"  >
                         <table id="datatable-fixed-header" class="table table-striped table-bordered imprimir" >
                           <thead>
                             <tr>
                               <th style="display:none;">id</th>
-                              <th style="width: 270px">Visitante</th>
-                              <th style="width: 154px">Tipo</th>
-                              <th style="width: 154px">Estación</th>
-                              <th style="width: 154px">Fecha</th>
-                              <th style="width: 50x">Ver</th>
-                              <th style="width: 50px">Editar</th>
+                              <th >Visitante</th>
+                              <th >Tipo</th>
+                              <th >Estación</th>
+                              <th >Fecha</th>
+                              <th >Ver</th>
+                              <th >Editar</th>
                             </tr>
                           </thead>
 
@@ -272,18 +270,18 @@
                                   ?>
                                     <tr>
                                       <td style="display:none;"><?php echo $fila->idhojavisitaestaciones; ?></td>
-                                      <td style="width: 270px"><?php echo $fila->nombre; ?></td>
-                                      <td style="width: 154px"><?php echo $fila->tipo; ?></td>
-                                      <td style="width: 154px"><?php echo $fila->codiogestacion; ?></td>
-                                      <td style="width: 154px"><?php echo date('d/m/Y', strtotime($fila->fechavisita));  ?></td>
+                                      <td ><?php echo $fila->nombre; ?></td>
+                                      <td ><?php echo $fila->tipo; ?></td>
+                                      <td ><?php echo $fila->codiogestacion; ?></td>
+                                      <td ><?php echo date('d/m/Y', strtotime($fila->fechavisita));  ?></td>
 
-                                      <td style="width: 50px" class="text-center">
+                                      <td  class="text-center">
                                         <button class="btn btn-success btn-icon left-icon" data-toggle="modal"  data-target="#detalle" onclick="verMas('', '<?php echo $fila->idhojavisitaestaciones; ?>')">
                                           <i class="fa fa-search"></i>
                                           <span></span>
                                         </button>
                                       </td>
-                                      <td style="width: 50px" class="text-center" >
+                                      <td  class="text-center" >
                                         <button class="btn btn-info btn-icon left-icon" data-toggle="modal" data-target="#modificacion" 
                                         onclick="Act('', '<?php echo $fila->idhojavisitaestaciones; ?>')" >
                                           <i class="fa fa-pencil"></i>
@@ -344,9 +342,7 @@
           <div class="modal-dialog modal-lg " role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
+                
                 <center>
                   <h3 class="modal-title" id="exampleModalLabel">Actualización</h3> </center>
               </div>
@@ -355,8 +351,8 @@
               </div>
               
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-round btn-success pull-left" data-dismiss="modal" onclick="actualizaDatos();" >Modificar</button>
-                  <button type="button" class="btn btn-round btn-warning pull-right" data-dismiss="modal">Cancelar</button>
+                  <button type="button" class="btn btn-success pull-left" data-dismiss="modal" onclick="actualizaDatos();" >Modificar</button>
+                  <button type="button" class="btn btn-warning pull-right" data-dismiss="modal" onclick="cancelarM()">Cancelar</button>
                 </div>
             </div>
           </div>
@@ -382,11 +378,6 @@
     <script src="../vendors/Chart.js/dist/Chart.min.js"></script>
     <!-- gauge.js -->
     <script src="../vendors/gauge.js/dist/gauge.min.js"></script>
-    <!-- bootstrap-progressbar -->
-    <script src="../vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
-    <!-- iCheck -->
-    <script src="../vendors/iCheck/icheck.min.js"></script>
-    <!-- Skycons -->
 
     <!-- Flot -->
     <script src="../vendors/Flot/jquery.flot.js"></script>
@@ -428,9 +419,6 @@
     <script src="../vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
     <script src="../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
     <script src="../vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
-    <script src="../vendors/jszip/dist/jszip.min.js"></script>
-    <script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
-    <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
 
 
 
@@ -443,12 +431,6 @@
             $('.SEstacion').select2();
             $('.STipo').select2();
           });
-
-
-        $(document).ready(function () {
-            $("#visitantes").select2();
-            $("#estacions").select2();
-        });
            
     </script>
   </body>

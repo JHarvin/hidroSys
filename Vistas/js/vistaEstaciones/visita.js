@@ -1,49 +1,55 @@
-function cancelar(){
-    var observacion = $("#observacion").val();
-    var visitante = $("#visitante").val();
-    var estacion = $("#estacion").val();
-    alertify.defaults.theme.ok = "btn btn-primary";
-    alertify.defaults.theme.cancel = "btn btn-danger";
-    
-    var confirmar = alertify.confirm("<center>ATENCI&Oacute;N!</center>", 
-    "<center><h2>Desea cancelar el registro?</h2></center>",null,null).set('labels', {ok:'Si', cancel:'Cancelar'});  
-          
-    confirmar.set('notifier','position','top-right');
-    confirmar.set({transition:'zoom'});    
-               
-    confirmar.set('onok', function(){ 
-    alertify.success('Has confirmado');
-    $("#observacion").val(""); 
-    $("#visitante").select2({
-        placeholder: "Visitante",
-        allowClear: true
-    });
-    $("#visitante").val("Visitante").trigger('change');
-    $("#estacion").select2({
-        placeholder: "Estaciones",
-        allowClear: true
-    });
-    $("#estacion").val("Estaciones").trigger('change');
-             
-    
+    function cancelar(){
+        var observacion = $("#observacion").val();
+        var visitante = $("#visitante").val();
+        var estacion = $("#estacion").val();
+        var tipo = $("#tipo").val();
+        alertify.defaults.theme.ok = "btn btn-primary";
+        alertify.defaults.theme.cancel = "btn btn-danger";
+        
+        var confirmar = alertify.confirm("<center>Confirmaci&oacute;n!</center>", 
+        "<center><h2>Desea cancelar el registro?</h2></center>",null,null).set('labels', {ok:'Si', cancel:'Cancelar'});  
+              
+        confirmar.set('notifier','position','top-right');
+        confirmar.set({transition:'zoom'});    
+                   
+        confirmar.set('onok', function(){ 
+        alertify.success('Registro Cancelado');
+        $("#observacion").val(""); 
+        
+        $("#tipo").val("Tipo Visitante").trigger('change');
+        
+        $("#visitante").val("Visitante").trigger('change');
+        
+        $("#estacion").val("Estaciones").trigger('change');
+                 
+        
 
-    });
+        });
 
-    alertify.set('notifier','position','top-right');         
-    confirmar.set('oncancel', function(){ 
-      alertify.error('No');
-    });
-}
+        alertify.set('notifier','position','top-right');         
+        confirmar.set('oncancel', function(){ 
+          //alertify.error('Registro No Cancelado');
+        });
+    }
     
     function enviarDatos(e) {
       var observacion = $("#observacion").val();
       var visitante = $("#visitante").val();
       var fecha = $("#fecha").val();
       var estacion = $("#estacion").val();
+      var tipo = $("#tipo").val();
 
       
-
-      if(visitante=="Visitante" && estacion =="Estaciones" && observacion ==""){
+      if(visitante=="Visitante" && estacion =="Estaciones" && observacion =="" && tipo=="Tipo Visitante"){
+        alertify.error('Debe Seleccionar un Tipo de Visitante');
+        alertify.error('Debe Seleccionar un Visitante');
+        alertify.error('Debe Seleccionar una Estación');
+        alertify.error('Debe Introducir una Observación');
+        alertify.set('notifier','position','top-right');
+        alertify.set({transition: 'zoom'});
+              
+        return false;
+      } else  if(visitante=="Visitante" && estacion =="Estaciones" && observacion ==""){
         alertify.error('Debe Seleccionar un Visitante');
         alertify.error('Debe Seleccionar una Estación');
         alertify.error('Debe Introducir una Observación');
@@ -72,10 +78,36 @@ function cancelar(){
         alertify.set({transition: 'zoom'});
               
         return false;
-      }else if (visitante == "Visitante") {
+      }else if(visitante =="Visitante" && tipo == "Tipo Visitante" ){
+        alertify.error('Debe Seleccionar un Visitante');
+        alertify.error('Debe Seleccionar un Tipo de Visitante');
+        alertify.set('notifier','position','top-right');
+        alertify.set({transition: 'zoom'});
+              
+        return false;
+      }else if(estacion =="Estaciones" && tipo == "Tipo Visitante" ){
+        alertify.error('Debe Seleccionar una Estación');
+        alertify.error('Debe Seleccionar un Tipo de Visitante');
+        alertify.set('notifier','position','top-right');
+        alertify.set({transition: 'zoom'});
+              
+        return false;
+      }else if(observacion =="" && tipo == "Tipo Visitante" ){
+        alertify.error('Debe Introducir una Observación');
+        alertify.error('Debe Seleccionar un Tipo de Visitante');
+        alertify.set('notifier','position','top-right');
+        alertify.set({transition: 'zoom'});
+              
+        return false;
+      } else if (visitante == "Visitante") {
         alertify.set('notifier','position','top-right');
         alertify.error('Debe Seleccionar un Visitante');
         $("#Visitante").focus();
+        return false;
+      }else if (tipo == "Tipo Visitante") {
+        alertify.set('notifier','position','top-right');
+        alertify.error('Debe Seleccionar un Tipo de Visitante');
+        $("#tipo").focus();
         return false;
       } else if (estacion == "Estaciones") {
         alertify.set('notifier','position','top-right');
@@ -100,12 +132,12 @@ function cancelar(){
         success: function(respuesta) {
           if(respuesta==1){
             alertify.set('notifier','position','top-right');
-            alertify.success('Datos insertados!'); 
+            alertify.error('Datos no almacenados!'); 
             limpiaF('limpiar');
             recargarTabla('tabla');  
 
           }else{
-            alertify.error('Datos no insertados!'); 
+            alertify.error('Datos no almacenados!'); 
           }
         }
       }); 
@@ -113,38 +145,86 @@ function cancelar(){
 
     } 
 
+    function cancelarM(e) {
+        
+        alertify.defaults.theme.ok = "btn btn-primary";
+        alertify.defaults.theme.cancel = "btn btn-danger";
+        
+        var confirmar = alertify.confirm("<center>Confirmaci&oacute;n!</center>", 
+        "<center><h2>Desea cancelar el registro  ?</h2></center>",null,null).set('labels', {ok:'Si', cancel:'Cancelar'});  
+              
+        confirmar.set('notifier','position','top-right');
+        confirmar.set({transition:'zoom'});    
+                   
+        confirmar.set('onok', function(){ 
+        //alertify.success('Registro Modificado');
+            $('#modificacion').modal('hide');
+            alertify.success('Registro Cancelado');
+        });
+
+            alertify.set('notifier','position','top-right');         
+            confirmar.set('oncancel', function(){ 
+              
+              $('#modificacion').modal('show');
+            });
+    
+      
+      return false; 
+
+    } 
 
     function actualizaDatos(e) {
-      var observacion = $("#observacions").val();
-      var visitante = $("#visitantes").val();
-      var estacion = $("#estacions").val();
-      var tipo = $("#tipos").val();
+      var observacions = $("#observacions").val();
+      var visitantes = $("#visitantes").val();
+      var estacions = $("#estacions").val();
+      var tipos = $("#tipos").val();
       var idhoja = $("#baccion").val();
 
       var obtener = $("#frmactualiza").serialize();
 
-      $.ajax({
-        type: "GET",
-        url: "actualizaVis.php",
-        data: obtener,
-        success: function(respuesta) {
-          if(respuesta==1){
-            
-            alertify.set('notifier','position','top-right');
-            alertify.success('Datos Actualizados!'); 
+        
+        alertify.defaults.theme.ok = "btn btn-primary";
+        alertify.defaults.theme.cancel = "btn btn-danger";
+        
+        var confirmar = alertify.confirm("<center>Confirmaci&oacute;n!</center>", 
+        "<center><h2>Desea modificar el registro  ?</h2></center>",null,null).set('labels', {ok:'Si', cancel:'Cancelar'});  
               
-            
-           // limpiaF('limpiar');
-            recargarTabla('');
-            $('#modificacion').modal('hide');
-            
-          }else{
-            alertify.set('notifier','position','top-right');
-            alertify.error('Datos no insertados!');
-            alertify.error('Verifique la información!');  
-          }
-        }
-      }); 
+        confirmar.set('notifier','position','top-right');
+        confirmar.set({transition:'zoom'});    
+                   
+        confirmar.set('onok', function(){ 
+        //alertify.success('Registro Modificado');
+         $.ajax({
+            type: "POST",
+            url: "actualizaVis.php",
+            data: obtener,
+            success: function(respuesta) {
+              if(respuesta==1){
+                
+                alertify.set('notifier','position','top-right');
+                alertify.success('Datos actualizados!'); 
+                recargarTabla('');
+                
+                
+              }else if(respuesta==2){
+                alertify.set('notifier','position','top-right');
+                alertify.error('Datos no actualizados, Verifique la información!');
+                $('#modificacion').modal('show');
+                
+              }
+            }
+          });         
+        
+
+        });
+
+            alertify.set('notifier','position','top-right');         
+            confirmar.set('oncancel', function(){ 
+              alertify.success('Registro Cancelado');
+              
+            });
+    
+      
       return false; 
 
     } 
