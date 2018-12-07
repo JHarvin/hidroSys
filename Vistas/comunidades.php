@@ -31,14 +31,20 @@
 
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
-      <link href="../libreriasJS/alertifyjs/css/themes/bootstrap.min.css" rel="stylesheet">
-      <link href="../libreriasJS/alertifyjs/css/alertify.min.css" rel="stylesheet">
+      
   <!-- Datatables -->
     <link href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
     <link href="../vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
     <link href="../vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
     <link href="../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
     <link href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+
+    <!-- alertify -->
+    <link rel="stylesheet" href="../libreriasJS/alertifyjs/css/alertify.css"/>
+    <link rel="stylesheet" href="../libreriasJS/alertifyjs/css/alertify.min.css"/>
+    <link rel="stylesheet" href="../libreriasJS/alertifyjs/css/themes/bootstrap.css"/>
+    <script src="../libreriasJS/alertifyjs/alertify.js"></script>
+    <script src="../libreriasJS/alertifyjs/alertify.min.js"></script>
   
   <script type="text/javascript" >
 
@@ -56,21 +62,38 @@ return false;
  }
   }  	
 
-    function buscarM(str){
+    function buscarM(str,opcion){
   //alert(str);
 
-  if (str==""){document.getElementById("buscarMunicipio").innerHTML="";return;}
+  if (str==""){
+    document.getElementById("buscarMunicipio").innerHTML="";
+    document.getElementById("buscarMunicipios").innerHTML="";
+    return;
+  }
       if (window.XMLHttpRequest){ // code for IE7+, Firefox, Chrome, Opera, Safari
         xmlhttp=new XMLHttpRequest();}
       else  {// code for IE6, IE5
         xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
         }
-        xmlhttp.onreadystatechange=function(){if (xmlhttp.readyState==4 && xmlhttp.status==200){document.getElementById("buscarMunicipio").innerHTML=xmlhttp.responseText;}}
-
-      xmlhttp.open("GET","comunidades1.php?opcion=buscarMunicipio&criterio="+str,true);
-      xmlhttp.send();
+        xmlhttp.onreadystatechange=function(){
+          if (xmlhttp.readyState==4 && xmlhttp.status==200){
+            if (opcion === 'buscarMunicipio') {
+                    document.getElementById("buscarMunicipio").innerHTML=xmlhttp.responseText;
+                } else if (opcion === 'buscarMunicipios') {
+                    document.getElementById("buscarMunicipios").innerHTML=xmlhttp.responseText;
+                } 
+            
+          }
+        }
+        if (opcion === "buscarMunicipio") 
+            xmlhttp.open("GET","comunidades1.php?opcion="+ opcion +"&criterio="+str,true);
+        else if(opcion === "buscarMunicipios")
+            xmlhttp.open("GET","comunidades1.php?opcion="+ opcion +"&criterio="+str,true);
+            xmlhttp.send();
   
    }
+
+
 
    function buscarO(str){
   //alert(str);
@@ -89,6 +112,44 @@ return false;
    }
 
   </script>
+      
+      <script type="text/javascript"> 
+
+
+        function editar(id,nom,tipo,depto,municipio,inst)
+        {
+         
+          $("#nomb").val(nom);
+          $("#tip").val(tipo);
+          $("#nomdepto").val(depto);
+          $("#municip").val(municipio);
+          $("#inst").val(inst);
+          $("#DetalleModal").modal();
+         
+        
+          
+          
+        }
+
+        function edit(str, opcion) {
+            if (window.XMLHttpRequest) {
+                xmlhttp = new XMLHttpRequest();
+            }else {
+                    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xmlhttp.onreadystatechange = function () {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    document.getElementById("cargaAct").innerHTML = xmlhttp.responseText;
+                }
+            }
+                
+            xmlhttp.open("post", "cargaModalModicomunidad.php?idd=" + opcion , true);
+            xmlhttp.send();
+        }
+
+        
+        
+      </script>
 
   </head>
 
@@ -205,7 +266,7 @@ return false;
                         <div class="form-group">
 
                       <div class="col-md-6 col-sm-6 col-xs-12" required>
-                          <select class="form-control" id="departamento" name="departamento" onchange="buscarM(this.value)">
+                          <select class="form-control" id="departamento" name="departamento" onchange="buscarM(this.value,'buscarMunicipio')">
                             <option value="0" >Departamento</option>
                             <?php
                               $query = $mysqli -> query ("SELECT * FROM departamentos");
@@ -260,8 +321,8 @@ return false;
                       
                       
                       <div class="ln_solid"></div>
-                      <div class="form-group">
-                        <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                      <div class="form-group" style="margin-top:50px;margin-left:300px">
+                        <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3 ">
                         <button type="submit" class="btn btn-success" >Guardar</button>
                           <button type="reset" class="btn btn-warning">Cancelar</button>
 						   <!-- <button class="btn btn-primary" type="reset">Reset</button> -->
@@ -336,79 +397,55 @@ return false;
       </div>
     </div>
     
-         <!--Detalle modal-->
+<!--Detalle modal-->
 
-     <div class="modal fade detalle-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+     <div class="modal fade detalle-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="DetalleModal">
       
               <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title"><strong><i class="fa fa-list-ul fa-2x"></i></strong></h5>
+
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                  <div class="row">
-
+                <div class="row">
                   <table class="table table-bordered">
+                  
                     
                       <thead>
-                        <tr><th colspan=5 style="text-align:center;"> DETALLE DE INSTITUCIONES Y COMUNIDADES </th></tr>
+                      <tr><th colspan=5 style="text-align:center;">Detalle Instituciones y Comunidades </th></tr>
                     </table>
-                    <!--Consulta donde extraigo los campos de la tabla-->
-                    <?php
-
-                                    include_once '../conexion/conexion.php';
-                                    $sacar = mysqli_query($conexion, "SELECT*FROM comunidades");
-                                    while ($fila = mysqli_fetch_array($sacar)) {
-                                        $modificar = $fila['idcomunidad'];
-                                        $nom = $fila['nombre'];
-                                        $mar = $fila['tipo'];
-                                        $nums = $fila['iddepartamento'];
-                                        $don = $fila['idmunicipio'];
-                                        $tipou = $fila['idobservador'];
-                                        
-                                        }
-                                    ?>
-                  
+                    <input type="hidden" id="id" name="id" value="">
+                   
                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                      
-                        <label>Nombre de la Institucion o Comunidad<small class="text-muted"></small></label>
-                        
-                        <!--Uso una variable de tipo hidden para probar -->
-                        <input type="hidden" class="form-control has-feedback-left" id="idcomunidad" name="idcomunidad" value="<?php echo $nom; ?>">
-
+                        <label>Nombre de la Comunidad<small class="text-muted"></small></label>
+                        <input type="text" class="form-control has-feedback-left" name="nomb" id="nomb" disabled>
                         <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                         </div>
-
                         <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                         <label>Tipo<small class="text-muted"></small></label>
-                        <input type="text" class="form-control has-feedback-left" value="<?php echo $mar; ?>" name="Donantes" id="donadores" >
+                        <input type="text" class="form-control has-feedback-left" name="tip" id="tip" disabled>
                         <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                         </div>
-
                         <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                         <label>Departamento<small class="text-muted"></small></label>
-                        <input type="text" class="form-control has-feedback-left" name="Donantes" id="donadores" placeholder="Donadores">
+                        <input type="text" class="form-control has-feedback-left" name="nomdepto" id="nomdepto" disabled>
                         <span class="fa fa-list-ol form-control-feedback left" aria-hidden="true"></span>
                         </div>
-
                         <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                         <label>Municipio<small class="text-muted"></small></label>
-                        <input type="text" class="form-control has-feedback-left" name="Donantes" id="donadores" placeholder="Donadores">
+                        <input type="text" class="form-control has-feedback-left" name="municip" id="municip" disabled>
                         <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                         </div>
-
                         <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <label>Observador<small class="text-muted"></small></label>
-                        <input type="text" class="form-control has-feedback-left" name="Donantes" id="donadores" placeholder="Donadores">
+                        <label>Institucion Responsable<small class="text-muted"></small></label>
+                        <input type="text" class="form-control has-feedback-left" name="inst" id="inst" disabled>
                         <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                         </div>
-
                         
-
-                  </div>
                
                     
                 
@@ -424,69 +461,33 @@ return false;
                 </div><!--Fin del content-->
                 
                
-              </div>
-         </div> 
-         
-               <!--Modificacion modal-->
-     <div class="modal fade modifi-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-              <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title"><strong><i class="fa fa-list-ul fa-2x"></i></strong></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                  <div class="row">
-                  <table class="table table-bordered">
-                    
-                      <thead>
-                        <tr><th colspan=5 style="text-align:center;">MODIFICAR INTITUCIONES Y COMUNIDADES </th></tr>
-                    </table>
-
-                  
-                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <label>Nombre de Institucion o Counidad<small class="text-muted"></small></label>
-                        <input type="text" class="form-control has-feedback-left" name="Donantes" id="donadores" placeholder="Donadores">
-                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
-                        </div>
-                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <label>Tipo<small class="text-muted"></small></label>
-                        <input type="text" class="form-control has-feedback-left" name="Donantes" id="donadores" placeholder="Donadores">
-                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
-                        </div>
-                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <label>Departamento<small class="text-muted"></small></label>
-                        <input type="text" class="form-control has-feedback-left" name="Donantes" id="donadores" placeholder="Donadores">
-                        <span class="fa fa-list-ol form-control-feedback left" aria-hidden="true"></span>
-                        </div>
-                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <label>Municipio<small class="text-muted"></small></label>
-                        <input type="text" class="form-control has-feedback-left" name="Donantes" id="donadores" placeholder="Donadores">
-                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
-                        </div>
-                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <label>Oservador<small class="text-muted"></small></label>
-                        <input type="text" class="form-control has-feedback-left" name="Donantes" id="donadores" placeholder="Donadores">
-                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
-                        </div>
-                       
-                  </div>
-               
-                    
-                
-                  
-                  
-                </div>
-                <div class="modal-footer">
-                  
-                  <button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
-                </div>
-
-                </div><!--Fin del content-->
               </div>
          </div>  
+       </div>  
+      <!--Detalle modal--> 
+         
+    <!--Modificacion modal-->
+    <div class="modal fade" id="ModifiModal" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog modal-lg " role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                <center>
+                  <h3 class="modal-title" id="exampleModalLabel">Modificar Instituciones y comunidades</h3> </center>
+              </div>
+              <div class="modal-body" id="cargaAct">
+
+              </div>
+              
+                <div class="modal-footer">
+                  <button name="btnmodi" class="btn btn-primary" data-dismiss="modal" id="guardar">Modificar</button>
+                </div>
+            </div>
+          </div>
+        </div>
+     
       
       <!--Modificacion modal-->
 
@@ -542,5 +543,71 @@ return false;
     <script src="../vendors/jszip/dist/jszip.min.js"></script>
     <script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
     <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
+         <script type="text/javascript">
+  $(document).ready(function(){
+    $('#datatables-example').DataTable();
+  });
+  $(document).ready(function(){
+    $('#datatables-example').DataTable();
+
+    $("#guardar").on('click',function(){
+     
+        var id=$('#baccion2').val();
+        var nomb = $('#nombr').val();
+        var marc = $('#tipp').val();
+        var num = $('#nombdepto').val();
+        var donad = $('#municipi').val();
+        var tipou = $('#insti').val();
+        
+       
+//        if(nomb == ""){
+//          alert("Nombre incorrecto");
+//            return false;
+//        }
+//        if(marc == ""){
+//            alert("Ingrese Marca");
+//            return false;
+//        }
+//        if(num == ""){
+//          sweetError("Ingrese Numero de Serie");
+//            return false;
+//        }
+
+        var todo = $("#modifi").serialize();
+
+        $.ajax({
+            type: 'post',
+            url: 'editarComunidad.php',
+            data: todo,
+            success: function(respuesta) {
+              if(respuesta == 1){
+                $("#ModifiModal").modal('hide');
+                 
+                //location.href = ("comunidades.php");
+                alertify.set('notifier','position','top-right');
+                alertify.success('Se editaron los datos correctamente');
+                setTimeout (function llamarPagina(){
+                                        location.href=('comunidades.php');
+                                     }, 1000);
+              }else{
+                alertify.set('notifier','position','top-right');
+                alertify.error('Error al editar los datos!');
+              }
+
+                
+            },
+            error: function(respuesta){
+              alert("Error en el servidor: "+respuesta); 
+            }
+        });//fin de ajax*/
+
+      return false;
+    });//fin del click
+    
+  });//fin del ready
+
+</script>
+<!-- end: Javascript -->   
+        
   </body>
 </html>

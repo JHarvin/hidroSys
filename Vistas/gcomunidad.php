@@ -11,16 +11,17 @@ $insertar ="INSERT INTO comunidades(nombre, tipo, iddepartamento, idmunicipio, i
 
 $resultado = mysqli_query($mysqli, $insertar);
     
-if(!$resultado){
+if($resultado){
     
 echo '<script>
-  alertify.error("Error en el servidor");
+  alert("Guardo");
   </script>';
 }else{
   echo '<script>
-  alertify.success("Datos almacenados exitosamente");
+ alert("error-> '.$resultado.'");
   </script>';
 }
 
 mysqli_close($mysqli);
-?>
+
+header("location:comunidades.php");

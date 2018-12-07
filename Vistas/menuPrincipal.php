@@ -1,6 +1,6 @@
  <!-- MENU LATERAL -->
  <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Pozos</span></a>
+              <a href="main.php" class="site_title"><i class="fa fa-paw"></i> <span>Pozos</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -39,9 +39,9 @@
                     <ul class="nav child_menu">
                       <li><a href="datosDePozos.php">Datos de pozos</a></li>
                       <li><a href="propietariospozos.php">Propietarios Pozos</a></li>
-                      <li><a href="../visitantesPozoz/visitantespozos.php">Visitantes Pozos</a></li>
+                      <li><a href="../Vistas/visitantespozos.php">Visitantes Pozos</a></li>
                       <li><a href="../ProcesoSubir/SubirPozos.php">Lectura de Pozos</a></li>
-                      <li><a href="visitapozos.php">Visita Pozos</a></li>
+                      <li><a href="../Vistas/visitapozos.php">Visita Pozos</a></li>
                       
                      
                     </ul>
@@ -75,25 +75,28 @@
                         <li><a href="../Reportes/BuReprtePozDep.php">Reporte pozo por departamento</a></li>
                         <li><a href="../Reportes/vista_GD.php">Reporte temperatura pozo </a></li>
                         <li><a href="../Reportes/vista_GD1.php">Reporte Pozos Observacion</a></li>
+                        <li><a href="../Reportes/Reporte_Visitantes.php">Reporte de visitantes.</a></li>
+                        <li><a href="../Reportes/Vista_VisitaPozo.php">Reporte de visitantes.</a></li>
+                        <li><a href="../Reportes/ReportePozosGeo.php">Reporte Pozos y su Geologia</a></li>
+                        <li><a href="../Reportes/Reporte_datosPozos.php">Reporte de datos de pozos</a></li>
                     </ul>
                   </li>
                   <!--REPORTES-->
                              <!--CONSULTAS-->
                   <li><a><i class="fa fa-mobile"></i>Consultas<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                        <li><a href="listapozo.php">Listado de datos Pozos</a></li>
-                    <li><a href="medidas_basicas.php"> Listado de datos de Pozo por Medidas Basicas</a></li>
-                    <li><a href="segun_geo.php">Listado de Pozos segun Geologia</a></li>
-                    <li><a href="visitas_estaciones.php">Listado de visitas a las Estaciones</a></li>
-                    <li><a href="visita_pozo.php">Listado de hoja de visita a Pozos</a></li>
-                    <li><a href="lista_propietarios.php">Lista de Propietarios</a></li>
-                     <li><a href="lista_visitantes.php">Lista de Visitantes</a></li>
+                        <li><a href="../Consultas/listapozo.php">Listado de datos Pozos</a></li>
+                    <li><a href="../Consultas/medidas_basicas.php"> Listado de datos de Pozo por Medidas Basicas</a></li>
+                    <li><a href="../Consultas/segun_geo.php">Listado de Pozos segun Geologia</a></li>
+                    <li><a href="../Consultas/visitas_estaciones.php">Listado de visitas a las Estaciones</a></li>
+                    <li><a href="../Consultas/visita_pozo.php">Listado de hoja de visita a Pozos</a></li>
+                    <li><a href="../Consultas/lista_propietarios.php">Lista de Propietarios</a></li>
                     </ul>
                   </li>
                   <!--CONSULTAS-->
                  <li><a><i class="fa fa-user"></i>Usuarios<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="usuarios.php?aux1=1">Gestión de usuario</a></li>
+                        <li><a href="../Vistas/usuarios.php?aux1=1">Gestión de usuario</a></li>
                       
                       
                     </ul>

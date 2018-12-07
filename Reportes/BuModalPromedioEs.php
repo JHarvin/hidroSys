@@ -150,14 +150,14 @@
                                       </a>
                                 </div>
                                  <div class="row mb-12" style="float: right; margin-right: 10px; margin-top: 15px;">
-                                     <a href="../Reportes/BuReporteTemEs.php?po=<?php echo $po;?>&f=<?php echo $f;?> &estacion=<?php echo $estacion;?>" class="btn">
+                                     <a href="../Reportes/BuReporteTemEs.php?po=<?php echo $po;?>&f=<?php echo $f;?>&estacion=<?php echo $estacion;?>" class="btn">
                                     <input type="submit" class="btn btn-info" value="Reporte" name="modGuardar">
                                       </a>
 
                                 </div>
                                  
                                  <div class="row mb-12" style="float: right; margin-right: 10px; margin-top: 15px;">
-                                     <a href="../Reportes/BuGraficaPromedioEs.php?po=<?php echo $po;?>&f=<?php echo $f;?> &estacion=<?php echo $estacion;?>" class="btn">
+                                     <a href="../Reportes/BuGraficaPromedioEs.php?po=<?php echo $po;?>&f=<?php echo $f;?>&estacion=<?php echo $estacion;?>" class="btn">
                                    <input type="submit" class="btn btn-success" value="Grafica" name="modGuardar">
                                     </a>
                                 </div>
@@ -197,8 +197,8 @@
                          <div class="col-md-6 col-sm-6 col-xs-12 form-group">
                             <select class="form-control" name="pozo">
                               <?php
-                                          include_once '../ProcesoSubir/conexion.php';
-                                          $verPozo= mysqli_query($mysqli,"SELECT id_pozo, estado FROM pozos");
+                                          include_once '../conexion/conexion.php';
+                                          $verPozo= mysqli_query($conexion,"SELECT id_pozo, estado FROM pozos");
                               ?>
                             <option>Seleccionar</option>
                             <?php

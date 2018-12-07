@@ -49,7 +49,7 @@
 
     <style>
     #preview {
-      width: 25%;
+      width: 30%;
       margin: 0 auto;
       margin-bottom: 10px;
       position: relative;
@@ -144,6 +144,7 @@
 
         <!-- page content -->
         <div class="right_col" role="main">
+
           <div class="">
             <div class="page-title">
               <div class="title_left">
@@ -162,80 +163,26 @@
               </div>
             </div>
             <div class="clearfix"></div>
-            
+
+            <!-- inicio del formulario -->
             <div class="row">
               <div class="col-md-12 col-xs-12">
-              
                 <div class="x_panel">
-                  
-                    
-                   
-                    
-                    <div class="x_title">
-                    <h2>Lista de Responsables</h2>
-                   
-                    
+                  <div class="x_title">
+                    <h2>Formulario de ingreso de datos</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                    </ul>
                     <div class="clearfix"></div>
-                    
                   </div>
-
-
-                    <div class="x_content">
-                     
-                    <button type="button" id="btnregistro" name="btnregistro" class="btn btn-primary"><i class="fa fa-plus"></i> Agregar Responsable</button>
-                    <br /> <br /> 
-                    <!-- inicio tabla-->
-                    <div id="div_resultado_responsable">
-                      <?php include ("tabla_responsables.php"); ?>
-                    </div>
-                    <!-- fin tabla-->
-                  </div>
-                </div>
-              </div>      
-            </div>
-
-          </div>
-
-          <!-- Modal -->
-          <div class="modal fade" id="datosResponsable" name="datosResponsable" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-hidden="true">
-                    <div class="modal-dialog ">
-                      <div class="modal-content">
-
-                        <div class="modal-header">
-                          <h4 class="modal-title" id="myModalLabel" style="color: RGB(0, 0, 128);">Informaci&oacute;n Responsable de Estaciones Meteorológicas</h4>
-                        </div>
-                        <div class="modal-body1">
-                        </div>
-                        <div class="modal-footer">
-                          <p align="left"" style="color: RGB(0, 0, 128);">( ' ) Campos no Editables.</p>
-                          <button type="button" class="btn btn-round btn-default" id="modalcancelar" name="modalcancelar" data-dismiss="modal"><i class="fa fa-ban">  Cancelar</i></button>
-                        </div>
-                          
-                        
-
+                  <div class="x_content">
+                    <br />
+                    <form class="form-horizontal form-label-left input_mask" id="fromregistro" name="fromregistro" enctype="multipart/form-data">
+                      <input type="hidden" id="actualizar" name="actualizar">
+                      <input type="hidden" id="validarcampo" name="validarcampo">
                       
-                      </div>
-                    </div>
-            </div>
-            <!-- Fin Modal -->
-
-          <!-- Modal -->
-          <form id="fromregistro" name="fromregistro" enctype="multipart/form-data">
-                    <div class="modal fade" id="registro" name="registro" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-hidden="true">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-
-                        <div class="modal-header">
-                          <h4 class="modal-title" id="myModalLabel" style="color: RGB(0, 0, 128);">
-</h4>
-                        </div>
-                        
-
-                        <div class="modal-body">
-
-                        <input type="hidden" id="actualizar" name="actualizar">
-                        <input type="hidden" id="validarcampo" name="validarcampo">
-                        
+                      <div class="form-group col-md-6 col-sm-6 col-xs-12">
                         <!--inicia el div para capturar la imagen -->
                         <div class="form-group " align="center" id="img1">
                           <label for="control-label" for="foto">Foto</label>
@@ -251,77 +198,123 @@
                             </div> 
                           </div><br>
                         <!--finaliza el div para capturar la imagen -->
+                        <br>
                         
-                        <div class="form-group " id="resultins">
-                          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="institucion">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Instituci&oacute;n: <span class="required" style="color: #CD5C5C;"> *</span>
-                          </label>
-                          <div class="col-md-8 col-sm-8 col-xs-12" >
-                            <input type="text" id="institucion" name="institucion" placeholder="Digite Nombre Instituci&oacute;n (Alcad&iacute;a, Unidad, Otro)" class="form-control col-md-7 col-xs-12" tabindex="1">
-                            <br>
+                      </div>
+                      <div class="form-group col-md-6 col-sm-6 col-xs-12">
+
+                        <div class="form-group" id="resultins">
+                          <label for="institucion">&nbsp;&nbsp;Instituci&oacute;n / Comunidad: </label>
+                          <div class="col-md-12 col-xs-12">
+                            <input type="text" class="form-control has-feedback-left" id="institucion" name="institucion" placeholder="Digite Nombre Instituci&oacute;n (Alcad&iacute;a, ADESCO, Unidad,  Otro)" tabindex="1">
+                            <span class="fa fa-institution form-control-feedback left" aria-hidden="true"></span>
                             <span class="help-block" id="resultin"></span>
                           </div>
-                        </div><br><br><br>
-                        <div class="row col-lg-12 col-sm-offset-2 col-md-8 col-md-offset-2 ">
-                        <div class="form-group col-md-6 col-sm-6 col-xs-6">
-                          <label for="responsable">Responsable: <span class="required" style="color: #CD5C5C;"> *</span>
-                          </label>
-                          <div >
-                            <input type="text" id="responsable" name="responsable" placeholder="Digite Nombre Completo Responsable" class="form-control col-md-7 col-xs-12" tabindex="2">
-                            <br>
+                         
+                        </div>
+                        
+                        <div class="form-group">
+                          <label class="control-label col-md-1 col-xs-12" for="responsable">Responsable: </label>
+                          <div class="col-md-12 col-xs-12">
+                            <input type="text" class="form-control has-feedback-left" id="responsable" name="responsable"  placeholder="Digite Nombre Completo Responsable" tabindex="2">
+                            <span class="fa fa-male form-control-feedback left" aria-hidden="true"></span>
                             <span class="help-block" id="error"></span>
                           </div>
                         </div>
 
-                        <div class="form-group col-md-6 col-sm-6 col-xs-6">
-                          <label for="direccion">Direcci&oacute;n: <span class="required" style="color: #CD5C5C;"> *</span>
-                          </label>
-                          <div >
-                            <input type="text" id="direccion" name="direccion" placeholder="Digite Direcci&oacute;n" class="form-control col-md-7 col-xs-12" tabindex="3">
-                            <br>
-                            <span class="help-block" id="error"></span>
-                          </div>
-                        </div>
-                        </div>
-                        <br><br><br><br><br>
-                        <div class="row col-lg-12 col-sm-offset-2 col-md-8 col-md-offset-2 ">
-                        <div class="form-group col-md-6 col-sm-6 col-xs-6">
-                          <label for="telefono1">Tel&eacute;fono 1: 
-                          </label>
-                          <div >
-                            <input type="text" id="telefono1" name="telefono1" placeholder="Digite N&uacute;mero de Tel&eacute;fono" data-inputmask="'mask' : '9999-9999'" class="form-control col-md-7 col-xs-12" tabindex="4">
-                            <br>
+                        <div class="form-group">
+                          <label class="control-label col-md-1 col-xs-12" for="direccion">Direcci&oacute;n: </label>
+                          <div class="col-md-12 col-xs-12">
+                            <input type="text" class="form-control has-feedback-left" id="direccion" name="direccion" placeholder="Digite Direcci&oacute;n" tabindex="3">
+                            <span class="fa fa-home form-control-feedback left" aria-hidden="true"></span>
                             <span class="help-block" id="error"></span>
                           </div>
                         </div>
 
-                        <div class="form-group col-md-6 col-sm-6 col-xs-6">
-                          <label  for="telefono2">Tel&eacute;fono 2: 
-                          </label>
-                          <div>
-                            <input type="text" id="telefono2" name="telefono2" placeholder="Digite N&uacute;mero de Tel&eacute;fono"  data-inputmask="'mask' : '9999-9999'" class="form-control col-md-7 col-xs-12" tabindex="5">
-                            <br>
+                        <div class="form-group">
+                          <label class="control-label" for="telefono1">&nbsp;&nbsp;Tel&eacute;fono Fijo: </label>
+                          <div class="col-md-12 col-xs-12">
+                            <input type="text" class="form-control has-feedback-left" id="telefono1" name="telefono1" placeholder="Digite N&uacute;mero de Tel&eacute;fono" data-inputmask="'mask': '9999-9999'" tabindex="4">
+                            <span class="fa fa-phone form-control-feedback left" aria-hidden="true"></span>
                             <span class="help-block" id="error"></span>
                           </div>
                         </div>
+                        
+
+
+                        <div class="form-group">
+                          <label class="control-label" for="telefono2">&nbsp;&nbsp;Tel&eacute;fono Celular: </label>
+                          <div class="col-md-12 col-xs-12">
+                            <input type="text" class="form-control has-feedback-left" id="telefono2" name="telefono2" placeholder="Digite N&uacute;mero de Tel&eacute;fono" data-inputmask="'mask': '9999-9999'" tabindex="5">
+                            <span class="fa fa-phone form-control-feedback left" aria-hidden="true"></span>
+                            <span class="help-block" id="error"></span>
+                          </div>
                         </div>
-                        <br><br><br><br><br>
-                          
+
+                      </div>
+
+
+                      <div class="col-md-12 col-xs-12">
+                        <div class="ln_solid"></div>
+                        <div class="form-group" align="center">
+                          <button class="btn btn-success" type="button"  id="btnguardar" name="btnguardar">  Guardar</button>
+                          <button class="btn btn-success" type="button"  id="btnactualizar" name="btnactualizar">  Modificar</button>
+                          <button type="button" class="btn btn-warning" onclick="cancelar()" >Cancelar</button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>      
+            </div><!--Fin del formulario-->
+
+            <!-- inicio del formulario -->
+            <div class="row">
+              <div class="col-md-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Lista de Responsables</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                    <!-- inicio tabla-->
+                    <div id="div_resultado_responsable">
+                      <?php include ("tabla_responsables.php"); ?>
+                    </div>
+                    <!-- fin tabla-->
+                 
+                  </div>
+                </div>
+              </div>      
+            </div><!--Fin del formulario-->
+            
+                 
+
+          </div>
+
+          <!-- Modal -->
+          <div class="modal fade" id="datosResponsable" name="datosResponsable" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog ">
+                      <div class="modal-content">
+
+                        <div class="modal-header">
+                        <center>
+                          <h4 class="modal-title" id="myModalLabel">Informaci&oacute;n Responsable de Estaciones Meteorológicas</h4></center>
+                        </div>
+                        <div class="modal-body1">
                         </div>
                         <div class="modal-footer">
-                          <p align="left" style="color:RGB(205, 92, 92);">( * ) Campos Obligatorios.</p>
-                          <button class="btn btn-round btn-primary" type="button"  id="modalguardar" name="modalguardar"><i class="fa fa-save">  Guardar</i></button>
-                          <button class="btn btn-round btn-primary" type="button"  id="modalactualizar" name="modalactualizar"><i class="fa fa-refresh">  Actualizar</i></button>
-                          <button type="button" class="btn btn-round btn-default" id="modalcancelar" name="modalcancelar" data-dismiss="modal"><i class="fa fa-ban">  Cancelar</i></button>
+                          <button type="button" class="btn btn-round btn-primary" id="modalcancelar" name="modalcancelar" data-dismiss="modal">  Cerrar</button>
                         </div>
-
-                       
+                          
                       </div>
                     </div>
-                  </div>
-                  </form>
-                  <!-- Fin Modal -->
-
-
+            </div>
+            <!-- Fin Modal -->
 
         </div>
         <!-- /page content -->
@@ -396,7 +389,7 @@
     <!-- validator -->
     <script src="../../vendors/validar/jquery.validate.js"></script>
   
-     <script src="../../Vistas/ResponsablesEstaciones/validarResponsable.js"></script> 
+    <script src="../../Vistas/ResponsablesEstaciones/validarResponsable.js"></script> 
 	
   </body>
 </html>

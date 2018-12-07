@@ -17,17 +17,11 @@
       $telefono1=$_POST["telefono1"];
       $telefono2=$_POST["telefono2"];
       $id=$_POST["actualizar"];
-     // $foto=$_POST["foto"];
-   
-      
 
-   /*$consulta = "SELECT * FROM respestaciones WHERE institucion='$institucion'";
-   $result = $conexion->query($consulta);
-    if ($result) {
-      while ($fila = $result->fetch_object()) {
-        $datos=$fila->institucion;
-      }//fin while
-    }*/
+      if($telefono2=="____-____"){
+        $telefono2=null;
+      }
+     
 
    
      $pic=null;

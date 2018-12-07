@@ -30,11 +30,18 @@
     <link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
 
     <!-- Custom Theme Style -->
-    <link href="../build/css/custom.min.css" rel="stylesheet">
+    <link href="../build/css/custom.min.css" rel="stylesheet"> </head>
+
+
+    
+       <link rel="stylesheet" href="../libreriasJS/alertifyjs/alertify.min.css">
+   <script src="../libreriasJS/alertifyjs/alertify.css"></script>
+   <script src="../libreriasJS/alertifyjs/alertify.min.js"></script>
+     </head>
 <script type="text/javascript">
    
   
-  </head>
+ 
   <script>
     function soloNumero(e) {
         key = e.keyCode || e.which;
@@ -56,7 +63,7 @@
     function soloLetras(e) {
         key = e.keyCode || e.which;
         teclado = String.fromCharCode(key).toLowerCase();
-        letras = " áéíóúabcdefghijklmnñopqrstuvwxyz";
+        letras = "áéíóúabcdefghijklmnñopqrstuvwxyz";
         especiales = "8-37-38-46-164";
         teclado_especial = false;
         for (var i in especiales) {
@@ -68,7 +75,7 @@
         if (letras.indexOf(teclado) == -1 && !teclado_especial) {
             return false;
         }
-    }
+    } }
 
 </script>
 
@@ -192,18 +199,18 @@
                       </div>
 
                       <div class="col-md-6 col-sm-6 col-xs-6 form-group has-feedback">
-                        <input name="celular" type="text" class="form-control mask-celular has-feedback-left" id="inputSuccess2" placeholder="Celular" autocomplete="off" size="10" required="">
+                        <input name="celular" type="text" class="form-control mask-celular has-feedback-left" id="inputSuccess2" placeholder="Celular" autocomplete="off">
                         <span class="fa fa-phone form-control-feedback left" aria-hidden="true"></span>
                       </div>
 
                       <div class="col-md-6 col-sm-6 col-xs-6 form-group has-feedback">
-                        <input name="dui" type="text" class="form-control mask-dui has-feedback-left" id="inputSuccess2" placeholder="DUI" autocomplete="off" required autofocus">
+                        <input name="dui" type="text" class="form-control mask-dui has-feedback-left" id="inputSuccess2" placeholder="DUI" autocomplete="off">
                         <span class="fa fa-barcode form-control-feedback left" aria-hidden="true"></span>
                       </div>
 
                      <div class="col-md-6 col-sm-6 col-xs-6 form-group has-feedback">
                         <select class="form-control" name="genero">
-                          <option value="">Genero</option>
+                          <option disabled="">Genero</option>
                           <option value="Femenino">Femenino</option>
                           <option value="Masculino">Masculino</option>
 
@@ -214,7 +221,7 @@
                       <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <select name="tipo" class="form-control">
-                            <option value="">Tipo</option>
+                            <option disabled="">Tipo</option>
                             <option value="estudiante">Estudiante.</option>
                             <option value="docente">Docente</option>
                             <option value="investigador">Investigador</option>
@@ -249,7 +256,7 @@
   <?php
       if (isset($_REQUEST['tirar'])) {
         try {
-        include_once '../conexion/php_conexion.php';
+        include_once '../conexion/conexion.php';
         $Dui = $_POST["dui"];
         $Nombre = $_POST["nombre"];
         $Genero = $_POST["genero"];
@@ -261,9 +268,8 @@
          echo' 
              
             <script type="text/javascript">
-              
 
-          alertify.success("Registro Guardado    ✔");
+     alertify.success("Registro Guardado    ✔");
     alertify.set("notifier","position", "top");
             </script>
             ';

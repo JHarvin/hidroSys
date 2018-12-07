@@ -26,7 +26,6 @@ error_reporting(E_ALL & ~E_NOTICE);
     $(document).ready(function () {
       recargarLista();
 
-
       $('#lista1').change(function(){
         recargarLista();
         
@@ -52,10 +51,10 @@ error_reporting(E_ALL & ~E_NOTICE);
         }
       });
   }
-
+  
    function llamarPaginaMapa(lat,lon)
         {
-          var url="/supermarket/pages/verMapa.php?lat="+lat+"&lon="+lon;
+          var url="verMapa.php?lat="+lat+"&lon="+lon;
           window.open(url,"Nuevo","alwaysRaised=no");
         }
   function ponerAbreviatura(){
@@ -98,11 +97,13 @@ error_reporting(E_ALL & ~E_NOTICE);
             document.getElementById('institucion').value=="" ||
             document.getElementById('latitud').value=="" ||
             document.getElementById('longitud').value==""){
-            alertify.success("Error:Porfavor complete todos los campos.");
-            alertify.set("notifier","position", "top");
+            // alertify.success("Error:Porfavor complete todos los campos.");
+            // alertify.set("notifier","position", "top");
+            alert("Por favor complete todos los campos.");
           }else{
+
             document.getElementById('bandera').value="add";
-            alert("no van vacios.");
+            
            document.hidro.submit();
           }
 
@@ -114,11 +115,11 @@ error_reporting(E_ALL & ~E_NOTICE);
             document.getElementById('institucionm').value==""){
             alertify.success("Error:Porfavor complete todos los campos.");
             alertify.set("notifier","position", "top");
-            alert("Los campos no pueden estar vacios.");
+            alert("Porfavor revise que los campos esten completos.");
           }else{
-            document.getElementById('bandera').value="mod";            
-            alert("no van vacios.");
-           document.form1.submit();
+            document.getElementById('bandera2').value="mod";            
+           
+           document.editform.submit();
           }
         }
   function prueba2(){
@@ -129,13 +130,13 @@ error_reporting(E_ALL & ~E_NOTICE);
   //funciones para editar
   function Editar_estacion(id,codigo,departamento,municipio,institucion,latitud,longitud,correaux){
     
-    document.getElementById("baccion").value=id;
+    document.getElementById("baccion2").value=id;
     document.getElementById("codigom").value=codigo;
     document.getElementById("lista1m").value=departamento;
     llenarMunicipiosM(departamento,municipio);
     document.getElementById("institucionm").value=institucion;
-    document.getElementById("latitud").value=latitud;
-    document.getElementById("longitud").value=longitud;
+    document.getElementById("latitud2").value=latitud;
+    document.getElementById("longitud2").value=longitud;
     document.getElementById("mapita").src="ej.php?lat="+latitud+"&lon="+longitud;
     document.getElementById("correaux").value=correaux;
 
@@ -185,7 +186,42 @@ error_reporting(E_ALL & ~E_NOTICE);
   }
   </script>
   <script>
-
+    function activar(id){
+    
+    $.ajax(
+      {
+        type:"POST",
+        url:"onoffestacion.php",
+        data:"id="+id+"&op=1",
+        success:function(r){
+          if(r=="Si"){
+            alert("Estacion meteorologica activada.");
+            document.location.href="estacionmeteorologica.php";
+          }else{
+             alert("Error al activar la estacion.");
+          }
+         // ponerAbreviatura();
+        }
+      });
+  }
+    function desactivar(id){
+   
+    $.ajax(
+      {
+        type:"POST",
+        url:"onoffestacion.php",
+        data:"id="+id+"&op=2",
+        success:function(r){
+          if(r=="Si"){
+            alert("Estacion meteorologica desactivada.");
+            document.location.href="estacionmeteorologica.php";
+          }else{
+             alert("Error al desactivar la estacion.");
+          }
+         // ponerAbreviatura();
+        }
+      });
+  }
   </script>
       <link rel="stylesheet" href="../libreriasJS/alertifyjs/alertify.min.css">
    
@@ -195,7 +231,7 @@ error_reporting(E_ALL & ~E_NOTICE);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	  
-    <title>SICA |</title>
+    <title>HIDROSIS</title>
 
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -389,7 +425,7 @@ error_reporting(E_ALL & ~E_NOTICE);
                         <input type="hidden" class="form-control has-feedback-left" id="longitud" name="longitud" placeholder="Longitud">
                         <input type="hidden" class="form-control has-feedback-left" id="latitud" name="latitud" placeholder="Latitud">
                       <input type="hidden" class="form-control has-feedback-left" id="correlativo" name="correlativo" placeholder="correlativo" value="<?php echo $codigo;?>">
-                      <input type="hidden" class="form-control has-feedback-left" id="correaux" name="correaux" placeholder="correlativo">
+                      
 
                       </div>
                      
@@ -459,12 +495,12 @@ error_reporting(E_ALL & ~E_NOTICE);
                             <th width="75"><font color="black">Codigo</font></th>
                             <th width="150"><font color="black">Departamento</font></th>
                             <th width="150"><font color="black">Municipio</font></th>
-                            <th width="500"><font color="black">Responsable</font></th>
+                            <th width="300"><font color="black">Responsable</font></th>
                             <th width="150"><font font color="black">Ubicacion</font></th>
                             <th width="150"><font font color="black">Ver</font></th>
                             <th width="100"><font font font color="black">Editar</font></th>
                             
-                            <th width="10"><font font font font font color="black">Eliminar</font></th>
+                            <th width="10"><font font font font font color="black">Activar/Desactivar</font></th>
                         </tr>
                     </thead>
 
@@ -547,8 +583,23 @@ error_reporting(E_ALL & ~E_NOTICE);
                                         
                                          
                                          <div class="col-md-6">
+                                        <?php 
+                                        if($activam==1){
+
+                                          ?>
+                                          <button id="activar" type='button' class='btn btn-danger' onclick="desactivar('<?php echo $idm; ?>')" title='Activar'><i class='fa fa-times'></i></button>
+                                         
                                         
-                                        <a href="#" data-href="matar.php?id_visitante=<?php echo $row['id_visitante']; ?>" data-toggle="modal" data-target="#confirm-delete" type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button></a>
+                                        <?php 
+                                        }else{
+                                          ?>
+
+                                          <button id="activar" type='button' class='btn btn-success' onclick="activar('<?php echo $idm; ?>')" title='Activar'><i class='fa fa-check-square'></i></button>
+                                          <?php
+                                        }
+                                        
+                                        ?>
+                                        
                                       
                                 
                                     </div>
@@ -689,6 +740,7 @@ include_once 'editarEstacion.php';
 <?php
  include "../ProcesoSubir/conexioneq.php";
 $bandera          = $_REQUEST["bandera"];
+$bandera2          = $_REQUEST["bandera2"];
 $codigo    = $_REQUEST["codigo"];
 $lista1    = $_REQUEST["lista1"];
 $lista2    = $_REQUEST["lista2"];
@@ -700,9 +752,11 @@ $longitud = $_REQUEST["longitud"];
 $codigom = $_REQUEST["codigom"];
 $lista1m = $_REQUEST["lista1m"];
 $lista2m = $_REQUEST["lista2m"];
+$latitud2 = $_REQUEST["latitud2"];
+$longitud2 = $_REQUEST["longitud2"];
 $imagenEstacion = $_REQUEST["imagen2"];
 $institucionm = $_REQUEST["institucionm"];
-$baccion = $_REQUEST["baccion"];
+$baccion = $_REQUEST["baccion2"];
 
 
 if ($bandera == "add") {
@@ -722,10 +776,11 @@ if ($bandera == "add") {
         $data      = mysqli_real_escape_string($conexion, $data);
         
         $consulta  = "INSERT INTO estacionmet VALUES('null','" . $codigo . "','" . $lista1. "','" . $lista2. "','1','" . $data . "','" . $tipo . "','" . $latitud  . "','".$longitud."','".$institucion."')";
-        msg($consulta);
+        //msg($consulta);
         $resultado = $conexion->query($consulta);
         if ($resultado) {
-            msg("Exito");
+            msgtest("Exito");
+           redir();
         } else {
            echo mysqli_error($conexion);
         }
@@ -733,10 +788,11 @@ if ($bandera == "add") {
 
 }else{
     $consulta  = "INSERT INTO estacionmet VALUES('null','" . $codigo . "','" . $lista1. "','" . $lista2. "','1','','','" . $latitud  . "','".$longitud."','".$institucion."')";
-        msg($consulta);
+       // msg($consulta);
         $resultado = $conexion->query($consulta);
         if ($resultado) {
-            msg("Exito");
+            msgtest("Exito");
+           redir();
         } else {
            echo mysqli_error($conexion);
         }
@@ -744,44 +800,41 @@ if ($bandera == "add") {
 }
 
 //PARA EDITAR
-if($bandera=="mod"){
-   if($_FILES['imagen2']['name']==null){//comparamos si ya se subio una imagen
-
-        $consultac  = "UPDATE clientes set duiclientes='" . $duiCliente . "',nombreclientes='" . $nombreCliente . "',apellidoclientes='" . $apellidoCliente . "',direccionclientes='" . $direccionCliente . "',latitud='" . $latitud . "',longitud='" . $longitud . "',telefonoclientes='" . $telefonoCliente . "' where idclientes='" . $baccion . "'";
+if($bandera2=="mod"){
+  //msgtest("Entra a mod");
+   if($_FILES['imagen2']['name']==null){//comparamos si ya se subio una imagen o no
+       //  msgtest("Entra a modificar sin imagen.");
+        $consultac  = "UPDATE estacionmet set codiogestacion='" . $codigom . "',iddepartamento='" . $lista1m . "',idmunicipio='" . $lista2m . "',latitud='" . $latitud2 . "',longitud='" . $longitud2 . "',idresponsable='" . $institucionm . "' where id_estacion='" . $baccion . "'";
         $resultado = $conexion->query($consultac);
         if ($resultado) {
-            msg("Exito Cliente");
+            msgtest("Modificacion exitosa.");
+           redir();
         } else {
-            msg("No Exito Cliente");
+            msgtest("No Exito sin imagen.");
         }
       }else{
        $permitidos = array("image/jpg", "image/jpeg", "image/png");
     $limite_kb  = 16384; //tamanio maximo que permitira subir, es el limite de medium blow(16mb)
-    if (in_array($_FILES['imagen']['type'], $permitidos) && $_FILES['imagen']['size'] <= $limite_kb * 1024) {
+    if (in_array($_FILES['imagen2']['type'], $permitidos) && $_FILES['imagen2']['size'] <= $limite_kb * 1024) {
+      
         //Este es el archivo temporaral.
-        $imagen_temporal = $_FILES['imagen']['tmp_name'];
+        $imagen_temporal = $_FILES['imagen2']['tmp_name'];
         //este es el tipo de archivo
-        $tipo = $_FILES['imagen']['type'];
+        $tipo = $_FILES['imagen2']['type'];
         //leer el archivo temporarl en binario
         $fp   = fopen($imagen_temporal, 'r+b');
         $data = fread($fp, filesize($imagen_temporal));
         fclose($fp);
         //escapar los caracteres
         $data      = mysqli_real_escape_string($conexion, $data);
-        $consulta  = "UPDATE usuarios set idusuario='" . $usuarioCliente . "',contrasena='" . $contrasenaCliente . "' where idusuario='" . $usuarioAnterior . "'";
-
+       
+        $consulta  = "UPDATE estacionmet set codiogestacion='" . $codigom . "',iddepartamento='" . $lista1m . "',idmunicipio='" . $lista2m . "',latitud='" . $latitud2  . "',longitud='" . $longitud2 . "',foto='" . $data . "',tipofoto='" . $tipo . "',idresponsable='" . $institucionm . "' where id_estacion='".$baccion."'";
         $resultado = $conexion->query($consulta);
         if ($resultado) {
-            //msg("Exito Usuario");
+            msgtest("Exito.");
+            redir();
         } else {
-            msg("No Exito Usuario");
-        }
-        $consulta  = "UPDATE clientes set duiclientes='" . $duiCliente . "',nombreclientes='" . $nombreCliente . "',apellidoclientes='" . $apellidoCliente . "',direccionclientes='" . $direccionCliente . "',latitud='" . $latitud  . "',longitud='" . $longitud . "',telefonoclientes='" . $telefonoCliente . "',fotoclientes='" . $data . "',tipofotoc='" . $tipo . "',idusuario='" . $usuarioCliente . "' where idclientes='".$baccion."'";
-        $resultado = $conexion->query($consulta);
-        if ($resultado) {
-            msg("Exito Cliente");
-        } else {
-            msg("No Exito Cliente");
+            msgtest("No Exito.");
         }
     }
   }
@@ -792,6 +845,18 @@ function msg($texto)
     echo' alertify.success("Registro Guardado    ✔");
     alertify.set("notifier","position", "top");';
     echo 'document.location.href="estacionmeteorologica.php";';
+    echo "</script>";
+}
+function msgtest($texto){
+  echo "<script type='text/javascript'>";
+    echo "alert('".$texto."')";
+    
+    echo "</script>";
+}
+function redir(){
+  echo "<script type='text/javascript'>";
+ 
+      echo 'document.location.href="estacionmeteorologica.php";';
     echo "</script>";
 }
 ?>

@@ -13,6 +13,9 @@
       $direccion=$_POST["direccion"];
       $telefono1=$_POST["telefono1"];
       $telefono2=$_POST["telefono2"];
+      if($telefono2=="____-____"){
+        $telefono2=null;
+      }
 
       $pic=null;
       if(($_FILES['file']['tmp_name'])!=""){

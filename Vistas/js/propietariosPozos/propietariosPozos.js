@@ -11,11 +11,11 @@ function verificarCodigo(opcion) {
             //alert(paso);
             if (paso == 0) {
                 if(opcion=="dui"){
-                    alertify.warning("Error Dui ya se encuentra registrado");
+                    alertify.warning("Error <b>DUI</b> ya se encuentra registrado");
                 document.getElementById('dui').focus();
                 document.getElementById('dui').value = "";
                 }else if(opcion=="correo"){
-                    alertify.warning("Error Correo ya se encuentra registrado");
+                    alertify.warning("Error <b>Correo electrónico</b> ya se encuentra registrado");
                 document.getElementById('correo').focus();
                 document.getElementById('correo').value = "";
                 }
@@ -81,20 +81,35 @@ function verificar(opcion){
     var direccion=document.getElementById("direccion").value;
     var nombre=document.getElementById("nombre").value;
     var apellido=document.getElementById("apellido").value;
+    var sitio=document.getElementById('sitio').value;
+    var tipoPropietario=document.getElementById('tipoPropietario').value;
+    var institucion=document.getElementById('institucion').value;
     if(opcion==="guardar" || opcion==="modificar"){
         detener();
-        if(dui==="" && telefono==="" && correo==="" && celular==="" && sexo==="0" && direccion==="" && nombre==="" && apellido===""){
+        if(tipoPropietario==="persona"){
+            if(dui==="" && telefono==="" && correo==="" && celular==="" && sexo==="0" && direccion==="" && nombre==="" && apellido===""){
             alertify.warning('Complete los campos');
             enviar=false;
+            }
+            else if(dui===""){alertify.warning('Complete el campo <b>DUI</b>');  enviar=false;  }
+            else if(nombre===""){alertify.warning('Complete el campo <b>Nombre</b>');  enviar=false;  }
+            else if(telefono===""){alertify.warning('Complete el campo <b>Telefono</b>');  enviar=false;  }
+            else if(direccion===""){alertify.warning('Complete el campo <b>Direccion</b>');  enviar=false;  }
+            else if(correo===""){alertify.warning('Complete el campo <b>Correo</b>');  enviar=false;  }
+            else if(apellido===""){alertify.warning('Complete el campo <b>Apellido</b>');  enviar=false;  }
+            else if(celular===""){alertify.warning('Complete el campo <b>Celular</b>');  enviar=false;  }
+            else if(sexo==="0"){alertify.warning('Seleccione un <b>Genero</b>');  enviar=false;  }
+        }else if(tipoPropietario==="institucion"){
+            if(sitio==="" && telefono==="" && correo==="" && celular===""  && direccion==="" && institucion===""){
+            alertify.warning('Complete los campos');
+            enviar=false;
+            }            
+            else if(sitio===""){alertify.warning('Complete el campo <b>Sitio web</b>');  enviar=false;  }
+            else if(telefono===""){alertify.warning('Complete el campo <b>Telefono</b>');  enviar=false;  }
+            else if(direccion===""){alertify.warning('Complete el campo <b>Direccion</b>');  enviar=false;  }
+            else if(correo===""){alertify.warning('Complete el campo <b>Correo</b>');  enviar=false;  }
+            else if(institucion===""){alertify.warning('Complete el campo <b>Institución</b>');  enviar=false;  }
         }
-        else if(dui===""){alertify.warning('Complete el campo <b>Dui</b>');  enviar=false;  }
-        else if(nombre===""){alertify.warning('Complete el campo <b>Nombre</b>');  enviar=false;  }
-        else if(telefono===""){alertify.warning('Complete el campo <b>Telefono</b>');  enviar=false;  }
-        else if(direccion===""){alertify.warning('Complete el campo <b>Direccion</b>');  enviar=false;  }
-        else if(correo===""){alertify.warning('Complete el campo <b>Correo</b>');  enviar=false;  }
-        else if(apellido===""){alertify.warning('Complete el campo <b>Apellido</b>');  enviar=false;  }
-        else if(celular===""){alertify.warning('Complete el campo <b>Celular</b>');  enviar=false;  }
-        else if(sexo==="0"){alertify.warning('Seleccione un <b>Genero</b>');  enviar=false;  }
         
         
     }
@@ -225,13 +240,41 @@ function cambio(opcion) {
 
 function mostrarFormulario(opcion){
     if(opcion==="persona"){
+        document.getElementById("tipoPropietario").value="persona";
+        $("#divSitio").hide();
+        $("#divDui").show();
         $("#divInstitucion").hide();
         $("#datosPersona").show();
         $("#divBotones").show();
+        $("#divNombre").show();
+        $("#divGenero").show();
     }
     if(opcion==="insti"){
+        document.getElementById("tipoPropietario").value="institucion";
+        $("#divSitio").show();
+        $("#divDui").hide();
         $("#divInstitucion").show();
         $("#datosPersona").show();
         $("#divBotones").show();
+        $("#divNombre").hide();
+        $("#divGenero").hide();
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

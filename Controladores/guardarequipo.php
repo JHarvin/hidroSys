@@ -7,7 +7,7 @@ $marca  = $_POST['mark'];
 $numserie = $_POST['numserie'];
 $donadores = $_POST['Donantes'];
 $estado = $_POST['estado'];
-$imagen = $_POST['imagen'];
+$imagen = addslashes(file_get_contents($_FILES['imagen']['tmp_name']));
 $mensaje = "";
 
         $consulta  = "INSERT INTO equipos VALUES('null','" . $nombre . "','" .$descrip. "','" .$tipo. "','" .$marca. "','".$numserie."','".$donadores."','".$estado."','".$imagen."')";

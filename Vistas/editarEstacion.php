@@ -35,7 +35,7 @@
     }
 
 </script>
-<form name="form1" method="post" enctype="multipart/form-data">
+<form name="editform" method="POST" enctype="multipart/form-data">
 
    
 
@@ -50,7 +50,11 @@
 
                 <div class="panel-body">
                     <br>
-
+    	            <input type="hidden" name="bandera2" id="bandera2">
+                    <input type="hidden" name="baccion2" id="baccion2">
+                     <input type="hidden" class="form-control has-feedback-left" id="longitud2" name="longitud2" placeholder="Longitud">
+                        <input type="hidden" class="form-control has-feedback-left" id="latitud2" name="latitud2" placeholder="Latitud">
+                    <input type="hidden" class="form-control has-feedback-left" id="correaux" name="correaux" placeholder="correlativo">
                     <div class="row">
 
                         <div class="col-md-12">

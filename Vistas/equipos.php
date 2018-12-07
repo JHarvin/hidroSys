@@ -12,7 +12,7 @@ msg("Los datos fueron almacenados con exito");
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	  
+    
     <title>Ingenieria de Software</title>
 
     <!-- Bootstrap -->
@@ -36,6 +36,11 @@ msg("Los datos fueron almacenados con exito");
 
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
+    <!-- inicio alertify -->
+      <!-- include the style -->
+      <link rel="stylesheet" href="../llibreriasJS/alertifyjs/css/alertify.css" />
+      <!-- include a theme -->
+      <link rel="stylesheet" href="../libreriasJS/alertifyjs/css/themes/default.css" />
     <!-- Datatables -->
     <link href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
     <link href="../vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
@@ -44,6 +49,19 @@ msg("Los datos fueron almacenados con exito");
     <link href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
   
     <script type="text/javascript"> 
+    function verImagen(id){
+  
+   $.ajax(
+     {
+       type:"POST",
+       url:"imagenEquipo.php",
+       data:"id="+id,
+       success:function(r){
+         $('#imagenRecuperada').html(r);
+        // ponerAbreviatura();
+       }
+     });
+ }
       function validar(){
    
           if( document.getElementById('nombre').value=="" ){
@@ -52,9 +70,9 @@ msg("Los datos fueron almacenados con exito");
               document.turismo.submit();
             }
         }
-        function editar(nom,marca,num,don,tip,des,estado,accion)
+        function editar(id,nom,marca,num,don,tip,des,estado)
         {
-          if(accion==1){
+         
           $("#nombr").val(nom);
           $("#mar").val(marca);
           $("#nume").val(num);
@@ -63,19 +81,33 @@ msg("Los datos fueron almacenados con exito");
           $("#descri").val(des);
           $("#est").val(estado); 
           $("#DetalleModal").modal();
-          }else if(accion==2){
-          $("#nomb").val(nom);
-          $("#marc").val(marca);
+         
+        
+          
+          
+        }
+        function edit(id,nom,marca,num,don,tip,des,estado)
+        {
+         // document.getElementById("baccion2").value=id;
+         // document.getElementById("nom").value=nom;
+         // document.getElementById("marc").value=marca;
+         // document.getElementById("num").value=num;
+         // document.getElementById("descr").value=des;
+         // document.getElementById("donad").value=don;
+         $("#baccion2").val(id);
+          document.getElementById("tipou").value=tip;
+          document.getElementById("esteq").value=estado;
+         $("#nomb").val(nom);
+        $("#marc").val(marca);
           $("#num").val(num);
           $("#donad").val(don);
-       
-          $("#grado option[value="+tip+"]").prop("selected", true);
           $("#descr").val(des);
-        
-        
-          $("#ModifModal").modal();
-          } 
+          $("#ModifiModal").modal();
+        //Ya manda todos los datos correcatamente
+          
+          
         }
+        
       </script>
 
       <script>
@@ -203,7 +235,7 @@ $("#enviarimagenes").on("submit", function(e){
                   </div>
                   <div class="x_content">
                     <br />
-                    <form name="form" method="post" action="../Controladores/guardarequipo.php">
+                    <form name="form" method="post" action="../Controladores/guardarequipo.php" enctype="multipart/form-data">
 
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                         <label>Nombre del equipo<small class="text-muted"></small></label>
@@ -216,8 +248,8 @@ $("#enviarimagenes").on("submit", function(e){
                         <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                       </div>
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <label>Número de serie<small class="text-muted"></small></label>
-                        <input type="text" class="form-control has-feedback-left" name="numserie" id="numserie" placeholder="Número de Serie" required>
+                        <label>Numero de serie<small class="text-muted"></small></label>
+                        <input type="text" class="form-control has-feedback-left" name="numserie" id="numserie" placeholder="Numero de Serie" required>
                         <span class="fa fa-list-ol form-control-feedback left" aria-hidden="true"></span>
                       </div>
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
@@ -251,7 +283,7 @@ $("#enviarimagenes").on("submit", function(e){
 
                       <div class="form-group">
                         <div class="col-md-4 col-sm-4 col-xs-12">
-                          <label>Imagen (PNG,JPG,JPE)<small class="text-muted"></small></label>
+                          <label>Foto (PNG,JPG,JPE)<small class="text-muted"></small></label>
                             <input name="imagen" type="file" onChange="ver(form.file.value)" required accept="image/jpg,image/png,image/jpeg"> 
                         </div> 
                       </div>
@@ -285,7 +317,7 @@ $("#enviarimagenes").on("submit", function(e){
                         <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
                         <button type="submit" onclick="validar()" class="btn btn-success">Guardar</button>
                           <button type="reset" class="btn btn-warning">Cancelar</button>
-						   <!-- <button class="btn btn-primary" type="reset">Reset</button> -->
+               <!-- <button class="btn btn-primary" type="reset">Reset</button> -->
                          
                         </div>
                       </div>
@@ -319,13 +351,15 @@ $("#enviarimagenes").on("submit", function(e){
                           <th>Descripción</th>
                           <th>Tipo de uso</th>
                           <th>Marca</th>
-                          <th>Número de serie</th>
+                          <th>Numero de serie</th>
                           <th>Donador</th>
                           <th>Estado</th>
+                      
+                          <th>Observar</th>
                           <th>Acciones</th>
                         </tr>
                       </thead>
-                      <tbody>
+                      <tbody class="tabla_ajax">
                       <?php include('../Controladores/tablaEquipos.php') ?>
                       </tbody>
                     </table>
@@ -345,6 +379,124 @@ $("#enviarimagenes").on("submit", function(e){
         <!-- /footer content -->
       </div>
     </div>
+     <!-- MODAL PARA VER FOTO ESTACION -->
+  <div class="modal fade" id="confirm-imagen" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title" id="myModalLabel"><font font font font color="black">Fotografia de Equipo.</font></h3> 
+                </div>
+
+                <div class="panel-body" name="imagenRecuperada" id="imagenRecuperada">
+                        
+                                       
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-warning pull-right" data-dismiss="modal">Cerrar</button>
+                    
+                </div> 
+            </div>
+        </div> 
+    </div> 
+    <!--Modificacion modal-->
+    <div class="modal fade modifi-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="ModifiModal">
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><strong><i class="fa fa-list-ul fa-2x"></i></strong></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                <div class="row">
+                  <table class="table table-bordered">
+                  
+                    
+                      <thead>
+                        <tr><th colspan=5 style="text-align:center;">Modificar Equipo </th></tr>
+                    </table>
+                    <input type="hidden" id="id" name="id" value="">
+                    <form id="modifi">
+                    <input type="hidden" name="baccion2" id="baccion2">
+                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                        <label>Nombre del Equipo<small class="text-muted"></small></label>
+                        <input type="text" class="form-control has-feedback-left" name="nomb" id="nomb">
+                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                        <label>Marca<small class="text-muted"></small></label>
+                        <input type="text" class="form-control has-feedback-left" name="marc" id="marc">
+                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                        <label>Numero de Serie<small class="text-muted"></small></label>
+                        <input type="text" class="form-control has-feedback-left" name="num" id="num">
+                        <span class="fa fa-list-ol form-control-feedback left" aria-hidden="true"></span>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                        <label>Donante<small class="text-muted"></small></label>
+                        <input type="text" class="form-control has-feedback-left" name="donad" id="donad">
+                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                        </div>
+
+                         
+                         <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                          <label>Tipo de uso<small class="text-muted"></small></label>
+                          <select id="tipou"  class="form-control" name="tipou" onchange="verificar()">
+                            <option>Pluviometro</option>
+                            <option>Agrometeorologico</option>
+                            <option>EstaciÛn Meteorologica</option>
+                            <option>Otros</option>
+                            </select>
+                        </div>
+                      
+                    
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                          <label>Estado del equipo<small class="text-muted"></small></label>
+                          <select id="esteq" class="form-control" name="esteq" onchange="verificar()">
+                           
+                            <option>En uso</option>
+                            <option>En mal estado</option>
+                            <option>Extraviado</option>
+                            </select>
+                        </div> 
+                     
+
+
+                        
+                        <div class="form-group">
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                      <label>DescripciÛn<small class="text-muted"></small></label>
+                      <textarea style="width: 850px;" rows="3" size="100" value="" class="form-control" name="descr" id="descr"></textarea>
+                      </div>
+
+                      </div>
+                  </div>
+                  <div class="form-group">
+                        <div class="col-md-4 col-sm-4 col-xs-12">
+                         
+                          <label>Modificar Foto (PNG,JPG,JPE)<small class="text-muted"></small></label>
+                           <button id="btnimg" name="btnimg" class="btn btn-info">Cambiar imagen</button>
+                            
+                      </div>
+                
+                  
+                  
+                </div>
+                <div class="modal-footer">
+                  
+                  <button name="btnmodi" class="btn btn-primary" data-dismiss="modal" id="guardar">Modificar</button>
+                </div>
+                </form>
+                </div><!--Fin del content-->
+              </div>
+         </div>  
+      
+      <!--Modificacion modal-->
      <!--Detalle modal-->
 
      <div class="modal fade detalle-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="DetalleModal">
@@ -399,17 +551,9 @@ $("#enviarimagenes").on("submit", function(e){
                         <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                         </div>
                         <div class="form-group">
-                      <div class="col-md-6 col-sm-6 col-xs-12">
+                      <div class="col-md-12 col-sm-12 col-xs-12">
                       <label>Descripción<small class="text-muted"></small></label>
-                      <textarea style="width: 425px;" rows="3" size="100" value="" class="form-control" name="descri" id="descri" disabled></textarea>
-                      </div>
-
-                      <div class="col-md-6 col-sm-6 col-xs-12">
-                      <label>Foto<small class="text-muted"></small></label>
-                      <img  src="data:image/jpg;base64. <?php echo base64_encode($row['foto_doc']);?>"/>
-                      </div>
-
-
+                      <textarea style="width: 865px;" rows="3" size="100" value="" class="form-control" name="descri" id="descri" disabled></textarea>
                       </div>
 
 
@@ -433,96 +577,10 @@ $("#enviarimagenes").on("submit", function(e){
          </div>  
       
       <!--Detalle modal-->
-      <!--Modificacion modal-->
-     <div class="modal fade modifi-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="ModifModal">
-              <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title"><strong><i class="fa fa-list-ul fa-2x"></i></strong></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                <div class="row">
-                  <table class="table table-bordered">
-                  
-                    
-                      <thead>
-                        <tr><th colspan=5 style="text-align:center;">Modificar Equipo </th></tr>
-                    </table>
-                    <input type="hidden" id="id" name="id" value="">
-                   
-                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <label>Nombre del Equipo<small class="text-muted"></small></label>
-                        <input type="text" class="form-control has-feedback-left" name="nomb" id="nomb">
-                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
-                        </div>
-                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <label>Marca<small class="text-muted"></small></label>
-                        <input type="text" class="form-control has-feedback-left" name="marc" id="marc">
-                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
-                        </div>
-                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <label>Numero de Serie<small class="text-muted"></small></label>
-                        <input type="text" class="form-control has-feedback-left" name="num" id="num">
-                        <span class="fa fa-list-ol form-control-feedback left" aria-hidden="true"></span>
-                        </div>
-                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <label>Donante<small class="text-muted"></small></label>
-                        <input type="text" class="form-control has-feedback-left" name="donad" id="donad">
-                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
-                        </div>
-
-                         
-                         <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                          <label>Tipo de uso<small class="text-muted"></small></label>
-                          <select id="grado"  class="form-control" name="grado" onchange="verificar()">
-                            <option>Pluviometro</option>
-                            <option>Agrometeorologico</option>
-                            <option>Estación Meteorologica</option>
-                            <option>Otros</option>
-                            </select>
-                        </div>
-                      
-                    
-                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                          <label>Estado del equipo<small class="text-muted"></small></label>
-                          <select id="esteq" class="form-control" name="esteq" onchange="verificar()">
-                           
-                            <option>En uso</option>
-                            <option>En mal estado</option>
-                            <option>Extraviado</option>
-                            </select>
-                        </div> 
-                     
-
-
-                        
-                        <div class="form-group">
-                      <div class="col-md-6 col-sm-6 col-xs-12">
-                      <label>Descripción<small class="text-muted"></small></label>
-                      <textarea style="width: 850px;" rows="3" size="100" value="" class="form-control" name="descr" id="descr"></textarea>
-                      </div>
-
-                      </div>
-                  </div>
-               
-                
-                  
-                  
-                </div>
-                <div class="modal-footer">
-                  
-                  <button id="guardar" class="btn btn-primary" data-dismiss="modal">Modificar</button>
-                </div>
-
-                </div><!--Fin del content-->
-              </div>
-         </div>  
       
-      <!--Modificacion modal-->
-
+      
+      <script src="../libreriasJS/alertifyjs/alertify.css"></script>
+   <script src="../libreriasJS/alertifyjs/alertify.min.js"></script>
     <!-- jQuery -->
     <script src="../vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
@@ -575,6 +633,13 @@ $("#enviarimagenes").on("submit", function(e){
     <script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
     <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
     <script type="text/javascript">
+        $(document).ready(function(){
+        $("#btnimg").on("click",function(){
+            var id=$("baccion2").val();
+            alert("hi"+id);
+            location.href="editImagenEquipo.php";
+        });
+        });
   $(document).ready(function(){
     $('#datatables-example').DataTable();
   });
@@ -582,49 +647,47 @@ $("#enviarimagenes").on("submit", function(e){
     $('#datatables-example').DataTable();
 
     $("#guardar").on('click',function(){
-        var grado = $('#nomb').val();
-        var opcion = $('#marc').val();
-        var seccion = $('#num').val();
-        var cupo = $('#donad').val();
-        var cupo = $('#descr').val();
-        if(grado == ""){
-          sweetError("Grado incorrecto");
-            return false;
-        }
-        if(opcion == ""){
-            sweetError("No se selecciono una opcion");
-            return false;
-        }
-        if(seccion == ""){
-          sweetError("No se selcciono una seccion");
-            return false;
-        }
-        if(cupo ==""||cupo<0||cupo>60){
-          sweetError("Cupo incorrecto");
-            return false;
-        }
+     
+        var id=$('#baccion2').val();
+        var nomb = $('#nomb').val();
+        var marc = $('#marc').val();
+        var num = $('#num').val();
+        var donad = $('#donad').val();
+        var tipou = $('#tipou').val();
+        var esteq = $('#esteq').val();
+        var descr = $('#descr').val();
+        var img = $('#imagen2').val();
        
-        var todo = $("#modificar").serialize();
+//        if(nomb == ""){
+//          alert("Nombre incorrecto");
+//            return false;
+//        }
+//        if(marc == ""){
+//            alert("Ingrese Marca");
+//            return false;
+//        }
+//        if(num == ""){
+//          sweetError("Ingrese Numero de Serie");
+//            return false;
+//        }
+
+        var todo = $("#modifi").serialize();
 
         $.ajax({
             type: 'post',
-            url: 'editarOpcion.php',
+            url: 'editarEquipo.php',
             data: todo,
             success: function(respuesta) {
-             
-                $("#grado option[value=0]").prop("selected",true);
-                $("#opcion option[value=0]").prop("selected",true);
-                $("#seccion option[value=0]").prop("selected",true);
-                $("#cupo").val(0);
-                $("#modalito").modal('hide');
-                sweetGuardo(respuesta);
-                $(".tabla_ajax").load("tablaOpcCom.php"); 
+
+                $("#ModifiModal").modal('hide');
+                alert(respuesta);
+                $(".tabla_ajax").load("../Controladores/tablaEquipos.php"); 
                 //$('#datatables-example').DataTable();
             },
             error: function(respuesta){
               alert("Error en el servidor: "+respuesta); 
             }
-        });//fin de ajax
+        });//fin de ajax*/
 
       return false;
     });//fin del click
@@ -636,13 +699,12 @@ $("#enviarimagenes").on("submit", function(e){
   </body>
 </html>
 <?php
- function msg($texto)
- {
-     echo "<script type='text/javascript'>";
-     echo "alert('$texto');";
-     //echo "document.location.href='materias.php';";
-     echo "</script>";
- }
+function msg($texto)
+{
+    echo "<script type='text/javascript'>";
+    echo"alert('$texto');";
+    echo "</script>";
+}
  function msgError($texto)
 {
     echo "<script type='text/javascript'>";

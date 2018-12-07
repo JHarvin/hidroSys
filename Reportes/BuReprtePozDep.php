@@ -812,7 +812,7 @@ departamentos d
 INNER JOIN municipios m ON m.iddepto = d.iddepto
 INNER JOIN pozos p ON p.id_municipio = m.idmunicipio
 INNER JOIN propietariospozos pr ON p.id_propietario = pr.id_propietario
-WHERE d.nombredepto='USULUTAN'
+WHERE d.nombredepto='CUSCATLAN'
 ORDER BY
 d.iddepto ASC
 ");
@@ -837,13 +837,14 @@ $fech = mysqli_query($conexion, "SELECT
 d.nombredepto,
 m.nombre,
 p.codigopozo,
-pr.nom
+pr.nom,
+pr.apellido
 FROM
 departamentos d
 INNER JOIN municipios m ON m.iddepto = d.iddepto
 INNER JOIN pozos p ON p.id_municipio = m.idmunicipio
 INNER JOIN propietariospozos pr ON p.id_propietario = pr.id_propietario
-WHERE d.nombredepto='USULUTAN'
+WHERE d.nombredepto='CUSCATLAN'
 ORDER BY
 d.iddepto ASC
 ");
@@ -854,7 +855,7 @@ d.iddepto ASC
 while ($row = $fech->fetch_assoc()) {
     $pdf->Cell(60, 6,$row['nombre'],1 , 0, 'C');
      $pdf->Cell(30, 6,$row['codigopozo'],1 , 0, 'C'); 
-    $pdf->Cell(70, 6,$row['nom'], 1, 1, 'C');
+     $pdf->Cell(70, 6,$row['nom'], 1, 1, 'C');
     ;
 }
 $pdf->Ln(10);

@@ -1,4 +1,6 @@
 $(document).ready(function(){
+    $('#btnguardar').show();
+    $('#btnactualizar').hide();
       $('#preview').hover(
         function() {
             $(this).find('a').fadeIn();
@@ -21,6 +23,45 @@ $(document).ready(function(){
             }
              
             reader.readAsDataURL(this.files[0]);
+
+            var fileName = this.files[0].name;
+          var fileSize = this.files[0].size;
+        
+          if(fileSize > 1000000){
+            $('#img1').text("El archivo no debe superar 1MB");
+            $('#img').removeClass('has-success').addClass('has-error');
+            this.value = '';
+            this.files[0].name = '';
+          }else{
+            // recuperamos la extensión del archivo
+            var ext = fileName.split('.').pop();
+        
+            // console.log(ext);
+            switch (ext) {
+              case 'jpg':{
+                $('#img2').text("");
+                $('#img1').removeClass('has-error').addClass('has-success');
+                break;
+              }
+              case 'jpeg':{
+                $('#img2').text("");
+                $('#img1').removeClass('has-error').addClass('has-success');
+                break;
+              }
+
+              case 'png': {
+                $('#img2').text("");
+                $('#img1').removeClass('has-error').addClass('has-success');
+                break;
+              }
+              default:{
+              $('#img2').text("El archivo no tiene la extensión adecuada");
+              $('#img1').removeClass('has-success').addClass('has-error');
+                this.value = ''; // reset del valor
+                this.files[0].name = '';
+              }
+            }
+          }
         });
       
     $('input').on('keypress', function(e){
@@ -102,7 +143,7 @@ $(document).ready(function(){
           alfanumOespacio: true,
           required: true,
           minlength: 10,
-          maxlength: 80
+          maxlength: 400
         }
        
       },
@@ -110,7 +151,7 @@ $(document).ready(function(){
       messages: {
         institucion: {
           required: "Por favor, ingrese instituci&oacute;n.",
-          maxlength: "Debe ingresar m&aacute;ximo 80 carácteres.",
+          maxlength: "Debe ingresar m&aacute;ximo 100 carácteres.",
           minlength: "Debe ingresar m&iacute;nimo 7 carácteres."
         },
         responsable: {
@@ -132,71 +173,33 @@ $(document).ready(function(){
         },
         direccion: {
           required: "Por favor, ingrese dirección.",
-          maxlength: "Debe ingresar m&aacute;ximo 80 carácteres.",
+          maxlength: "Debe ingresar m&aacute;ximo 400 carácteres.",
           minlength: "Debe ingresar m&iacute;nimo 10  carácteres."
         }
         
       }
     });
 
-    $("#file").on('change', function() {
-      if ($('#file').val()) { 
-        var fileName = this.files[0].name;
-        var fileSize = this.files[0].size;
-      
-        if(fileSize > 1000000){
-          $('#img1').text("El archivo no debe superar 1MB");
-          $('#img').removeClass('has-success').addClass('has-error');
-          this.value = '';
-          this.files[0].name = '';
-        }else{
-          // recuperamos la extensión del archivo
-          var ext = fileName.split('.').pop();
-      
-          // console.log(ext);
-          switch (ext) {
-            case 'jpg':{
-              $('#img2').text("");
-              $('#img1').removeClass('has-error').addClass('has-success');
-              break;
-            }
-            case 'jpeg':{
-              $('#img2').text("");
-              $('#img1').removeClass('has-error').addClass('has-success');
-              break;
-            }
-
-            case 'png': {
-              $('#img2').text("");
-              $('#img1').removeClass('has-error').addClass('has-success');
-              break;
-            }
-            default:{
-            $('#img2').text("El archivo no tiene la extensión adecuada");
-            $('#img1').removeClass('has-success').addClass('has-error');
-              this.value = ''; // reset del valor
-              this.files[0].name = '';
-            }
-          }
-        }
-      }
-  });
-  
    
+ 
 });
 
 function editar(id){
+  var confirm= alertify.confirm('Confirmación','¿Desea modificar el registro?',null,null).set('labels', {ok:'Si', cancel:'No'}); 	
 
+confirm.set({transition:'slide'});   	
+ 
+confirm.set('onok', function(){ //callbak al pulsar botón positivo
+  $('#quitar').remove();
   $.ajax({
     type: 'POST',
     url: '../../Vistas/ResponsablesEstaciones/obtenerDatos.php',
     data: {'id': id}
   })
   .done(function(obtenerDatos){
-    var datos = eval(obtenerDatos);
-      $('h4.modal-title').text("Editar Responsable de Estaciones Meteorológicas");
-      $('#modalguardar').hide();
-      $('#modalactualizar').show();
+      var datos = eval(obtenerDatos);
+      $('#btnguardar').hide();
+      $('#btnactualizar').show();
       $('#actualizar').val(id);
       $('#institucion').val(datos[0]);
       $('#validarcampo').val(datos[0]);
@@ -204,18 +207,26 @@ function editar(id){
       $('#direccion').val(datos[2]);
       $('#telefono1').val(datos[3]);
       $('#telefono2').val(datos[4]);
-      if(datos[5]!=="<img src='data:image\/*;base64,'\/>"){
+      //revisar
+      if(datos[5]==="<img id='quitar' src='data:image/*;base64,'/>"){
+        $('#imagen').show();
+      }else{
         $('#imagen').hide();
         $('#preview').append(datos[5]);
       }
-      $('#registro').modal({show:true});
-    
                      
   })
   .fail(function(){
     alert('Hubo un error al cargar la Pagina')
   })
 
+});
+ 
+/*confirm.set('oncancel', function(){ //callbak al pulsar botón negativo
+    alertify.error('Has Cancelado el proceso');
+});*/
+
+  
 }
 
 function ver(id){
@@ -235,21 +246,12 @@ function ver(id){
  
  }
 
-  $("#btnregistro").click(function(){
-    $("#fromregistro")[0].reset();
-    $('#preview img').attr('src', '../images/img2.png');
-    $('h4.modal-title').text('Registro Responsable de Estaciones Meteorológicas');
-    $('#modalactualizar').hide();
-    $('#modalguardar').show();
-    $('#registro').modal({show:true});
-  });
-
   $("#telefono2").keypress(function(e) {
     if(e.which == 13) {
-      if($('#modalguardar').is(':hidden')){
-        $('#modalactualizar').click();
+      if($('#btnguardar').is(':hidden')){
+        $('#btnactualizar').click();
       }else{
-        $('#modalguardar').click();
+        $('#btnguardar').click();
       }
     }
  });
@@ -297,9 +299,10 @@ function ver(id){
 });
 
 
-  $("#modalguardar").click(function(){
+
+  $("#btnguardar").click(function(){
+    
     if($("#fromregistro").valid()){ 
-        
                 var formData = new FormData($("#fromregistro")[0]);
         
                 $.ajax({
@@ -320,15 +323,13 @@ function ver(id){
                       $("#div_resultado_responsable").load('tabla_responsables.php');
                         $("#fromregistro")[0].reset();
                         $('#preview img').attr('src', '../images/img2.png');
-                        $('#registro').modal('hide'); 
                         alertify.set("notifier","position", "top-right");
                         alertify.success("Registro Almacenado Correctamente.");
                         
                     }
                     if(listas_rep === "Error"){
                       $("#fromregistro")[0].reset();
-                      $('#preview img').attr('src', '../images/img2.png');
-                      $('#registro').modal('hide'); 
+                      $('#preview img').attr('src', '../images/img2.png'); 
                       alertify.set("notifier","position", "top-right");
                       alertify.error("Sin Conexión a la Base de Datos.");
                     }                
@@ -340,7 +341,8 @@ function ver(id){
     
 });
 
-$("#modalactualizar").click(function(){
+$("#btnactualizar").click(function(){
+  
   if($("#fromregistro").valid()){ 
            var formData = new FormData($("#fromregistro")[0]);
       
@@ -362,17 +364,19 @@ $("#modalactualizar").click(function(){
                     $("#div_resultado_responsable").load('tabla_responsables.php');
                       $("#fromregistro")[0].reset();
                       $('#preview img').attr('src', '../images/img2.png');
-                      $('#registro').modal('hide'); 
                       alertify.set("notifier","position", "top-right");
                       alertify.success("Registro Almacenado Correctamente.");
+                      $('#btnguardar').show();
+                      $('#btnactualizar').hide();
                       
                   }
                   if(lista_ac === "Error"){
                     $("#fromregistro")[0].reset();
                     $('#preview img').attr('src', '../images/img2.png');
-                    $('#registro').modal('hide'); 
                     alertify.set("notifier","position", "top-right");
                     alertify.error("Sin Conexión a la Base de Datos.");
+                    $('#btnguardar').show();
+                    $('#btnactualizar').hide();
                   }                
                   })
                   .fail(function(){
@@ -382,3 +386,18 @@ $("#modalactualizar").click(function(){
   
 });
 
+function cancelar(){
+  var confirm= alertify.confirm('Confirmación','¿Desea cancelar el proceso?',null,null).set('labels', {ok:'Si', cancel:'No'}); 	
+ 
+confirm.set({transition:'slide'});   	
+ 
+confirm.set('onok', function(){ //callbak al pulsar botón positivo
+  document.location.href='responsablesestaciones.php';
+  alertify.success('Éxito');
+});
+ 
+/*confirm.set('oncancel', function(){ //callbak al pulsar botón negativo
+    alertify.error('Has Cancelado el proceso');
+});*/
+
+}

@@ -46,7 +46,12 @@ include "../conexion/conexion.php";
     <link href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../libreriasJS/alertifyjs/css/alertify.min.css">
     <link rel="stylesheet" href="../libreriasJS/alertifyjs/css/themes/bootstrap.min.css">
+<<<<<<< HEAD
     <script src="../vendors/libreriasJS/alertifyjs/alertify.min.js" ></script>
+=======
+    <link rel="stylesheet" href="../libreriasJS/alertifyjs/css/alertify.rtl.min.css">
+    <script src="../libreriasJS/alertifyjs/alertify.min.js"></script>
+>>>>>>> 2262afef86efb8d4d3285d0d29e9e5becbe22845
 
   </head>
 
@@ -94,27 +99,7 @@ include "../conexion/conexion.php";
                 <a id="menu_toggle"><i class="fa fa-bars"></i></a>
               </div>
 
-              <ul class="nav navbar-nav navbar-right">
-                <li class="">
-                  <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="images/img.jpg" alt="">User
-                    <span class=" fa fa-angle-down"></span>
-                  </a>
-                  <ul class="dropdown-menu dropdown-usermenu pull-right">
-                    <li><a href="javascript:;"> Profile</a></li>
-                    <li>
-                      <a href="javascript:;">
-                        <span class="badge bg-red pull-right">50%</span>
-                        <span>Settings</span>
-                      </a>
-                    </li>
-                    <li><a href="javascript:;">Help</a></li>
-                    <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
-                  </ul>
-                </li>
-
-               
-              </ul>
+              
             </nav>
           </div>
         </div>

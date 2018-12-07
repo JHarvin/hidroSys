@@ -38,17 +38,19 @@
                 $estacion=$_GET['estacion'];
                 $fecha=$_GET['f'];
                 $x=explode("-",$fecha);
-                    $mes1=$x[0];
-                     $a=$x[1];
+                $mes1=$x[0];
+                $a=$x[1];
                      
                      //validar**********
 $validar= mysqli_query($conexion,"SELECT
 l.date, 
-avg(l.tempout) as promtempout
+e.id_estacion,
+e.codiogestacion,
+TRUNCATE(avg(l.tempout),2) as promtempout
 FROM
 estacionmet e
 INNER JOIN lecturaestaciones l ON l.idestacion = e.id_estacion
-where EXTRACT(MONTH FROM l.date)='$mes1' and EXTRACT(YEAR FROM l.date)='$a'
+where EXTRACT(MONTH FROM l.date)='$mes1' and EXTRACT(YEAR FROM l.date)='$a' AND e.id_estacion = $estacion
 GROUP BY e.codiogestacion, l.date
 ORDER BY l.date");
 
@@ -57,11 +59,13 @@ if(mysqli_num_rows($validar)){
                      
 $temperatura= mysqli_query($conexion,"SELECT
 l.date, 
-avg(l.tempout) as promtempout
+e.id_estacion,
+e.codiogestacion,
+TRUNCATE(avg(l.tempout),2) as promtempout
 FROM
 estacionmet e
 INNER JOIN lecturaestaciones l ON l.idestacion = e.id_estacion
-where EXTRACT(MONTH FROM l.date)='$mes1' and EXTRACT(YEAR FROM l.date)='$a'
+where EXTRACT(MONTH FROM l.date)='$mes1' and EXTRACT(YEAR FROM l.date)='$a' AND e.id_estacion = $estacion
 GROUP BY e.codiogestacion, l.date
 ORDER BY l.date");
 
@@ -69,11 +73,13 @@ ORDER BY l.date");
                         
 $fechas= mysqli_query($conexion,"SELECT
 l.date, 
-avg(l.tempout) as promtempout
+e.id_estacion,
+e.codiogestacion,
+TRUNCATE(avg(l.tempout),2) as promtempout
 FROM
 estacionmet e
 INNER JOIN lecturaestaciones l ON l.idestacion = e.id_estacion
-where EXTRACT(MONTH FROM l.date)='$mes1' and EXTRACT(YEAR FROM l.date)='$a'
+where EXTRACT(MONTH FROM l.date)='$mes1' and EXTRACT(YEAR FROM l.date)='$a' AND e.id_estacion = $estacion
 GROUP BY e.codiogestacion, l.date
 ORDER BY l.date");
                       
@@ -103,7 +109,7 @@ ORDER BY l.date");
 					},
 					yAxis: {
 						title: {
-							text: 'Temperatura promedio'
+							text: 'Temperatura promedio en Grados celcius'
 						}
 					},
 					tooltip: {
