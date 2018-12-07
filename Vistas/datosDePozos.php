@@ -44,7 +44,9 @@ include "../conexion/conexion.php";
     <link href="../vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
     <link href="../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
     <link href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="../libreriasJS/alertifyjs/css/alertify.min.css">
+    <link rel="stylesheet" href="../libreriasJS/alertifyjs/css/themes/bootstrap.min.css">
+    <script src="../vendors/libreriasJS/alertifyjs/alertify.min.js" ></script>
 
   </head>
 
@@ -785,6 +787,7 @@ include "../conexion/conexion.php";
     <script src="../vendors/jszip/dist/jszip.min.js"></script>
     <script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
     <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
+    
 
     <!--scripts de pre procesamiento-->
 

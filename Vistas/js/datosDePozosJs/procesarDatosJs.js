@@ -18,7 +18,7 @@ $(document).ready(function(){
     var geologia = $('#geologia').val();
     var observacion = $('#observacion').val();
 
-    codigo ="ING2018"; //temporal mientras se hace el metodo de generar codigo
+    
         
     if(codigo == ""){
         alert("");
@@ -75,19 +75,20 @@ $(document).ready(function(){
         success: function(respuesta) {
             
             if(respuesta==1){
-                alert("Se agrego correctamente "+respuesta);
+                
                 $(".tabla_ajax").load("../Vistas/tablaDatosPozos.php");
                 $("#formPozos")[0].reset();
+                alert("Se agrego correctamente ");
             }
             if(respuesta==2){
-                alert("No se pudieron agregar los datos "+respuesta);
+                alertify.error("No se pudieron agregar los datos ");
             }
             if(respuesta==3){
-                alert("Las coordenadas ya existen "+respuesta);
+                alert("Las coordenadas ya existen ");
             }
         },
-        error: function(respuesta){
-            alert("Error en el servidor "+respuesta);
+        error: function(){
+            alert("Error en el servidor ");
         }
     });//fin de ajax
 
