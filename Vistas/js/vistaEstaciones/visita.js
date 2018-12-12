@@ -132,7 +132,7 @@
         success: function(respuesta) {
           if(respuesta==1){
             alertify.set('notifier','position','top-right');
-            alertify.error('Datos no almacenados!'); 
+            alertify.success('Datos almacenados!'); 
             limpiaF('limpiar');
             recargarTabla('tabla');  
 

@@ -50,22 +50,22 @@
                 <select class=" form-control STip" id="tipos" name="tipos" onchange="actualizaM('cambioTipos');"  >
                 <option value="Tipo Visitante" >Tipo Visitante</option>
                 <?php                                         
-                      if($rtipovistante==="Investigador"){
+                      if($rtipovistante==="Investigador" || $rtipovistante==="investigador" ){
                         echo '<option value="Investigador" selected="">Investigador</option>';
                         echo '<option value="Docente">Docente</option>';
                         echo '<option value="Estudiante">Estudiante</option>';
                         echo '<option value="Otros">Otros</option>';
-                      }else if($rtipovistante==="Docente"){
+                      }else if($rtipovistante==="Docente" || $rtipovistante==="docente"){
                         echo '<option value="Investigador">Investigador</option>';
                         echo '<option value="Docente"  selected="">Docente</option>';
                         echo '<option value="Estudiante">Estudiante</option>';
                         echo '<option value="Otros">Otros</option>';
-                      }else if ($rtipovistante==="Estudiante") {
+                      }else if ($rtipovistante==="Estudiante" || $rtipovistante==="estudiante" ) {
                         echo '<option value="Investigador">Investigador</option>';
                         echo '<option value="Docente" >Docente</option>';
                         echo '<option value="Estudiante" selected="">Estudiante</option>';
                         echo '<option value="Otros">Otros</option>';
-                      }else if ($rtipovistante==="Otros") {
+                      }else if ($rtipovistante==="Otros" || $rtipovistante==="otros" ) {
                         echo '<option value="Investigador">Investigador</option>';
                         echo '<option value="Docente"  selected="">Docente</option>';
                         echo '<option value="Estudiante">Estudiante</option>';
