@@ -1,7 +1,6 @@
 <?php
-include "../config/conexion.php";
+include "../conexion/conexion.php";
 $id = $_REQUEST["id"];
-
 
 	$result = $conexion->query("select foto as foto,tipofoto as tipo from estacionmet where id_estacion=" . $id);
 if ($result) {
