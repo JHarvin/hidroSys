@@ -170,7 +170,9 @@ echo  "
          location.href = 'usuarios.php?aux1=1';
          ";
 echo "</script>";
-
+session_start();
+      $_SESSION["validar"]=true;
+      
 }else if($momb==0 && $passw==0){
 echo "<script language='javascript'>";
 echo  "

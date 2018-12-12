@@ -1,3 +1,6 @@
+ <?php 
+
+?>
  <!-- MENU LATERAL -->
  <div class="navbar nav_title" style="border: 0;">
               <a href="main.php" class="site_title"><i class="fa fa-paw"></i> <span>Pozos</span></a>
@@ -24,21 +27,21 @@
                 <ul class="nav side-menu">
                   <li><a><i class="fa fa-home"></i> Inicio<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="main.php">SISPOZO</a></li>
+                      <li><a href="../Vistas/main.php">SISPOZO</a></li>
                       
                     </ul>
                   </li>
                   <li><a><i class="fa fa-edit"></i>Estacion Meteorologica<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                        <li><a href="estacionmeteorologica.php">Estacion Meteorologica</a></li>
+                        <li><a href="../Vistas/estacionmeteorologica.php">Estacion Meteorologica</a></li>
                       <li><a href="../ProcesoSubir/SubirEstacion.php">Lectura Estación Meteorológica</a></li>
-                      <li><a href="visitaestaciones.php">Visita Estaciones</a></li>
+                      <li><a href="../Vistas/visitaestaciones.php">Visita Estaciones</a></li>
                       </ul>
                   </li>
                   <li><a><i class="fa fa-tint"></i> Pozos<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="datosDePozos.php">Datos de pozos</a></li>
-                      <li><a href="propietariospozos.php">Propietarios Pozos</a></li>
+                      <li><a href="../Vistas/datosDePozos.php">Datos de pozos</a></li>
+                      <li><a href="../Vistas/propietariospozos.php">Propietarios Pozos</a></li>
                       <li><a href="../Vistas/visitantespozos.php">Visitantes Pozos</a></li>
                       <li><a href="../ProcesoSubir/SubirPozos.php">Lectura de Pozos</a></li>
                       <li><a href="../Vistas/visitapozos.php">Visita Pozos</a></li>
@@ -49,20 +52,20 @@
                   <li><a><i class="fa fa-users"></i> Instituciones/Comunidades <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                     <li><a href="ResponsablesEstaciones/responsablesestaciones.php">Responsables</a></li>
-                    <li><a href="comunidades.php">Instituciones y Comunidades</a></li>
+                    <li><a href="../Vistas/comunidades.php">Instituciones y Comunidades</a></li>
                     
                     
                     </ul>
                   </li>
                   <li><a><i class="fa fa-eye"></i> Observadores <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                    <li><a href="observadorescomunales.php">Observadores Comunales.</a></li>
+                    <li><a href="../Vistas/observadorescomunales.php">Observadores Comunales.</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-mobile"></i>Equipos <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                    <li><a href="equipos.php">Equipos</a></li>
-                    <li><a href="asignacionEquipos.php">Asignacion de Equipos</a></li>
+                    <li><a href="../Vistas/equipos.php">Equipos</a></li>
+                    <li><a href="../Vistas/asignacionEquipos.php">Asignacion de Equipos</a></li>
                     </ul>
                   </li>
                   <!--REPORTES-->
