@@ -97,9 +97,9 @@ error_reporting(E_ALL & ~E_NOTICE);
             document.getElementById('institucion').value=="" ||
             document.getElementById('latitud').value=="" ||
             document.getElementById('longitud').value==""){
-            // alertify.success("Error:Porfavor complete todos los campos.");
-            // alertify.set("notifier","position", "top");
-            alert("Por favor complete todos los campos.");
+            alertify.set("notifier","position", "top-right");
+            alertify.error("Error:Porfavor complete todos los campos.");
+            //alert("Por favor complete todos los campos.");
           }else{
 
             document.getElementById('bandera').value="add";
@@ -113,9 +113,10 @@ error_reporting(E_ALL & ~E_NOTICE);
             document.getElementById('lista1m').value=="0"  ||
             document.getElementById('lista2m').value=="0"  ||
             document.getElementById('institucionm').value==""){
-            alertify.success("Error:Porfavor complete todos los campos.");
-            alertify.set("notifier","position", "top");
-            alert("Porfavor revise que los campos esten completos.");
+             alertify.set("notifier","position", "top-right");
+            alertify.error("Error:Porfavor complete todos los campos.");
+           
+            //alert("Porfavor revise que los campos esten completos.");
           }else{
             document.getElementById('bandera2').value="mod";            
            
@@ -195,10 +196,16 @@ error_reporting(E_ALL & ~E_NOTICE);
         data:"id="+id+"&op=1",
         success:function(r){
           if(r=="Si"){
-            alert("Estacion meteorologica activada.");
-            document.location.href="estacionmeteorologica.php";
+            //alert("Estacion meteorologica activada.");
+            alertify.set("notifier","position", "top-right");
+            alertify.success("Estacion meteorologica activada.");
+            setTimeout (function llamarPagina(){
+                                        document.location.href="estacionmeteorologica.php";
+                                     }, 2000);
           }else{
-             alert("Error al activar la estacion.");
+            //alert("Error al activar la estacion.");
+            alertify.set("notifier","position", "top-right");
+            alertify.error("Error al activar la estacion.");
           }
          // ponerAbreviatura();
         }
@@ -213,10 +220,17 @@ error_reporting(E_ALL & ~E_NOTICE);
         data:"id="+id+"&op=2",
         success:function(r){
           if(r=="Si"){
-            alert("Estacion meteorologica desactivada.");
-            document.location.href="estacionmeteorologica.php";
+            //alert("Estacion meteorologica desactivada.");
+            alertify.set("notifier","position", "top-right");
+            alertify.success("Estacion meteorologica desactivada.");
+            
+            setTimeout (function llamarPagina(){
+                                        document.location.href="estacionmeteorologica.php";
+                                     }, 2000);
           }else{
-             alert("Error al desactivar la estacion.");
+             //alert("Error al desactivar la estacion.");
+             alertify.set("notifier","position", "top-right");
+             alertify.error("Error al desactivar la estacion.");
           }
          // ponerAbreviatura();
         }
@@ -251,6 +265,19 @@ error_reporting(E_ALL & ~E_NOTICE);
     <link href="../vendors/starrr/dist/starrr.css" rel="stylesheet">
     <!-- bootstrap-daterangepicker -->
     <link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+    <!-- Datatables -->
+    <link href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="../vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
+    <link href="../vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+    <link href="../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
+    <link href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+    <!-- Librerias de Alertify -->
+    <link rel="stylesheet" href="../libreriasJS/alertifyjs/css/alertify.css"/>
+    <link rel="stylesheet" href="../libreriasJS/alertifyjs/css/alertify.min.css"/>
+    <link rel="stylesheet" href="../libreriasJS/alertifyjs/css/themes/bootstrap.css"/>
+
+    <script src="../libreriasJS/alertifyjs/alertify.js"></script>
+    <script src="../libreriasJS/alertifyjs/alertify.min.js"></script>
 
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
@@ -697,8 +724,8 @@ include_once 'editarEstacion.php';
       </div>
     </div>
 
-  <script src="../libreriasJS/alertifyjs/alertify.css"></script>
-   <script src="../libreriasJS/alertifyjs/alertify.min.js"></script>
+  
+   
     <!-- jQuery -->
     <script src="../vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
@@ -734,6 +761,19 @@ include_once 'editarEstacion.php';
     <script src="../vendors/starrr/dist/starrr.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
+    <!-- Datatables -->
+    <script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="../vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="../vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+    <script src="../vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+    <script src="../vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+    <script src="../vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
 	
   </body>
 </html>
@@ -779,10 +819,12 @@ if ($bandera == "add") {
         //msg($consulta);
         $resultado = $conexion->query($consulta);
         if ($resultado) {
-            msgtest("Exito");
-           redir();
+            //msgtest("Exito");
+            msg('Datos Insertados');
+           //redir();
         } else {
-           echo mysqli_error($conexion);
+           //echo mysqli_error($conexion);
+           msgerror("Datos no Insertados.");
         }
     }
 
@@ -791,10 +833,12 @@ if ($bandera == "add") {
        // msg($consulta);
         $resultado = $conexion->query($consulta);
         if ($resultado) {
-            msgtest("Exito");
-           redir();
+            //msgtest("Exito");
+            msg('Datos Insertados');
+           //redir();
         } else {
-           echo mysqli_error($conexion);
+           //echo mysqli_error($conexion);
+           msgerror("Datos no Insertados.");
         }
 }
 }
@@ -807,10 +851,12 @@ if($bandera2=="mod"){
         $consultac  = "UPDATE estacionmet set codiogestacion='" . $codigom . "',iddepartamento='" . $lista1m . "',idmunicipio='" . $lista2m . "',latitud='" . $latitud2 . "',longitud='" . $longitud2 . "',idresponsable='" . $institucionm . "' where id_estacion='" . $baccion . "'";
         $resultado = $conexion->query($consultac);
         if ($resultado) {
-            msgtest("Modificacion exitosa.");
-           redir();
+            //msgtest("Modificacion exitosa.");
+            msg("Modificacion exitosa.");
+           //redir()
         } else {
-            msgtest("No Exito sin imagen.");
+            //msgtest("No Exito sin imagen.");
+            msgerror("No Exito sin imagen");
         }
       }else{
        $permitidos = array("image/jpg", "image/jpeg", "image/png");
@@ -831,10 +877,12 @@ if($bandera2=="mod"){
         $consulta  = "UPDATE estacionmet set codiogestacion='" . $codigom . "',iddepartamento='" . $lista1m . "',idmunicipio='" . $lista2m . "',latitud='" . $latitud2  . "',longitud='" . $longitud2 . "',foto='" . $data . "',tipofoto='" . $tipo . "',idresponsable='" . $institucionm . "' where id_estacion='".$baccion."'";
         $resultado = $conexion->query($consulta);
         if ($resultado) {
-            msgtest("Exito.");
-            redir();
+            //msgtest("Exito.");
+            msg("Datos Insertados.");
+            //redir();
         } else {
-            msgtest("No Exito.");
+            //msgtest("No Exito.");
+            msgerror("Datos no Insertados.");
         }
     }
   }
@@ -842,9 +890,19 @@ if($bandera2=="mod"){
 function msg($texto)
 {
     echo "<script type='text/javascript'>";
-    echo' alertify.success("Registro Guardado    ✔");
-    alertify.set("notifier","position", "top");';
-    echo 'document.location.href="estacionmeteorologica.php";';
+    echo' alertify.set("notifier","position","top-right");
+    alertify.success("'.$texto.'"); ';
+    echo' setTimeout (function llamarPagina(){
+                  document.location.href="estacionmeteorologica.php";
+                }, 2000);';
+    echo "</script>";
+}
+function msgerror($texto)
+{
+    echo "<script type='text/javascript'>";
+    echo' alertify.set("notifier","position","top-right");
+    alertify.error("'.$texto.'""); ';
+    
     echo "</script>";
 }
 function msgtest($texto){
