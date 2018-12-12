@@ -100,12 +100,17 @@
                  <li><a><i class="fa fa-user"></i>Usuarios<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                         <li><a href="../Vistas/usuarios.php?aux1=1">Gestión de usuario</a></li>
-                      
+                    </ul>
+                  </li>
+                  <li><a href="../Vistas/login.php"><i class="fa fa-user"></i>Cerrar Sesion</a>
+                    <ul class="nav child_menu">
                       
                     </ul>
                   </li>
-                </ul>
               </div>
+            
+                  
+              
               <!-- <div class="menu_section">
                 <h3>Live On</h3>
                 <ul class="nav side-menu">
