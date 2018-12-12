@@ -46,8 +46,12 @@ include "../conexion/conexion.php";
     <link href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../libreriasJS/alertifyjs/css/alertify.min.css">
     <link rel="stylesheet" href="../libreriasJS/alertifyjs/css/themes/bootstrap.min.css">
+<<<<<<< HEAD
+    <script src="../vendors/libreriasJS/alertifyjs/alertify.min.js" ></script>
+=======
     <link rel="stylesheet" href="../libreriasJS/alertifyjs/css/alertify.rtl.min.css">
     <script src="../libreriasJS/alertifyjs/alertify.min.js"></script>
+>>>>>>> 2262afef86efb8d4d3285d0d29e9e5becbe22845
 
   </head>
 
@@ -768,6 +772,7 @@ include "../conexion/conexion.php";
     <script src="../vendors/jszip/dist/jszip.min.js"></script>
     <script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
     <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
+    
 
     <!--scripts de pre procesamiento-->
 
