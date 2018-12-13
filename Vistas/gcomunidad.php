@@ -7,7 +7,7 @@ $observador = $_REQUEST['observador'];
 $departamento = $_REQUEST['departamento'];
 $optradio = $_REQUEST['optradio'];
 
-$insertar ="INSERT INTO comunidades(nombre, tipo, iddepartamento, idmunicipio, idobservador) VALUES ('$nombre', '$optradio', '$departamento', '$municipio', '$observador' )";
+$insertar ="INSERT INTO comunidades(idcomunidad, nombre, tipo, iddepartamento, idmunicipio, idobservador) VALUES (null,'$nombre', '$optradio', '$departamento', '$municipio', '$observador' )";
 
 $resultado = mysqli_query($mysqli, $insertar);
     
