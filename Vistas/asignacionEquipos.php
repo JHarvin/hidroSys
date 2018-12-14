@@ -31,12 +31,18 @@ use Carbon\Carbon;
     <link href="../vendors/starrr/dist/starrr.css" rel="stylesheet">
     <!-- bootstrap-daterangepicker -->
     <link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+    <link href="../libreriasJS/alertifyjs/css/alertify.min.css" rel="stylesheet">
+    <!-- Custom Theme Style -->
+    <link href="../build/css/custom.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../libreriasJS/alertifyjs/css/themes/bootstrap.css"/>
      <!-- Datatables -->
     <link href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
     <link href="../vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
     <link href="../vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
     <link href="../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
     <link href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+    <script src="../libreriasJS/alertifyjs/alertify.min.js"></script>
+    <script src="js/propietariosPozos/alertasignacion.js"></script>
     <style>
      img.pequeña{
         width: 50px; height: 50px;
@@ -53,20 +59,23 @@ use Carbon\Carbon;
       } 
     </style>
     <script type="text/javascript">
-      
+      function verificar1(opcion){
+        alertify.set('notifier','position', 'top-right');
+       alertify.success("Exito Datos almacenados");  
+      }
 
         function newCbLanguage(){                 
-            openCbLanguage(null, null, null, null, null, null);
+            openCbLanguage(null, null, null, null, null);
         }
         
-        function openCbLanguage(observador, equipo, fecha, descripcion, tipouso, idImg){    
+        function openCbLanguage(observador, equipo, fecha, tipouso, idImg){    
           
            
             $("#id").val(idImg);
             document.formCbLanguage.countrycode.value = observador;
             document.formCbLanguage.isbaselanguage.value = equipo;
             document.formCbLanguage.issystemlanguage.value = fecha;
-            document.formCbLanguage.descripcion.value = descripcion;
+//            document.formCbLanguage.descripcion.value = descripcion;
             document.formCbLanguage.tipouso.value = tipouso;
        
 
@@ -186,22 +195,22 @@ use Carbon\Carbon;
                   </div>
                   <div class="x_content">
                     <br />
-                    <form class="form-horizontal form-label-left input_mask" action="../Controladores/controlador.php" method="POST">
-
+                    <form class="form-horizontal form-label-left input_mask" id="formasignacion" name="formasignacion" method="POST">
+                     <input type="hidden" name="bandera" id="bandera"/>
                      
                       
                       <div class="form-group">
                         <div class="col-md-7 col-sm-7 col-xs-6">
-                          <select name="observador" id="observador" class="form-control" required>
+                          <select name="observador" id="observador" class="form-control" >
                            <option value="">Seleccionar Observador</option>
                        <?php
                           include "../ProcesoSubir/conexion.php";
-                          $result=$mysqli->query("SELECT idobservador, nombre, activo FROM observadores WHERE activo=1");
+                          $result=$mysqli->query("SELECT id_observador, nombre, activo FROM observadores WHERE activo=1");
                           if($result){
 
                              while ($fila = $result->fetch_object()) {
 
-                               echo "<option value='".$fila->idobservador."'>".$fila->nombre."</option>" ;
+                               echo "<option value='".$fila->id_observador."'>".$fila->nombre."</option>" ;
                              }
                           }else{
                           }
@@ -213,7 +222,7 @@ use Carbon\Carbon;
 
                       <div class="form-group">
                         <div class="col-md-7 col-sm-7 col-xs-12">
-                          <select class="form-control" id="equipo" name="equipo" required>
+                          <select class="form-control" id="equipo" name="equipo" >
                              <option value="">Seleccionar Equipo</option>
                                             <?php
                                 include "../ProcesoSubir/conexion.php";
@@ -238,7 +247,7 @@ use Carbon\Carbon;
                       </div>
 
                       <div class="col-md-7 col-sm-7 col-xs-12 form-group has-feedback">
-                        <input  name="fecha" id="fecha" required type="date" class="form-control has-feedback-left" placeholder="Fecha de asignación" min="<?php echo $now = Carbon::now()->subYear(1)->format('Y-m-d') ?>" max="<?php echo $now = Carbon::now()->addYear(0)->format('Y-m-d') ?>">
+                        <input  name="fecha" id="fecha"  type="date" class="form-control has-feedback-left" placeholder="Fecha de asignación" min="<?php echo $now = Carbon::now()->subYear(1)->format('Y-m-d') ?>" max="<?php echo $now = Carbon::now()->addYear(0)->format('Y-m-d') ?>">
                         <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
                       </div>
 
@@ -252,8 +261,8 @@ use Carbon\Carbon;
                       <div class="ln_solid"></div>
                       <div class="form-group">
                         <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                        <button type="submit" class="btn btn-success">Guardar</button>
-                          <button type="button" class="btn btn-warning">Cancelar</button>
+                        <button type="button" class="btn btn-success" onclick="verificar('guardar');">Guardar</button>
+                          <button type="reset" class="btn btn-warning">Cancelar</button>
 						   <!-- <button class="btn btn-primary" type="reset">Reset</button> -->
                          
                         </div>
@@ -324,8 +333,8 @@ use Carbon\Carbon;
                                 <?php
                                 include "../ProcesoSubir/conexion.php";
                                 try {
-                                    $query = "SELECT observadores.nombre as observador, equipos.nombre as equipo, fechaasigna,idequipoobserv, equipos.descripcion as descripcion,equipos.tipouso as tipouso,   equipos.idequipo as idim FROM equipoobservador
-                                        INNER JOIN observadores ON observadores.idobservador=equipoobservador.idobservador
+                                    $query = "SELECT observadores.nombre as observador, equipos.nombre as equipo, fechaasigna,idequipoobserv,equipos.tipouso as tipo,   equipos.idequipo as idim FROM equipoobservador
+                                        INNER JOIN observadores ON observadores.id_observador=equipoobservador.idobservador
                                         INNER JOIN equipos ON equipos.idequipo=equipoobservador.idequipo
                                         ORDER BY idequipoobserv;";
                                     $result = $mysqli->query($query);
@@ -342,7 +351,7 @@ use Carbon\Carbon;
                                                         data-toggle="modal"
                                                         data-target="#myModal"
                                                         onclick="openCbLanguage('<?php print($fila->observador); ?>',
-                                                                    '<?php print($fila->equipo); ?>', '<?php print($fila->fechaasigna); ?>', '<?php print($fila->descripcion); ?>', '<?php print($fila->tipouso); ?>','<?php print($fila->idim); ?>')">
+                                                                    '<?php print($fila->equipo); ?>', '<?php print($fila->fechaasigna); ?>', '<?php print($fila->tipo); ?>','<?php print($fila->idim); ?>')">
                                                     Ver</button></td>
                                             </tr>      
                                          
@@ -500,8 +509,10 @@ if ($result) {
 
     <!-- jQuery -->
     <script src="../vendors/jquery/dist/jquery.min.js"></script>
+    <script src="../libreriasJS/alertifyjs/alertify.min.js"></script>
     <!-- Bootstrap -->
     <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="js/propietariosPozos/alertasignacion.js"></script>
     <!-- FastClick -->
     <script src="../vendors/fastclick/lib/fastclick.js"></script>
     <!-- NProgress -->
@@ -597,3 +608,30 @@ $(document).ready(function(){
 	
   </body>
 </html>
+<?php
+    include '../Config/conexion.php';
+    $bandera=$_REQUEST["bandera"];
+    $observador=$_REQUEST["observador"];
+    $equipo=$_REQUEST["equipo"];
+    $fecha=$_REQUEST["fecha"];
+
+if ($bandera == "guardar") {
+    $query = mysqli_query($mysqli, "INSERT INTO equipoobservador(idobservador,idequipo,fechaasigna) 
+                                VALUES('$observador','$equipo','$fecha')")
+                                or die('Error: '.mysqli_error($mysqli)); 
+
+
+    if ($query == TRUE) {
+       mensaje("exito","guardar");
+    } else {
+       mensaje("error","guardar");
+    }
+}
+
+function mensaje($tipo,$opcion){
+            echo "<script language='javascript'>";
+            echo "detener();";
+            echo "alerta('".$tipo."','".$opcion."');";
+            echo "</script>";
+}
+?>
