@@ -78,10 +78,11 @@
                         <li><a href="../Reportes/BuReprtePozDep.php">Reporte pozo por departamento</a></li>
                         <li><a href="../Reportes/vista_GD.php">Reporte temperatura pozo </a></li>
                         <li><a href="../Reportes/vista_GD1.php">Reporte Pozos Observacion</a></li>
-                        <li><a href="../Reportes/Reporte_Visitantes.php">Reporte de visitantes.</a></li>
-                        <li><a href="../Reportes/Vista_VisitaPozo.php">Reporte de visitantes.</a></li>
+                        <li><a href="../Reportes/Reporte_Visitantes.php">Reporte de visitantes registrados.</a></li>
+                        <li><a href="../Reportes/Vista_VisitaPozo.php">Reporte de visitas a pozos.</a></li>
                         <li><a href="../Reportes/ReportePozosGeo.php">Reporte Pozos y su Geologia</a></li>
                         <li><a href="../Reportes/Reporte_datosPozos.php">Reporte de datos de pozos</a></li>
+                        <li><a href="../Reportes/ReporteAsignacionEquipo.php">Reporte de Asignacion de Equipos</a></li>
                     </ul>
                   </li>
                   <!--REPORTES-->
