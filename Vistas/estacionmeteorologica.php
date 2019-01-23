@@ -3,7 +3,7 @@
 error_reporting(E_ALL & ~E_NOTICE);
 
  include "../ProcesoSubir/conexioneq.php";
- $conexion->set_charset("utf8");
+ //$conexion->set_charset("utf8");
  //Query para generar codigo.
  
                   $resultc = $conexion->query("select id_estacion as id from estacionmet order by id ASC");
@@ -406,7 +406,7 @@ error_reporting(E_ALL & ~E_NOTICE);
                              $resultado = $conexion->query($consulta);
                              if ($resultado) {
                                while($fila= $resultado->fetch_object()){
-                                echo "<option value='".$fila->iddepto."'>".$fila->nombredepto."</option>";
+                                echo "<option value='".$fila->iddepto."'>".utf8_encode($fila->nombredepto)."</option>";
                                }
                                  
                              } else {
@@ -558,7 +558,7 @@ error_reporting(E_ALL & ~E_NOTICE);
                             }
                             
                               ?>
-                                <td><?php echo $deptotemp; ?></td>
+                                <td><?php echo utf8_encode($deptotemp); ?></td>
                                  <?php
                                 $consulta  = "select nombre from municipios where idmunicipio=".$municipiom;
                                 $resultadom = $conexion->query($consulta);
@@ -568,7 +568,7 @@ error_reporting(E_ALL & ~E_NOTICE);
                             }
                             
                               ?>
-                                <td><?php echo $muntemp; ?></td>
+                                <td><?php echo utf8_encode($muntemp); ?></td>
                                 <?php
                                 $consulta  = "select institucion from respestaciones where idresponsable=".$responsablem;
                                 $resultadom = $conexion->query($consulta);
