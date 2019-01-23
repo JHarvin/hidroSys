@@ -110,7 +110,7 @@ $pdf->AddPage();
      
         $pdf->SetFont('Arial', 'B', 12);
          $pdf->Ln(15);
-        $validacion= mysqli_query($mysqli,"SELECT visitantes.tipo as tipo, visitantes.nombre as nombre, pozos.codigopozo as pozo, hojavisitaspozos.fechavisita as fecha, hojavisitaspozos.observacion as observacion, hojavisitaspozos.level as nivel, municipios.municipio as municipio FROM hidrodb.hojavisitaspozos INNER JOIN pozos ON hojavisitaspozos.idpozo = pozos.idpozo INNER JOIN visitantes ON hojavisitaspozos.idvisitante = visitantes.idvisitante inner join municipios on pozos.idmunicipio=municipios.idmunicipio WHERE hojavisitaspozos.fechavisita>='$f1' AND hojavisitaspozos.fechavisita<='$f2'  ORDER BY hojavisitaspozos.fechavisita ASC");
+        $validacion= mysqli_query($mysqli,"SELECT visitantes.tipo as tipo, visitantes.nombre as nombre, pozos.codigopozo as pozo, hojavisitaspozos.fechavisita as fecha, hojavisitaspozos.observacion as observacion, hojavisitaspozos.level as nivel, municipios.nombre as municipio FROM hidrodb.hojavisitaspozos INNER JOIN pozos ON hojavisitaspozos.id_pozo = pozos.id_pozo INNER JOIN visitantes ON hojavisitaspozos.id_visitante = visitantes.id_visitante inner join municipios on pozos.id_municipio=municipios.idmunicipio WHERE hojavisitaspozos.fechavisita>='$f1' AND hojavisitaspozos.fechavisita<='$f2'  ORDER BY hojavisitaspozos.fechavisita ASC");
 
 if(mysqli_num_rows($validacion)>0){ 
       
@@ -129,7 +129,7 @@ $pdf->Cell(100, 6, 'Observacion', 0, 0, 'C', 1);
 $pdf->Cell(20, 6, 'Nivel', 0, 1, 'C', 1);
 $pdf->SetFont('Arial', '', 10);
 $pdf->SetFillColor(255,255,255);
-$pozo1 = mysqli_query($mysqli, "SELECT visitantes.tipo as tipo, visitantes.nombre as nombre, pozos.codigopozo as pozo, hojavisitaspozos.fechavisita as fecha, hojavisitaspozos.observacion as observacion, hojavisitaspozos.level as nivel, municipios.municipio as municipio FROM hidrodb.hojavisitaspozos INNER JOIN pozos ON hojavisitaspozos.idpozo = pozos.idpozo INNER JOIN visitantes ON hojavisitaspozos.idvisitante = visitantes.idvisitante inner join municipios on pozos.idmunicipio=municipios.idmunicipio WHERE   hojavisitaspozos.fechavisita>='$f1' AND hojavisitaspozos.fechavisita<='$f2'  ORDER BY hojavisitaspozos.fechavisita ASC");
+$pozo1 = mysqli_query($mysqli, "SELECT visitantes.tipo as tipo, visitantes.nombre as nombre, pozos.codigopozo as pozo, hojavisitaspozos.fechavisita as fecha, hojavisitaspozos.observacion as observacion, hojavisitaspozos.level as nivel, municipios.nombre as municipio FROM hidrodb.hojavisitaspozos INNER JOIN pozos ON hojavisitaspozos.id_pozo = pozos.id_pozo INNER JOIN visitantes ON hojavisitaspozos.id_visitante = visitantes.id_visitante inner join municipios on pozos.id_municipio=municipios.idmunicipio WHERE   hojavisitaspozos.fechavisita>='$f1' AND hojavisitaspozos.fechavisita<='$f2'  ORDER BY hojavisitaspozos.fechavisita ASC");
 while ($row = $pozo1->fetch_assoc()) {
     
     $pdf->Cell(30, 6, $row['fecha'], 0, 0, 'C', 1);

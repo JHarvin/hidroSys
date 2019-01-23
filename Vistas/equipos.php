@@ -1,4 +1,5 @@
 <?php
+
 $guardo  = $_REQUEST["guardo"];
 if($guardo==1){
 msg("Los datos fueron almacenados con exito");
