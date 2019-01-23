@@ -7,7 +7,7 @@ $cadena=$cadena.'"<option value="0">Municipios</option>"';
 $resultado = $conexion->query($sql);
                              if ($resultado) {
                                while($fila= $resultado->fetch_object()){
-                                $cadena=$cadena."<option value='".$fila->idmunicipio."'>".$fila->nombre."</option>";
+                                $cadena=$cadena."<option value='".$fila->idmunicipio."'>".utf8_decode($fila->nombre)."</option>";
                                }                                 
                              } else {
                               $cadena=$cadena."<option value=''>Derror</option>";

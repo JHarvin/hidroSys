@@ -10,9 +10,9 @@ $resultado = $conexion->query($sql);
                              if ($resultado) {
                                while($fila= $resultado->fetch_object()){
                                    if($municipio==$fila->idmunicipio){
-                                $cadena=$cadena."<option value='".$fila->idmunicipio."' selected>".$fila->nombre."</option>";
+                                $cadena=$cadena."<option value='".$fila->idmunicipio."' selected>".utf8_decode($fila->nombre)."</option>";
                                 }else{
-                                    $cadena=$cadena."<option value='".$fila->idmunicipio."'>".$fila->nombre."</option>";
+                                    $cadena=$cadena."<option value='".$fila->idmunicipio."'>".utf8_decode($fila->nombre)."</option>";
                                 }
                                }                                 
                              } else {
