@@ -164,6 +164,12 @@ $pass=$_POST['contra'];
 
   $momb=mysqli_num_rows(mysqli_query($mysqli,"SELECT nombre_de_usuario FROM usuarios where nombre_de_usuario='$user'"));
   $passw=mysqli_num_rows(mysqli_query($mysqli,"SELECT contrasena FROM usuarios where contrasena='$pass'"));
+  $iduser=$mysqli->query("SELECT idusuario FROM usuarios where contrasena='$pass' and nombre_de_usuario='$user' ");
+
+  while($fila = $iduser->fetch_object()){
+          $idAccess = $_SESSION["idUsuario"]=$fila->idusuario;
+    }
+
   if ($momb!=0 && $passw!=0) {
 
 echo "<script language='javascript'>";
@@ -172,7 +178,8 @@ echo  "
          ";
 echo "</script>";
 session_start();
-      $_SESSION["validar"]=true;
+    $idAccess;
+     $_SESSION["validar"]=true;
 
 }else if($momb==0 && $passw==0){
 echo "<script language='javascript'>";

@@ -1,4 +1,5 @@
 <?php
+$idAccess = $_SESSION["idUsuario"];
 if(isset($_REQUEST["id"])){
     include("../Config/conexion.php");
     $iddatos = $_REQUEST["id"];
@@ -502,7 +503,7 @@ if(isset($_REQUEST["id"])){
     $sitio=$_REQUEST["sitio"];
 
 if ($bandera == "guardar") {
-    $consulta  = "INSERT INTO propietariospozos VALUES('".$dui."','".$nombre."','".$apellido."','".$direccion."','".$celular."','".$telefono."','".$genero."','1','null','1','".$correo."','".$institucion."','".$sitio."')";
+    $consulta  = "INSERT INTO propietariospozos VALUES('".$dui."','".$nombre."','".$apellido."','".$direccion."','".$celular."','".$telefono."','".$genero."','1','null','".$idAccess."','".$correo."','".$institucion."','".$sitio."')";
     $resultado = $conexion->query($consulta);
     if ($resultado) {
        mensaje("exito","guardar");
