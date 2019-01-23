@@ -1,5 +1,7 @@
 <?php
+session_start();
 require '../ProcesoSubir/conexion.php';
+
  ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -177,7 +179,8 @@ echo  "
          location.href = 'usuarios.php?aux1=1';
          ";
 echo "</script>";
-session_start();
+
+      
     $idAccess;
      $_SESSION["validar"]=true;
 
