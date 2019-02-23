@@ -1,45 +1,51 @@
 <?php
+session_start();
+if(!$_SESSION["validar"]){
+  echo'<script>
+    location.href="login.php";
+  </script>';
+}
 //Codigo que muestra solo los errores exceptuando los notice.
 error_reporting(E_ALL & ~E_NOTICE);
 
  include "../ProcesoSubir/conexioneq.php";
  //$conexion->set_charset("utf8");
  //Query para generar codigo.
- 
+
                   $resultc = $conexion->query("select id_estacion as id from estacionmet order by id ASC");
                       if ($resultc) {
 
                         while ($filac = $resultc->fetch_object()) {
                           $temp=$filac->id;
-                         
+
                            }
-                      }   
-                      $codigo=sprintf("%02s",$temp+1);    
+                      }
+                      $codigo=sprintf("%02s",$temp+1);
 ?>
 
 <!DOCTYPE html>
 <html lang="es">
   <head>
-   
- 
+
+
   <script type="text/javascript">
     $(document).ready(function () {
       recargarLista();
 
       $('#lista1').change(function(){
         recargarLista();
-        
+
       });
-      
+
     })
   </script>
   <!-- Quitar antes de subir ya que es codigo para el live reload -->
 
 
   <script type="text/javascript">
-  
+
   function verImagen(id){
-   
+
     $.ajax(
       {
         type:"POST",
@@ -51,7 +57,7 @@ error_reporting(E_ALL & ~E_NOTICE);
         }
       });
   }
-  
+
    function llamarPaginaMapa(lat,lon)
         {
           var url="verMapa.php?lat="+lat+"&lon="+lon;
@@ -89,7 +95,7 @@ error_reporting(E_ALL & ~E_NOTICE);
   }
 
 
-  
+
   function verificar(){
           if(document.getElementById('codigo').value=="" ||
             document.getElementById('lista1').value=="0"  ||
@@ -103,7 +109,7 @@ error_reporting(E_ALL & ~E_NOTICE);
           }else{
 
             document.getElementById('bandera').value="add";
-            
+
            document.hidro.submit();
           }
 
@@ -115,22 +121,22 @@ error_reporting(E_ALL & ~E_NOTICE);
             document.getElementById('institucionm').value==""){
              alertify.set("notifier","position", "top-right");
             alertify.error("Error:Porfavor complete todos los campos.");
-           
+
             //alert("Porfavor revise que los campos esten completos.");
           }else{
-            document.getElementById('bandera2').value="mod";            
-           
+            document.getElementById('bandera2').value="mod";
+
            document.editform.submit();
           }
         }
   function prueba2(){
-   
+
     alert(document.getElementById("latitud").value);
     alert(document.getElementById("longitud").value);
   }
   //funciones para editar
   function Editar_estacion(id,codigo,departamento,municipio,institucion,latitud,longitud,correaux){
-    
+
     document.getElementById("baccion2").value=id;
     document.getElementById("codigom").value=codigo;
     document.getElementById("lista1m").value=departamento;
@@ -188,7 +194,7 @@ error_reporting(E_ALL & ~E_NOTICE);
   </script>
   <script>
     function activar(id){
-    
+
     $.ajax(
       {
         type:"POST",
@@ -212,7 +218,7 @@ error_reporting(E_ALL & ~E_NOTICE);
       });
   }
     function desactivar(id){
-   
+
     $.ajax(
       {
         type:"POST",
@@ -223,7 +229,7 @@ error_reporting(E_ALL & ~E_NOTICE);
             //alert("Estacion meteorologica desactivada.");
             alertify.set("notifier","position", "top-right");
             alertify.success("Estacion meteorologica desactivada.");
-            
+
             setTimeout (function llamarPagina(){
                                         document.location.href="estacionmeteorologica.php";
                                      }, 2000);
@@ -238,13 +244,13 @@ error_reporting(E_ALL & ~E_NOTICE);
   }
   </script>
       <link rel="stylesheet" href="../libreriasJS/alertifyjs/alertify.min.css">
-   
+
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- Meta, title, CSS, favicons, etc. -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	  
+
     <title>HIDROSIS</title>
 
     <!-- Bootstrap -->
@@ -289,7 +295,7 @@ error_reporting(E_ALL & ~E_NOTICE);
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
              <!-- sidebar menu -->
-             <?php 
+             <?php
                include "menuPrincipal.php";
             ?>
             <!-- /sidebar menu -->
@@ -298,7 +304,7 @@ error_reporting(E_ALL & ~E_NOTICE);
 
             <br />
 
-           
+
 
             <!-- /menu footer buttons -->
             <div class="sidebar-footer hidden-small">
@@ -346,7 +352,7 @@ error_reporting(E_ALL & ~E_NOTICE);
                   </ul>
                 </li>
 
-               
+
               </ul>
             </nav>
           </div>
@@ -374,14 +380,14 @@ error_reporting(E_ALL & ~E_NOTICE);
               </div>
             </div>
             <div class="clearfix"></div>
-            
-        
+
+
             <div class="row">
               <div class="col-md-6 col-xs-6">
                 <div class="x_panel">
                   <div class="x_title">
                     <h2>Ingreso de datos</h2>
-                    <ul class="nav navbar-right panel_toolbox">                   
+                    <ul class="nav navbar-right panel_toolbox">
                     </ul>
                     <div class="clearfix"></div>
                   </div>
@@ -395,12 +401,12 @@ error_reporting(E_ALL & ~E_NOTICE);
                         <input type="text" class="form-control has-feedback-left" id="codigo" name="codigo" placeholder="Codigo" value="<?php echo $codigo;?>" readonly>
                         <span class="fa fa-barcode form-control-feedback left" aria-hidden="true"></span>
                       </div>
-                   
+
                       <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-6">
                           <select class="form-control" id="lista1" name='lista1' onchange="prueba()">
                             <option value="0">Departamento</option>
-                            <?php 
+                            <?php
                             include "../ProcesoSubir/conexioneq.php";
                              $consulta  = "select * from departamentos";
                              $resultado = $conexion->query($consulta);
@@ -408,25 +414,25 @@ error_reporting(E_ALL & ~E_NOTICE);
                                while($fila= $resultado->fetch_object()){
                                 echo "<option value='".$fila->iddepto."'>".utf8_encode($fila->nombredepto)."</option>";
                                }
-                                 
+
                              } else {
                                 echo "<option value=''>Error conectando la BD</option>";
                              }
-                            
+
                             ?>
-                            
+
                           </select>
                         </div>
                       </div>
                       <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12" id="lista" name='lista'>
-                          
+
                         </div>
                         <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <select class="form-control" id="institucion" name="institucion">
                             <option value="">Institucion</option>
-                            <?php 
+                            <?php
                             include "../ProcesoSubir/conexioneq.php";
                              $consulta  = "select * from respestaciones";
                              $resultado = $conexion->query($consulta);
@@ -434,7 +440,7 @@ error_reporting(E_ALL & ~E_NOTICE);
                                while($fila= $resultado->fetch_object()){
                                 echo "<option value='".$fila->idresponsable."'>".$fila->institucion."</option>";
                                }
-                                 
+
                              } else {
                                 echo "<option value=''>Error conectando la BD</option>";
                              }
@@ -448,34 +454,34 @@ error_reporting(E_ALL & ~E_NOTICE);
                           <input type="file" class="form-text" id="imagen" name="imagen" required accept="image/jpg,image/png,image/jpeg">
                         </div>
                       </div>
-                      
+
                         <input type="hidden" class="form-control has-feedback-left" id="longitud" name="longitud" placeholder="Longitud">
                         <input type="hidden" class="form-control has-feedback-left" id="latitud" name="latitud" placeholder="Latitud">
                       <input type="hidden" class="form-control has-feedback-left" id="correlativo" name="correlativo" placeholder="correlativo" value="<?php echo $codigo;?>">
-                      
+
 
                       </div>
-                     
+
                       <div class="form-group">
                         <!--Este div es para que agarre la linea que separa los botones.-->
                       </div>
-                     
-                      
-                      
+
+
+
                       <div class="ln_solid"></div>
                       <div class="form-group">
                         <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
                         <button type="button" class="btn btn-success" onclick="verificar()">Guardar</button>
                           <button type="button" class="btn btn-warning">Cancelar</button>
 						   <!-- <button class="btn btn-primary" type="reset">Reset</button> -->
-                         
+
                         </div>
                       </div>
 
                     </form>
                   </div>
                 </div>
-              </div>  
+              </div>
 
               <div class="col-md-6 col-sm-6 col-xs-6">
                 <div class="x_panel">
@@ -491,10 +497,10 @@ error_reporting(E_ALL & ~E_NOTICE);
                     </div>
                   </div>
                 </div>
-              </div> 
+              </div>
 
 
-              
+
 
 
             </div>
@@ -504,10 +510,10 @@ error_reporting(E_ALL & ~E_NOTICE);
                     <h2>Registros generales de estaciones meteorologicas.</h2>
                     <ul class="nav navbar-right panel_toolbox">
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      
+
                        <div class="clearfix"></div>
                        </li>
-           
+
              </ul>
              <div class="clearfix"></div>
               </div>
@@ -518,7 +524,7 @@ error_reporting(E_ALL & ~E_NOTICE);
 
                     <thead>
                         <tr>
-                            
+
                             <th width="75"><font color="black">Codigo</font></th>
                             <th width="150"><font color="black">Departamento</font></th>
                             <th width="150"><font color="black">Municipio</font></th>
@@ -526,7 +532,7 @@ error_reporting(E_ALL & ~E_NOTICE);
                             <th width="150"><font font color="black">Ubicacion</font></th>
                             <th width="150"><font font color="black">Ver</font></th>
                             <th width="100"><font font font color="black">Editar</font></th>
-                            
+
                             <th width="10"><font font font font font color="black">Activar/Desactivar</font></th>
                         </tr>
                     </thead>
@@ -535,7 +541,7 @@ error_reporting(E_ALL & ~E_NOTICE);
                         <?php
                          $consulta  = "select * from estacionmet";
                              $resultado = $conexion->query($consulta);
-                             
+
                             while($fila= $resultado->fetch_object()){
                             $idm =$fila->id_estacion;
                             $codigom = $fila->codiogestacion;
@@ -545,97 +551,97 @@ error_reporting(E_ALL & ~E_NOTICE);
                             $departamentom=$fila->iddepartamento;
                             $municipiom=$fila->idmunicipio;
                             $responsablem=$fila->idresponsable;
-                           
+
                             ?>
                             <tr>
                                 <td><?php echo $codigom; ?></td>
                                 <?php
                                 $consulta  = "select nombredepto from departamentos where iddepto=".$departamentom;
                                 $resultadod = $conexion->query($consulta);
-                             
+
                             while($filad= $resultadod->fetch_object()){
                               $deptotemp=$filad->nombredepto;
                             }
-                            
+
                               ?>
                                 <td><?php echo utf8_encode($deptotemp); ?></td>
                                  <?php
                                 $consulta  = "select nombre from municipios where idmunicipio=".$municipiom;
                                 $resultadom = $conexion->query($consulta);
-                             
+
                             while($filam= $resultadom->fetch_object()){
                               $muntemp=$filam->nombre;
                             }
-                            
+
                               ?>
                                 <td><?php echo utf8_encode($muntemp); ?></td>
                                 <?php
                                 $consulta  = "select institucion from respestaciones where idresponsable=".$responsablem;
                                 $resultadom = $conexion->query($consulta);
-                            if($resultadom){ 
+                            if($resultadom){
                             while($filam= $resultadom->fetch_object()){
                               $resptemp=$filam->institucion;
                             }
                             }
                             $correaux = substr($codigom, -2);
-                              
+
                               ?>
-                              
+
                                 <td><?php echo $resptemp; ?></td>
                                 <td ><center><button type='button' class='btn btn-success' onclick='llamarPaginaMapa(<?php echo $latitudm ?>,<?php echo $longitudm ?>)'><i class="fa fa-map"></i></button></center><?php echo $row['genero']; ?></td>
-                                
+
                                 <td><!--boton de ver-->
                                   <div class="row">
                                     <div class="col-md-6">
                                         <center><a href="#" data-toggle="modal" data-target="#confirm-imagen" onclick="verImagen('<?php echo $idm; ?>')" ><button type="button" class="btn btn-success"><i class="fa fa-eye"></i></button></a></center>
-                                
+
                                     </div>
 
-                                    
+
                                   </div>
                                   </td>
                                     <td><!--boton de modificar-->
                                   <div class="row">
                                     <div class="col-md-6">
                                         <a href="#" data-toggle="modal" data-target="#actualizarVisitante" onclick="Editar_estacion('<?php echo $idm; ?>','<?php echo $codigom; ?>','<?php echo $departamentom; ?>','<?php echo $municipiom; ?>','<?php echo $responsablem; ?>','<?php echo $latitudm; ?>','<?php echo $longitudm; ?>','<?php echo $correaux; ?>')" ><button type="button" class="btn btn-success"><i class="fa fa-pencil"></i></button></a>
-                                
+
                                     </div>
 
-                                    
+
                                   </div>
                                   </td>
                                   <td>
-                                      
+
                                       <div class="row">
-                                        
-                                         
+
+
                                          <div class="col-md-6">
-                                        <?php 
+                                        <?php
                                         if($activam==1){
 
                                           ?>
                                           <button id="activar" type='button' class='btn btn-danger' onclick="desactivar('<?php echo $idm; ?>')" title='Activar'><i class='fa fa-times'></i></button>
-                                         
-                                        
-                                        <?php 
+
+
+                                        <?php
                                         }else{
                                           ?>
 
                                           <button id="activar" type='button' class='btn btn-success' onclick="activar('<?php echo $idm; ?>')" title='Activar'><i class='fa fa-check-square'></i></button>
                                           <?php
                                         }
-                                        
+
                                         ?>
-                                        
-                                      
-                                
+
+
+
                                     </div>
-                                          
+
                                       </div>
                                   </td>
-               
-                               
-                               
+
+
+
                             </tr>
 
                         <?php } ?>
@@ -643,59 +649,59 @@ error_reporting(E_ALL & ~E_NOTICE);
                 </table>
 
       </div>
-      </div> 
-      </div> 
+      </div>
+      </div>
 </div><!-- Fin de ROW -->
 
 
 
- 
+
  <!-- MODAL PARA MATAR A UN VISITANTE -->
   <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h3 class="modal-title" id="myModalLabel"><font font font font color="black">Eliminar Registro</font></h3> 
+                    <h3 class="modal-title" id="myModalLabel"><font font font font color="black">Eliminar Registro</font></h3>
                 </div>
 
                 <div class="panel-body">
 
                     ¿Seguro que desea eliminar este elemento?
-                                       
+
 
                 </div>
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Cancelar</button>
                     <a class="btn btn-danger btn-ok" >Eliminar</a>
-                </div> 
+                </div>
             </div>
-        </div> 
-    </div>          
+        </div>
+    </div>
      <!-- MODAL PARA VER FOTO ESTACION -->
   <div class="modal fade" id="confirm-imagen" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h3 class="modal-title" id="myModalLabel"><font font font font color="black">Fotografia de la estacion.</font></h3> 
+                    <h3 class="modal-title" id="myModalLabel"><font font font font color="black">Fotografia de la estacion.</font></h3>
                 </div>
 
                 <div class="panel-body" name="imagenRecuperada" id="imagenRecuperada">
-                          
-                    
-                                       
+
+
+
 
                 </div>
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-warning pull-right" data-dismiss="modal">Cerrar</button>
-                    
-                </div> 
+
+                </div>
             </div>
-        </div> 
-    </div> 
+        </div>
+    </div>
 <?php
 include_once 'editarEstacion.php';
 
@@ -707,25 +713,25 @@ include_once 'editarEstacion.php';
     })
 </script>
 
-            </div> 
+            </div>
 
-          
 
-        
+
+
           </div>
         </div>
         <!-- /page content -->
 
         <!-- footer content -->
-       <?php 
+       <?php
        include "footer.php";
        ?>
         <!-- /footer content -->
       </div>
     </div>
 
-  
-   
+
+
     <!-- jQuery -->
     <script src="../vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
@@ -774,7 +780,7 @@ include_once 'editarEstacion.php';
     <script src="../vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
     <script src="../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
     <script src="../vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
-	
+
   </body>
 </html>
 <?php
@@ -814,7 +820,7 @@ if ($bandera == "add") {
         fclose($fp);
         //escapar los caracteres
         $data      = mysqli_real_escape_string($conexion, $data);
-        
+
         $consulta  = "INSERT INTO estacionmet VALUES('null','" . $codigo . "','" . $lista1. "','" . $lista2. "','1','" . $data . "','" . $tipo . "','" . $latitud  . "','".$longitud."','".$institucion."')";
         //msg($consulta);
         $resultado = $conexion->query($consulta);
@@ -862,7 +868,7 @@ if($bandera2=="mod"){
        $permitidos = array("image/jpg", "image/jpeg", "image/png");
     $limite_kb  = 16384; //tamanio maximo que permitira subir, es el limite de medium blow(16mb)
     if (in_array($_FILES['imagen2']['type'], $permitidos) && $_FILES['imagen2']['size'] <= $limite_kb * 1024) {
-      
+
         //Este es el archivo temporaral.
         $imagen_temporal = $_FILES['imagen2']['tmp_name'];
         //este es el tipo de archivo
@@ -873,7 +879,7 @@ if($bandera2=="mod"){
         fclose($fp);
         //escapar los caracteres
         $data      = mysqli_real_escape_string($conexion, $data);
-       
+
         $consulta  = "UPDATE estacionmet set codiogestacion='" . $codigom . "',iddepartamento='" . $lista1m . "',idmunicipio='" . $lista2m . "',latitud='" . $latitud2  . "',longitud='" . $longitud2 . "',foto='" . $data . "',tipofoto='" . $tipo . "',idresponsable='" . $institucionm . "' where id_estacion='".$baccion."'";
         $resultado = $conexion->query($consulta);
         if ($resultado) {
@@ -902,18 +908,18 @@ function msgerror($texto)
     echo "<script type='text/javascript'>";
     echo' alertify.set("notifier","position","top-right");
     alertify.error("'.$texto.'""); ';
-    
+
     echo "</script>";
 }
 function msgtest($texto){
   echo "<script type='text/javascript'>";
     echo "alert('".$texto."')";
-    
+
     echo "</script>";
 }
 function redir(){
   echo "<script type='text/javascript'>";
- 
+
       echo 'document.location.href="estacionmeteorologica.php";';
     echo "</script>";
 }
