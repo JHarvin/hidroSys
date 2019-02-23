@@ -91,22 +91,20 @@ $pdf->Ln(10);
         $pdf->SetLineWidth(1.5);
         $pdf->SetLineWidth(1);
         #Establecemos los márgenes izquierda, arriba y derecha: 
-        $pdf->SetMargins(30, 25, 30);
+        $pdf->SetMargins(15, 25, 25);
 ////Para los grado
      
         $pdf->SetFont('Arial', 'B', 12);
-         $validar = mysqli_query($mysqli, "SELECT m.nombre, p.codigopozo, p.tipo,
-          p.latitud, p.longitud, p.nivel, p.profundidad
-          FROM pozos p
-          INNER JOIN municipios m ON p.id_municipio = m.idmunicipio INNER JOIN
-          propietariospozos pz ON pz.id_propietario = p.id_propietario ORDER BY m.idmunicipio ASC");
+         $validar = mysqli_query($mysqli, "SELECT pz.codigopozo,pz.tipo,pz.latitud,pz.longitud,pz.fechacreacion,pz.profundidad,pr.nombre,pr.apellido
+FROM pozos as pz
+INNER JOIN propietariospozos as pr ON pr.id_propietario = pz.id_propietario
+ORDER BY pz.id_pozo");
         
        if(mysqli_num_rows($validar)>0){ 
-  $pozo = mysqli_query($mysqli, "SELECT m.nombre, p.codigopozo, p.tipo,
-          p.latitud, p.longitud, p.nivel, p.profundidad
-          FROM pozos p
-          INNER JOIN municipios m ON p.id_municipio = m.idmunicipio INNER JOIN
-          propietariospozos pz ON pz.id_propietario = p.id_propietario ORDER BY m.idmunicipio ASC");
+  $pozo = mysqli_query($mysqli, "SELECT pz.codigopozo,pz.tipo,pz.latitud,pz.longitud,pz.fechacreacion,pz.profundidad,pr.nombre,pr.apellido
+FROM pozos as pz
+INNER JOIN propietariospozos as pr ON pr.id_propietario = pz.id_propietario
+ORDER BY pz.id_pozo");
    while ($row1 = mysqli_fetch_array($pozo)) {
     $muni=$row1['municipio'];
     $pozos=$row1['codigopozo'];
@@ -120,30 +118,27 @@ $pdf->Ln(10);
 $pdf->SetFillColor(116,177,189);
 $pdf->SetFont('Arial', 'B', 12);
 
-$pdf->Cell(50, 6, 'Municipio', 0, 0, 'C', 1);
-
-$pdf->Cell(20, 6, 'Pozo', 0, 0, 'C', 1);
-$pdf->Cell(60, 6, 'Tipo', 0, 0, 'C', 1);
-$pdf->Cell(30, 6, 'Latitud', 0, 0, 'C', 1);
-$pdf->Cell(30, 6, 'Longitud', 0, 0, 'C', 1);
-$pdf->Cell(20, 6, 'Nivel', 0, 0, 'C', 1);
-$pdf->Cell(30, 6, 'Profundidad', 0, 1, 'C', 1);
-
+$pdf->Cell(30, 6, 'Codigo Pozo', 0, 0, 'C', 1);
+$pdf->Cell(20, 6, 'Tipo', 0, 0, 'C', 1);
+$pdf->Cell(40, 6, 'Latidud', 0, 0, 'C', 1);
+$pdf->Cell(40, 6, 'Longitud', 0, 0, 'C', 1);
+$pdf->Cell(40, 6, 'Fecha creacion', 0, 0, 'C', 1);
+$pdf->Cell(20, 6, 'Profundidad', 0, 0, 'C', 1);
+$pdf->Cell(65, 6, 'Nombre Propietario', 0, 1, 'C', 1);
 $pdf->SetFont('Arial', '', 10);
 
-$pozo1 = mysqli_query($mysqli, "SELECT m.nombre, p.codigopozo, p.tipo,
-          p.latitud, p.longitud, p.nivel, p.profundidad
-          FROM pozos p
-          INNER JOIN municipios m ON p.id_municipio = m.idmunicipio INNER JOIN
-          propietariospozos pz ON pz.id_propietario = p.id_propietario ORDER BY m.idmunicipio ASC");
+$pozo1 = mysqli_query($mysqli, "SELECT pz.codigopozo,pz.tipo,pz.latitud,pz.longitud,pz.fechacreacion,pz.profundidad,pr.nombre,pr.apellido
+FROM pozos as pz
+INNER JOIN propietariospozos as pr ON pr.id_propietario = pz.id_propietario
+ORDER BY pz.id_pozo");
 while ($row = $pozo1->fetch_assoc()) {
-    $pdf->Cell(50, 6,$row['nombre'],0 , 0, 'C'); 
-    $pdf->Cell(20, 6,$row['codigopozo'],0, 0, 'C');
-    $pdf->Cell(60, 6,$row['tipo'], 0, 0, 'C');
-    $pdf->Cell(30, 6,$row['latitud'],0 , 0, 'C');
-     $pdf->Cell(30, 6,$row['longitud'],0 , 0, 'C');
-      $pdf->Cell(20, 6,$row['nivel'],0 , 0, 'C');
-       $pdf->Cell(30, 6,$row['profundidad'],0 , 1, 'C');
+    $pdf->Cell(30, 6,$row['codigopozo'],0 , 0, 'C'); 
+    $pdf->Cell(20, 6,$row['tipo'],0, 0, 'C');
+    $pdf->Cell(40, 6,$row['latitud'], 0, 0, 'C');
+    $pdf->Cell(40, 6,$row['longitud'],0 , 0, 'C');
+     $pdf->Cell(40, 6,$row['fechacreacion'],0 , 0, 'C');
+      $pdf->Cell(20, 6,$row['profundidad'],0 , 0, 'C');
+       $pdf->Cell(65, 6,$row['nombre'].' '.$row['apellido'],0 , 1, 'C');
 }
        }else{
             $pdf->Ln(30);
