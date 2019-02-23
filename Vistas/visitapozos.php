@@ -7,12 +7,12 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	  
+
     <title>SISPOZOS</title>
 
       <!-- ALERTASSSSSS -->
-    <link rel="stylesheet"  type="text/css" href="../libreriasJS/alertifyjs/css/alertify.css"> 
-    <link rel="stylesheet" type="text/css" href="../libreriasJS/alertifyjs/css/alertify.min.css"> 
+    <link rel="stylesheet"  type="text/css" href="../libreriasJS/alertifyjs/css/alertify.css">
+    <link rel="stylesheet" type="text/css" href="../libreriasJS/alertifyjs/css/alertify.min.css">
     <link rel="stylesheet" type="text/css" href="../libreriasJS/alertifyjs/css/alertify.rtl.css">
     <link rel="stylesheet" type="text/css" href="../libreriasJS/alertifyjs/css/alertify.rtl.min.css">
     <link rel="stylesheet" type="text/css" href="../libreriasJS/alertifyjs/css/themes/default.css">
@@ -38,8 +38,8 @@
 
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
- 
-     
+
+
 
 
   </head>
@@ -50,33 +50,20 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
              <!-- sidebar menu -->
-             <?php 
+             <?php
                include "menuPrincipal.php";
             ?>
-            
+
             <!-- /sidebar menu -->
 
             <!-- /menu profile quick info -->
 
             <br />
 
-   
+
 
             <!-- /menu footer buttons -->
-            <div class="sidebar-footer hidden-small">
-              <a data-toggle="tooltip" data-placement="top" title="Settings">
-                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Lock">
-                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
-                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-              </a>
-            </div>
+           
             <!-- /menu footer buttons -->
           </div>
         </div>
@@ -108,7 +95,7 @@
                   </ul>
                 </li>
 
-               
+
               </ul>
             </nav>
           </div>
@@ -135,27 +122,27 @@
               </div>
             </div>
             <div class="clearfix"></div>
-            
+
             <div class="row">
               <div class="col-md-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
                     <h2>Formulario de ingreso</h2>
-                    <ul class="nav navbar-right panel_toolbox">                   
+                    <ul class="nav navbar-right panel_toolbox">
                     </ul>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
                     <br />
                     <form class="form-register" method="post" action="" name="formulario">
-                      
+
                       <input type="hidden" name="pase" id="pase">
-                          
+
                       <div class="form-group">
                       <div class="col-md-6 col-sm-6 col-xs-6">
-                        
+
                           <select class="form-control" name="visitantes" id="visitantes" required>
-                          
+
                              <?php
                                      include_once '../ProcesoSubir/conexion.php';
                                       $verVisitante= mysqli_query($mysqli,"SELECT id_visitante, nombre  FROM visitantes ");
@@ -167,7 +154,7 @@
                                            echo '<option value='."$row[0]".'>'.$row['1'].'</option>';
                                     }
                                     ?>
-                            </select>  
+                            </select>
                         </div>
 
                         <div class="col-md-6 col-sm-6 col-xs-7">
@@ -185,7 +172,7 @@
                                     ?>
                             </select>
                         </div>
-                        
+
                       </div>
 
                       <div class="form-group">
@@ -195,34 +182,34 @@
                       </div>
                       <div class="col-md-6 col-sm-6 col-xs-6 form-group has-feedback">
                         <input type="text" name="nivel" id="nivelito" class="form-control decimal-2-places" placeholder="Nivel(m)" autocomplete="off" maxlength="5" required >
-                       
+
                       </div>
-                      
+
                       </div>
                       <div class="form-group">
-                      <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback" align="left">        
+                      <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback" align="left">
                           <textarea class="form-control" name="obser" rows="2" placeholder="Observación" id="observacion" pattern=".{8,}" maxlength="200" required></textarea>
                         </div>
                       </div>
-                     
+
                       <div class="form-group">
                         <!--Este div es para que agarre la linea que separa los botones.-->
-                      </div>   
+                      </div>
                       <div class="ln_solid"></div>
                       <div class="form-group">
                         <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
                        <button type="submit" class="btn btn-success" id="guarda" value="Guardar">Guardar</button>
                           <button type="submit" class="btn btn-warning" href="visitapozos.php">Cancelar</button>
                <!-- <button class="btn btn-primary" type="reset">Reset</button> -->
-                         
+
                         </div>
                       </div>
- 
+
                       </div>
-                   
+
                   </div>
                 </div>
-              </div>      
+              </div>
             </div>
 </form>
        <div class="row">
@@ -234,9 +221,9 @@
                      <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                    </li>
-                      
+
                     </ul><!--FIN para desplegar la tabla-->
-                    <ul class="nav navbar-right panel_toolbox">                   
+                    <ul class="nav navbar-right panel_toolbox">
                     </ul>
                     <div class="clearfix"></div>
                   </div>
@@ -250,7 +237,7 @@
                           <th>Nivel</th>
                           <th>Observación</th>
                           <th>Editar</th>
-                          
+
                         </tr>
                       </thead>
                             <!-- extraccion de datos de la base  -->
@@ -277,28 +264,28 @@
                           <td><?php  echo $fila['fechavisita'];?></td>
                           <td><?php  echo $fila['level']; ?></td>
                           <td><?php  echo $fila['observacion']; ?></td>
-                        
+
                          <td><!--boton de modificar-->
                                   <div class="row">
                                     <div class="col-md-6">
                                       <a href="visitapozoModal.php?ir=<?php echo $id;?>&f=<?php echo $fecha;?>&p=<?php echo $idpo;?> "><button type="button" class="btn btn-success"><i class="fa fa-pencil"></i></button>
                                         </a>
-                                
+
                                     </div>
 
-                                    
+
                                   </div>
                                   </td>
-        <!-- boton eliminar  -->    
-                               
+        <!-- boton eliminar  -->
+
                             </tr>
-                        
-                       <?php } ?> 
-      
+
+                       <?php } ?>
+
                       </tbody>
-       
-                    </table>     
-                         
+
+                    </table>
+
                       </div>
                       </div>
 
@@ -308,7 +295,7 @@
         <!-- /page content -->
 
         <!-- llamada al footer -->
-       <?php 
+       <?php
        include "footer.php";
        ?>
         <!-- /footer content -->
@@ -316,8 +303,8 @@
     </div>
 
           <!-- insertar datos a la tabla de la base -->
-           <?php 
-           
+           <?php
+
            if (isset($_REQUEST['pase'])) {
              # code...
            $visitantes=$_REQUEST['visitantes'];
@@ -325,22 +312,22 @@
             $fe=$_REQUEST['fecha'];
              $ni=$_REQUEST['nivel'];
               $ob=$_REQUEST['obser'];
- 
+
 $nuevo_visi = mysqli_query ($mysqli,"SELECT * FROM hojavisitaspozos where id_visitante='$visitantes' and id_pozo='$pos' and fechavisita='$fe'");
 
-if(mysqli_num_rows($nuevo_visi)>0) 
-{ 
-echo " 
-<p class='avisos'> ya esta registrado</p> 
-<p><a>Volver atrás</a></p> 
-"; 
+if(mysqli_num_rows($nuevo_visi)>0)
+{
+echo "
+<p class='avisos'> ya esta registrado</p>
+<p><a>Volver atrás</a></p>
+";
 } else {
 
     include "../ProcesoSubir/conexion.php";
       $sql = "INSERT INTO hojavisitaspozos (fechavisita,observacion,level,id_visitante,id_pozo) VALUE('$fe','$ob','$ni','$visitantes','$pos')";
                $result = $mysqli->query($sql);
-  
-            
+
+
                ?>
                <!-- funcion para la alerta -->
            <script type="text/javascript">
@@ -348,28 +335,28 @@ echo "
 
                 $("#guarda").click(function(){
                   alertify.alert("Guardado con exito");
-                   
+
                 });
               });
-            
+
             </script>
-               
+
                <script type="text/javascript">
          location.href = "visitapozos.php";
 </script>
 <?php
 
              }}
-            
+
             ?><!-- fin de insertar datos -->
 
 <!-- PROCESO PARA EDITAR LOS DATOS DE LA TABLA -->
 
-<?php 
+<?php
 
 if (!empty($_REQUEST['visitantes'])) {
-    try {        
-    
+    try {
+
     $nvis =  $_REQUEST['visitantes'];
     $codip = $_REQUEST['pozo'];
     $fech = $_REQUEST['fecha'];
@@ -380,21 +367,21 @@ if (!empty($_REQUEST['visitantes'])) {
 
     mysqli_query($mysqli, "UPDATE hojavisitaspozos SET nombre='$nvis',codigopozo='$codip',fechavisita='$fech',level='$ni',observacion='$obse' WHERE id_visitante ='$idActualizacion'");
 
-  
+
     } catch (Exception $ex) {
-        
-    } 
+
+    }
 }
 ?>
 <!-- FIN DEL PROCESO EDITAR DE LA TABLA -->
 
-<!-- MODAL PARA ELIMINAR  
+<!-- MODAL PARA ELIMINAR
   <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h3 class="modal-title" id="myModalLabel"><font font font font color="black">Eliminar Registro</font></h3> 
+                    <h3 class="modal-title" id="myModalLabel"><font font font font color="black">Eliminar Registro</font></h3>
                 </div>
 
                 <div class="panel-body">
@@ -405,12 +392,12 @@ if (!empty($_REQUEST['visitantes'])) {
                 <div class="modal-footer">
                     <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Cancelar</button>
                     <a class="btn btn-danger btn-ok" >Eliminar</a>
-                </div> 
+                </div>
             </div>
-        </div> 
-    </div>          
+        </div>
+    </div>
 
-MODAL   
+MODAL
 <script>
     $('#confirm-delete').on('show.bs.modal', function(e){
         $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
@@ -418,7 +405,7 @@ MODAL
     })
 </script>-->
 
-        
+
     <!-- jQuery -->
     <script src="../vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
@@ -471,8 +458,8 @@ MODAL
     <script src="../vendors/jszip/dist/jszip.min.js"></script>
     <script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
     <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
-	 
-  
+
+
     <script src="../js/toastr.js"></script>
     <script src="../js/notify.js"></script>
     <script src="../js/popper.min.js"></script>
@@ -485,9 +472,9 @@ MODAL
 </body>
 </html>
 
- 
+
 <!-- funcion para  editar -->
-    
+
 <script>
 function Editar_visitapozo(codigopozo,fechavisita,level,observacion,id){
     $("#codipo").val(codigopozo);
@@ -495,23 +482,23 @@ function Editar_visitapozo(codigopozo,fechavisita,level,observacion,id){
     $("#niv").val(level);
     $("#obs").val(observacion);
     $("#idDeActualizacion").val(id);
-    
+
 
 }
 </script>
 
 <script type="text/javascript">
-      
+
  jQuery(function($){
             // Definimos las mascaras para cada input
             $("#").mask("00.00");
-                 
+
         });
-          
-        
+
+
     </script>
 
-    
+
 <script type="text/javascript">
   $(document).ready(function(){
     validarCualquierNumero()

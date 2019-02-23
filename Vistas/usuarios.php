@@ -1,4 +1,4 @@
-<?php 
+<?php
 require '../ProcesoSubir/conexion.php';
  ?>
 <!DOCTYPE html>
@@ -9,12 +9,12 @@ require '../ProcesoSubir/conexion.php';
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+
     <title>Ingenieria de Software</title>
 
      <link rel="stylesheet"  type="text/css" href="../libreriasJS/alertifyjs/css/alertify.css">
-    
-    <link rel="stylesheet" type="text/css" href="../libreriasJS/alertifyjs/css/alertify.min.css"> 
+
+    <link rel="stylesheet" type="text/css" href="../libreriasJS/alertifyjs/css/alertify.min.css">
     <link rel="stylesheet" type="text/css" href="../libreriasJS/alertifyjs/css/alertify.rtl.css">
     <link rel="stylesheet" type="text/css" href="../libreriasJS/alertifyjs/css/alertify.rtl.min.css">
     <link rel="stylesheet" type="text/css" href="../libreriasJS/alertifyjs/css/themes/default.css">
@@ -65,7 +65,7 @@ require '../ProcesoSubir/conexion.php';
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
              <!-- sidebar menu -->
-             <?php 
+             <?php
                include "menuPrincipal.php";
             ?>
             <!-- /sidebar menu -->
@@ -75,20 +75,7 @@ require '../ProcesoSubir/conexion.php';
             <br />
 
             <!-- /menu footer buttons -->
-            <div class="sidebar-footer hidden-small">
-              <a data-toggle="tooltip" data-placement="top" title="Settings">
-                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Lock">
-                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
-                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-              </a>
-            </div>
+
             <!-- /menu footer buttons -->
           </div>
         </div>
@@ -103,10 +90,7 @@ require '../ProcesoSubir/conexion.php';
 
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
-                  <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="images/img.jpg" alt="">User
-                    <span class=" fa fa-angle-down"></span>
-                  </a>
+                 
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
                     <li><a href="javascript:;"> Profile</a></li>
                     <li>
@@ -120,13 +104,13 @@ require '../ProcesoSubir/conexion.php';
                   </ul>
                 </li>
 
-               
+
               </ul>
             </nav>
           </div>
         </div>
         <!-- /top navigation -->
- 
+
         <!-- page content -->
         <div class="right_col" role="main">
 
@@ -149,19 +133,19 @@ require '../ProcesoSubir/conexion.php';
               </div>
             </div>
             <div class="clearfix"></div>
-            
+
             <div class="row">
               <div class="col-md-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
                     <h2>Formulario de ingreso de datos</h2>
-                    <ul class="nav navbar-right panel_toolbox">                   
+                    <ul class="nav navbar-right panel_toolbox">
                     </ul>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
                     <br />
-                   
+
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                         <input type="text" class="form-control has-feedback-left" id="nombre" name="nombre" placeholder="Nombre" autocomplete="off" onkeypress="return soloLetras(event)" onpaste="return false" maxlength="45" pattern=".{5,}" title="5 caracteres para codigo real" >
                         <span class="fa fa-user form-control-feedback left" aria-hidden="true" required></span>
@@ -200,42 +184,42 @@ require '../ProcesoSubir/conexion.php';
                         <input type="password" class="form-control has-feedback-left" id="contrasena" name="contrasena" placeholder="Contraseña" maxlength="8" pattern=".{5,}" autocomplete="off">
                         <span class="fa fa-at form-control-feedback left" aria-hidden="true" required></span>
                       </div>
-         
-                     
+
+
                       <div class="form-group">
                         <!--Este div es para que agarre la linea que separa los botones.-->
                       </div>
-                     
-                      
-                      
+
+
+
                       <div class="ln_solid"></div>
                       <div class="form-group" style="margin-left: 220px;">
                         <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
                         <button type="submit" id="guarda" class="btn btn-success">Guardar</button>
                           <button type="reset" class="btn btn-warning" href="#">Cancelar</button>
-                          
+
                <!-- <button class="btn btn-primary" type="reset">Reset</button> -->
-                         
+
                         </div>
                       </div>
 
-            
+
                   </div>
                 </div>
-              </div>      
+              </div>
             </div><!--Fin del row del formulario-->
 
           </div>
 
 </form>
-    <?php 
+    <?php
 
 if (!empty($_POST['btnalta']))  {
-//Inactiva el activo 
+//Inactiva el activo
 $est=1;
 $var =$_POST['btnalta'];
 $sql = " UPDATE usuarios set estado='$est' WHERE idusuario='$var'";
-$resultado = $mysqli->query($sql); 
+$resultado = $mysqli->query($sql);
 }
 ?>
      <div class="row">
@@ -249,19 +233,19 @@ $resultado = $mysqli->query($sql);
                      <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                    </li>
-                      
+
                     </ul><!--FIN para desplegar la tabla-->
   <div class="col-md-2 "  style="  margin-left: -10px; margin-top:-15px;">
   <label for="condi">Estado :</label>
  <select class="form-control" data-live-search="true" id="condi" name="condi" onchange="sele()">
-<option></option> 
+<option></option>
 <option value="1" disabled="true">Activo</option>
- 
+
 <option value="0" >Inactivo </option>
 </select>
 </div>
 
-                    <ul class="nav navbar-right panel_toolbox">                   
+                    <ul class="nav navbar-right panel_toolbox">
                     </ul>
                     <div class="clearfix"></div>
                   </div>
@@ -277,7 +261,7 @@ $resultado = $mysqli->query($sql);
                           <th>Correo</th>
                           <th>Contraseña</th>
                           <th>Nombre Usuario</th>
-                        
+
                           <th>Editar</th>
                           <th>Inactivar</th>
                         </tr>
@@ -291,7 +275,7 @@ $resultado = $mysqli->query($sql);
 
                 while ($fila=mysqli_fetch_array($query)) {
                   $datos=$fila['nombre_real']."||".$fila['direccion']."||".$fila['telefono']."||".$fila['genero']."||".$fila['email']."||".$fila['contrasena']."||".$fila['nombre_de_usuario']."||".$fila['idusuario'];
-    
+
 
 
 
@@ -313,46 +297,46 @@ $resultado = $mysqli->query($sql);
                           <td><?php  echo $fila['email']; ?></td>
                           <td ><?php  echo $clave1=base64_encode($fila['contrasena']); ?></td>
                           <td><?php  echo $fila['nombre_de_usuario']; ?></td>
-                        
-                        
+
+
                          <td><!--boton de modificar-->
                                   <div class="row">
                                     <div class="col-md-6">
-                                        
+
                                         <button type="button"   class="btn btn-success" data-target="#idDeActualizacion" data-toggle="modal" onclick="datosModal('<?php echo $datos?>')" ><i class="fa fa-pencil" ></i></button>
-                                
+
                                     </div>
 
-                                    
+
                                   </div>
                                   </td>
                                   <td>
-                                      
+
                                       <div class="row">
-                                        
-                                         
+
+
                                          <div class="col-md-6">
-                                        <form  action="usuariosBaja.php" method="post" class="form-register" > 
-                                        <button   type="submit" class="btn btn-danger" name="btnbaja" 
+                                        <form  action="usuariosBaja.php" method="post" class="form-register" >
+                                        <button   type="submit" class="btn btn-danger" name="btnbaja"
                                         id="btnbaja" value="<?php echo $fila['idusuario'];?>"><i class="fa fa-arrow-down"></i></button>
                                       </form>
-                                
+
                                     </div>
-                                          
+
                                       </div>
-                                  </td>     
+                                  </td>
                                </tr>
-                            
-                        
-                       <?php } ?> 
-                         
+
+
+                       <?php } ?>
+
                       </tbody>
- 
-                    </table>     
-                         
+
+                    </table>
+
                       </div>
                       </div>
-                    
+
                   </div>
                 </div>
 
@@ -360,7 +344,7 @@ $resultado = $mysqli->query($sql);
         <!-- /page content -->
 
         <!-- llamada al footer -->
-       <?php 
+       <?php
        include "footer.php";
        ?>
         <!-- /footer content -->
@@ -376,7 +360,7 @@ $resultado = $mysqli->query($sql);
             <div class="modal-content">
                 <div class="modal-header">
                     <h3 class="modal-title" id="myModalLabel">
-                    <font font font font font font color="black">Editar Registro</font></h3> 
+                    <font font font font font font color="black">Editar Registro</font></h3>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                     &times;</button>
                 </div>
@@ -384,15 +368,15 @@ $resultado = $mysqli->query($sql);
                 <div class="panel-body">
                     <br>
 <div class="row">
-                   
+
                   <div class="col-md-30 col-sm-30 col-xs-30"
-                         
+
               <div class="col-md-20 col-xs-15">
-               
-                 
+
+
                   <div class="x_content">
                     <br />
-               
+
                     <!--campo invisible-->
                      <input type="hidden"  class="form-control has-feedback-left" id="ideus2" name="ideus2" >
 
@@ -430,7 +414,7 @@ $resultado = $mysqli->query($sql);
                         <a id='resultado' required></a>
                         <span class="fa fa-at form-control-feedback left" aria-hidden="true"></span>
                       </div>
-                     
+
                         <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                         <label>Tipo de usuario</label>
                         <input type="text" class="form-control has-feedback-left" id="usuario2" name="usuario2" placeholder="Nombre de Usuario" maxlength="15" pattern=".{5,}" title="5 caracteres para codigo real" required>
@@ -441,29 +425,29 @@ $resultado = $mysqli->query($sql);
                         <input type="password" class="form-control has-feedback-left" id="contrasena2" name="contrasena2" placeholder="Contraseña" maxlength="8" pattern=".{5,}" required autocomplete="off">
                         <span class="fa fa-at form-control-feedback left" aria-hidden="true"></span>
                       </div>
-                     
-            
-                     
+
+
+
                       <div class="form-group">
                         <!--Este div es para que agarre la linea que separa los botones.-->
                       </div>
-                     
-                     
-                      
+
+
+
                       <div class="ln_solid"></div>
                       <div class="form-group">
                         <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
                         <button type="submit" id="guarda" class="btn btn-success">Guardar</button>
                           <button type="dissmit" class="btn btn-warning">Cancelar</button>
                <!-- <button class="btn btn-primary" type="reset">Reset</button> -->
-                         
+
                         </div>
                       </div>
 
-                    
-                 
+
+
                 </div>
-                
+
             </div><!--Fin del row del formulario-->
             </div>
 </div>
@@ -525,8 +509,8 @@ $resultado = $mysqli->query($sql);
     <script src="../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
     <script src="../vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
     <link rel="stylesheet"  type="text/css" href="../libreriasJS/alertifyjs/css/alertify.css">
-    
-    <link rel="stylesheet" type="text/css" href="../libreriasJS/alertifyjs/css/alertify.min.css"> 
+
+    <link rel="stylesheet" type="text/css" href="../libreriasJS/alertifyjs/css/alertify.min.css">
     <link rel="stylesheet" type="text/css" href="../libreriasJS/alertifyjs/css/alertify.rtl.css">
     <link rel="stylesheet" type="text/css" href="../libreriasJS/alertifyjs/css/alertify.rtl.min.css">
     <link rel="stylesheet" type="text/css" href="../libreriasJS/alertifyjs/css/themes/default.css">
@@ -537,7 +521,7 @@ $resultado = $mysqli->query($sql);
 
     <script src="../vendors/jQuery-Mask-Plugin-master/dist/jquery.mask.js" type="text/javascript"></script>
     <script src="../vendors/jQuery-Mask-Plugin-master/dist/jquery.mask.min.js" type="text/javascript"></script>
-  
+
 
     <script src="../libreriasJS/alertifyjs/alertify.js"></script>
     <script src="../libreriasJS/alertifyjs/alertify.min.js"></script>
@@ -581,7 +565,7 @@ echo "$('#nombre').val('$_POST[nombre]');
     $('#correo').val('$_POST[correo]');
     $('#contrasena').val('$_POST[contrasena]');
     $('#usuario').val('$_POST[usuario]');
- 
+
    ";
 echo "</script>";
 
@@ -615,7 +599,7 @@ echo "</script>";
 
 if ($_GET['aux1'] !=1) {
 echo "<script language='javascript'>";
-echo  "    
+echo  "
   alertify.alert('No se pueden guardar campos vacios');";
 echo "</script>";
 }
@@ -624,7 +608,7 @@ echo "</script>";
 
 
 ?>
-          
+
 
 
 
@@ -632,10 +616,10 @@ echo "</script>";
     $(document).ready(function(){
                               $("#btnbaja").click(function(){
                   alertify.alert("Usuario dado de baja con exito");
-                   
+
                 });
             });
-            
+
             </script>
 
 
@@ -649,7 +633,7 @@ function Editar(nombre_real,direccion,telefono,genero,email,contrasena,nombre_de
     $("#contrasena").val(contrasena);
     $("#usuario").val(nombre_de_usuario);
     $("#idDeActualizacion").val(id);
-    
+
 
 
 }
@@ -664,11 +648,11 @@ d=datos.split('||');
     $("#contrasena2").val(d[5]);
     $("#usuario2").val(d[6]);
     $("#ideus2").val(d[7]);
-    
+
 
 }
-  
-   
+
+
 </script>
 <script src="../libreriasJS/alertify.js"></script>
     <script src="../libreriasJS/alertify.min.js"></script>
@@ -691,12 +675,12 @@ d=datos.split('||');
         }
     }
 
-    
+
 function validarEmail(correo){
 
   var texto = document.getElementById(correo.id).value;
   var regex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
-  
+
   if (!regex.test(texto)) {
       document.getElementById("resultado").innerHTML = "Correo invalido";
   } else {
@@ -731,4 +715,3 @@ function validarEmail(correo){
     $('.mask-celular').mask('0000-0000');
 
 </script>
-

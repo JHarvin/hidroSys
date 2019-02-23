@@ -1,4 +1,4 @@
-<?php 
+<?php
 require '../ProcesoSubir/conexion.php';
  ?>
 <!DOCTYPE html>
@@ -13,8 +13,8 @@ require '../ProcesoSubir/conexion.php';
     <title>Sistema Hidrometeorologico </title>
 
     <link rel="stylesheet"  type="text/css" href="../libreriasJS/alertifyjs/css/alertify.css">
-    
-    <link rel="stylesheet" type="text/css" href="../libreriasJS/alertifyjs/css/alertify.min.css"> 
+
+    <link rel="stylesheet" type="text/css" href="../libreriasJS/alertifyjs/css/alertify.min.css">
     <link rel="stylesheet" type="text/css" href="../libreriasJS/alertifyjs/css/alertify.rtl.css">
     <link rel="stylesheet" type="text/css" href="../libreriasJS/alertifyjs/css/alertify.rtl.min.css">
     <link rel="stylesheet" type="text/css" href="../libreriasJS/alertifyjs/css/themes/default.css">
@@ -44,16 +44,16 @@ require '../ProcesoSubir/conexion.php';
     <style>
 body {
         background-image: url("../Vistas/images/ima11.jpg");
-        
-} 
- 
+
+}
+
 </style>
   </head>
 
   <body>
 
     <div>
-     
+
       <div class="login_wrapper">
         <div class="animate form login_form">
           <section class="login_content">
@@ -67,19 +67,19 @@ body {
               </div>
               <div>
                 <button type="submit" class="btn btn-success">ENTRAR</button>
-               
-                
+
+
               </div>
 
               <div class="clearfix"></div>
 
-             
-              
+
+
 
                 </form>
-          </section> 
+          </section>
               </div>
-          
+
         </div>
 
       </div>
@@ -135,8 +135,8 @@ body {
     <script src="../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
     <script src="../vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
     <link rel="stylesheet"  type="text/css" href="../libreriasJS/alertifyjs/css/alertify.css">
-    
-    <link rel="stylesheet" type="text/css" href="../libreriasJS/alertifyjs/css/alertify.min.css"> 
+
+    <link rel="stylesheet" type="text/css" href="../libreriasJS/alertifyjs/css/alertify.min.css">
     <link rel="stylesheet" type="text/css" href="../libreriasJS/alertifyjs/css/alertify.rtl.css">
     <link rel="stylesheet" type="text/css" href="../libreriasJS/alertifyjs/css/alertify.rtl.min.css">
     <link rel="stylesheet" type="text/css" href="../libreriasJS/alertifyjs/css/themes/default.css">
@@ -147,7 +147,7 @@ body {
 
     <script src="../vendors/jQuery-Mask-Plugin-master/dist/jquery.mask.js" type="text/javascript"></script>
     <script src="../vendors/jQuery-Mask-Plugin-master/dist/jquery.mask.min.js" type="text/javascript"></script>
-  
+
 
     <script src="../libreriasJS/alertifyjs/alertify.js"></script>
     <script src="../libreriasJS/alertifyjs/alertify.min.js"></script>
@@ -155,7 +155,8 @@ body {
   </body>
 </html>
 
-<?php  
+<?php
+
 
 if (!empty($_POST['usuario']) && !empty($_POST['contra']))  {
 $user=$_POST['usuario'];
@@ -164,7 +165,7 @@ $pass=$_POST['contra'];
   $momb=mysqli_num_rows(mysqli_query($mysqli,"SELECT nombre_de_usuario FROM usuarios where nombre_de_usuario='$user'"));
   $passw=mysqli_num_rows(mysqli_query($mysqli,"SELECT contrasena FROM usuarios where contrasena='$pass'"));
   if ($momb!=0 && $passw!=0) {
-    
+
 echo "<script language='javascript'>";
 echo  "
          location.href = 'usuarios.php?aux1=1';
@@ -172,7 +173,7 @@ echo  "
 echo "</script>";
 session_start();
       $_SESSION["validar"]=true;
-      
+
 }else if($momb==0 && $passw==0){
 echo "<script language='javascript'>";
 echo  "

@@ -12,10 +12,10 @@ include "../conexion/conexion.php";
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	  
+
     <title>Datos de pozos</title>
 
-    
+
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -46,12 +46,12 @@ include "../conexion/conexion.php";
     <link href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../libreriasJS/alertifyjs/css/alertify.min.css">
     <link rel="stylesheet" href="../libreriasJS/alertifyjs/css/themes/bootstrap.min.css">
-<<<<<<< HEAD
+
     <script src="../vendors/libreriasJS/alertifyjs/alertify.min.js" ></script>
-=======
+
     <link rel="stylesheet" href="../libreriasJS/alertifyjs/css/alertify.rtl.min.css">
     <script src="../libreriasJS/alertifyjs/alertify.min.js"></script>
->>>>>>> 2262afef86efb8d4d3285d0d29e9e5becbe22845
+
 
   </head>
 
@@ -61,7 +61,7 @@ include "../conexion/conexion.php";
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
              <!-- sidebar menu -->
-             <?php 
+             <?php
                include "menuPrincipal.php";
             ?>
             <!-- /sidebar menu -->
@@ -70,23 +70,10 @@ include "../conexion/conexion.php";
 
             <br />
 
-           
+
 
             <!-- /menu footer buttons -->
-            <div class="sidebar-footer hidden-small">
-              <a data-toggle="tooltip" data-placement="top" title="Settings">
-                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Lock">
-                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
-                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-              </a>
-            </div>
+            
             <!-- /menu footer buttons -->
           </div>
         </div>
@@ -99,7 +86,7 @@ include "../conexion/conexion.php";
                 <a id="menu_toggle"><i class="fa fa-bars"></i></a>
               </div>
 
-              
+
             </nav>
           </div>
         </div>
@@ -125,7 +112,7 @@ include "../conexion/conexion.php";
               </div>
             </div>
             <div class="clearfix"></div>
-            
+
             <div class="row">
               <div class="col-md-12 col-xs-12">
                 <div class="x_panel">
@@ -134,8 +121,8 @@ include "../conexion/conexion.php";
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
-                      
-                      
+
+
                       </li>
                     </ul>
                     <div class="clearfix"></div>
@@ -146,18 +133,18 @@ include "../conexion/conexion.php";
 
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
 
-                        
+
 
                         <input type="text" class="form-control has-feedback-left" id="codigo" placeholder="Código" readonly="readonly">
 
                         <span class="fa fa-barcode form-control-feedback left" aria-hidden="true"></span>
                       </div>
 
-                      
+
                         <div class="col-md-6 col-sm-6 col-xs-12 form-group">
                           <select id="departamento" name="departamento" class="form-control">
                             <option value="0" selected hidden>Seleccione un departamento</option>
-                              <?php 
+                              <?php
                                 $result = $conexion->query("SELECT * FROM departamentos");
                                 while($fila=$result->fetch_object()){
 
@@ -166,15 +153,15 @@ include "../conexion/conexion.php";
                               ?>
                             </select>
                         </div>
-                      
-                      
+
+
                         <div class="col-md-6 col-sm-6 col-xs-12 form-group">
                           <select id="municipio" name="municipio" class="form-control">
                             <option value="0"  selected hidden>Seleccione un municipio</option>
-                            
+
                             </select>
                         </div>
-                        
+
                         <div class="col-md-6 col-sm-6 col-xs-12 form-group">
                           <select id="tipo" name="tipo" class="form-control">
                             <option value="0" selected hidden>Tipo de pozo</option>
@@ -184,7 +171,7 @@ include "../conexion/conexion.php";
                             <option value="comunitario">Comunitario</option>
                           </select>
                         </div>
-                        
+
 
                       <div class="col-md-1 col-sm-1 col-xs-12 ">
                         <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bd-example-modal-lg">Abrir mapa</button>
@@ -211,7 +198,7 @@ include "../conexion/conexion.php";
                         <input id="nivel" name="nivel" type="text" class="form-control has-feedback-left" placeholder="Nivel del pozo, mtrs (metros)">
                         <span class="fa fa-list form-control-feedback left" aria-hidden="true"></span>
                       </div>
-                      
+
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                         <input id="profundidad" name="profundidad" type="text" class="form-control has-feedback-left" placeholder="Profundidad, mts (metros)">
                         <span class="fa fa-arrow-down form-control-feedback left" aria-hidden="true"></span>
@@ -219,14 +206,14 @@ include "../conexion/conexion.php";
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                         <input id="fecha" name="fecha" id="fecha" type="text" class="form-control has-feedback-left" placeholder="Fecha de creación" onfocus="(this.type='date')">
                         <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
-                        
+
                       </div>
-                        
+
                         <!--Selected propietarios-->
                         <div class="col-md-6 col-sm-6 col-xs-12 form-group">
                           <select id="propietario" name="propietario" class="form-control">
                             <option value="0" selected hidden>Propietario</option>
-                            <?php 
+                            <?php
                                 $result = $conexion->query("SELECT * FROM propietariospozos");
                                 while($fila=$result->fetch_object()){
 
@@ -235,43 +222,43 @@ include "../conexion/conexion.php";
                               ?>
                             </select>
                         </div>
-                      
+
                         <div  class="col-md-6 col-sm-6 col-xs-12 form-group">
                           <select id="estado" name="estado" class="form-control">
                             <option value="1" selected>En uso</option>
                             <option value="0">Inactivo</option>
-                            
-                            
+
+
                           </select>
                         </div>
 
-                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">        
+                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                           <textarea id="geologia" name="geologia" class="form-control" style="max-height:150px; min-height:100px; resize: vertical;" placeholder="Geología."></textarea>
                       </div>
-                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">        
+                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                           <textarea id="observacion" name="observacion" class="form-control" style="max-height:150px; min-height:100px;resize: vertical;" placeholder="Observación."></textarea>
                       </div>
-                     
+
                       <div class="form-group">
                         <!--Este div es para que agarre la linea que separa los botones.-->
                       </div>
-                     
-                      
-                      
+
+
+
                       <div class="ln_solid"></div>
                       <div class="form-group">
                         <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
                         <button id="guardar" type="button" class="btn btn-success">Guardar</button>
                         <button type="reset" class="btn btn-warning">Cancelar</button>
-						  
-                         
+
+
                         </div>
                       </div>
 
                     </form>
                   </div>
                 </div>
-              </div>      
+              </div>
             </div><!--Fin del row del formulario-->
             <div class="row"><!--Inicio del row-->
 
@@ -282,15 +269,15 @@ include "../conexion/conexion.php";
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
-                      
-                      
+
+
                       </li>
                     </ul>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
                     <p class="text-muted font-13 m-b-30">
-                      
+
                     </p>
                     <table id="datatable" class="table table-striped table-bordered">
                       <thead>
@@ -304,26 +291,26 @@ include "../conexion/conexion.php";
                           <th>Acciones</th>
                         </tr>
                       </thead>
-                      
+
                       <tbody class="tabla_ajax">
-                        
+
                        <?php include "tablaDatosPozos.php"; ?>
                       </tbody>
                     </table>
                   </div>
                 </div>
               </div>
-            
-            </div><!--Inicio del row-->
-          
 
-        
+            </div><!--Inicio del row-->
+
+
+
           </div>
         </div>
         <!-- /page content -->
 
         <!-- footer content -->
-       <?php 
+       <?php
        include "footer.php";
        ?>
         <!-- /footer content -->
@@ -349,7 +336,7 @@ include "../conexion/conexion.php";
                         <div class="x_panel">
                             <div class="x_title">
                               <h2>Seleccione una ubicación</h2>
-                              
+
                               <div class="clearfix"></div>
                             </div>
                             <div class="x_content">
@@ -366,7 +353,7 @@ include "../conexion/conexion.php";
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                 </div>
-                
+
                 </div><!--Fin del content-->
               </div>
          </div>
@@ -386,7 +373,7 @@ include "../conexion/conexion.php";
                 <div class="modal-body">
                   <div class="row">
                   <table class="table table-bordered">
-                    
+
                       <thead>
                         <tr><th colspan=5 style="text-align:center;"> DETALLE DE POZO </th></tr>
                         <tr bgcolor=#dff8e7>
@@ -395,7 +382,7 @@ include "../conexion/conexion.php";
                           <th>Municipio</th>
                           <th>Propietario</th>
                           <th>Altura sobre el nivel del mar</th>
-                        
+
                         </tr>
                       </thead>
                       <tbody>
@@ -414,7 +401,7 @@ include "../conexion/conexion.php";
                           <th>Fecha de creación</th>
                           <th>Tipo de pozo</th>
                           <th>Estado</th>
-                        
+
                         </tr>
                       </thead>
                       <tbody>
@@ -429,30 +416,30 @@ include "../conexion/conexion.php";
                     </table>
                   </div>
                   <div class="row">
-                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">  
+                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                           <p>Geología:</p>
                           <textarea readonly id="geolo" name="geologia" class="form-control" style="max-height:150px; min-height:100px; resize: none;" placeholder="No hay descripcion de geologia"></textarea>
                       </div>
-                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback"> 
+                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                           <p>Observación:</p>
                           <textarea readonly id="observa" name="observacion" class="form-control" style="max-height:150px; min-height:100px;resize: none;" placeholder="No hay una observacion"></textarea>
                       </div>
                   </div>
                 </div>
                 <div class="modal-footer">
-                  
+
                   <button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
                 </div>
 
                 </div><!--Fin del content-->
               </div>
-         </div>  
-      
+         </div>
+
       <!--Detalle modal-->
 
       <!--Ubicacion Modal-->
-        
-        
+
+
       <div class="modal fade ubicacion-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
               <div class="modal-dialog modal-lg">
                 <div class="modal-content">
@@ -469,7 +456,7 @@ include "../conexion/conexion.php";
                         <div class="x_panel">
                             <div class="x_title">
                               <h2>Ubicación del pozo: <p id="ubi"></p></h2>
-                              
+
                               <div class="clearfix"></div>
                             </div>
                             <div class="x_content">
@@ -486,17 +473,17 @@ include "../conexion/conexion.php";
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                 </div>
-                
+
                 </div><!--Fin del content-->
               </div>
          </div>
-        
+
       <!--Ubicacion Modal-->
 
       <!--Modal para modificacion-->
 
 
-        
+
         <div class="modal fade editar-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
               <div class="modal-dialog modal-lg">
                 <div class="modal-content">
@@ -513,7 +500,7 @@ include "../conexion/conexion.php";
                         <div class="x_panel">
                             <div class="x_title">
                               <h2>Datos de pozo</h2>
-                              
+
                               <div class="clearfix"></div>
                             </div>
                             <div class="x_content">
@@ -523,7 +510,7 @@ include "../conexion/conexion.php";
                                   <input id="id" type="hidden" value="">
                                   <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
 
-                                    
+
 
                                     <input type="text" class="form-control has-feedback-left" id="codigoEdit" placeholder="Código" readonly="readonly">
 
@@ -534,7 +521,7 @@ include "../conexion/conexion.php";
                                     <div class="col-md-6 col-sm-6 col-xs-12 form-group">
                                       <select id="deptoEdit" name="deptoEdit" class="form-control">
                                         <option value="0" selected hidden>Seleccione un departamento</option>
-                                          <?php 
+                                          <?php
                                             $result = $conexion->query("SELECT * FROM departamentos");
                                             while($fila=$result->fetch_object()){
 
@@ -548,10 +535,10 @@ include "../conexion/conexion.php";
                                     <div class="col-md-6 col-sm-6 col-xs-12 form-group">
                                       <select id="muniEdit" name="muniEdit" class="form-control">
                                         <option value="0"  selected hidden>Seleccione un municipio</option>
-                                        
+
                                         </select>
                                     </div>
-                                    
+
                                     <div class="col-md-6 col-sm-6 col-xs-12 form-group">
                                       <select id="tipoEdit" name="tipoEdit" class="form-control">
                                         <option value="0" selected hidden>Tipo de pozo</option>
@@ -561,7 +548,7 @@ include "../conexion/conexion.php";
                                         <option value="comunitario">Comunitario</option>
                                       </select>
                                     </div>
-                                    
+
 
                                   <div class="col-md-1 col-sm-1 col-xs-12 ">
                                     <button id="mapa" type="button" class="btn btn-success"> Mapa</button>
@@ -596,14 +583,14 @@ include "../conexion/conexion.php";
                                   <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                     <input name="fechaEdit" id="fechaEdit" type="text" class="form-control has-feedback-left" placeholder="Fecha de creación" onfocus="(this.type='date')">
                                     <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
-                                    
+
                                   </div>
-                                    
+
                                     <!--Selected propietarios-->
                                     <div class="col-md-6 col-sm-6 col-xs-12 form-group">
                                       <select id="propEdit" name="propEdit" class="form-control">
                                         <option value="0" selected hidden>Propietario</option>
-                                        <?php 
+                                        <?php
                                             $result = $conexion->query("SELECT * FROM propietariospozos");
                                             while($fila=$result->fetch_object()){
 
@@ -617,15 +604,15 @@ include "../conexion/conexion.php";
                                       <select id="estadoEdit" name="estadoEdit" class="form-control">
                                         <option value="1" selected>En uso</option>
                                         <option value="0">Inactivo</option>
-                                        
-                                        
+
+
                                       </select>
                                     </div>
 
-                                  <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">        
+                                  <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                       <textarea id="geologiaEdit" name="geologiaEdit" class="form-control" style="max-height:150px; min-height:100px; resize: vertical;" placeholder="Geología."></textarea>
                                   </div>
-                                  <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">        
+                                  <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                       <textarea id="observacionEdit" name="observacionEdit" class="form-control" style="max-height:150px; min-height:100px;resize: vertical;" placeholder="Observación."></textarea>
                                   </div>
 
@@ -639,9 +626,9 @@ include "../conexion/conexion.php";
                                   <div class="form-group">
                                     <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
                                     <button id="editarPozo" type="button" class="btn btn-success">Editar</button>
-                                    
 
-                                    
+
+
                                     </div>
                                   </div>
 
@@ -655,8 +642,8 @@ include "../conexion/conexion.php";
                                     <div class="col-md-1 col-sm-1 col-xs-12 ">
                                     <button id="okeditCoords" type="button" class="btn btn-success">OK!</button>
                                     </div>
-                                  </div>   
-                              </div> 
+                                  </div>
+                              </div>
                               <!--iframe-->
                             </div>
                           </div>
@@ -668,11 +655,11 @@ include "../conexion/conexion.php";
                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                     </div>
                 </div>
-                
-                
+
+
                 </div>
               </div>
-         
+
 
       <!--Modal para modificacion-->
 
@@ -695,7 +682,7 @@ include "../conexion/conexion.php";
                         <div class="x_panel">
                             <div class="x_title">
                               <h2>Seleccione una ubicación</h2>
-                              
+
                               <div class="clearfix"></div>
                             </div>
                             <div class="x_content">
@@ -712,7 +699,7 @@ include "../conexion/conexion.php";
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                 </div>
-                
+
                 </div><!--Fin del content-->
               </div>
          </div>
@@ -772,24 +759,24 @@ include "../conexion/conexion.php";
     <script src="../vendors/jszip/dist/jszip.min.js"></script>
     <script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
     <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
-    
+
 
     <!--scripts de pre procesamiento-->
 
     <script src="js/datosDePozosJs/cargarMunicipios.js"></script>
-    
+
     <!--scripts de pre procesamiento-->
 
     <!--Scripts de procesamiento-->
     <script src="js/datosDePozosJs/procesarDatosJs.js"></script>
     <!--Scripts de procesamiento-->
-	
+
 	<!--Configuaracion de las mascaras del formulario-->
 	<script>
       $(document).ready(function(){
   $('#codigo').mask('0000');
-  
-  
+
+
 });
       </script>
       <script>

@@ -1,5 +1,10 @@
- <?php 
-
+ <?php
+ session_start();
+if(!$_SESSION["validar"]){
+  echo '<script>
+    location.href="login.php";
+  </script>';
+}
 ?>
  <!-- MENU LATERAL -->
  <div class="navbar nav_title" style="border: 0;">
@@ -28,7 +33,7 @@
                   <li><a><i class="fa fa-home"></i> Inicio<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="../Vistas/main.php">SISPOZO</a></li>
-                      
+
                     </ul>
                   </li>
                   <li><a><i class="fa fa-edit"></i>Estacion Meteorologica<span class="fa fa-chevron-down"></span></a>
@@ -45,16 +50,16 @@
                       <li><a href="../Vistas/visitantespozos.php">Visitantes Pozos</a></li>
                       <li><a href="../ProcesoSubir/SubirPozos.php">Lectura de Pozos</a></li>
                       <li><a href="../Vistas/visitapozos.php">Visita Pozos</a></li>
-                      
-                     
+
+
                     </ul>
                   </li>
                   <li><a><i class="fa fa-users"></i> Instituciones/Comunidades <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                     <li><a href="ResponsablesEstaciones/responsablesestaciones.php">Responsables</a></li>
                     <li><a href="../Vistas/comunidades.php">Instituciones y Comunidades</a></li>
-                    
-                    
+
+
                     </ul>
                   </li>
                   <li><a><i class="fa fa-eye"></i> Observadores <span class="fa fa-chevron-down"></span></a>
@@ -104,13 +109,13 @@
                   </li>
                   <li><a href="../Vistas/login.php"><i class="fa fa-user"></i>Cerrar Sesion</a>
                     <ul class="nav child_menu">
-                      
+
                     </ul>
                   </li>
               </div>
-            
-                  
-              
+
+
+
               <!-- <div class="menu_section">
                 <h3>Live On</h3>
                 <ul class="nav side-menu">
@@ -149,7 +154,7 @@
                         <li><a href="#level1_2">Level One</a>
                         </li>
                     </ul>
-                  </li>                  
+                  </li>
                   <li><a href="javascript:void(0)"><i class="fa fa-laptop"></i> Landing Page <span class="label label-success pull-right">Coming Soon</span></a></li>
                 </ul>
               </div> -->
